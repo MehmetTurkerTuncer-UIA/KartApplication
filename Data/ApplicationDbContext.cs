@@ -12,12 +12,11 @@ namespace KartApplication.Data
         }
 
          //Veritabanındaki Locations tablosunu temsil eden DbSet
-        public DbSet<Location> Locations { get; set; }
+       // public DbSet<Location> LocationsTable { get; set; }
 
-        public DbSet<Users> Users { get; set; }
+        public DbSet<Users> UsersTable { get; set; }
 
-        public DbSet<RegisterViewModels> RegisterViewModels { get; set; }
-
+       
 
     }
 }
