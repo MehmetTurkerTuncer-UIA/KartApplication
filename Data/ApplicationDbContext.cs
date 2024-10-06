@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using KartApplication.Models;
-using KartverketWebApplication.ViewModels;
+
 
 namespace KartApplication.Data
 {

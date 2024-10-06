@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using KartApplication.Models;
 
+
 namespace KartApplication.Controllers
 {
     public class UsersController : Controller
@@ -14,7 +15,7 @@ namespace KartApplication.Controllers
         }
      public IActionResult Users()
         {
-    //        List<Users> objUsersList = _applicationDbContext.Users.ToList();
+            List<Users> objUsersList = _applicationDbContext.UsersTable.ToList();
             return View();
         }
     }

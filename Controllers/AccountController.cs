@@ -9,9 +9,6 @@ namespace KartverketWebApplication.Controllers
     {
        
 
-        
-
-
         public IActionResult Users()
         {
             return View();
