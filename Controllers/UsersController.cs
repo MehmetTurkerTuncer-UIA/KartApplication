@@ -15,7 +15,7 @@ namespace KartApplication.Controllers
         }
      public IActionResult Users()
         {
-            List<Users> objUsersList = _applicationDbContext.UsersTable.ToList();
+           // List<Users> objUsersList = _applicationDbContext.UsersTable.ToList();
             return View();
         }
     }
