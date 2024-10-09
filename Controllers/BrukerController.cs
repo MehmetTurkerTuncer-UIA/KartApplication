@@ -4,9 +4,9 @@ namespace KartApplication.Controllers
 {
     public class BrukerController : Controller
     {
-        public IActionResult Bruker()
+        public IActionResult Index()
         {
-            return View();
+            return View("Bruker");
         }
     }
 }
