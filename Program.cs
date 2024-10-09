@@ -6,14 +6,13 @@ using System;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllersWithViews();
 
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseMySql(
-        builder.Configuration.GetConnectionString("DefaultConnection"),
-        new MySqlServerVersion(new Version(11, 5, 2)) // MariaDB versiyonunu belirtin
-    )
-);
+//builder.Services.AddDbContext<ApplicationDbContext>(options =>
+//    options.UseMySql(
+//        builder.Configuration.GetConnectionString("DefaultConnection"),
+//        new MySqlServerVersion(new Version(11, 5, 2)) // MariaDB versiyonunu belirtin
+//    )
+//);
 
 // Diğer servisler
 builder.Services.AddControllersWithViews();
