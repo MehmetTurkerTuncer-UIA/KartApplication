@@ -15,8 +15,6 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     )
 );
 
-// Diğer servisler
-builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
