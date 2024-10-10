@@ -12,7 +12,19 @@ public class HomeController : Controller
     //    _context = context;
     //}
 
+<<<<<<< HEAD
     //[HttpGet]
+=======
+    private static List<PositionModel> positions = new List<PositionModel>();
+
+    [HttpGet]
+
+    public IActionResult CorrectMap()
+{
+    return View();
+}
+
+>>>>>>> a88e4f3 (Leaflet-integrasjon og grunnleggende sider lagt til)
     public IActionResult Index()
     {
         return View();
@@ -20,10 +32,31 @@ public class HomeController : Controller
        
     }
 
+[HttpPost]
+public IActionResult CorrectModel(PositionModel model)
+{
+    if (ModelState.IsValid)
+    {
+        // Hata bildirimini bir listeye ekleyin veya veritabanına kaydedin
+        positions.Add(model); // Bu, in-memory liste örneğidir
+        return RedirectToAction("CorrectionOverview", positions);
+    }
+    return View();
+}
+
+// Veri Görüntüleme için Ek GET Metodu
+    [HttpGet]
+    public IActionResult CorrectionOverview()
+    {
+        // positions listesini CorrectionOverview görünümüne gönder
+        return View(positions);
+    }
+
     public IActionResult Privacy()
     {
         return View();
     }
+
 
 
 
