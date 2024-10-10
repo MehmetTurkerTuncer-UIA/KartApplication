@@ -1,71 +1,47 @@
-﻿
-
-
-@{
-    ViewData["Title"] = "Logg inn";
-    Layout = "~/Views/Shared/_AccountLayout.cshtml";
-}
-
-<div class="login-container">
-    <!-- Sol Tarafta Logo ve Metin -->
-    <div class="login-left">
-        <div class="brand-logo">
-            <img src="~/images/kartal.png" alt="Kartverket Logo" />
-        </div>
-        <h1>KARTVERKET</h1>
-        <p>Hjelp oss med å holde kartet oppdatert!</p>
+﻿<div class="container">
+    <!-- Sol Menü -->
+    <div class="sidebar">
+        <img src="/images/logo.png" alt="Logo" class="logo">
+        <button class="menu-btn">Hjem</button>
+        <button class="menu-btn">Mine Saker</button>
+        <button class="menu-btn profile-btn">Profil</button>
+        <button class="menu-btn logout-btn">Logg ut</button>
     </div>
 
-    <!-- Sağ Tarafta Giriş Formu -->
-    <div class="login-right">
-        <div class="account-box">
-            <h2 class="text-center mb-4">Logg inn</h2>
-            <form asp-action="Login" method="post">
-                <div asp-validation-summary="ModelOnly" class="text-danger"> </div>
-                <div class="mb-3">
-                    <label @* asp-for="Email" *@ class="form-label">E-postadresse</label>
-                    <input @* asp-for="Email"  *@class="form-control" placeholder="E-postadresse" />
-                    <span @* asp-validation-for="Email"  *@class="text-danger"></span>
-                </div>
-                <div class="mb-3">
-                    <label @* asp-for="Password" *@ class="form-label">Passord</label>
-                    <input @* asp-for="Password" *@ class="form-control" placeholder="Passord" />
-                    <span @* asp-validation-for="Password" *@ class="text-danger"></span>
-                </div>
-                <div class="float-end">
-                    <a asp-controller="Account" asp-action="VerifyEmail" class="text-decoration-none">
-                        Glemt passord?
-                    </a>
-                </div>
-                <div class="form-check mb-3">
-                    <label class="form-check-label">
-                        <input @* asp-for="RememberMe" *@ class="form-check-input" />
-                        Husk meg
-                    </label>
-                </div>
-                <input type="submit" value="Logg inn" class="btn btn-primary w-100 p-2" />
-                <p class="text-center mt-2">
-                    Har du ikke en konto? <a asp-controller="Register" asp-action="Register" class="text-decoration-none">Registrer </a>
-                </p>
-                
-                <input type="submit" value="Gjest" class="btn btn-success w-100 p-2" />
-            </form>
+    <!-- Ana İçerik -->
+    <div class="content">
+        <!-- Başlık ve Hoşgeldin Mesajı -->
+        <div class="header">
+            <h1>@ViewData["Title"]</h1>
+            <p>Velkommen Ahmet Kirac <br> Medlem</p>
         </div>
+
+        <!-- İlerleme Çubuğu -->
+        <div class="progress-bar">
+            <span>1. Velg sted</span>
+            <span>Beskrivelse</span>
+            <span>Oppsummering</span>
+            <span>Kvittering</span>
+        </div>
+
+        <!-- Harita ve Butonlar -->
+        <div class="map-section">
+            <input type="text" placeholder="skriv adress" class="search-bar">
+            <div class="map">
+                <!-- Harita API'si burada yer alacak -->
+                <img src="/images/map-placeholder.png" alt="Map">
+            </div>
+            <div class="map-buttons">
+                <button class="map-btn blue">Fest en nål</button>
+                <button class="map-btn orange">Legg til vei</button>
+                <button class="map-btn red">Fjern vei</button>
+            </div>
+            <button class="next-btn">Neste</button>
+        </div>
+
+        <!-- Alt Bilgi -->
+        <footer>
+            <p>© 2024 Kartverket. Alle rettigheter forbeholdt.</p>
+        </footer>
     </div>
 </div>
-
-<!-- Arama Kutusu Login Container'ın Altında -->
-<div class="footer-search">
-    <form asp-action="SearchReference" method="get" class="search-form">
-        <label for="reference">Spor din sak med et referansenummer</label>
-        <input type="text" id="reference" name="reference" placeholder="Referansenummer" class="search-input" />
-        <button type="submit" class="btn btn-dark">Søk</button>
-    </form>
-</div>
-
-
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial.cshtml");
-    }
-}
