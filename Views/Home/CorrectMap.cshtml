@@ -1,0 +1,38 @@
+@model KartApplication.Models.PositionModel
+
+<h2>Register a Position</h2>
+
+<form asp-action="CorrectModel" method="post">
+    <div>
+        <label for="latitude">Latitude:</label>
+        <input type="text" id="latitude" name="Latitude" readonly />
+    </div>
+    <div>
+        <label for="longitude">Longitude:</label>
+        <input type="text" id="longitude" name="Longitude" readonly />
+    </div>
+    <div>
+        <label for="description">Description:</label>
+        <textarea id="description" name="Description"></textarea>
+    </div>
+    <button type="submit">Submit</button>
+</form>
+
+<div id="map" style="height: 400px; width: 100%;"></div>
+
+<script>
+    var map = L.map('map').setView([51.505, -0.09], 15);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    map.on('click', function (e) {
+        var lat = e.latlng.lat;
+        var lng = e.latlng.lng;
+        document.getElementById('latitude').value = lat;
+        document.getElementById('longitude').value = lng;
+
+        L.marker([lat, lng]).addTo(map);
+    });
+</script>
