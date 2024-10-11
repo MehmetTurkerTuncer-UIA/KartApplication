@@ -5,21 +5,12 @@ using System.Diagnostics;
 
 public class HomeController : Controller
 {
-    private readonly ApplicationDbContext _context;
+    //private readonly ApplicationDbContext _context;
 
-    public HomeController(ApplicationDbContext context)
-    {
-        _context = context;
-    }
-
-    private static List<PositionModel> positions = new List<PositionModel>();
-
-    [HttpGet]
-
-    public IActionResult CorrectMap()
-{
-    return View();
-}
+    //public HomeController(ApplicationDbContext context)
+    //{
+    //    _context = context;
+    //}
 
     public IActionResult Index()
     {
