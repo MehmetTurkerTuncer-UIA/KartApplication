@@ -5,14 +5,14 @@ using System.Diagnostics;
 
 public class HomeController : Controller
 {
-    private readonly ApplicationDbContext _context;
+    //private readonly ApplicationDbContext _context;
 
-    public HomeController(ApplicationDbContext context)
-    {
-        _context = context;
-    }
+    //public HomeController(ApplicationDbContext context)
+    //{
+    //    _context = context;
+    //}
 
-    [HttpGet]
+    //[HttpGet]
     public IActionResult Index()
     {
         return View();

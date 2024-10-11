@@ -7,12 +7,12 @@ namespace KartApplication.Controllers
 {
     public class UsersController : Controller
     {
-        private readonly ApplicationDbContext _applicationDbContext;
+        //private readonly ApplicationDbContext _applicationDbContext;
 
-        public  UsersController(ApplicationDbContext context)
-        {
-            _applicationDbContext = context;
-        }
+        //public  UsersController(ApplicationDbContext context)
+        //{
+        //    _applicationDbContext = context;
+        //}
      public IActionResult Users()
         {
            // List<Users> objUsersList = _applicationDbContext.UsersTable.ToList();
