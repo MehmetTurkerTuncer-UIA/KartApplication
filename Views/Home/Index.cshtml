@@ -1,19 +1,11 @@
-﻿
-
-
-@{
-    ViewData["Title"] = "Logg inn";
-    Layout = "~/Views/Shared/_AccountLayout.cshtml";
-}
-
-<div class="login-container">
-    <!-- Sol Tarafta Logo ve Metin -->
-    <div class="login-left">
-        <div class="brand-logo">
-            <img src="~/images/kartal.png" alt="Kartverket Logo" />
-        </div>
-        <h1>KARTVERKET</h1>
-        <p>Hjelp oss med å holde kartet oppdatert!</p>
+﻿<div class="container">
+    <!-- Sol Menü -->
+    <div class="sidebar">
+        <img src="/images/logo.png" alt="Logo" class="logo">
+        <button class="menu-btn">Hjem</button>
+        <button class="menu-btn">Mine Saker</button>
+        <button class="menu-btn profile-btn">Profil</button>
+        <button class="menu-btn logout-btn">Logg ut</button>
     </div>
 
     <!-- Sağ Tarafta Giriş Formu -->
@@ -51,21 +43,10 @@
                 <input type="submit" value="Gjest" class="btn btn-success w-100 p-2" />
             </form>
         </div>
+
+        <!-- Alt Bilgi -->
+        <footer>
+            <p>© 2024 Kartverket. Alle rettigheter forbeholdt.</p>
+        </footer>
     </div>
 </div>
-
-<!-- Arama Kutusu Login Container'ın Altında -->
-<div class="footer-search">
-    <form asp-action="SearchReference" method="get" class="search-form">
-        <label for="reference">Spor din sak med et referansenummer</label>
-        <input type="text" id="reference" name="reference" placeholder="Referansenummer" class="search-input" />
-        <button type="submit" class="btn btn-dark">Søk</button>
-    </form>
-</div>
-
-
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial.cshtml");
-    }
-}
