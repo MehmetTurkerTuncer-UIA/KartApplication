@@ -1,18 +1,18 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using KartApplication.Data;
 using KartApplication.Models;
 using System.Diagnostics;
 
 public class HomeController : Controller
 {
-    private readonly ApplicationDbContext _context;
+    // Eğer veri tabanı bağlantısı gerekiyorsa, aşağıdaki satırları kullanabilirsiniz.
+    // private readonly ApplicationDbContext _context;
 
-    public HomeController(ApplicationDbContext context)
-    {
-        _context = context;
-    }
+    //public HomeController(ApplicationDbContext context)
+    //{
+    //    _context = context;
+    //}
 
-    [HttpGet]
+    //[HttpGet]
     public IActionResult Index()
     {
         return View();
@@ -32,5 +32,4 @@ public class HomeController : Controller
     {
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
-
 }
