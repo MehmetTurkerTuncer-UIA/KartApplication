@@ -1,0 +1,139 @@
+﻿@model KartApplication.Models.AreaChange
+
+@{
+    ViewData["Title"] = "Area Change Overview";
+}
+
+@{
+    ViewData["Title"] = "Register Change";
+}
+
+
+<style>
+    header {
+        display: none;
+    }
+</style>
+
+<!-- Özel StilDosyası -->
+<link rel="stylesheet" href="~/css/RegisterAreaChange.css" />
+
+<div class="container-fluid">
+<div class="header">
+    <div class="headerlogo">            
+                <img src="https://img.pikbest.com/origin/09/34/11/384pIkbEsT7ki.png!sw800" alt="Logo"  width="300" height="150">
+</div>
+
+<div class="headerhoyre">            
+            <h4>Velkommen Ahmet Kirac ny</h4>
+             <p>Saksbehandler</p>
+</div>
+               
+            </div>
+            <div class="container-ned">
+                <div class="row">
+        <!-- Sol Menü -->
+       
+    
+        <div class="side-menu">
+           
+            <div class="mt-4">
+                <button class="btn btn-success w-100 mb-3">Aktive Saker</button>
+                <button class="btn btn-success w-100 mb-3">Ferdige Saker</button>
+            </div>
+
+            <div class="mt-2">
+                <button class="btn btn-success w-100 mb-3">Profil</button>
+                <button class="btn btn-warning w-100">Logg ut</button>
+            </div>
+        </div>
+
+        <!-- İçerik Alanı -->
+        <div class="content-areaa">
+            
+
+       
+<br>
+
+<h2>Area Change Overview</h2>
+<br>
+
+<!-- Bilgilerin gösterimi -->
+<div>
+        <p>
+        <img src="~/images/check-mark.png" alt="Checkmark" style="width: 16px; height: 16px; margin-right: 5px;" />
+        <strong>Adresse:</strong> @Model.Address
+    </p>
+    <p>
+        <img src="~/images/check-mark.png" alt="Checkmark" style="width: 16px; height: 16px; margin-right: 5px;" />
+        <strong>Latitude:</strong> @Model.Latitude
+    </p>
+    <p>
+        <img src="~/images/check-mark.png" alt="Checkmark" style="width: 16px; height: 16px; margin-right: 5px;" />
+        <strong>Longitude:</strong> @Model.Longitude
+    </p>
+    <p>
+        <img src="~/images/check-mark.png" alt="Checkmark" style="width: 16px; height: 16px; margin-right: 5px;" />
+        <strong>Description:</strong> @Model.Description
+    </p>
+</div>
+<!-- Harita Konteyneri -->
+<div id="map" style="height: 400px; width: 100%;"></div>
+<br />
+
+
+<!-- Mesajı göstermek için alan -->
+<div style="text-align: right;">
+    <button type="submit" class="btn btn-primary" onclick="showMessage(event)">Send inn</button>
+</div>
+
+<!-- Mesajı göstermek için alan -->
+<div id="successMessage" style="display: none; color: green; font-weight: bold; margin-top: 20px; text-align: right;">
+    Gratulerer, handlingen din er registrert.!
+</div>
+
+<script>
+    function showMessage(event) {
+        event.preventDefault(); // Formun otomatik olarak gönderilmesini engeller
+
+        // Mesajı göster
+        var messageDiv = document.getElementById("successMessage");
+        messageDiv.style.display = "block";
+
+        // 5 saniye sonra yönlendirme yap
+        setTimeout(function() {
+            window.location.href = '@Url.Action("RegisterAreaChange", "Bruker")';
+        }, 5000);
+    }
+</script>
+ </div>
+    </div>
+</div></div>
+
+
+@section Scripts {
+    <!-- Leaflet CSS ve JavaScript -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <script>
+        // Haritayı başlat
+        var map = L.map('map').setView([@Model.Latitude, @Model.Longitude], 10); // Başlangıç konumu enlem ve boylam
+
+        // OpenStreetMap katmanını ekle
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // Marker ekle ve pop-up ile adres göster
+        var marker = L.marker([@Model.Latitude, @Model.Longitude]).addTo(map)
+            .bindPopup(`<b>Adresse:</b> @Model.Address<br><b>Latitude:</b> @Model.Latitude<br><b>Longitude:</b> @Model.Longitude`)
+            .openPopup();
+
+        // GeoJSON verisi varsa haritaya ekle
+        var geoJsonData = @Html.Raw(Model.GeoJson ?? "null");
+        if (geoJsonData) {
+            L.geoJSON(JSON.parse(geoJsonData)).addTo(map);
+        }
+    </script>
+}
