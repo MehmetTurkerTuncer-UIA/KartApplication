@@ -7,29 +7,25 @@ public class HomeController : Controller
     // Eğer veri tabanı bağlantısı gerekiyorsa, aşağıdaki satırları kullanabilirsiniz.
     // private readonly ApplicationDbContext _context;
 
-    // public HomeController(ApplicationDbContext context)
-    // {
-    //     _context = context;
-    // }
+    //public HomeController(ApplicationDbContext context)
+    //{
+    //    _context = context;
+    //}
 
-
-
-    [HttpGet]
+    //[HttpGet]
     public IActionResult Index()
     {
         return View();
-    }
-
-    [HttpGet]
-    public IActionResult CorrectMap()
-    {
-        return View();
+    
+       
     }
 
     public IActionResult Privacy()
     {
         return View();
     }
+
+
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
