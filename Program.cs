@@ -1,4 +1,4 @@
-﻿using KartApplication.Data;
+using KartApplication.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Pomelo.EntityFrameworkCore.MySql.Infrastructure;

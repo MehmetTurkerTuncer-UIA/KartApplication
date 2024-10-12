@@ -13,4 +13,3 @@ namespace KartApplication.Data
         public DbSet<User> Users { get; set; }
     }
 }
-

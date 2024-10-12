@@ -1,7 +1,9 @@
-﻿namespace KartApplication.Models;
-public class User
+namespace KartApplication.Models
 {
-    public int Id { get; set; }
-    public string? Name { get; set; }
-    public string? Email { get; set; }
+    public class User
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Email { get; set; }
+    }
 }
