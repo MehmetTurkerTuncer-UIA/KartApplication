@@ -1,55 +1,29 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using KartApplication.Data;
 using KartApplication.Models;
 using System.Diagnostics;
 
 public class HomeController : Controller
 {
-    //private readonly ApplicationDbContext _context;
+    // Eğer veri tabanı bağlantısı gerekiyorsa, aşağıdaki satırları kullanabilirsiniz.
+    // private readonly ApplicationDbContext _context;
 
-    //public HomeController(ApplicationDbContext context)
-    //{
-    //    _context = context;
-    //}
+    // public HomeController(ApplicationDbContext context)
+    // {
+    //     _context = context;
+    // }
 
-<<<<<<< HEAD
-    //[HttpGet]
-=======
-    private static List<PositionModel> positions = new List<PositionModel>();
+
 
     [HttpGet]
-
-    public IActionResult CorrectMap()
-{
-    return View();
-}
-
->>>>>>> a88e4f3 (Leaflet-integrasjon og grunnleggende sider lagt til)
     public IActionResult Index()
     {
         return View();
-    
-       
     }
 
-[HttpPost]
-public IActionResult CorrectModel(PositionModel model)
-{
-    if (ModelState.IsValid)
-    {
-        // Hata bildirimini bir listeye ekleyin veya veritabanına kaydedin
-        positions.Add(model); // Bu, in-memory liste örneğidir
-        return RedirectToAction("CorrectionOverview", positions);
-    }
-    return View();
-}
-
-// Veri Görüntüleme için Ek GET Metodu
     [HttpGet]
-    public IActionResult CorrectionOverview()
+    public IActionResult CorrectMap()
     {
-        // positions listesini CorrectionOverview görünümüne gönder
-        return View(positions);
+        return View();
     }
 
     public IActionResult Privacy()
@@ -57,13 +31,9 @@ public IActionResult CorrectModel(PositionModel model)
         return View();
     }
 
-
-
-
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
-
 }
