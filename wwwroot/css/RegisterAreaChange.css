@@ -1,0 +1,165 @@
+/* Saksbehandler sayfasına özel stil */
+html, body {
+    background-color: #121212;
+    color: white;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.container-fluid {
+    height: 100%;
+    padding: 0;
+}
+
+.header {
+    height: 150px;
+    margin-bottom: 1%;
+}
+
+.headerhoyre {
+    float: right;
+    width: 400px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+.headerlogo {
+    float: left;
+    width: 300px;
+    height: 100%;
+}
+
+.container-ned {
+    height: 100%;
+    width: 100%;
+}
+
+.side-menu {
+    background-color: #202020;
+    display: flex;
+    flex-direction: column;
+    height: 100%; 
+    padding: 20px;
+    width: 22%;
+    margin-right: 2%;
+    border-radius: 8px;
+    justify-content: space-between; /* Butonların daha iyi hizalanması için */
+}
+
+.menu-items {
+    flex-grow: 4;
+}
+
+.mt2 {
+    margin-top: auto; /* Diğer iki menüyü alt tarafa yanaştırır */
+}
+
+.mt4 {
+    margin-bottom: auto; /* İlk iki menüyü üst tarafa yanaştırır */
+}
+
+.content-areaa {
+    padding: 10px;
+    width: 76%;
+    background-color: #202020;
+    border-radius: 8px; 
+    height: 100%;
+}
+
+.table th, .table td {
+    vertical-align: middle;
+}
+
+.table-dark {
+    background-color: #000000;
+}
+
+.btn-success {
+    background-color: #28a745;
+    border-color: #28a745;
+}
+
+.btn-warning {
+    background-color: #ffc107;
+    border-color: #ffc107;
+}
+
+.table {
+    margin-bottom: 20px;
+    width: 100%;
+    color: white;
+}
+
+.description {
+    margin-top: 20px;
+}
+
+.map {
+    background-color: #f0f0f0;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+}
+
+.card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.table-borderless td {
+    border: none;
+    vertical-align: top;
+}
+
+.text-section {
+    width: 60%;
+    padding-right: 20px;
+}
+
+.map-section {
+    width: 40%;
+}
+
+/* Harita Placeholder Alanı */
+.map {
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    border-radius: 8px;
+}
+
+.map-placeholder {
+    color: #555;
+}
+
+/* Responsive Ayarlar: 768px ve altı ekranlar için */
+@media (max-width: 768px) {
+    .side-menu {
+        width: 100%;
+        margin-bottom: 20px;  /* Menü ve içerik alanı arasında boşluk bırakma */
+        height: auto; /* Menü alanı, içerikle birlikte genişler */
+    }
+
+    .content-areaa {
+        width: 100%;
+        height: auto; /* İçerik alanı yüksekliği, içeriğe göre ayarlansın */
+    }
+
+    .headerhoyre, .headerlogo {
+        width: 100%;
+        text-align: center; /* Mobilde logoyu ve sağ başlıkları ortala */
+        float: none;
+    }
+
+    .header {
+        height: auto;
+        margin-bottom: 20px;
+    }
+}
