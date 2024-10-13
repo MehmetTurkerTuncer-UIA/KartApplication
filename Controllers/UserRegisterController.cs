@@ -2,9 +2,9 @@
 
 namespace KartApplication.Controllers
 {
-    public class RegisterController : Controller
+    public class UserRegisterController : Controller
     {
-        public IActionResult Register()
+        public IActionResult UserRegister()
         {
             return View();
         }
