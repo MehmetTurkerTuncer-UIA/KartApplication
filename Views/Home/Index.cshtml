@@ -1,10 +1,13 @@
 ﻿
-
-
 @{
-    ViewData["Title"] = "Logg inn";
-    Layout = "~/Views/Shared/_AccountLayout.cshtml";
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml"; 
 }
+
+
+
+
+    <link rel="stylesheet" href="~/css/home.css"> <!-- CSS dosyanı ekle -->
 
 <div class="login-container">
     <!-- Sol Tarafta Logo ve Metin -->
@@ -55,13 +58,7 @@
 </div>
 
 <!-- Arama Kutusu Login Container'ın Altında -->
-<div class="footer-search">
-    <form asp-action="SearchReference" method="get" class="search-form">
-        <label for="reference">Spor din sak med et referansenummer</label>
-        <input type="text" id="reference" name="reference" placeholder="Referansenummer" class="search-input" />
-        <button type="submit" class="btn btn-dark">Søk</button>
-    </form>
-</div>
+
 
 
 @section Scripts {
