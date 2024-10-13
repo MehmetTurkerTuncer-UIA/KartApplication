@@ -1,0 +1,241 @@
+/* Genel sayfa yapısı */
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background-color: #1a1a1a;
+    color: #f1f1f1;
+    font-family: Arial, sans-serif;
+    box-sizing: border-box;
+}
+
+/* Body esnek yapı ve tam ekran yüksekliği */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Tüm sayfa ekranı doldurur */
+}
+
+/* İçerik esnek yapıda büyüyüp küçülebilir */
+.main-content {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 50px;
+    padding-bottom: 20px;
+    box-sizing: border-box;
+}
+
+/* Giriş formu ve logo kısmı */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 50px;
+    padding-bottom: 20px;
+    flex: 1;
+    max-width: 1200px; /* Sayfa genişliği sınırı */
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+.login-left {
+    text-align: center;
+    padding: 50px;
+    flex: 1;
+}
+
+.brand-logo img {
+    width: 200px;
+    margin-bottom: 20px;
+}
+
+h1 {
+    color: #f1c40f;
+    font-size: 3em;
+    margin-bottom: 10px;
+}
+
+.login-left p {
+    font-size: 1.2em;
+    color: #ffffff;
+}
+
+/* Giriş formunun sağ tarafı */
+.login-right {
+    background-color: #1a1a1a;
+    padding: 40px;
+    border-radius: 10px;
+    flex: 1;
+    max-width: 600px;
+    box-sizing: border-box;
+}
+
+.account-box {
+    background-color: #000;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 15px 5px rgba(255, 255, 255, 0.6); /* Gölgelendirme */
+    margin-bottom: 20px;
+}
+
+.account-box h2 {
+    color: #ffffff;
+    font-size: 2em;
+}
+
+/* Footer ve arama kutusu düzeni */
+.footer-login-search {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #1e1e1e;
+    
+    margin-top: auto; /* Footer'ı sayfanın altına iter */
+}
+
+.footer-search {
+    background-color: #1e1e1e;
+    padding: 20px;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 1300px;
+    box-sizing: border-box;
+    text-align: right;
+    color: white;
+}
+
+/* Footer */
+/* Footer */
+.footer {
+    background-color: #151515;
+    color: white;
+    width: 100%;
+    padding: 10px 10px 10px 20px; /* Üst, sağ, alt 10px, sol 20px padding */
+    box-sizing: border-box;
+    text-align: center;
+    margin-top: auto; /* Footer'ı esnek olarak en alta it */
+    border-top: 1px solid #000000; /* 1px gri border */
+}
+
+.footertext {
+    max-width: 1300px;
+    margin: 0 auto; /* Ortala */
+    text-align: left; /* Metni sola hizala */
+}
+
+
+
+.footer {
+    background-color: #151515;
+    color: white;
+    width: 100%;
+    padding: 10px 20px; /* Üst ve alt 10px, sağ ve sol 20px */
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between; /* Sol ve sağ içerikleri ayır */
+    align-items: center; /* Dikeyde ortalar */
+    border-top: 1px solid #5c5c5c; /* Gri border */
+    flex-wrap: nowrap; /* Alt alta geçmesini engeller */
+}
+
+.footer-container {
+    max-width: 1300px; /* İçerik genişliği sınırı */
+    margin: 0 auto; /* Sayfa ortalansın */
+    display: flex;
+    justify-content: space-between; /* Sol ve sağ içerikleri ayır */
+    align-items: center; /* Dikeyde ortalar */
+    width: 100%;
+    padding: 0 20px; /* Sağ ve soldan içeriklere boşluk bırakır */
+}
+
+.footer-left,
+.footer-right {
+    flex: 1; /* Her iki tarafın esnek olmasını sağlar */
+    white-space: nowrap; /* İçeriklerin alt alta kaymasını engeller */
+}
+
+.footer-links {
+    display: flex;
+    gap: 20px; /* Linkler arasında boşluk bırak */
+    justify-content: flex-end; /* Linkleri sağ tarafa hizalar */
+}
+
+.footer-left {
+    text-align: left; /* Yazıyı sola hizala */
+}
+
+.footer-right {
+    text-align: right; /* Sağ tarafa hizala */
+}
+
+.footer-links a {
+    color: #f1f1f1;
+    text-decoration: none;
+    white-space: nowrap; /* Linklerin tek satırda durmasını sağlar */
+}
+
+.footer-links a:hover {
+    text-decoration: underline; /* Linkler üzerine gelince altı çizilsin */
+}
+/* Arama kutusu ve butonlar */
+.search-input {
+    background-color: #333;
+    border: 1px solid #444;
+    color: #fff;
+    padding: 10px 15px;
+    margin-right: 10px;
+    border-radius: 5px;
+    width: 320px;
+}
+
+.search-input:focus {
+    border-color: #f1c40f;
+    outline: none;
+}
+
+.btn-dark {
+    background-color: #000;
+    border-color: #000;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Verify Account Container */
+.verify-account-container {
+    max-width: 400px;
+    padding-top: 100px;
+    height: 90vh;
+    margin: auto;
+}
+
+/* Varsayılan butonlar */
+.btn-primary {
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+}
+
+/* Diğer küçük düzenlemeler */
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+}
+
+.border-top {
+    border-top: 1px solid #e5e5e5;
+}
+
+.border-bottom {
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow {
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
