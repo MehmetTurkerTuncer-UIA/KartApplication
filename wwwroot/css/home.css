@@ -47,8 +47,8 @@ body {
 }
 
 .brand-logo img {
-    width: 200px;
-    margin-bottom: 20px;
+    width: 300px;
+    margin-TOP: 60px;
 }
 
 h1 {
@@ -193,9 +193,11 @@ h1 {
 }
 
 .search-input:focus {
-    border-color: #f1c40f;
+    border-color: #b0b0b0;
     outline: none;
 }
+
+
 
 .btn-dark {
     background-color: #000;
@@ -205,6 +207,7 @@ h1 {
     border-radius: 5px;
     cursor: pointer;
 }
+
 
 /* Verify Account Container */
 .verify-account-container {

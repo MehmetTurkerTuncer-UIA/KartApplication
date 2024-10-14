@@ -16,7 +16,7 @@
 <div class="container-fluid">
 <div class="header">
     <div class="headerlogo">            
-                <img src="https://img.pikbest.com/origin/09/34/11/384pIkbEsT7ki.png!sw800" alt="Logo"  width="300" height="150">
+<img src="~/images/as.png" alt="Logo" style="width: auto; height: 150px;"> 
 </div>
 
 <div class="headerhoyre">            
@@ -105,7 +105,7 @@
 
     <script>
         // Haritayı başlat
-        var map = L.map('map').setView([@Model.Latitude, @Model.Longitude], 10); // Başlangıç konumu enlem ve boylam
+        var map = L.map('map').setView([@Model.Latitude, @Model.Longitude], 15); // Başlangıç konumu enlem ve boylam
 
         // OpenStreetMap katmanını ekle
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
