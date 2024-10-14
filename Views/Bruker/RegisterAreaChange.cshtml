@@ -162,7 +162,7 @@ var map = L.map('map').setView([58.1467, 7.9956], 15); // Kristiansand, UiA koor
 
         // Funksjon for å få adresse ved klikk eller tegning
         function getAddress(lat, lng) {
-            var url = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lng}`;
+    var url = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lng}&accept-language=no`;
 
             fetch(url)
                 .then(response => {
