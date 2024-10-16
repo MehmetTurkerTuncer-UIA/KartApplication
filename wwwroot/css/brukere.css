@@ -1,0 +1,561 @@
+/* Body ayarları */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #121212;
+    color: white;
+}
+
+/* Ana iskelet (içerik ve footer ayarı için) */
+.outer-container {
+    flex: 1; /* İçeriğin tüm ekran yüksekliğini kaplaması için */
+    width: 100%;
+    max-width: 1300px;
+    margin: 0 auto; /* Ortala */
+}
+
+/* Header ayarları */
+header {
+    width: 100%;
+    padding: 10px 0;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo img {
+    max-height: 150px;
+    margin-bottom: 1%;
+    padding-left: 40px;
+}
+
+.header-right {
+    float: right;
+    width: 400px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+.header-right h4, .header-right p {
+    margin: 0;
+}
+
+/* Ana konteyner: Menü ve İçerik */
+.main-container {
+    display: flex;
+    width: 100%;
+    height: 100%; /* İçerik ve menünün tam ekran kaplaması için */
+}
+
+/* Menü alanı */
+.menu {
+    background-color: #202020;
+    display: flex;
+    flex-direction: column;
+    height: 100%; 
+    padding-left: 20px; 
+    padding-right: 20px; 
+    padding-top: 5px;
+    width: 19%;
+    margin-right: 2%;
+    border-radius: 8px;
+    justify-content: space-between; /* Butonların daha iyi hizalanması için */
+}
+
+.menu ul {
+    list-style-type: none; /* Liste işaretlerini kaldır */
+    padding: 0;
+}
+
+.menu ul li {
+    margin-bottom: 15px;
+}
+
+.menu ul li a {
+    color: white; /* Menü linklerinin rengi */
+    text-decoration: none;
+    font-size: 18px;
+    display: block;
+    padding: 10px;
+    background-color: #28a745;
+    border-bottom: 1px solid #6d6d6d;
+
+    text-align: center;
+}
+
+.menu ul li a:hover {
+    background-color: #208839;
+}
+
+.stepper ul li a:visited {
+    color: rgb(255, 255, 255); /* Ziyaret edilen linkler de beyaz görünsün */
+}
+
+/* İçerik alanı */
+.content-top {
+    width: 76%;
+    background-color: #202020;
+    border-radius: 8px; 
+    height: 100%;
+    color: white;
+}
+.content {
+    padding: 10px 10px 10px 10px;
+ 
+    height: 100%;
+    color: white;
+}
+
+.content h2 {
+    margin-top: 0;
+}
+
+/* Ana stepper menü konteyneri */
+.stepper {
+    width: 100%;       
+    display: flex;
+    justify-content: center; /* Menü içeriğini yatayda ortala */
+    align-items: center;
+    border-bottom: 1px solid #4d4d4d; /* Alt çizgi */
+    padding-bottom: 5px;
+    padding-top: 5px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    background-color: #202020;
+}
+
+/* Stepper içindeki liste */
+.stepper ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-between; /* Menü elemanları arasında boşluk bırak */
+}
+
+/* Her bir stepper menü öğesi */
+.stepper ul li {
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.5); /* Varsayılan olarak inaktif adımlar */
+}
+
+.stepper ul li.active {
+    color: rgb(255, 255, 255); /* Change this to the desired color */
+}
+
+.stepper ul li a {
+    text-decoration: none;
+}
+
+/* Responsive ayarlar */
+/* Tabletler (max-width: 1024px) */
+@media (max-width: 1024px) {
+    .menu {
+        width: 25%; /* Menü genişliği daha küçük */
+        margin-right: 5%;
+    }
+
+    .content-top {
+        width: 70%;
+    }
+
+    .details-table {
+        width: 90%; /* Tablo genişliği daha uygun */
+    }
+
+    .footer-container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+/* Küçük ekranlar (max-width: 768px) */
+@media (max-width: 768px) {
+    .header-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .logo img {
+        max-height: 100px;
+        padding-left: 0;
+    }
+
+    .header-right {
+        width: 100%;
+        align-items: center;
+        text-align: center;
+    }
+
+    .main-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .menu {
+        width: 100%;
+        margin-right: 0;
+    }
+
+    .menu ul li {
+        text-align: center;
+    }
+
+    .content-top {
+        width: 100%;
+        margin-top: 20px;
+    }
+
+    .details-table {
+        width: 100%;
+        font-size: 14px;
+    }
+
+    .footer-container {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .footer-links a {
+        margin-left: 10px;
+        font-size: 14px;
+    }
+}
+
+/* Daha küçük telefonlar (max-width: 480px) */
+@media (max-width: 480px) {
+    .menu ul li a {
+        font-size: 16px;
+        padding: 8px;
+    }
+
+    .content h2 {
+        font-size: 18px;
+    }
+
+    .details-table th, .details-table td {
+        padding: 8px;
+        font-size: 12px;
+    }
+
+    .footer-links a {
+        font-size: 12px;
+    }
+}
+
+.footer {
+    width: 100%;
+    background-color: #151515;
+    color: white;
+    position: relative; /* Footer sabit olmayacak, sayfanın altına yerleşecek */
+    padding: 10px 20px; /* Üst ve alt 10px, sağ ve sol 20px */
+    box-sizing: border-box;
+    border-top: 1px solid #5c5c5c; /* Gri border */
+    text-align: center;
+    margin-top: 20px; /* Üstteki içeriğin hemen altında yer alması için boşluk */
+}
+
+
+.footer-container {
+    max-width: 1250px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between; /* Sol ve sağ tarafları iki yana yay */
+    align-items: center;
+    padding: 0 20px;
+}
+
+.footer-left {
+    font-size: 14px;
+}
+
+.footer-right {
+    text-align: right;
+}
+
+.footer-links a {
+    color: white;
+    text-decoration: none;
+    margin-left: 15px;
+}
+
+.footer-links a:hover {
+    text-decoration: underline; /* Hover efektinde alt çizgi */
+}
+
+h1 {
+    color: #4CAF50; /* Başlık rengi */
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.details-table {
+    width: 70%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.details-table th, .details-table td {
+    padding: 10px;
+    border: 1px solid #5B5B5B;
+    text-align: left;
+}
+
+.details-table th {
+    background-color: #363636;
+}
+
+.details-table td {
+    background-color: #363636;
+}
+
+.info-text {
+    margin-top: 10px;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+.thank-you-text {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
+.print-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.print-button:hover {
+    background-color: #45a049;
+}
+
+
+
+/* INDEX
+
+/* Konteyner ayarları */
+.search-container {
+   
+    top: 10px;
+    left: 10px;
+    padding: 10px;
+    z-index: 1000;
+    width: 97%; /* Input ve buton genişliği ayarına yardımcı olur */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Hafif gölge efekti */
+}
+
+/* Input alanı */
+.input-group {
+    display: flex;
+    width: 100%;
+    position: relative;
+}
+
+#searchInput {
+    width: 100%; /* Input alanı %100 genişlikte olacak */
+    padding-right: 130px; /* Buton için sağda boşluk bırak */
+    padding-left: 10px; /* İç boşluk */
+    height: 40px; /* Yükseklik */
+    border-radius: 5px;
+    font-size: 16px;
+    box-sizing: border-box;
+    background-color: #333;
+    border: 1px solid #444;
+    color: white;
+}
+
+
+#searchInput:focus {
+
+    outline: none; /* Mavi outline'ı kaldırır */
+}
+
+/* Buton */
+#searchAddressBtn {
+    position: absolute;
+    right: 0; /* Sağ tarafa sabitle */
+    top: 0;
+    height: 100%; /* Butonun input yüksekliğine eşit olmasını sağlar */
+    border: none;
+    background-color: #4CAF50; /* Yeşil buton */
+    color: white;
+    padding: 0 20px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#searchAddressBtn:hover {
+    background-color: #45a049; /* Hover durumu için daha koyu yeşil */
+}
+
+/* Responsive ayar */
+@media (max-width: 768px) {
+    .search-container {
+        max-width: 100%;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+    }
+}
+
+
+
+/* Tablo genel düzeni */
+.table {
+    width: 100%; /* Tablo tam genişlikte */
+    border-collapse: collapse; /* Hücre aralarındaki boşluğu kaldır */
+    margin-top: 10px; /* Başlıkla tablo arasında boşluk */
+    background-color: #202020; /* Tablo arka plan rengi */
+    color: white; /* Metin rengi */
+}
+
+/* Başlık satırı */
+.table thead th {
+    background-color: #4CAF50; /* Başlık satırı arka plan rengi (yeşil) */
+    color: white; /* Başlık metin rengi */
+    font-weight: bold;
+    padding: 10px;
+    text-align: left;
+    border-bottom: 2px solid #ccc; /* Başlık altına gri çizgi */
+}
+
+/* Satır hücreleri */
+.table tbody td {
+    padding: 10px;
+    border: 1px solid #5c5c5c; /* Hücre sınırları için gri çizgi */
+    text-align: left; /* Metni sola hizalar */
+}
+
+/* Satır hover efekti */
+.table tbody tr:hover {
+    background-color: #333333; /* Satırın üzerine gelindiğinde arka plan değişir */
+}
+
+/* Alternatif satır arka plan rengi */
+.table tbody tr:nth-child(even) {
+    background-color: #2a2a2a; /* Çift numaralı satırlar için farklı arka plan */
+}
+
+/* Koordinat hücrelerinin genel hizalaması */
+#coordinatesTable td {
+    text-align: center; /* Koordinatları ortala */
+}
+
+/* Responsive düzenlemeler (mobil ve küçük ekranlar için) */
+@media (max-width: 768px) {
+    .table {
+        font-size: 14px; /* Küçük ekranlarda font boyutunu küçült */
+    }
+
+    .table thead th, .table tbody td {
+        padding: 8px; /* Daha küçük padding */
+    }
+}
+
+/* INDEX */
+/* Buton kapsayıcısı - butonu sağa hizalamak için */
+
+.button-container {
+    display: flex;
+    justify-content: flex-end; /* Butonu sağa yapışık yapar */
+    margin-top: 10px; /* Üst kısımda biraz boşluk bırakır */
+}
+
+/* Butonun tasarımı */
+.btn {
+    background-color: #4CAF50; /* Yeşil renk */
+    color: white; /* Buton yazı rengi */
+    border: none; /* Buton sınırı yok */
+    padding: 10px 20px; /* İç boşluklar */
+    border-radius: 5px; /* Köşeleri yuvarlat */
+    font-size: 16px; /* Yazı boyutu */
+    cursor: pointer; /* Mouse üstüne gelince el işareti olur */
+    float: right; 
+    margin-bottom: 10px;
+}
+
+.btn:hover {
+    background-color: #45a049; /* Hover durumu için daha koyu yeşil */
+}
+
+/* Responsive ayarları (küçük ekranlar için) */
+@media (max-width: 768px) {
+    .btn {
+        width: 100%; /* Küçük ekranlarda buton genişliği %100 olur */
+        text-align: center; /* Buton yazısını ortalar */
+    }
+
+    .button-container {
+        justify-content: center; /* Küçük ekranlarda ortalanmış */
+    }
+}
+
+
+
+/* Beskrivelse */
+
+/* Form grubu */
+.form-group {
+    width: 100%; /* Form genişliği %100 olacak */
+    margin-bottom: 15px; /* Form alanları arasında boşluk bırak */
+}
+
+/* Label ayarları */
+label {
+    color: white; /* Label yazıları beyaz */
+    font-size: 16px; /* Yazı boyutu */
+    display: block; /* Block yaparak label ve input aynı hizada olur */
+    margin-bottom: 5px; /* Label ile input arasında boşluk bırak */
+}
+
+/* Textarea alanı */
+textarea.form-control {
+    width: 48%; /* Genişliği %100 */
+    background-color: #333; /* Gri arka plan */
+    color: white; /* Yazılan yazılar beyaz olacak */
+    border: 1px solid #ccc; /* Hafif gri border */
+    border-radius: 5px; /* Köşeleri yuvarla */
+    padding: 10px; /* İç boşluklar */
+    font-size: 16px; /* Yazı boyutu */
+    box-sizing: border-box; /* Genişlik ayarı için */
+    min-height: 150px; /* Textarea minimum yüksekliği */
+}
+
+/* Textarea focus (tıklanınca) */
+textarea.form-control:focus {
+    outline: none; /* Mavi outline'ı kaldır */
+    border-color: #4CAF50; /* Focus durumunda yeşil border */
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.5); /* Yeşil glow efekti */
+}
+
+
+.btn-secondary {
+    background-color: #555555; /* Gri buton (Tilbake butonu için) */
+    float: left; /* Sol tarafa yapışık */
+}
+
+.btn-secondary:hover {
+    background-color: #444444; /* Hover durumu için koyu gri */
+}

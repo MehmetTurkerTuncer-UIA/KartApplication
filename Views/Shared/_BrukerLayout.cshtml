@@ -1,30 +1,126 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - KartApplication</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/bruker.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/KartApplication.styles.css" asp-append-version="true" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    
+    <!-- Ortak CSS Dosyası -->
+    <link rel="stylesheet" href="~/css/brukere.css" />
 
+    
+    @RenderSection("Head", required: false)
 </head>
 <body>
+        <div class="outer-container">
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <img src="~/images/as.png" alt="Logo" style="width: auto; height: 150px;">
+            </div>
+            <div class="header-right">
+                <h4>Velkommen Ahmet Kirac ny</h4>
+                <p>Saksbehandler</p>
+            </div>
+        </div>
+    </header>
+   
+    <div class="main-container">
+            <nav class="menu">
+                <!-- Sol Menü İçeriği -->
+                <ul>
+                    <li><a href="/bruker/index">Opprett Saker </a> </li>
+                    <li><a href="#">Ferdige Saker</a></li>
+                    <li><a href="#">Profil</a></li>
+                    <li><a href="#">Logg ut</a></li>
+                </ul>
+            </nav>
 
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+
+
+     <div class="content-top">
+@{
+    // Mevcut sayfanın adımını belirleyin
+    int currentStep = 1; // Default olarak ilk adım
+
+    // Örnek: URL kontrolü ile adım belirlemek
+    var currentUrl = Context.Request.Path.Value; // PathString'i string'e dönüştürüyoruz
+
+    if (currentUrl != null && currentUrl.Contains("beskrivelse"))
+    {
+        currentStep = 2;
+    }
+    else if (currentUrl != null && currentUrl.Contains("oppsummering"))
+    {
+        currentStep = 3;
+    }
+    else if (currentUrl != null && currentUrl.Contains("kvittering"))
+    {
+        currentStep = 4; // Son adım
+    }
+}
+
+<!-- Stepper Menüsü -->
+<div class="stepper" style="display: flex; align-items: center;">
+    <!-- "Oppritt Sak" başlığı ve resim -->
+    <div style="display: flex; align-items: center; margin-right: 20px;">
+        <span>Opprett Sak</span>
+        <img src="~/images/right.png" alt="Arrow" style="width: 16px; height: 16px; margin-left: 5px;" />
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2024 - KartApplication - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    <ul style="display: flex; align-items: center; list-style: none; padding: 0; margin: 0;">
+        <!-- 1. Adım: Velg sted -->
+        <li class="@(currentStep >= 1 ? "active" : "")" style="margin-right: 10px;">
+            <a href="#">1. Velg sted</a>
+        </li>
+        <img src="~/images/right-svgrepo.png" alt="Arrow" style="width: 16px; height: 16px; margin-right: 10px; opacity:@(currentStep >= 1 ? "1" : "0.3");" />
+
+        <!-- 2. Adım: Beskrivelse -->
+        <li class="@(currentStep >= 2 ? "active" : "")" style="margin-right: 10px;">
+            <a href="#">2. Beskrivelse</a>
+        </li>
+        <img src="~/images/right-svgrepo.png" alt="Arrow" style="width: 16px; height: 16px; margin-right: 10px; opacity:@(currentStep >= 2 ? "1" : "0.3");" />
+
+        <!-- 3. Adım: Oppsummering -->
+        <li class="@(currentStep >= 3 ? "active" : "")" style="margin-right: 10px;">
+            <a href="#">3. Oppsummering</a>
+        </li>
+        <img src="~/images/right-svgrepo.png" alt="Arrow" style="width: 16px; height: 16px; margin-right: 10px; opacity:@(currentStep >= 3 ? "1" : "0.3");" />
+
+        <!-- 4. Adım: Kvittering -->
+        <li class="@(currentStep >= 4 ? "active" : "")">
+            <a href="#">Kvittering</a>
+        </li>
+    </ul>
+</div>
+<main class="content">
+
+                   @RenderBody()
+
+            </main>
+</div>
+
+        
+    </div> </div>
+
+    <footer class="footer">
+    <div class="footer-container">
+        <div class="footer-left">
+            &copy; 2024 - KartverketWebApplication
         </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+
+        <div class="footer-right">
+            <div class="footer-links">
+                <a href="/About">Om oss</a>
+                <a href="/Privacy">Personvern</a>
+                <a href="/Terms">Vilkår</a>
+                <a href="/Contact">Kontakter</a>
+                <a href="/Tips">Tips oss</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    @RenderSection("Scripts", required: false)
 </body>
 </html>
