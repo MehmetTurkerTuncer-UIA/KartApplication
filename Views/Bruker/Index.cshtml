@@ -1,0 +1,242 @@
+@model KartApplication.Models.AreaChange
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_BrukerLayout.cshtml"; 
+}
+
+<br>
+<center><h2>Velg Sted</h2></center>
+
+<!-- Adres bilgisi giriş için tek bir input alanı ve buton (haritanın üstünde) -->
+<div class="search-container">
+    <div class="input-group">
+        <input type="text" id="searchInput" name="address" class="form-control" placeholder="Enter full address" aria-label="Search Address" />
+        <div class="input-group-append">
+            <button type="button" class="btn btn-primary" id="searchAddressBtn">Search Address</button>
+        </div>
+    </div>
+</div>
+
+<!-- Harita konteyneri -->
+<div id="map" style="height: 400px; width: 100%; position: relative;"></div>
+<br />
+
+<!-- Koordinatları tablo halinde göstermek için -->
+<h3>Selected Coordinates:</h3>
+<table class="table table-bordered" id="coordinatesTable">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Latitude</th>
+            <th>Longitude</th>
+        </tr>
+    </thead>
+    <tbody id="coordinatesTableBody">
+        <!-- Koordinatlar buraya eklenecek -->
+    </tbody>
+</table>
+
+<!-- Form -->
+<form asp-controller="Bruker" asp-action="Index" method="post" onsubmit="return validateForm()">
+    <input type="hidden" id="geoJsonInput" name="geoJson" /> <!-- GeoJSON verisini saklamak için gizli alan -->
+    <input type="hidden" id="addressInput" name="address" /> <!-- Adres verisini saklamak için gizli alan -->
+
+    <br />
+    <button type="submit" class="btn">Neste</button>
+</form>
+
+<script>
+    function validateForm() {
+        // GeoJSON ve adres verilerini al
+        var geoJson = document.getElementById('geoJsonInput').value;
+        var address = document.getElementById('addressInput').value;
+
+        // Eğer geoJson veya address boşsa, uyarı ver ve formu gönderme
+        if (!geoJson || !address) {
+            alert("Lütfen harita üzerinde işlem yapın ve adres bilgisi ekleyin.");
+            return false; // Form gönderimini engeller
+        }
+
+        // Eğer veriler mevcutsa form gönderilsin
+        return true;
+    }
+</script>
+
+@section Scripts {
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css" />
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"></script>
+
+    <script>
+        // Haritayı başlat
+        var map = L.map('map').setView([58.1467, 7.9956], 15); // Kristiansand, UiA konumu
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        var drawnItems = new L.FeatureGroup(); // Çizilen tüm objeleri burada saklayacağız
+        map.addLayer(drawnItems);
+
+        // Leaflet Draw kontrolünü ekliyoruz (düzenleme ve silme izni dahil)
+        var drawControl = new L.Control.Draw({
+            edit: {
+                featureGroup: drawnItems, // Düzenlenecek ve silinecek objeler
+                edit: true,   // Çizimleri düzenleme izni
+                remove: true  // Çizimleri silme izni
+            },
+            draw: {
+                polygon: true,    // Polygon (çokgen) çizebilme
+                polyline: true,   // Polyline (çizgi) çizebilme
+                rectangle: true,  // Rectangle (dikdörtgen) çizebilme
+                circle: false,    // Circle (çember) devre dışı
+                circlemarker: false, // CircleMarker devre dışı
+                marker: true      // Marker (pin) çizebilme
+            }
+        });
+        map.addControl(drawControl);
+
+        // GeoJSON'u güncelleyen bir fonksiyon
+        function updateGeoJson() {
+            var allLayers = []; // Tüm katmanları toplayacağız
+            drawnItems.eachLayer(function(layer) {
+                var geoJson = layer.toGeoJSON(); // Katmanın GeoJSON verisini al
+                allLayers.push(geoJson); // GeoJSON verisini listeye ekle
+            });
+
+            // Tüm katmanların GeoJSON verilerini tek bir GeoJSON dosyasında birleştir
+            var featureCollection = {
+                "type": "FeatureCollection",
+                "features": allLayers
+            };
+
+            // GeoJSON verisini formdaki gizli input alanına kaydet
+            document.getElementById('geoJsonInput').value = JSON.stringify(featureCollection);
+        }
+
+        // Adres input alanını güncelleyen fonksiyon
+        function updateAddressInput(lat, lng) {
+            // Nominatim API ile ters geokodlama (koordinattan adres alma)
+            var url = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lng}`;
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    var address = data.display_name ? data.display_name : "Address not found";
+                    document.getElementById('searchInput').value = address; // Adresi input'a yaz
+                    document.getElementById('addressInput').value = address; // Adresi formdaki gizli input alanına kaydet
+                })
+                .catch(error => {
+                    console.error('Error fetching address:', error);
+                    document.getElementById('searchInput').value = "Error fetching address";
+                });
+        }
+
+        // Koordinatları tabloya ekleyen/güncelleyen fonksiyon
+        function updateCoordinatesTable(layer) {
+            var tbody = document.getElementById('coordinatesTableBody');
+            tbody.innerHTML = ''; // Tabloyu temizle
+
+            // Eğer bir marker ise
+            if (layer instanceof L.Marker) {
+                var latLng = layer.getLatLng();
+                var row = `<tr><td>1</td><td>${latLng.lat}</td><td>${latLng.lng}</td></tr>`;
+                tbody.innerHTML = row;
+            }
+            
+            // Eğer bir polyline, polygon veya rectangle ise
+            else if (layer instanceof L.Polygon || layer instanceof L.Polyline || layer instanceof L.Rectangle) {
+                var latlngs = layer.getLatLngs(); // Tüm noktaları al
+                var counter = 1;
+
+                latlngs.forEach(function(latlngArray) {
+                    if (Array.isArray(latlngArray)) {
+                        latlngArray.forEach(function(latlng) {
+                            var row = `<tr><td>${counter}</td><td>${latlng.lat}</td><td>${latlng.lng}</td></tr>`;
+                            tbody.innerHTML += row;
+                            counter++;
+                        });
+                    } else {
+                        var row = `<tr><td>${counter}</td><td>${latlngArray.lat}</td><td>${latlngArray.lng}</td></tr>`;
+                        tbody.innerHTML += row;
+                        counter++;
+                    }
+                });
+            }
+        }
+
+        // Çizim tamamlandığında yeni katmanı ekle, GeoJSON'u güncelle ve koordinatları tabloya yazdır
+        map.on('draw:created', function (event) {
+            var layer = event.layer;
+            if (drawnItems.getLayers().length > 0) {
+                drawnItems.clearLayers(); // Önceki şekilleri sil
+            }
+
+            drawnItems.addLayer(layer); // Yeni çizilen katmanı ekle
+            updateGeoJson(); // GeoJSON verisini güncelle
+            updateCoordinatesTable(layer); // Koordinatları tabloya yazdır
+
+            // Eğer bir marker eklendiyse, adresi ters geokodlama ile input alanına yazalım
+            if (layer instanceof L.Marker) {
+                var latLng = layer.getLatLng();
+                updateAddressInput(latLng.lat, latLng.lng);
+            }
+        });
+
+        // Çizim düzenlendiğinde GeoJSON ve koordinatları güncelle
+        map.on('draw:edited', function () {
+            var layers = drawnItems.getLayers();
+            if (layers.length > 0) {
+                updateGeoJson();
+                updateCoordinatesTable(layers[0]);
+            }
+        });
+
+        // Çizim silindiğinde tabloyu temizle
+        map.on('draw:deleted', function () {
+            updateGeoJson();
+            document.getElementById('coordinatesTableBody').innerHTML = '';
+        });
+
+        // Adres arama butonuna tıklayınca çalışacak fonksiyon
+        function searchAddress() {
+            var address = document.getElementById('searchInput').value;
+            if (address) {
+                var url = `https://nominatim.openstreetmap.org/search?format=json&limit=1&q=${encodeURIComponent(address)}`;
+
+                fetch(url)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.length > 0) {
+                            var lat = data[0].lat;
+                            var lon = data[0].lon;
+
+                            drawnItems.clearLayers();
+                            var marker = L.marker([lat, lon]).addTo(drawnItems);
+                            map.setView([lat, lon], 15);
+
+                            updateGeoJson();
+                            updateCoordinatesTable(marker);
+                        } else {
+                            alert('Address not found.');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error fetching address:', error);
+                        alert('Error fetching address.');
+                    });
+            } else {
+                alert('Please enter an address.');
+            }
+        }
+
+        document.getElementById('searchAddressBtn').addEventListener('click', searchAddress);
+        document.getElementById('searchInput').addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                searchAddress();
+            }
+        });
+    </script>
+}

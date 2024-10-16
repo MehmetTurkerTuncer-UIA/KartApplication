@@ -1,0 +1,101 @@
+﻿@model KartApplication.Models.AreaChange
+@{
+    ViewData["Title"] = "Oversikt";
+    Layout = "~/Views/Shared/_BrukerLayout.cshtml"; 
+}
+
+<h2>Oversikt</h2>  <!-- Başlık da değiştirildi -->
+
+
+@if (!string.IsNullOrEmpty(Model.Description))
+{
+    <div>
+        <h4>Description:</h4>
+        <p>@Model.Description</p>
+    </div>
+}
+
+
+<!-- Harita konteyneri -->
+<div id="map" style="height: 400px; width: 100%;"></div>
+
+<!-- Adres bilgisi varsa göster -->
+@if (!string.IsNullOrEmpty(Model.Address))
+{
+    <div>
+        <h4>Address:</h4>
+        <p>@Model.Address</p>
+    </div>
+}
+
+<!-- Koordinatlar tablosu -->
+<h4>Coordinates:</h4>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Latitude</th>
+            <th>Longitude</th>
+        </tr>
+    </thead>
+    <tbody id="coordinatesTableBody">
+        <!-- Koordinatlar burada doldurulacak -->
+    </tbody>
+</table>
+
+
+
+<!-- Send inn butonu -->
+<form asp-action="Kvittering" method="post">
+<div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px;">
+        <!-- Geri butonu solda -->
+<button type="button" class="btn" style="background-color: gray; color: white; padding: 10px 20px; border-radius: 5px; cursor: pointer;" onclick="window.location.href='@Url.Action("Beskrivelse", "Bruker")'">Tilbake</button>
+        <!-- İleri (Save and Continue) butonu sağda -->
+        <button type="submit" class="btn btn-primary" style="background-color: #4CAF50; color: white; padding: 10px 20px; border-radius: 5px; border: none; cursor: pointer;">Send inn</button>
+    </div></form>
+
+@section Scripts {
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <script>
+        // GeoJSON verisini modelden alıyoruz
+        var geoJsonData = @Html.Raw(Model.GeoJson);
+        var map = L.map('map').setView([58.1467, 7.9956], 15); // Varsayılan merkez konumu
+
+        // OpenStreetMap katmanını haritaya ekle
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // GeoJSON verisini haritaya ekle
+        var layer = L.geoJSON(geoJsonData).addTo(map);
+        map.fitBounds(layer.getBounds()); // Harita görünümünü ayarla
+
+        // Koordinatları tablodaki gövdeye ekleme
+        var tbody = document.getElementById('coordinatesTableBody');
+        var counter = 1;
+
+        geoJsonData.features.forEach(function(feature) {
+            if (feature.geometry.type === 'Point') {
+                var coords = feature.geometry.coordinates;
+                var row = `<tr><td>${counter}</td><td>${coords[1]}</td><td>${coords[0]}</td></tr>`;
+                tbody.innerHTML += row;
+                counter++;
+            } else if (feature.geometry.type === 'Polygon') {
+                var coords = feature.geometry.coordinates[0];
+                for (var i = 0; i < coords.length - 1; i++) {
+                    var row = `<tr><td>${counter}</td><td>${coords[i][1]}</td><td>${coords[i][0]}</td></tr>`;
+                    tbody.innerHTML += row;
+                    counter++;
+                }
+            } else if (feature.geometry.type === 'LineString') {
+                feature.geometry.coordinates.forEach(function(coord) {
+                    var row = `<tr><td>${counter}</td><td>${coord[1]}</td><td>${coord[0]}</td></tr>`;
+                    tbody.innerHTML += row;
+                    counter++;
+                });
+            }
+        });
+    </script>
+}
