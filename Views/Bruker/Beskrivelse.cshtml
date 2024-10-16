@@ -1,126 +1,130 @@
 @model KartApplication.Models.AreaChange
-
 @{
     ViewData["Title"] = "Beskrivelse";
+    Layout = "~/Views/Shared/_BrukerLayout.cshtml"; 
 }
 
-<style>
-    header {
-        display: none;
-    }
-</style>
 
-<!-- Özel StilDosyası -->
-<link rel="stylesheet" href="~/css/RegisterAreaChange.css" />
+<h2>Beskrivelse</h2>
 
-<div class="container-fluid">
-<div class="header">
-    <div class="headerlogo">            
-<img src="~/images/as.png" alt="Logo" style="width: auto; height: 150px;"> 
-</div>
-
-<div class="headerhoyre">            
-            <h4>Velkommen Ahmet Kirac ny</h4>
-             <p>Saksbehandler</p>
-</div>
-               
-            </div>
-            <div class="container-ned">
-                <div class="row">
-        <!-- Sol Menü -->
-       
-    
-        <div class="side-menu">
-           
-            <div class="mt-4">
-                <button class="btn btn-success w-100 mb-3">Aktive Saker</button>
-                <button class="btn btn-success w-100 mb-3">Ferdige Saker</button>
-            </div>
-
-            <div class="mt-2">
-                <button class="btn btn-success w-100 mb-3">Profil</button>
-                <button class="btn btn-warning w-100">Logg ut</button>
-            </div>
+<!-- Açıklama formu -->
+<form asp-action="Beskrivelse" method="post">
+    <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+        <!-- Sol tarafta mesaj alanı (textarea) -->
+        <div style="width: 48%;">
+            <label for="description" style="color: white; display: block; margin-bottom: 10px;">Description:</label>
+            <textarea id="description" name="description" class="form-control" required style="width: 100%; height: 200px; background-color: #333; color: white; border: 1px solid #ccc; border-radius: 5px; padding: 10px;"></textarea>
         </div>
 
-        <!-- İçerik Alanı -->
-        <div class="content-areaa">
-            
+        <!-- Sağ tarafta harita ve başlık -->
+        <div style="width: 48%;">
+            <!-- Harita başlığı -->
+            <label for="map" style="color: white; display: block; margin-bottom: 10px;">Map View:</label>
+            <div id="map" style="height: 400px; width: 100%; background-color: lightgray;"></div>
 
-<h2>Endringsbeskrivelse</h2>
-
-<!-- Bilgilerin gösterimi -->
-<div>
-    <img src="~/images/check-mark.png" 
-         alt="Checkmark" style="width: 16px; height: 16px; margin-right: 5px;" />
-    <strong>Latitude:</strong> <span>@Model.Latitude</span>
-    <input type="hidden" name="latitude" value="@Model.Latitude" />
-</div>
-<div>
-    <img src="~/images/check-mark.png" alt="Checkmark" style="width: 16px; height: 16px; margin-right: 5px;" />
-    <strong>Latitude:</strong>Longitude: <span>@Model.Longitude</span>
-    <input type="hidden" name="longitude" value="@Model.Longitude" />
-</div>
-<div>
-    <img src="~/images/check-mark.png" alt="Checkmark" style="width: 16px; height: 16px; margin-right: 5px;" />
-    <strong>Latitude:</strong>Address: <span>@Model.Address</span>
-    <input type="hidden" name="address" value="@Model.Address" />
-</div>
-
-<br>
-
-<!-- Harita Konteyneri -->
-<div id="map" style="height: 400px; width: 100%;"></div>
-<br />
-
-
-<form asp-action="AreaChangeOverview" method="get">
-     <input type="hidden" name="latitude" value="@Model.Latitude" />
-    <input type="hidden" name="longitude" value="@Model.Longitude" />
-    <input type="hidden" name="address" value="@Model.Address" />
-    <div>
-        <label for="description">Endringsbeskrivelse:</label>
-        <textarea id="description" name="description" class="form-control" required>@Model.Description</textarea>
+            <!-- Adres bilgisi varsa göster (haritanın altında) -->
+            @if (!string.IsNullOrEmpty(Model.Address))
+            {
+                <div style="margin-top: 15px;">
+                    <h4>Address:</h4>
+        <p>@Model.Address</p>
+                </div>
+            }
+        </div>
     </div>
-    <br />
-<div style="display: flex; justify-content: space-between; align-items: center;">
-    <!-- Geri Butonu (Sol Taraf) -->
-    <a href="@Url.Action("RegisterAreaChange", "Home")" class="btn btn-secondary">Tilbake</a>
-    
-    <!-- İleri Butonu (Sağ Taraf) -->
-    <button type="submit" class="btn btn-primary">Neste</button>
-</div>
 
+    <br />
+
+    <!-- Alt tarafta butonlar aynı satırda -->
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px;">
+        <!-- Geri butonu solda -->
+<button type="button" class="btn" style="background-color: gray; color: white; padding: 10px 20px; border-radius: 5px; cursor: pointer;" onclick="window.location.href='@Url.Action("Index", "Bruker")'">Tilbake</button>
+        <!-- İleri (Save and Continue) butonu sağda -->
+        <button type="submit" class="btn btn-primary" style="background-color: #006aff; color: rgb(101, 36, 36); padding: 10px 20px; border-radius: 5px; border: none;color:white; cursor: pointer;">Neste</button>
+    </div>
 </form>
 
- </div>
-    </div>
-</div></div>
+
 
 
 @section Scripts {
-    <!-- Leaflet CSS ve JavaScript -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
     <script>
-        // Haritayı başlat
-        var map = L.map('map').setView([@Model.Latitude, @Model.Longitude], 15); // Başlangıç konumu enlem ve boylam
+        // GeoJSON verisini modelden alıyoruz
+        var geoJsonData = @Html.Raw(Model.GeoJson);
 
-        // OpenStreetMap katmanını ekle
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(map);
+        // Eğer GeoJSON verisi varsa, haritayı başlat
+        if (geoJsonData && geoJsonData.features) {
+            var map = L.map('map').setView([58.1467, 7.9956], 15); // Varsayılan merkez konumu
 
-        // Marker ekle ve pop-up ile adres göster
-        var marker = L.marker([@Model.Latitude, @Model.Longitude]).addTo(map)
-            .bindPopup(`<b>Adresse:</b> @Model.Address<br><b>Latitude:</b> @Model.Latitude<br><b>Longitude:</b> @Model.Longitude`)
-            .openPopup();
+            // OpenStreetMap katmanını haritaya ekle
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
 
-        // GeoJSON verisi varsa haritaya ekle
-        var geoJsonData = @Html.Raw(Model.GeoJson ?? "null");
-        if (geoJsonData) {
-            L.geoJSON(JSON.parse(geoJsonData)).addTo(map);
+            // GeoJSON verisini haritaya ekle
+            var layer = L.geoJSON(geoJsonData).addTo(map);
+            map.fitBounds(layer.getBounds()); // Harita görünümünü ayarla
+
+            // Koordinatları tablodaki gövdeye ekleme
+            var tbody = document.getElementById('coordinatesTableBody');
+            var counter = 1;
+
+            // Her bir geojson feature (şekil) üzerinden geçiyoruz
+            geoJsonData.features.forEach(function(feature) {
+                var geometryType = feature.geometry.type;
+                var coordinates = feature.geometry.coordinates;
+
+                // Koordinat türüne göre tabloya koordinat ekliyoruz ve pop-up ekliyoruz
+                if (geometryType === 'Point') {
+                    addCoordinatesToTable([coordinates], counter, tbody);
+                    addPopupToMap([coordinates[1], coordinates[0]], "Point: Lat " + coordinates[1] + ", Lng " + coordinates[0]);
+                } else if (geometryType === 'Polygon') {
+                    addCoordinatesToTable(coordinates[0].slice(0, -1), counter, tbody); // Başlangıç noktasını tekrar etmiyoruz
+                    coordinates[0].forEach(function(coord) {
+                        addPopupToMap([coord[1], coord[0]], "Polygon Vertex: Lat " + coord[1] + ", Lng " + coord[0]);
+                    });
+                } else if (geometryType === 'LineString') {
+                    addCoordinatesToTable(coordinates, counter, tbody);
+                    coordinates.forEach(function(coord) {
+                        addPopupToMap([coord[1], coord[0]], "Line Point: Lat " + coord[1] + ", Lng " + coord[0]);
+                    });
+                }
+
+                // Sayacı güncelle
+                counter++;
+            });
+
+            // Harita üzerine tıklama ile popup ekleme
+            map.on('click', function(e) {
+                var lat = e.latlng.lat;
+                var lng = e.latlng.lng;
+                L.popup()
+                    .setLatLng([lat, lng])
+                    .setContent("Tıkladığınız Nokta: Lat " + lat.toFixed(5) + ", Lng " + lng.toFixed(5))
+                    .openOn(map);
+            });
+
+        } else {
+            // GeoJSON verisi yoksa bir uyarı mesajı göster
+            alert('Geçerli GeoJSON verisi bulunamadı.');
+        }
+
+        // Fonksiyon: Koordinatları tabloya ekleme
+        function addCoordinatesToTable(coordsArray, startIndex, tableBody) {
+            coordsArray.forEach(function(coord, index) {
+                var row = `<tr><td>${startIndex + index}</td><td>${coord[1]}</td><td>${coord[0]}</td></tr>`;
+                tableBody.innerHTML += row;
+            });
+        }
+
+        // Fonksiyon: Harita üzerine popup ekleme
+        function addPopupToMap(latlng, content) {
+            L.marker(latlng)
+                .addTo(map)
+                .bindPopup(content);
         }
     </script>
 }
