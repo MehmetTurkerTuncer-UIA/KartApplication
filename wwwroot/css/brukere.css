@@ -33,7 +33,7 @@ header {
 .logo img {
     max-height: 150px;
     margin-bottom: 1%;
-    padding-left: 40px;
+    padding-left: 50px;
 }
 
 .header-right {
@@ -57,44 +57,86 @@ header {
     height: 100%; /* İçerik ve menünün tam ekran kaplaması için */
 }
 
-/* Menü alanı */
+/* Menü yüksekliği header'ı hesaba katarak ayarlanacak */
 .menu {
-    background-color: #202020;
+    background-color: #232323;
     display: flex;
     flex-direction: column;
-    height: 100%; 
-    padding-left: 20px; 
-    padding-right: 20px; 
-    padding-top: 5px;
+    justify-content: space-between; /* Üst ve alt menü arasında esneklik yaratır */
+    height: calc(100vh - 210px); /* Ekran yüksekliğinden 200px header çıkartılır */
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 20px;
     width: 19%;
     margin-right: 2%;
     border-radius: 8px;
-    justify-content: space-between; /* Butonların daha iyi hizalanması için */
+
 }
 
-.menu ul {
-    list-style-type: none; /* Liste işaretlerini kaldır */
+/* Üstteki iki menü öğesi */
+.menu ul.top-menu {
+    list-style-type: none;
     padding: 0;
+    margin: 0;
 }
 
-.menu ul li {
+.menu ul.top-menu li {
     margin-bottom: 15px;
 }
 
-.menu ul li a {
-    color: white; /* Menü linklerinin rengi */
+.menu ul.top-menu li a {
+    color: white;
     text-decoration: none;
     font-size: 18px;
     display: block;
     padding: 10px;
     background-color: #28a745;
     border-bottom: 1px solid #6d6d6d;
-
     text-align: center;
 }
 
-.menu ul li a:hover {
+.menu ul.top-menu li a:hover {
     background-color: #208839;
+}
+
+/* Alt menü öğeleri (profil ve log out en altta olacak) */
+.menu ul.bottom-menu {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    padding-bottom: 5px;
+    margin-top: auto; /* Menü en altına yapışmasını sağlar */
+}
+
+.menu ul.bottom-menu li {
+    margin-bottom: 15px;
+}
+
+.menu ul.bottom-menu li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    display: block;
+    padding: 10px;
+    background-color: #28a745;
+    text-align: center;
+}
+
+/* Logg ut butonu için kırmızı renk */
+.menu ul.bottom-menu li a.log-out {
+    background-color: #dc3545;
+    color: white;
+}
+
+.menu ul.bottom-menu li a.log-out:hover {
+    background-color: #c82333;
+}
+
+/* Responsive ayar - küçük ekranlarda alt menüyü gizle (500px ve altı için) */
+@media (max-width: 500px) {
+    .menu ul.bottom-menu {
+        display: none;
+    }
 }
 
 .stepper ul li a:visited {
@@ -111,7 +153,7 @@ header {
 }
 .content {
     padding: 10px 10px 10px 10px;
- 
+    background-color: #232323;
     height: 100%;
     color: white;
 }
@@ -119,14 +161,12 @@ header {
 .content h2 {
     margin-top: 0;
 }
-
-/* Ana stepper menü konteyneri */
 .stepper {
-    width: 100%;       
+    width: 100%;
+    height: 38px;
     display: flex;
-    justify-content: center; /* Menü içeriğini yatayda ortala */
+    justify-content: center;
     align-items: center;
-    border-bottom: 1px solid #4d4d4d; /* Alt çizgi */
     padding-bottom: 5px;
     padding-top: 5px;
     border-top-left-radius: 8px;
@@ -140,24 +180,41 @@ header {
     margin: 0;
     padding: 0;
     display: flex;
-    justify-content: space-between; /* Menü elemanları arasında boşluk bırak */
+   
+    justify-content: space-evenly; /* Linkler arasına eşit boşluklar ekle */
+    width: 100%; /* Tüm listeyi kapsayacak şekilde genişlet */
+    max-width: 800px; /* İsteğe bağlı: menünün çok geniş olmasını engellemek için */
 }
 
 /* Her bir stepper menü öğesi */
 .stepper ul li {
-    font-size: 12px;
-    font-weight: bold;
-    text-transform: uppercase;
+    font-size: 16x;
     color: rgba(255, 255, 255, 0.5); /* Varsayılan olarak inaktif adımlar */
-}
-
-.stepper ul li.active {
-    color: rgb(255, 255, 255); /* Change this to the desired color */
 }
 
 .stepper ul li a {
     text-decoration: none;
+    pointer-events: none; /* Varsayılan olarak tüm linkleri devre dışı bırak */
 }
+
+/* Sadece aktif ve geçmiş adımlar tıklanabilir olacak */
+.stepper ul li.active a,
+.stepper ul li a.active-step {
+    pointer-events: auto; /* Aktif ve geçmiş adımlarda tıklama etkin */
+}
+
+
+.stepper ul li img {
+    opacity: 0.3; /* İkonlar başlangıçta yarı şeffaf */
+}
+
+.stepper ul li.active img {
+    opacity: 1; /* Aktif adımın ikonu tam opak */
+}
+
+
+
+
 
 /* Responsive ayarlar */
 /* Tabletler (max-width: 1024px) */
