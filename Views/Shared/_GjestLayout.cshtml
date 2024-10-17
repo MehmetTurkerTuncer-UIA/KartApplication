@@ -1,0 +1,121 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    
+    <!-- Ortak CSS Dosyası -->
+    <link rel="stylesheet" href="~/css/gjest.css" />
+
+    
+    @RenderSection("Head", required: false)
+</head>
+<body>
+        <div class="outer-container">
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <img src="~/images/as.png" alt="Logo" style="width: auto; height: 150px;">
+            </div>
+            <div class="header-right">
+                <p>Gjest</p>
+            </div>
+        </div>
+    </header>
+   
+    <div class="main-container">
+
+
+    <div class="content-top">
+@{
+    // Mevcut sayfanın adımını belirleyin
+    int currentStep = 1; // Default olarak ilk adım
+
+    // URL'yi al ve kontrol et
+    var currentUrl = Context.Request.Path.Value?.ToLower(); // PathString'i string'e dönüştür ve küçük harfe çevir
+
+    if (currentUrl != null && currentUrl.Contains("beskrivelse"))
+    {
+        currentStep = 2;
+    }
+    else if (currentUrl != null && currentUrl.Contains("oversikt"))
+    {
+        currentStep = 3;
+    }
+    else if (currentUrl != null && currentUrl.Contains("kvittering"))
+    {
+        currentStep = 4; // Son adım
+    }
+
+    // Kvittering sayfasındaysak menüdeki adımlar tıklanamaz hale gelsin
+    var isKvitteringPage = currentStep == 4;
+}
+
+<!-- Stepper Menüsü -->
+<div class="stepper" style="display: flex; align-items: center;">
+    <!-- "Oppritt Sak" başlığı ve resim -->
+    <div style="display: flex; align-items: center; margin-right: 20px;">
+        <span>Opprett Sak</span>
+        <img src="~/images/right.png" alt="Arrow" style="width: 24px; height: 24px; margin-left: 5px;" />
+    </div>
+
+    <ul style="display: flex; align-items: center; list-style: none; padding: 0; margin: 0;">
+        <!-- 1. Adım: Velg sted -->
+        <li class="@(currentStep >= 1 ? "active" : "")" style="margin-right: 10px;">
+            <a href="/Bruker/index" style="color: @(currentStep >= 1 ? "white" : "rgba(255, 255, 255, 0.5)"); @(isKvitteringPage ? "pointer-events: none;" : "")">1. Velg sted</a>
+        </li>
+        <img src="~/images/right-svgrepo.png" alt="Arrow" style="width: 16px; height: 16px; margin-right: 10px; opacity:@(currentStep >= 1 ? "1" : "0.3");" />
+
+        <!-- 2. Adım: Beskrivelse -->
+        <li class="@(currentStep >= 2 ? "active" : "")" style="margin-right: 10px;">
+            <a href="/Bruker/Beskrivelse" style="color: @(currentStep >= 2 ? "white" : "rgba(255, 255, 255, 0.5)"); @(isKvitteringPage ? "pointer-events: none;" : "")">2. Beskrivelse</a>
+        </li>
+        <img src="~/images/right-svgrepo.png" alt="Arrow" style="width: 16px; height: 16px; margin-right: 10px; opacity:@(currentStep >= 2 ? "1" : "0.3");" />
+
+        <!-- 3. Adım: Oppsummering -->
+        <li class="@(currentStep >= 3 ? "active" : "")" style="margin-right: 10px;">
+            <a href="/Bruker/Oversikt" style="color: @(currentStep >= 3 ? "white" : "rgba(255, 255, 255, 0.5)"); @(isKvitteringPage ? "pointer-events: none;" : "")">3. Oppsummering</a>
+        </li>
+        <img src="~/images/right-svgrepo.png" alt="Arrow" style="width: 16px; height: 16px; margin-right: 10px; opacity:@(currentStep >= 3 ? "1" : "0.3");" />
+
+        <!-- 4. Adım: Kvittering -->
+        <li class="@(currentStep >= 4 ? "active" : "")">
+            <a href="/Bruker/Kvittering" style="color: @(currentStep == 4 ? "white" : "rgba(255, 255, 255, 0.5)"); @(isKvitteringPage ? "pointer-events: none;" : "")">4. Kvittering</a>
+        </li>
+    </ul>
+</div>
+
+
+
+<main class="content">
+
+                   @RenderBody()
+
+            </main>
+</div>
+
+        
+    </div> </div>
+
+    <footer class="footer">
+    <div class="footer-container">
+        <div class="footer-left">
+            &copy; 2024 - KartverketWebApplication
+        </div>
+
+        <div class="footer-right">
+            <div class="footer-links">
+                <a href="/About">Om oss</a>
+                <a href="/Privacy">Personvern</a>
+                <a href="/Terms">Vilkår</a>
+                <a href="/Contact">Kontakter</a>
+                <a href="/Tips">Tips oss</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
