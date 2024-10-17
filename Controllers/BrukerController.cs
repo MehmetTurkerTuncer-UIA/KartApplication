@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using KartApplication.Models;
 using System;
 
-public class BrukerController : Controller  // HomeController yerine BrukerController
+public class BrukerController : Controller
 {
     private static AreaChange lastChange = null;
 
@@ -26,7 +26,8 @@ public class BrukerController : Controller  // HomeController yerine BrukerContr
             Id = newId,
             GeoJson = geoJson,
             Description = description,
-            Address = address
+            Address = address,
+            Dato = DateTime.Now // Tarih burada atanıyor
         };
 
         // Kayıt sonrası beskrivelse sayfasına yönlendir
@@ -58,10 +59,27 @@ public class BrukerController : Controller  // HomeController yerine BrukerContr
         return View(lastChange);
     }
 
+    // GET: Bruker/Kvittering - Referans numarasını kullanarak kaydı göster
+    [HttpGet]
+    public IActionResult Kvittering(string id)
+    {
+        if (lastChange != null && lastChange.Id == id)
+        {
+            return View(lastChange); // lastChange dinamik verilerle doluysa göster
+        }
+
+        return NotFound(); // Eğer lastChange bulunamazsa hata göster
+    }
+
     // POST: Bruker/Kvittering sayfasına yönlendir
     [HttpPost]
     public IActionResult Kvittering()
     {
-        return View(lastChange);
+        if (lastChange != null)
+        {
+            return View(lastChange); // Kaydedilen başvuruyu göster
+        }
+
+        return NotFound(); // Eğer lastChange boşsa hata göster
     }
 }
