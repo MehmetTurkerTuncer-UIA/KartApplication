@@ -12,7 +12,7 @@
     <div class="input-group">
         <input type="text" id="searchInput" name="address" class="form-control" placeholder="Enter full address" aria-label="Search Address" />
         <div class="input-group-append">
-            <button type="button" class="btn btn-primary" id="searchAddressBtn">Search Address</button>
+            <button type="button" class="btn btn-primary" id="searchAddressBtn">Søk</button>
         </div>
     </div>
 </div>
@@ -40,27 +40,12 @@
 <form asp-controller="Bruker" asp-action="Index" method="post" onsubmit="return validateForm()">
     <input type="hidden" id="geoJsonInput" name="geoJson" /> <!-- GeoJSON verisini saklamak için gizli alan -->
     <input type="hidden" id="addressInput" name="address" /> <!-- Adres verisini saklamak için gizli alan -->
+    
 
     <br />
     <button type="submit" class="btn">Neste</button>
 </form>
 
-<script>
-    function validateForm() {
-        // GeoJSON ve adres verilerini al
-        var geoJson = document.getElementById('geoJsonInput').value;
-        var address = document.getElementById('addressInput').value;
-
-        // Eğer geoJson veya address boşsa, uyarı ver ve formu gönderme
-        if (!geoJson || !address) {
-            alert("Lütfen harita üzerinde işlem yapın ve adres bilgisi ekleyin.");
-            return false; // Form gönderimini engeller
-        }
-
-        // Eğer veriler mevcutsa form gönderilsin
-        return true;
-    }
-</script>
 
 @section Scripts {
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
@@ -118,7 +103,7 @@
         // Adres input alanını güncelleyen fonksiyon
         function updateAddressInput(lat, lng) {
             // Nominatim API ile ters geokodlama (koordinattan adres alma)
-            var url = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lng}`;
+    var url = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lng}&accept-language=no`; // Dil parametresi 'no' olarak ayarlandı
 
             fetch(url)
                 .then(response => response.json())

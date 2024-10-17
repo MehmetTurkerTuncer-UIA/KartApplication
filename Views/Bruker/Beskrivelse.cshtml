@@ -4,7 +4,6 @@
     Layout = "~/Views/Shared/_BrukerLayout.cshtml"; 
 }
 
-
 <h2>Beskrivelse</h2>
 
 <!-- Açıklama formu -->
@@ -27,7 +26,7 @@
             {
                 <div style="margin-top: 15px;">
                     <h4>Address:</h4>
-        <p>@Model.Address</p>
+                    <p>@Model.Address</p>
                 </div>
             }
         </div>
@@ -38,14 +37,11 @@
     <!-- Alt tarafta butonlar aynı satırda -->
     <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px;">
         <!-- Geri butonu solda -->
-<button type="button" class="btn" style="background-color: gray; color: white; padding: 10px 20px; border-radius: 5px; cursor: pointer;" onclick="window.location.href='@Url.Action("Index", "Bruker")'">Tilbake</button>
+        <button type="button" class="btn" style="background-color: gray; color: white; padding: 10px 20px; border-radius: 5px; cursor: pointer;" onclick="window.location.href='@Url.Action("Index", "Bruker")'">Tilbake</button>
         <!-- İleri (Save and Continue) butonu sağda -->
-        <button type="submit" class="btn btn-primary" style="background-color: #006aff; color: rgb(101, 36, 36); padding: 10px 20px; border-radius: 5px; border: none;color:white; cursor: pointer;">Neste</button>
+        <button type="submit" class="btn btn-primary" style="background-color: #006aff; color: white; padding: 10px 20px; border-radius: 5px; border: none; cursor: pointer;">Neste</button>
     </div>
 </form>
-
-
-
 
 @section Scripts {
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
@@ -65,66 +61,41 @@
             }).addTo(map);
 
             // GeoJSON verisini haritaya ekle
-            var layer = L.geoJSON(geoJsonData).addTo(map);
-            map.fitBounds(layer.getBounds()); // Harita görünümünü ayarla
-
-            // Koordinatları tablodaki gövdeye ekleme
-            var tbody = document.getElementById('coordinatesTableBody');
-            var counter = 1;
-
-            // Her bir geojson feature (şekil) üzerinden geçiyoruz
-            geoJsonData.features.forEach(function(feature) {
-                var geometryType = feature.geometry.type;
-                var coordinates = feature.geometry.coordinates;
-
-                // Koordinat türüne göre tabloya koordinat ekliyoruz ve pop-up ekliyoruz
-                if (geometryType === 'Point') {
-                    addCoordinatesToTable([coordinates], counter, tbody);
-                    addPopupToMap([coordinates[1], coordinates[0]], "Point: Lat " + coordinates[1] + ", Lng " + coordinates[0]);
-                } else if (geometryType === 'Polygon') {
-                    addCoordinatesToTable(coordinates[0].slice(0, -1), counter, tbody); // Başlangıç noktasını tekrar etmiyoruz
-                    coordinates[0].forEach(function(coord) {
-                        addPopupToMap([coord[1], coord[0]], "Polygon Vertex: Lat " + coord[1] + ", Lng " + coord[0]);
-                    });
-                } else if (geometryType === 'LineString') {
-                    addCoordinatesToTable(coordinates, counter, tbody);
-                    coordinates.forEach(function(coord) {
-                        addPopupToMap([coord[1], coord[0]], "Line Point: Lat " + coord[1] + ", Lng " + coord[0]);
-                    });
+            var layer = L.geoJSON(geoJsonData, {
+                onEachFeature: function (feature, layer) {
+                    // Eğer özellik bir Point ise (işaretleyici)
+                    if (feature.geometry.type === 'Point') {
+                        var lat = feature.geometry.coordinates[1];
+                        var lng = feature.geometry.coordinates[0];
+                        layer.bindPopup("Koordinatlar: Lat " + lat + ", Lng " + lng).openPopup();
+                    }
+                    // Eğer Polygon ise
+                    else if (feature.geometry.type === 'Polygon') {
+                        feature.geometry.coordinates[0].forEach(function (coord) {
+                            var lat = coord[1];
+                            var lng = coord[0];
+                            L.marker([lat, lng]).addTo(map)
+                                .bindPopup("Koordinatlar: Lat " + lat + ", Lng " + lng).openPopup();
+                        });
+                    }
+                    // Eğer Polyline (çizgi) ise
+                    else if (feature.geometry.type === 'LineString') {
+                        feature.geometry.coordinates.forEach(function (coord) {
+                            var lat = coord[1];
+                            var lng = coord[0];
+                            L.marker([lat, lng]).addTo(map)
+                                .bindPopup("Koordinatlar: Lat " + lat + ", Lng " + lng).openPopup();
+                        });
+                    }
                 }
+            }).addTo(map);
 
-                // Sayacı güncelle
-                counter++;
-            });
-
-            // Harita üzerine tıklama ile popup ekleme
-            map.on('click', function(e) {
-                var lat = e.latlng.lat;
-                var lng = e.latlng.lng;
-                L.popup()
-                    .setLatLng([lat, lng])
-                    .setContent("Tıkladığınız Nokta: Lat " + lat.toFixed(5) + ", Lng " + lng.toFixed(5))
-                    .openOn(map);
-            });
+            // Harita görünümünü katmanlara göre ayarla
+            map.fitBounds(layer.getBounds());
 
         } else {
             // GeoJSON verisi yoksa bir uyarı mesajı göster
             alert('Geçerli GeoJSON verisi bulunamadı.');
-        }
-
-        // Fonksiyon: Koordinatları tabloya ekleme
-        function addCoordinatesToTable(coordsArray, startIndex, tableBody) {
-            coordsArray.forEach(function(coord, index) {
-                var row = `<tr><td>${startIndex + index}</td><td>${coord[1]}</td><td>${coord[0]}</td></tr>`;
-                tableBody.innerHTML += row;
-            });
-        }
-
-        // Fonksiyon: Harita üzerine popup ekleme
-        function addPopupToMap(latlng, content) {
-            L.marker(latlng)
-                .addTo(map)
-                .bindPopup(content);
         }
     </script>
 }

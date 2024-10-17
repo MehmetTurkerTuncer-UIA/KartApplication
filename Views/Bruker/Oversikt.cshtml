@@ -15,10 +15,6 @@
     </div>
 }
 
-
-<!-- Harita konteyneri -->
-<div id="map" style="height: 400px; width: 100%;"></div>
-
 <!-- Adres bilgisi varsa göster -->
 @if (!string.IsNullOrEmpty(Model.Address))
 {
@@ -27,6 +23,11 @@
         <p>@Model.Address</p>
     </div>
 }
+
+
+<!-- Harita konteyneri -->
+<div id="map" style="height: 400px; width: 100%;"></div>
+
 
 <!-- Koordinatlar tablosu -->
 <h4>Coordinates:</h4>
@@ -43,16 +44,15 @@
     </tbody>
 </table>
 
-
-
 <!-- Send inn butonu -->
 <form asp-action="Kvittering" method="post">
-<div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px;">
         <!-- Geri butonu solda -->
-<button type="button" class="btn" style="background-color: gray; color: white; padding: 10px 20px; border-radius: 5px; cursor: pointer;" onclick="window.location.href='@Url.Action("Beskrivelse", "Bruker")'">Tilbake</button>
+        <button type="button" class="btn" style="background-color: gray; color: white; padding: 10px 20px; border-radius: 5px; cursor: pointer;" onclick="window.location.href='@Url.Action("Beskrivelse", "Bruker")'">Tilbake</button>
         <!-- İleri (Save and Continue) butonu sağda -->
         <button type="submit" class="btn btn-primary" style="background-color: #4CAF50; color: white; padding: 10px 20px; border-radius: 5px; border: none; cursor: pointer;">Send inn</button>
-    </div></form>
+    </div>
+</form>
 
 @section Scripts {
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
@@ -68,34 +68,65 @@
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
 
-        // GeoJSON verisini haritaya ekle
-        var layer = L.geoJSON(geoJsonData).addTo(map);
-        map.fitBounds(layer.getBounds()); // Harita görünümünü ayarla
-
-        // Koordinatları tablodaki gövdeye ekleme
+        // Koordinatları tabloya ekleme
         var tbody = document.getElementById('coordinatesTableBody');
         var counter = 1;
 
-        geoJsonData.features.forEach(function(feature) {
-            if (feature.geometry.type === 'Point') {
-                var coords = feature.geometry.coordinates;
-                var row = `<tr><td>${counter}</td><td>${coords[1]}</td><td>${coords[0]}</td></tr>`;
-                tbody.innerHTML += row;
-                counter++;
-            } else if (feature.geometry.type === 'Polygon') {
-                var coords = feature.geometry.coordinates[0];
-                for (var i = 0; i < coords.length - 1; i++) {
-                    var row = `<tr><td>${counter}</td><td>${coords[i][1]}</td><td>${coords[i][0]}</td></tr>`;
+        // GeoJSON verisini haritaya ekle ve pop-up'ları ayarla
+        var layer = L.geoJSON(geoJsonData, {
+            onEachFeature: function (feature, layer) {
+                // Eğer nokta (Point) varsa
+                if (feature.geometry.type === 'Point') {
+                    var coords = feature.geometry.coordinates;
+                    var lat = coords[1];
+                    var lng = coords[0];
+
+                    // Tabloda koordinatları göster
+                    var row = `<tr><td>${counter}</td><td>${lat}</td><td>${lng}</td></tr>`;
                     tbody.innerHTML += row;
                     counter++;
+
+                    // Pop-up ile koordinat bilgilerini göster
+                    layer.bindPopup("Koordinatlar: Lat " + lat + ", Lng " + lng).openPopup();
+                } 
+                // Eğer Polygon ise
+                else if (feature.geometry.type === 'Polygon') {
+                    var coords = feature.geometry.coordinates[0]; // İlk halka
+                    coords.forEach(function(coord, index) {
+                        var lat = coord[1];
+                        var lng = coord[0];
+
+                        // Tabloda koordinatları göster
+                        var row = `<tr><td>${counter}</td><td>${lat}</td><td>${lng}</td></tr>`;
+                        tbody.innerHTML += row;
+                        counter++;
+
+                        // Her köşe noktası için bir pop-up ekleyelim
+                        var marker = L.marker([lat, lng]).addTo(map);
+                        marker.bindPopup("Koordinatlar: Lat " + lat + ", Lng " + lng);
+                    });
+                } 
+                // Eğer çizgi (LineString) ise
+                else if (feature.geometry.type === 'LineString') {
+                    feature.geometry.coordinates.forEach(function(coord, index) {
+                        var lat = coord[1];
+                        var lng = coord[0];
+
+                        // Tabloda koordinatları göster
+                        var row = `<tr><td>${counter}</td><td>${lat}</td><td>${lng}</td></tr>`;
+                        tbody.innerHTML += row;
+                        counter++;
+
+                        // Her nokta için bir pop-up ekleyelim
+                        var marker = L.marker([lat, lng]).addTo(map);
+                        marker.bindPopup("Koordinatlar: Lat " + lat + ", Lng " + lng);
+                    });
                 }
-            } else if (feature.geometry.type === 'LineString') {
-                feature.geometry.coordinates.forEach(function(coord) {
-                    var row = `<tr><td>${counter}</td><td>${coord[1]}</td><td>${coord[0]}</td></tr>`;
-                    tbody.innerHTML += row;
-                    counter++;
-                });
             }
-        });
+        }).addTo(map);
+
+        // Harita görünümünü katmanlara göre ayarla
+        map.fitBounds(layer.getBounds());
+
     </script>
 }
