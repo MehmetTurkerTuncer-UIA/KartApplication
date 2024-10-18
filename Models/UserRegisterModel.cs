@@ -8,14 +8,14 @@ namespace KartApplication.Models
         public int Id { get; set; }
 
         [Required]
-        public required string Name { get; set; }
+        public string Name { get; set; }
 
         [Required]
         [EmailAddress]
-        public required string Email { get; set; }
+        public string Email { get; set; }
 
         [Required]
-        public required string Password { get; set; }
+        public string Password { get; set; }
 
         [Required]
         [Compare("Password", ErrorMessage = "Passwords do not match.")]

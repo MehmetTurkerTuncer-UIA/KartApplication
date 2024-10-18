@@ -73,3 +73,5 @@ ScaffoldingReadMe.txt
 
 # Azure Application Insights
 ApplicationInsights.config
+
+.fake
