@@ -1,23 +1,42 @@
-/* Saksbehandler sayfasına özel stil */
-html, body {
-    background-color: #121212;
-    color: white;
-    height: 100%;
+/* Body ayarları */
+body {
     margin: 0;
     padding: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #121212;
+    color: white;
 }
 
-.container-fluid {
-    height: 100%;
-    padding: 0;
+/* Ana iskelet (içerik ve footer ayarı için) */
+.outer-container {
+    flex: 1; /* İçeriğin tüm ekran yüksekliğini kaplaması için */
+    width: 100%;
+    max-width: 1300px;
+    margin: 0 auto; /* Ortala */
 }
 
-.header {
-    height: 150px;
+/* Header ayarları */
+header {
+    width: 100%;
+    padding: 10px 0;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo img {
+    max-height: 150px;
     margin-bottom: 1%;
+    padding-left: 50px;
 }
 
-.headerhoyre {
+.header-right {
     float: right;
     width: 400px;
     height: 100%;
@@ -27,140 +46,793 @@ html, body {
     align-items: flex-end;
 }
 
-.headerlogo {
-    float: left;
-    width: 300px;
-    height: 100%;
-    padding-left: 40px;
+.header-right h4, .header-right p {
+    margin: 0;
 }
 
-.container-ned {
-    height: 100%;
+/* Ana konteyner: Menü ve İçerik */
+.main-container {
+    display: flex;
     width: 100%;
+    height: 100%; /* İçerik ve menünün tam ekran kaplaması için */
 }
 
-.side-menu {
-    background-color: #202020;
+/* Menü yüksekliği header'ı hesaba katarak ayarlanacak */
+.menu {
+    background-color: #232323;
     display: flex;
     flex-direction: column;
-    height: 100%; 
-    padding: 20px;
-    width: 22%;
+    justify-content: space-between; /* Üst ve alt menü arasında esneklik yaratır */
+    height: calc(100vh - 210px); /* Ekran yüksekliğinden 200px header çıkartılır */
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 20px;
+    width: 19%;
     margin-right: 2%;
     border-radius: 8px;
-    justify-content: space-between; /* Butonların daha iyi hizalanması için */
+
 }
 
-.menu-items {
-    flex-grow: 4;
+/* Üstteki iki menü öğesi */
+.menu ul.top-menu {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+
 }
 
-.mt2 {
-    margin-top: auto; /* Diğer iki menüyü alt tarafa yanaştırır */
+.menu ul.top-menu li {
+    margin-bottom: 15px;
 }
 
-.mt4 {
-    margin-bottom: auto; /* İlk iki menüyü üst tarafa yanaştırır */
-}
-
-.content-areaa {
+.menu ul.top-menu li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    display: block;
     padding: 10px;
+    background-color: #28a745;
+    text-align: center;
+}
+
+.menu ul.top-menu li a:hover {
+    background-color: #208839;
+}
+
+/* Alt menü öğeleri (profil ve log out en altta olacak) */
+.menu ul.bottom-menu {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    padding-bottom: 5px;
+    margin-top: auto; /* Menü en altına yapışmasını sağlar */
+}
+
+.menu ul.bottom-menu li {
+    margin-bottom: 15px;
+}
+
+.menu ul.bottom-menu li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    display: block;
+    padding: 10px;
+    background-color: #28a745;
+    text-align: center;
+}
+
+.menu ul.bottom-menu li a:hover {
+    background-color: #208839;
+}
+
+/* Logg ut butonu için kırmızı renk */
+.menu ul.bottom-menu li a.log-out {
+    background-color: #dc3545;
+    color: white;
+}
+
+.menu ul.bottom-menu li a.log-out:hover {
+    background-color: #c82333;
+}
+
+/* Responsive ayar - küçük ekranlarda alt menüyü gizle (500px ve altı için) */
+@media (max-width: 500px) {
+    .menu ul.bottom-menu {
+        display: none;
+    }
+}
+
+.stepper ul li a:visited {
+    color: rgb(255, 255, 255); /* Ziyaret edilen linkler de beyaz görünsün */
+}
+
+/* İçerik alanı */
+.content-top {
     width: 76%;
     background-color: #202020;
     border-radius: 8px; 
     height: 100%;
+    color: white;
+}
+.content {
+    padding: 10px 10px 10px 10px;
+    background-color: #232323;
+    height: 100%;
+    color: white;
+    border-radius: 8px;
+
 }
 
-.table th, .table td {
-    vertical-align: middle;
+.content h2 {
+    margin-top: 0;
+}
+.stepper {
+    width: 100%;
+    height: 38px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    background-color: #202020;
 }
 
-.table-dark {
-    background-color: #000000;
+/* Stepper içindeki liste */
+.stepper ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+   
+    justify-content: space-evenly; /* Linkler arasına eşit boşluklar ekle */
+    width: 100%; /* Tüm listeyi kapsayacak şekilde genişlet */
+    max-width: 800px; /* İsteğe bağlı: menünün çok geniş olmasını engellemek için */
+}
+
+/* Her bir stepper menü öğesi */
+.stepper ul li {
+    font-size: 16x;
+    color: rgba(255, 255, 255, 0.5); /* Varsayılan olarak inaktif adımlar */
+}
+
+.stepper ul li a {
+    text-decoration: none;
+    pointer-events: none; /* Varsayılan olarak tüm linkleri devre dışı bırak */
+}
+
+/* Sadece aktif ve geçmiş adımlar tıklanabilir olacak */
+.stepper ul li.active a,
+.stepper ul li a.active-step {
+    pointer-events: auto; /* Aktif ve geçmiş adımlarda tıklama etkin */
+}
+
+
+.stepper ul li img {
+    opacity: 0.3; /* İkonlar başlangıçta yarı şeffaf */
+}
+
+.stepper ul li.active img {
+    opacity: 1; /* Aktif adımın ikonu tam opak */
+}
+
+
+
+
+
+/* Responsive ayarlar */
+/* Tabletler (max-width: 1024px) */
+@media (max-width: 1024px) {
+    .menu {
+        width: 25%; /* Menü genişliği daha küçük */
+        margin-right: 5%;
+    }
+
+    .content-top {
+        width: 70%;
+    }
+
+    .details-table {
+        width: 90%; /* Tablo genişliği daha uygun */
+    }
+
+    .footer-container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+/* Küçük ekranlar (max-width: 768px) */
+@media (max-width: 768px) {
+    .header-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .logo img {
+        max-height: 100px;
+        padding-left: 0;
+    }
+
+    .header-right {
+        width: 100%;
+        align-items: center;
+        text-align: center;
+    }
+
+    .main-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .menu {
+        width: 100%;
+        margin-right: 0;
+    }
+
+    .menu ul li {
+        text-align: center;
+    }
+
+    .content-top {
+        width: 100%;
+        margin-top: 20px;
+    }
+
+    .details-table {
+        width: 100%;
+        font-size: 14px;
+    }
+
+    .footer-container {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .footer-links a {
+        margin-left: 10px;
+        font-size: 14px;
+    }
+}
+
+/* Daha küçük telefonlar (max-width: 480px) */
+@media (max-width: 480px) {
+    .menu ul li a {
+        font-size: 16px;
+        padding: 8px;
+    }
+
+    .content h2 {
+        font-size: 18px;
+    }
+
+    .details-table th, .details-table td {
+        padding: 8px;
+        font-size: 12px;
+    }
+
+    .footer-links a {
+        font-size: 12px;
+    }
+}
+
+.footer {
+    width: 100%;
+    background-color: #151515;
+    color: white;
+    position: relative; /* Footer sabit olmayacak, sayfanın altına yerleşecek */
+    padding: 10px 20px; /* Üst ve alt 10px, sağ ve sol 20px */
+    box-sizing: border-box;
+    border-top: 1px solid #5c5c5c; /* Gri border */
+    text-align: center;
+    margin-top: 20px; /* Üstteki içeriğin hemen altında yer alması için boşluk */
+}
+
+
+.footer-container {
+    max-width: 1250px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between; /* Sol ve sağ tarafları iki yana yay */
+    align-items: center;
+    padding: 0 20px;
+}
+
+.footer-left {
+    font-size: 14px;
+}
+
+.footer-right {
+    text-align: right;
+}
+
+.footer-links a {
+    color: white;
+    text-decoration: none;
+    margin-left: 15px;
+}
+
+.footer-links a:hover {
+    text-decoration: underline; /* Hover efektinde alt çizgi */
+}
+
+
+
+
+/* Tablo genel düzeni */
+.tablesaksbehandler {
+    width: 100%;
+    border-collapse: separate; /* Hücre border'larının birleşmesini önlemek için */
+    border-spacing: 0 2px; /* Satırlar arasında 2px boşluk oluşturmak için */
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+}
+
+/* Tablodaki başlık hücreleri (th) */
+.tablesaksbehandler th {
+    background-color: #303030; /* Başlık arka plan rengi (koyu gri) */
+    color: white; /* Başlık yazı rengi beyaz */
+    padding: 10px;
+    text-align: center;
+    position: relative; /* Pseudo-element kullanabilmek için position */
+    height: 34px;;
+
+}
+
+/* Başlık hücrelerine kısa border eklemek için */
+.tablesaksbehandler th:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 1px; /* Kısa dikey border */
+    background-color: #505050; /* Border rengi */
+    height: 30%; /* Border hücre yüksekliğinin %60'ı olacak */
+    margin: auto 0;
+    text-align: center;
+
+}
+
+/* Son başlık hücresinde (th) sağdaki border olmayacak */
+.tablesaksbehandler th:last-child:after {
+    display: none; /* Son sütunda border olmaması için */
+}
+
+/* Tablodaki veri hücreleri (td) */
+.tablesaksbehandler td {
+    padding: 10px;
+    color: white; /* Yazı rengi beyaz */
+    background-color: #295A31; /* Satırların varsayılan arka plan rengi (yeşil tonları) */
+    border-right: none; /* Genel border kaldırıldı */
+    position: relative;
+    height: 34px; /* Satır yüksekliği 68px */
+    text-align: center;
+}
+
+/* Border'ları kısa ve hücre içinde göstermek için: */
+.tablesaksbehandler td:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 1px; /* Kısa dikey border */
+    background-color:  rgba(255, 255, 255, 0.5); /* Başlık yazı rengi %50 transparan beyaz */
+
+    height: 30%; /* Border hücre yüksekliğinin %60'ı olacak */
+    margin: auto 0;
+}
+
+/* Son sütundaki Vis sak linkleri için border olmadan ortalanmış stil */
+.tablesaksbehandler td:last-child:after {
+    display: none; /* Son sütunda border olmayacak */
+}
+
+/* Üzerine gelince (hover) satırların arka plan rengini biraz daha koyu yap */
+.tablesaksbehandler tbody tr:hover td {
+    background-color: #065813; /* Üzerine gelince satırların koyu yeşil rengi */
+}
+
+/* Satırların yüksekliği ve aralarındaki boşluğu belirginleştir */
+.tablesaksbehandler tbody tr {
+    height: 68px; /* Satır yüksekliği 68px */
+}
+
+/* Responsive tablo - küçük ekranlar */
+@media (max-width: 768px) {
+    .tablesaksbehandler {
+        font-size: 14px; /* Küçük ekranlarda yazı boyutunu küçült */
+    }
+}
+
+
+
+
+
+
+
+
+/* Tablo genel düzeni */
+.tablesaksbehandlerFerdigeSaks {
+    width: 100%;
+    border-collapse: separate; /* Hücre border'larının birleşmesini önlemek için */
+    border-spacing: 0 2px; /* Satırlar arasında 2px boşluk oluşturmak için */
+
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+}
+
+/* Tablodaki başlık hücreleri (th) */
+.tablesaksbehandlerFerdigeSaks th {
+    background-color: #303030; /* Başlık arka plan rengi (koyu gri) */
+    color: white; /* Başlık yazı rengi beyaz */
+    padding: 10px;
+    text-align: center;
+    position: relative; /* Pseudo-element kullanabilmek için position */
+    height: 34px;;
+
+}
+
+/* Başlık hücrelerine kısa border eklemek için */
+.tablesaksbehandlerFerdigeSaks th:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 1px; /* Kısa dikey border */
+    background-color: #505050; /* Border rengi */
+    height: 30%; /* Border hücre yüksekliğinin %60'ı olacak */
+    margin: auto 0;
+    text-align: center;
+
+}
+
+/* Son başlık hücresinde (th) sağdaki border olmayacak */
+.tablesaksbehandlerFerdigeSaks th:last-child:after {
+    display: none; /* Son sütunda border olmaması için */
+}
+
+/* Tablodaki veri hücreleri (td) */
+.tablesaksbehandlerFerdigeSaks td {
+    padding: 10px;
+    color: white; /* Yazı rengi beyaz */
+    background-color: #5A2929; /* Satırların varsayılan arka plan rengi (yeşil tonları) */
+    border-right: none; /* Genel border kaldırıldı */
+    position: relative;
+    height: 34px; /* Satır yüksekliği 68px */
+    text-align: center;
+}
+
+/* Border'ları kısa ve hücre içinde göstermek için: */
+.tablesaksbehandlerFerdigeSaks td:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 1px; /* Kısa dikey border */
+    background-color:  rgba(255, 255, 255, 0.5); /* Başlık yazı rengi %50 transparan beyaz */
+
+    height: 30%; /* Border hücre yüksekliğinin %60'ı olacak */
+    margin: auto 0;
+}
+
+/* Son sütundaki Vis sak linkleri için border olmadan ortalanmış stil */
+.tablesaksbehandlerFerdigeSaks td:last-child:after {
+    display: none; /* Son sütunda border olmayacak */
+}
+
+/* Üzerine gelince (hover) satırların arka plan rengini biraz daha koyu yap */
+.tablesaksbehandlerFerdigeSaks tbody tr:hover td {
+    background-color: #581A06; /* Üzerine gelince satırların koyu yeşil rengi */
+}
+
+/* Satırların yüksekliği ve aralarındaki boşluğu belirginleştir */
+.tablesaksbehandlerFerdigeSaks tbody tr {
+    height: 68px; /* Satır yüksekliği 68px */
+}
+
+/* Responsive tablo - küçük ekranlar */
+@media (max-width: 768px) {
+    .tablesaksbehandlerFerdigeSaks {
+        font-size: 14px; /* Küçük ekranlarda yazı boyutunu küçült */
+    }
+}
+
+
+
+
+
+
+
+
+
+
+/* DETALJER SAKSBEHANDLER */
+
+/* Tablo genel düzeni */
+.tableForDetaljer {
+    width: 100%;
+    border-collapse: separate; /* Hücre border'larının birleşmesini önlemek için */
+    border-spacing: 0 0px; /* Satırlar arasında 2px boşluk oluşturmak için */
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    border: 1px solid #000000;
+}
+
+/* Tablodaki başlık hücreleri (th) */
+.tableForDetaljer th {
+    background-color: #303030; /* Başlık arka plan rengi (daha koyu siyah ton) */
+    padding: 10px;
+    text-align: center;
+    position: relative; /* Pseudo-element kullanabilmek için position */
+    height: 34px; /* Satır yüksekliği 34px */
+
+}
+
+/* Başlık hücrelerine kısa border eklemek için */
+.tableForDetaljer th:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 1px; /* Kısa dikey border */
+    background-color: #505050; /* Border rengi */
+    height: 30%; /* Border hücre yüksekliğinin %60'ı olacak */
+    margin: auto 0;
+}
+
+/* Son başlık hücresinde (th) sağdaki border olmayacak */
+.tableForDetaljer th:last-child:after {
+    display: none; /* Son sütunda border olmaması için */
+}
+
+/* Tablodaki veri hücreleri (td) */
+.tableForDetaljer td {
+    padding: 10px;
+    color: white; /* Yazı rengi beyaz */
+    background-color: #232323; /* Satırların varsayılan arka plan rengi (koyu siyah tonları) */
+    border-right: none; /* Genel border kaldırıldı */
+    position: relative; /* Pseudo-element kullanabilmek için position */
+    height: 34px; /* Satır yüksekliği 34px */
+    text-align: center;
+
+}
+
+/* Veri hücrelerine kısa border eklemek için */
+.tableForDetaljer td:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 1px; /* Kısa dikey border */
+    background-color: #505050; /* Border rengi */
+    height: 30%; /* Border hücre yüksekliğinin %60'ı olacak */
+    margin: auto 0;
+}
+
+/* Son veri hücresinde (td) sağdaki border olmayacak */
+.tableForDetaljer td:last-child:after {
+    display: none; /* Son sütunda border olmaması için */
+}
+
+
+
+/* Satırların yüksekliği ve aralarındaki boşluğu belirginleştir */
+.tableForDetaljer tbody tr {
+    height: 34px; /* Satır yüksekliği 68px */
+}
+
+/* Responsive tablo - küçük ekranlar */
+@media (max-width: 768px) {
+    .tableForDetaljer {
+        font-size: 14px; /* Küçük ekranlarda yazı boyutunu küçült */
+    }
+}
+
+
+
+
+/* Genel tablo düzeni */
+.table-borderless-detaljer {
+    width: 100%;
+    border-collapse: collapse; /* Tablonun kenarlarını birleştirmek için */
+    margin-top: 20px;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    table-layout: fixed; /* Sabit sütun genişliklerini sağlamak için */
+}
+
+/* Sol taraftaki metin kısmı */
+.beskrive-avdeling {
+    width: 100%; /* Genişlik %70 */
+    padding: 20px; /* İçerik etrafında boşluk */
+    vertical-align: top; /* İçeriği üst hizaya getirmek için */
+    color: #fff; /* Metin rengi koyu gri */
+}
+
+/* Sağ taraftaki harita ve adres kısmı */
+.map-section {
+    width: 100%; /* Genişlik %30 */
+    padding: 10px; /* İçerik etrafında boşluk */
+    vertical-align: top; /* İçeriği üst hizaya getirmek için */
+    color: #fff; /* Metin rengi koyu gri */
+}
+
+/* Harita tutucu (map-holder) */
+.map-holder {
+    background-color: #4976ff; /* Haritanın yeri için geçici gri arka plan */
+    width: 100%; /* Tam genişlik */
+    height: 200px; /* Sabit yükseklik */
+}
+
+/* Adres tutucu (adress-holder) */
+.adress-holder {
+    margin-top: 10px; /* Haritanın üstüne biraz boşluk eklemek için */
+    font-weight: bold; /* Adresin belirgin olması için kalın yazı */
+    color: #fff;
+}
+
+/* Responsive düzen - küçük ekranlar için */
+@media (max-width: 768px) {
+    .beskrive-avdeling, .map-section {
+        width: 100%; /* Küçük ekranlarda her iki taraf %100 genişlik alacak */
+        display: block; /* Üst üste gelecek şekilde */
+    }
+
+    .map-section {
+        border-left: none; /* Küçük ekranlarda border kaldırılacak */
+        margin-top: 20px; /* Alt tarafa boşluk ekleniyor */
+    }
+}
+
+
+/* Genel admin paneli stil düzenlemeleri */
+.admin-panel {
+    display: flex;
+    justify-content: center;
+    margin-top: 60px;
+}
+
+/* Admin card stili */
+.admin-card {
+    background-color: #000000; /* Koyu arka plan (siyah tonları) */
+    color: white; /* Beyaz metin rengi */
+    padding: 20px 40px;
+    border-radius: 8px; /* Hafif yuvarlatılmış köşeler */
+    max-width: 400px;
+    width: 100%;
+    box-shadow: white 0px 0px 10px; /* Beyaz gölgelendirme */
+}
+
+/* Başlık */
+.admin-card h2 {
+    margin-bottom: 20px;
+    text-align: center; /* Sadece başlık ortalanmış */
+}
+
+/* Form grupları */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Öğeleri sola hizala */
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    margin-bottom: 5px; /* Label ile select arasında 5px boşluk */
+    text-align: left; /* Label sol tarafa hizalanacak */
+    width: 100%;
+}
+
+.form-group select {
+    width: 100%; /* Select kutusunun genişliği %70 olacak */
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #555; /* Gri border */
+    background-color: #444; /* Select arka planı koyu */
+    color: white; /* Beyaz metin rengi */
+    margin-bottom: 15px; /* Select kutusunun altına 15px boşluk */
+}
+
+/* Düğme stili */
+.form-actions {
+    display: flex;
+    justify-content: space-between; /* Butonları iki yana yay */
+    margin-top: 20px;
+}
+
+.btn {
+    padding: 10px 20px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+}
+
+/* Kırmızı buton */
+.btn-danger {
+    background-color: #dc3545; /* Bootstrap kırmızı tonu */
+    color: white;
+}
+
+.btn-danger:hover {
+    background-color: #c82333; /* Hover efekti için daha koyu kırmızı */
+}
+
+/* Mavi buton */
+.btn-primary {
+    background-color: #007bff; /* Bootstrap mavi tonu */
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3; /* Hover efekti için daha koyu mavi */
+}
+
+
+
+
+/* PROFIL */
+
+
+
+/* Profil Görüntüleme ve Düzenleme */
+.profile-container {
+    width: 100%;
+    max-width: 930px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #333;
+    color: white;
+    border-radius: 8px;
+}
+
+.profile-view, .profile-edit {
+    margin-bottom: 20px;
+}
+
+.profile-view p, .profile-edit .form-group {
+    margin-bottom: 15px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #555;
+    background-color: #444;
+    color: white;
+}
+
+/* Düğme Stilleri */
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
 }
 
 .btn-success {
     background-color: #28a745;
-    border-color: #28a745;
-}
-
-.btn-warning {
-    background-color: #ffc107;
-    border-color: #ffc107;
-}
-
-.table {
-    margin-bottom: 20px;
-    width: 100%;
     color: white;
 }
 
-.description {
-    margin-top: 20px;
-}
-
-.map {
-    background-color: #f0f0f0;
-    height: 300px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: bold;
-}
-
-.card {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.table-borderless td {
-    border: none;
-    vertical-align: top;
-}
-
-.text-section {
-    width: 60%;
-    padding-right: 20px;
-}
-
-.map-section {
-    width: 40%;
-}
-
-/* Harita Placeholder Alanı */
-.map {
-    background-color: #f0f0f0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: bold;
-    border-radius: 8px;
-}
-
-.map-placeholder {
-    color: #555;
-}
-
-/* Responsive Ayarlar: 768px ve altı ekranlar için */
-@media (max-width: 768px) {
-    .side-menu {
-        width: 100%;
-        margin-bottom: 20px;  /* Menü ve içerik alanı arasında boşluk bırakma */
-        height: auto; /* Menü alanı, içerikle birlikte genişler */
-    }
-
-    .content-areaa {
-        width: 100%;
-        height: auto; /* İçerik alanı yüksekliği, içeriğe göre ayarlansın */
-    }
-
-    .headerhoyre, .headerlogo {
-        width: 100%;
-        text-align: center; /* Mobilde logoyu ve sağ başlıkları ortala */
-        float: none;
-    }
-
-    .header {
-        height: auto;
-        margin-bottom: 20px;
-    }
+.btn-success:hover {
+    background-color: #218838;
 }

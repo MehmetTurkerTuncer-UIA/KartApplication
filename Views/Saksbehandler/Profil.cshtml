@@ -1,0 +1,79 @@
+@{
+    ViewData["Title"] = "Saksbehandler Sayfasi";
+    Layout = "~/Views/Shared/_SaksbehandlerLayout.cshtml"; 
+
+}
+
+<div class="profile-container">
+    <!-- Profil Bilgileri Görüntüleme Alanı -->
+    <div id="profileView" class="profile-view">
+        <h3>Profil</h3>
+        <p><strong>Navn:</strong> <span id="viewNavn">Magnus</span></p>
+        <p><strong>Etternavn:</strong> <span id="viewEtternavn">Barfots</span></p>
+        <p><strong>Mobilnummer:</strong> <span id="viewMobilnummer">96694651</span></p>
+        <p><strong>E-postadresse:</strong> <span id="viewEpostadresse">magnusbarfots@gmail.com</span></p>
+        <button id="editButton" class="btn btn-primary">Rediger</button>
+    </div>
+
+    <!-- Profil Bilgileri Düzenleme Alanı -->
+    <div id="profileEdit" class="profile-edit" style="display: none;">
+        <h3>Profil</h3>
+        <form id="profileForm">
+            <div class="form-group">
+                <label for="navn">Navn</label>
+                <input type="text" id="editNavn" value="Magnus" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="etternavn">Etternavn</label>
+                <input type="text" id="editEtternavn" value="Barfots" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="mobilnummer">Mobilnummer</label>
+                <input type="text" id="editMobilnummer" value="96694651" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="epostadresse">E-postadresse</label>
+                <input type="email" id="editEpostadresse" value="Magnusbarfots@gmail.com" class="form-control">
+            </div>
+            <button type="button" id="saveButton" class="btn btn-success">Lagre</button>
+        </form>
+    </div>
+</div>
+
+<script>// Elementleri tanımla
+const editButton = document.getElementById('editButton');
+const saveButton = document.getElementById('saveButton');
+const profileView = document.getElementById('profileView');
+const profileEdit = document.getElementById('profileEdit');
+
+// Görüntüleme alanındaki değerler
+const viewNavn = document.getElementById('viewNavn');
+const viewEtternavn = document.getElementById('viewEtternavn');
+const viewMobilnummer = document.getElementById('viewMobilnummer');
+const viewEpostadresse = document.getElementById('viewEpostadresse');
+
+// Düzenleme alanındaki inputlar
+const editNavn = document.getElementById('editNavn');
+const editEtternavn = document.getElementById('editEtternavn');
+const editMobilnummer = document.getElementById('editMobilnummer');
+const editEpostadresse = document.getElementById('editEpostadresse');
+
+// Rediger butonuna tıklanınca düzenleme alanı gösterilir
+editButton.addEventListener('click', function() {
+    profileView.style.display = 'none'; // Profil görüntüleme gizlenir
+    profileEdit.style.display = 'block'; // Profil düzenleme gösterilir
+});
+
+// Lagre butonuna tıklanınca düzenleme kaydedilir ve görüntüleme alanına geri dönülür
+saveButton.addEventListener('click', function() {
+    // Düzenleme alanındaki değerler görüntüleme alanına aktarılır
+    viewNavn.textContent = editNavn.value;
+    viewEtternavn.textContent = editEtternavn.value;
+    viewMobilnummer.textContent = editMobilnummer.value;
+    viewEpostadresse.textContent = editEpostadresse.value;
+
+    // Düzenleme tamamlandıktan sonra düzenleme alanı gizlenir ve profil görüntüleme alanı gösterilir
+    profileEdit.style.display = 'none';
+    profileView.style.display = 'block';
+});
+</script>
