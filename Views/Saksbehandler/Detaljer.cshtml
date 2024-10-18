@@ -1,0 +1,85 @@
+@{
+    ViewData["Title"] = "Saksbehandler Sayfasi";
+    Layout = "~/Views/Shared/_SaksbehandlerLayout.cshtml"; 
+
+}
+
+            <table class="tableForDetaljer">
+                <thead>
+                    <tr>
+                        <th>Dato</th>
+                        <th>Sak Status</th>
+                        <th>Referansenummer</th>
+                        <th>Kontroll Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>21.11.2023</td>
+                        <td>Aktivt</td>
+                        <td>123456789</td>
+                        <td>Tildordnet</td>
+                    </tr>
+                </tbody>
+            </table>
+
+
+    <table class="table-borderless-detaljer">
+        <tr>
+            <!-- Sol Taraf: Metin (Lorem Ipsum) -->
+            <td class="beskrive-avdeling">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                <p> Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            </td>
+        </tr>
+        <tr>
+
+            <!-- Sağ Taraf: Harita ve Adres -->
+            <td class="map-section">
+                <div class="map-holder" style="height: 400px; width: 100%;">
+                </div>
+                <p class="adress-holder"><strong>Adres:</strong> 1234 Gata, By, Norge</p>
+            </td>
+        </tr>
+    </table>
+
+       
+   
+<div class="admin-panel">
+    <div class="admin-card">
+        <h2>Administer saken</h2>
+        <form>
+            <div class="form-group">
+                <label for="sakStatus">Sak Status</label>
+                <select id="sakStatus">
+                    <option>Velg</option>
+                    <option>Aktiv</option>
+                    <option>Ikke Aktiv</option>
+                     <option>Ferdigbehandlet</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="kontrollStatus">Kontroll Status</label>
+                <select id="kontrollStatus">
+                    <option>Velg</option>
+                    <option>Tildordnet</option>
+                    <option>Ikke Tildordnet</option>
+                                        <option>Fulfort</option>
+
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="tildordnetPerson">Tildordnet Person</label>
+                <select id="tildordnetPerson">
+                    <option>Velg</option>
+                    <option>Person 1</option>
+                    <option>Person 2</option>
+                </select>
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="btn btn-danger">Avvis</button>
+                <button type="submit" class="btn btn-primary">Lagre</button>
+            </div>
+        </form>
+    </div>
+</div>
