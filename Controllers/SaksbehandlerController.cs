@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using KartApplication.Models;
+using System;
 
 namespace KartApplication.Controllers
 {
@@ -7,14 +9,25 @@ namespace KartApplication.Controllers
         // Saksbehandler giriş sayfası
         public IActionResult Index()
         {
-            return View("Saksbehandler"); // Giriş sayfası (Saksbehandler.cshtml)
+          
+            // Modeli View'e gönderiyoruz
+            return View(); // Modeli Index.cshtml'e yolluyoruz
         }
 
+        public IActionResult FerdigeSaker(){
+            return View();
+
+        }
         // Detay sayfası
-        public IActionResult Detay(int id)
+        public IActionResult Detaljer(string id)
         {
-            ViewBag.Id = id; // ID bilgisini view'e göndermek için
-            return View();   // Detay.cshtml dosyasını döndürecek
+            return View(); // Detay.cshtml'e model yollanıyor
+        }
+
+          // Profil sayfası
+        public IActionResult Profil(string id)
+        {
+            return View(); // Profil.cshtml'e model yollanıyor
         }
     }
 }
