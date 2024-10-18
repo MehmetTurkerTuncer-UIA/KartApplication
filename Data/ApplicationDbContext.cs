@@ -14,6 +14,8 @@ namespace KartApplication.Data
 
         public DbSet<UserRegisterModel> UserRegister { get; set; }
 
+        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+
 
     }
 }
