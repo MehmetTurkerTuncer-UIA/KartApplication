@@ -267,6 +267,9 @@ namespace KartApplication.Migrations
                     b.Property<string>("Adresse")
                         .HasColumnType("longtext");
 
+                    b.Property<string>("Name")
+                        .HasColumnType("longtext");
+
                     b.Property<string>("Surname")
                         .HasColumnType("longtext");
 
