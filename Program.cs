@@ -31,6 +31,12 @@ app.UseRouting();
 app.UseAuthorization();
 app.MapRazorPages();
 
+//app.MapGet("/", async context =>
+//{
+//    context.Response.Redirect("/Identity/Account/Login");
+//    await context.Response.CompleteAsync(); // Bu satır ile yanıt tamamlanır.
+//});
+
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
