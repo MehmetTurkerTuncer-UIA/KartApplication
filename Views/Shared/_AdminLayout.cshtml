@@ -1,0 +1,91 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    
+    <!-- Ortak CSS Dosyası -->
+    <link rel="stylesheet" href="~/css/Admin.css" />
+    
+    @RenderSection("Head", required: false)
+</head>
+<body>
+
+   <div class="outer-container">
+  <div class="headermenu-wrapper">    <div class="headermenu">  
+        <!-- Hjem butonu -->
+        <a href="/" class="menu-button btn-hjem">Hjem</a>
+
+        <!-- Logg ut butonu -->
+        <a href="/logout" class="menu-button btn-logout">Logg ut</a>
+    </div>  </div>
+
+    <header>
+        <div class="header-container">
+
+    
+
+            <div class="logo">
+                <img src="~/images/as.png" alt="Logo" style="width: auto; height: 150px;">
+            </div>
+            <div class="header-right">
+                        <h2>Velkommen Ahmet Kirac</h2>
+                <p>Admin</p>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-container">
+
+   
+
+        <div class="content-top">
+
+            <div class="search-filter-container">
+    <!-- Sol Taraf: Arama Kutusu -->
+    <div class="search-box">
+        <input type="text" placeholder="Søk" class="search-input">
+        <button class="search-btn">Søk</button>
+    </div>
+
+    <!-- Sağ Taraf: Filtre ve Legg til ansatt Butonları -->
+    <div class="filter-buttons">
+        <button class="filter-btn">
+            <span>Filter</span> <i class="fas fa-filter"></i>
+        </button>
+        <button class="add-employee-btn">Legg til ansatt</button>
+    </div>
+</div>
+
+
+            
+            <main class="content">
+                @RenderBody()
+            </main>
+        </div>
+    </div>
+</div>
+
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-left">
+            &copy; 2024 - KartverketWebApplication
+        </div>
+
+        <div class="footer-right">
+            <div class="footer-links">
+                <a href="/About">Om oss</a>
+                <a href="/Privacy">Personvern</a>
+                <a href="/Terms">Vilkår</a>
+                <a href="/Contact">Kontakter</a>
+                <a href="/Tips">Tips oss</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
