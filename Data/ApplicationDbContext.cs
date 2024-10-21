@@ -16,6 +16,9 @@ namespace KartApplication.Data
 
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
 
+        public DbSet<SakModel> SakModels { get; set; }
+
+        public DbSet<FeedbackModel> FeedbackModel { get; set; }
 
     }
 }
