@@ -22,6 +22,30 @@ namespace KartApplication.Migrations
 
             MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
 
+            modelBuilder.Entity("KartApplication.Models.FeedbackModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Message")
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("SakId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("SakModelId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SakModelId");
+
+                    b.ToTable("FeedbackModels");
+                });
+
             modelBuilder.Entity("KartApplication.Models.SakModel", b =>
                 {
                     b.Property<int>("Id")
@@ -45,8 +69,11 @@ namespace KartApplication.Migrations
                     b.Property<string>("GeoJson")
                         .HasColumnType("longtext");
 
-                    b.Property<int>("UserId")
+                    b.Property<int>("Status")
                         .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("longtext");
 
                     b.HasKey("Id");
 
@@ -309,6 +336,15 @@ namespace KartApplication.Migrations
                     b.HasDiscriminator().HasValue("ApplicationUser");
                 });
 
+            modelBuilder.Entity("KartApplication.Models.FeedbackModel", b =>
+                {
+                    b.HasOne("KartApplication.Models.SakModel", "SakModel")
+                        .WithMany("FeedbackModels")
+                        .HasForeignKey("SakModelId");
+
+                    b.Navigation("SakModel");
+                });
+
             modelBuilder.Entity("KartApplication.Models.SakModel", b =>
                 {
                     b.HasOne("KartApplication.Models.ApplicationUser", "ApplicationUser")
@@ -367,6 +403,11 @@ namespace KartApplication.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("KartApplication.Models.SakModel", b =>
+                {
+                    b.Navigation("FeedbackModels");
                 });
 
             modelBuilder.Entity("KartApplication.Models.ApplicationUser", b =>
