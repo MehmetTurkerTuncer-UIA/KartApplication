@@ -7,6 +7,8 @@
     
     <!-- Ortak CSS Dosyası -->
     <link rel="stylesheet" href="~/css/brukere.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
 
     
     @RenderSection("Head", required: false)
@@ -29,13 +31,18 @@
           <nav class="menu">
     <!-- Sol Menü İçeriği -->
     <ul class="top-menu">
-        <li><a href="/home/OpprettSak">Opprett Saker</a></li>
-        <li><a href="#">Ferdige Saker</a></li>
+        <li><a href="/home/OpprettSak" class="menu-item"><i class="bi bi-pencil-square"></i> Opprett Saker</a></li>
+        <li><a href="/home/OpprettSak" class="menu-item"><i class="bi bi-folder2"></i> Mine Saker</a></li>
+
+
     </ul>
 
     <ul class="bottom-menu">
-        <li><a href="#">Profil</a></li>
-        <li><a href="#" class="log-out">Logg ut</a></li>
+    
+        <li><a href="/home/OpprettSak" class="menu-item"><i class="bi bi-person-circle"></i> Profil </a></li>
+        <li><a href="/home/OpprettSak" class="log-out menu-item"><i class="bi bi-door-open"></i> Logg ut</a></li>
+
+
     </ul>
 </nav>
 
