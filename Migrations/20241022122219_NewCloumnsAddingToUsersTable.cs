@@ -5,7 +5,7 @@
 namespace KartApplication.Migrations
 {
     /// <inheritdoc />
-    public partial class applicationusernewaddins : Migration
+    public partial class NewCloumnsAddingToUsersTable : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -27,6 +27,13 @@ namespace KartApplication.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.AddColumn<string>(
+                name: "Name",
+                table: "AspNetUsers",
+                type: "longtext",
+                nullable: true)
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.AddColumn<string>(
                 name: "Surname",
                 table: "AspNetUsers",
                 type: "longtext",
@@ -43,6 +50,10 @@ namespace KartApplication.Migrations
 
             migrationBuilder.DropColumn(
                 name: "Discriminator",
+                table: "AspNetUsers");
+
+            migrationBuilder.DropColumn(
+                name: "Name",
                 table: "AspNetUsers");
 
             migrationBuilder.DropColumn(
