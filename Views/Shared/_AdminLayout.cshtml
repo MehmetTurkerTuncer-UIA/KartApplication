@@ -12,80 +12,82 @@
 </head>
 <body>
 
-   <div class="outer-container">
-  <div class="headermenu-wrapper">    <div class="headermenu">  
-        <!-- Hjem butonu -->
-        <a href="/" class="menu-button btn-hjem">Hjem</a>
+    <div class="outer-container">
+        <div class="headermenu-wrapper">    
+            <div class="headermenu">  
+                <!-- Hjem butonu -->
+                <a href="/admin" class="menu-button btn-hjem">Hjem</a>
 
-        <!-- Logg ut butonu -->
-        <a href="/logout" class="menu-button btn-logout">Logg ut</a>
-    </div>  </div>
-
-    <header>
-        <div class="header-container">
-
-    
-
-            <div class="logo">
-                <img src="~/images/as.png" alt="Logo" style="width: auto; height: 150px;">
-            </div>
-            <div class="header-right">
-                        <h2>Velkommen Ahmet Kirac</h2>
-                <p>Admin</p>
+                <!-- Logg ut butonu -->
+                <a href="/logout" class="menu-button btn-logout">Logg ut</a>
             </div>
         </div>
-    </header>
 
-    <div class="main-container">
+        <header>
+            <div class="header-container">
+                <div class="logo">
+                    <img src="~/images/as.png" alt="Logo" style="width: auto; height: 150px;">
+                </div>
+                <div class="header-right">
+                    <h2>Velkommen Ahmet Kirac</h2>
+                    <p>Admin</p>
+                </div>
+            </div>
+        </header>
 
-   
+        <div class="main-container">
+            @* Eğer bu sayfa "Legg til ansatt" değilse, standart layout göster *@
+            @if (ViewBag.IsLeggTilAnsatt != true)
+            {
+                <div class="content-top">
+                    <div class="search-filter-container">
+                        <!-- Sol Taraf: Arama Kutusu -->
+                        <div class="search-box">
+                            <input type="text" placeholder="Søk" class="search-input">
+                            <button class="search-btn">Søk</button>
+                        </div>
 
-        <div class="content-top">
+                        <!-- Sağ Taraf: Filtre ve Legg til ansatt Butonları -->
+                        <div class="filter-buttons">
+                            <button class="filter-btn">
+                                <span>Filter</span> <i class="fas fa-filter"></i>
+                            </button>
+<button class="add-employee-btn" onclick="window.location.href='admin/leggtilansatt'">Legg til ansatt</button>
 
-            <div class="search-filter-container">
-    <!-- Sol Taraf: Arama Kutusu -->
-    <div class="search-box">
-        <input type="text" placeholder="Søk" class="search-input">
-        <button class="search-btn">Søk</button>
-    </div>
-
-    <!-- Sağ Taraf: Filtre ve Legg til ansatt Butonları -->
-    <div class="filter-buttons">
-        <button class="filter-btn">
-            <span>Filter</span> <i class="fas fa-filter"></i>
-        </button>
-        <button class="add-employee-btn">Legg til ansatt</button>
-    </div>
-</div>
-
-
-            
-            <main class="content">
-                @RenderBody()
-            </main>
+                        </div>
+                    </div>
+                
+                    <main class="content">
+                        @RenderBody()
+                    </main>
+                </div>
+            }
+            else
+            {
+                @RenderBody() @* Sadece form içeriği render edilecek *@
+            }
         </div>
     </div>
-</div>
 
-<footer class="footer">
-    <div class="footer-container">
-        <div class="footer-left">
-            &copy; 2024 - KartverketWebApplication
-        </div>
+    <!-- Footer her iki durumda da gösterilecek -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-left">
+                &copy; 2024 - KartverketWebApplication
+            </div>
 
-        <div class="footer-right">
-            <div class="footer-links">
-                <a href="/About">Om oss</a>
-                <a href="/Privacy">Personvern</a>
-                <a href="/Terms">Vilkår</a>
-                <a href="/Contact">Kontakter</a>
-                <a href="/Tips">Tips oss</a>
+            <div class="footer-right">
+                <div class="footer-links">
+                    <a href="/About">Om oss</a>
+                    <a href="/Privacy">Personvern</a>
+                    <a href="/Terms">Vilkår</a>
+                    <a href="/Contact">Kontakter</a>
+                    <a href="/Tips">Tips oss</a>
+                </div>
             </div>
         </div>
-    </div>
-</footer>
+    </footer>
 
-
-    @RenderSection("Scripts", required: false)
+    @RenderSection("scripts", required: false)
 </body>
 </html>
