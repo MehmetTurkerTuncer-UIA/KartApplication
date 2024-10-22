@@ -26,10 +26,10 @@ namespace KartApplication.Models
 
 
 
-        // SakStatus enum'ı eklendi
-        public SakStatus Status { get; set; } = SakStatus.SakMottatt;
+         //SakStatus enum'ı eklendi
+        //public SakStatus Status { get; set; } = SakStatus.SakMottatt;
 
-        // SakStatus değiştiğinde mesaj gönderme fonksiyonu
+        //// SakStatus değiştiğinde mesaj gönderme fonksiyonu
         //public void ChangeStatus(SakStatus newStatus)
         //{
         //    if (newStatus != Status) // Eğer status değiştiyse
@@ -40,13 +40,13 @@ namespace KartApplication.Models
         //       string message = SakStatusHelper.GetMessage(newStatus);
 
         //        // Geri bildirim ekle
-        //        FeedbackModels?.Add(new FeedbackModel
+        //       FeedbackModels?.Add(new FeedbackModel
         //        {
         //            SakId = this.Id,
         //            Message = message,
         //            SakModel = this
         //        });
         //    }
-      //  } 
+        //} 
     }
 }
