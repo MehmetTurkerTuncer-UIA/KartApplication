@@ -446,3 +446,94 @@ body {
     }
 }
 
+
+
+.legg-til-ansatt-form {
+    background-color: #232323;
+    color: white;
+    width: 476px;
+    padding: 10px 20px;
+    border-radius: 8px;
+    margin: 0 auto; /* Formu ortalar */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    margin-top: 50px;
+    margin-bottom: 50px;
+    font-size: 16px;
+}
+
+.legg-til-ansatt-form h4 {
+    text-align: left;
+    margin-bottom: 20px;
+    font-size: 18px;
+}
+
+/* Flexbox yapısıyla form grubu etiket ve input aynı satırda */
+.form-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Yatayda hizalar */
+    margin-bottom: 15px;
+
+}
+
+.form-group label {
+    width: 30%; /* Etiketlerin genişliğini ayarladım */
+    margin-right: 10px; /* Etiket ile input arasında boşluk */
+}
+
+.form-control {
+    width: 65%; /* Input alanının genişliği */
+    padding: 10px;
+    font-size: 16px;
+    background-color: #2E2E2E;
+    border: 1px solid #000;
+    color: white;
+    border-radius: 4px;
+}
+
+.form-actions {
+    margin-bottom: 10px;
+    width: 100%;
+    float: right;
+}
+
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 10px; /* Butonlar arasına boşluk ekler */
+}
+
+.btn-secondary {
+    background-color: #dc3545;
+    color: white; 
+    float: left;
+}
+
+
+
+
+.btn-primary {
+    background-color: #007bff;
+    color: white;
+float: right;
+}
+
+.btn-danger {
+    background-color: #ff0000; /* Slett butonu kırmızı */
+    color: white;
+    float: right;
+}
+
+
+.form-header {
+    display: flex;
+    justify-content: space-between; /* Başlık ve ID numarasını iki yana yerleştirir */
+    align-items: center;
+}
+
+.employee-id {
+    font-size: 14px;
+    color: #ffffff; /* ID'nin daha ince ve zarif görünmesi için */
+}
