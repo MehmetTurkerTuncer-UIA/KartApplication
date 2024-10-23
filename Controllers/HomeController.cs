@@ -4,7 +4,7 @@ using System.Diagnostics;
 
 public class HomeController : Controller
 {
-    // Eğer veri tabanı bağlantısı gerekiyorsa, aşağıdaki satırları kullanabilirsiniz.
+    // If you need database connection, you can use the following lines:
     // private readonly ApplicationDbContext _context;
 
     //public HomeController(ApplicationDbContext context)
@@ -12,29 +12,27 @@ public class HomeController : Controller
     //    _context = context;
     //}
 
-    //[HttpGet]
+    private static AreaChange lastChange = null;
+
+    // GET: Display the form to create a new case (OpprettSak)
+    [HttpGet]
     public IActionResult Index()
     {
         return View();
-    
-       
     }
 
+    // Privacy page (you can skip this or update as per your needs)
     public IActionResult Privacy()
     {
         return View();
     }
 
-
-
+    // Handle error page
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
-
-
-      private static AreaChange lastChange = null;
 
     // GET: Bruker/Index formunu görüntüle
     [HttpGet]
@@ -43,75 +41,84 @@ public class HomeController : Controller
         return View();
     }
 
-    // POST: Kullanıcıdan gelen GeoJson, adres ve açıklamayı işleme al
+    // POST: Process the GeoJSON, description, address, and selected map type from the form
     [HttpPost]
-    public IActionResult OpprettSak(string geoJson, string description, string address)
+    public IActionResult OpprettSak(string geoJson, string description, string address, string selectedMapType)
     {
-        // Yeni 8 haneli numeric ID oluştur
+        // Generate a new 8-digit numeric ID
         string newId = IdGenerator.GenerateNumericIdFromGuid();
 
-        // AreaChange nesnesini doldur
+        // Populate the AreaChange object
         lastChange = new AreaChange
         {
             Id = newId,
             GeoJson = geoJson,
             Description = description,
             Address = address,
-            Dato = DateTime.Now // Tarih burada atanıyor
+            Dato = DateTime.Now, // Timestamp for the submission
+            SelectedMapType = selectedMapType // Save the selected map type (fargekart, gratonekart, turkart, sjokart)
         };
 
-        // Kayıt sonrası beskrivelse sayfasına yönlendir
+        // Redirect to the 'Beskrivelse' page after submission
         return RedirectToAction("Beskrivelse");
     }
 
-    // GET: Bruker/Beskrivelse sayfasını göster
+    // GET: Show the Beskrivelse page with the data submitted from OpprettSak
     [HttpGet]
     public IActionResult Beskrivelse()
     {
-        return View(lastChange);
+        if (lastChange != null)
+        {
+            return View(lastChange); // Pass the lastChange object to the view
+        }
+
+        return RedirectToAction("OpprettSak"); // If no data, redirect to the form
     }
 
-    // POST: Beskrivelse sayfasındaki açıklamayı işleyip Oversikt'e gönder
+    // POST: Handle the description submission and redirect to the 'Oversikt' page
     [HttpPost]
     public IActionResult Beskrivelse(string description)
     {
         if (lastChange != null)
         {
-            lastChange.Description = description;
+            lastChange.Description = description; // Update the description
         }
         return RedirectToAction("Oversikt");
     }
 
-    // GET: Bruker/Oversikt sayfasını görüntüle
+    // GET: Show the Oversikt page to display a summary of the submitted data
     [HttpGet]
     public IActionResult Oversikt()
     {
-        return View(lastChange);
+        if (lastChange != null)
+        {
+            return View(lastChange); // Pass the data to the view
+        }
+
+        return RedirectToAction("OpprettSak"); // Redirect to form if no data exists
     }
 
-    // GET: Bruker/Kvittering - Referans numarasını kullanarak kaydı göster
+    // GET: Display the confirmation page (Kvittering) with a reference number
     [HttpGet]
     public IActionResult Kvittering(string id)
     {
         if (lastChange != null && lastChange.Id == id)
         {
-            return View(lastChange); // lastChange dinamik verilerle doluysa göster
+            return View(lastChange); // Display the saved data
         }
 
-        return NotFound(); // Eğer lastChange bulunamazsa hata göster
+        return NotFound(); // Return 404 if no data is found
     }
 
-    // POST: Bruker/Kvittering sayfasına yönlendir
+    // POST: Redirect to Kvittering page
     [HttpPost]
     public IActionResult Kvittering()
     {
         if (lastChange != null)
         {
-            return View(lastChange); // Kaydedilen başvuruyu göster
+            return View(lastChange); // Show the confirmation data
         }
 
-        return NotFound(); // Eğer lastChange boşsa hata göster
+        return NotFound(); // Return 404 if the session has no data
     }
-
-    
 }
