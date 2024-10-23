@@ -46,6 +46,7 @@
 <form asp-controller="Home" asp-action="OpprettSak" method="post" onsubmit="return validateForm()">
     <input type="hidden" id="geoJsonInput" name="geoJson" /> <!-- GeoJSON verisini saklamak için gizli alan -->
     <input type="hidden" id="addressInput" name="address" /> <!-- Adres verisini saklamak için gizli alan -->
+    <input type="hidden" id="selectedMapType" name="selectedMapType" value="fargekart" /> <!-- Seçilen harita tipini saklamak için gizli alan -->
     <br />
     <button type="submit" class="btn">Neste</button>
 </form>
@@ -157,50 +158,54 @@
 
         // Başlangıç haritası olarak Fargekart'ı ekle
         var currentLayer = fargekart;
+        var selectedMapType = 'fargekart'; // Varsayılan harita tipi
 
         // Sağ altta küçük kareler şeklinde harita seçenekleri ekle
         var thumbnailsContainer = document.createElement('div');
         thumbnailsContainer.classList.add('map-thumbnails');
         document.getElementById('map').appendChild(thumbnailsContainer);
 
-   // Harita küçük resimlerini ekle
-var maps = [
-    { id: 'fargekart', layer: fargekart, imageUrl: '@Url.Content("~/images/4.png")', title: 'Fargekart' },
-    { id: 'gratonekart', layer: gratonekart, imageUrl: '@Url.Content("~/images/3.png")', title: 'Gråtonekart' },
-    { id: 'turkart', layer: turkart, imageUrl: '@Url.Content("~/images/2.png")', title: 'Turkart' },
-    { id: 'sjokart', layer: sjokart, imageUrl: '@Url.Content("~/images/1.png")', title: 'Sjøkart' }
-];
+        // Harita küçük resimlerini ekle
+        var maps = [
+            { id: 'fargekart', layer: fargekart, imageUrl: '@Url.Content("~/images/4.png")', title: 'Fargekart' },
+            { id: 'gratonekart', layer: gratonekart, imageUrl: '@Url.Content("~/images/3.png")', title: 'Gråtonekart' },
+            { id: 'turkart', layer: turkart, imageUrl: '@Url.Content("~/images/2.png")', title: 'Turkart' },
+            { id: 'sjokart', layer: sjokart, imageUrl: '@Url.Content("~/images/1.png")', title: 'Sjøkart' }
+        ];
 
-maps.forEach(function(mapInfo, index) {
-    var thumbnailDiv = document.createElement('div');
-    thumbnailDiv.classList.add('map-thumbnail');
-    if (index === 0) {
-        thumbnailDiv.classList.add('selected');
-    }
-    
-    var img = document.createElement('img');
-    img.src = mapInfo.imageUrl;
-    img.alt = mapInfo.title;
-    img.title = mapInfo.title; // Fare üzerine gelince harita adını göstermek için title kullanıyoruz
-    thumbnailDiv.appendChild(img);
-    thumbnailsContainer.appendChild(thumbnailDiv);
+        maps.forEach(function(mapInfo, index) {
+            var thumbnailDiv = document.createElement('div');
+            thumbnailDiv.classList.add('map-thumbnail');
+            if (index === 0) {
+                thumbnailDiv.classList.add('selected');
+            }
+            
+            var img = document.createElement('img');
+            img.src = mapInfo.imageUrl;
+            img.alt = mapInfo.title;
+            img.title = mapInfo.title; // Fare üzerine gelince harita adını göstermek için title kullanıyoruz
+            thumbnailDiv.appendChild(img);
+            thumbnailsContainer.appendChild(thumbnailDiv);
 
-    // Tıklanınca haritayı değiştir
-    thumbnailDiv.addEventListener('click', function() {
-        if (currentLayer !== mapInfo.layer) {
-            map.removeLayer(currentLayer);
-            map.addLayer(mapInfo.layer);
-            currentLayer = mapInfo.layer;
+            // Tıklanınca haritayı değiştir
+            thumbnailDiv.addEventListener('click', function() {
+                if (currentLayer !== mapInfo.layer) {
+                    map.removeLayer(currentLayer);
+                    map.addLayer(mapInfo.layer);
+                    currentLayer = mapInfo.layer;
 
-            // Seçili sınıfı güncelle
-            document.querySelectorAll('.map-thumbnail').forEach(function(thumb) {
-                thumb.classList.remove('selected');
+                    // Update the selected map type value
+                    selectedMapType = mapInfo.id;
+                    document.getElementById('selectedMapType').value = selectedMapType;
+
+                    // Seçili sınıfı güncelle
+                    document.querySelectorAll('.map-thumbnail').forEach(function(thumb) {
+                        thumb.classList.remove('selected');
+                    });
+                    thumbnailDiv.classList.add('selected');
+                }
             });
-            thumbnailDiv.classList.add('selected');
-        }
-    });
-});
-
+        });
 
         // Çizim işlevselliği
         var drawnItems = new L.FeatureGroup();

@@ -4,8 +4,7 @@
     Layout = "~/Views/Shared/_BrukerLayout.cshtml"; 
 }
 
-<h2>Oversikt</h2>  <!-- Başlık da değiştirildi -->
-
+<h2>Oversikt</h2>
 
 @if (!string.IsNullOrEmpty(Model.Description))
 {
@@ -15,7 +14,6 @@
     </div>
 }
 
-<!-- Adres bilgisi varsa göster -->
 @if (!string.IsNullOrEmpty(Model.Address))
 {
     <div>
@@ -24,10 +22,8 @@
     </div>
 }
 
-
 <!-- Harita konteyneri -->
 <div id="map" style="height: 400px; width: 100%;"></div>
-
 
 <!-- Koordinatlar tablosu -->
 <h4>Coordinates:</h4>
@@ -47,9 +43,7 @@
 <!-- Send inn butonu -->
 <form asp-action="Kvittering" method="post">
     <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px;">
-        <!-- Geri butonu solda -->
         <button type="button" class="btn" style="background-color: gray; color: white; padding: 10px 20px; border-radius: 5px; cursor: pointer;" onclick="window.location.href='@Url.Action("Beskrivelse", "Bruker")'">Tilbake</button>
-        <!-- İleri (Save and Continue) butonu sağda -->
         <button type="submit" class="btn btn-primary" style="background-color: #4CAF50; color: white; padding: 10px 20px; border-radius: 5px; border: none; cursor: pointer;">Send inn</button>
     </div>
 </form>
@@ -61,72 +55,108 @@
     <script>
         // GeoJSON verisini modelden alıyoruz
         var geoJsonData = @Html.Raw(Model.GeoJson);
-        var map = L.map('map').setView([58.1467, 7.9956], 15); // Varsayılan merkez konumu
+        var selectedMapType = '@Model.SelectedMapType'; // Seçilen harita tipi
 
-        // OpenStreetMap katmanını haritaya ekle
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(map);
+        // Harita katmanlarını tanımla
+        var fargekart = L.tileLayer('https://cache.kartverket.no/v1/wmts/1.0.0/topo/default/webmercator/{z}/{y}/{x}.png', {
+            maxZoom: 18,
+            attribution: '&copy; <a href="https://kartverket.no/">Kartverket</a>'
+        });
+
+        var gratonekart = L.tileLayer('https://cache.kartverket.no/v1/wmts/1.0.0/topograatone/default/webmercator/{z}/{y}/{x}.png', {
+            maxZoom: 18,
+            attribution: '&copy; <a href="https://kartverket.no/">Kartverket</a>'
+        });
+
+        var turkart = L.tileLayer('https://cache.kartverket.no/v1/wmts/1.0.0/toporaster/default/webmercator/{z}/{y}/{x}.png', {
+            maxZoom: 18,
+            attribution: '&copy; <a href="https://kartverket.no/">Kartverket</a>'
+        });
+
+        var sjokart = L.tileLayer('https://cache.kartverket.no/v1/wmts/1.0.0/sjokartraster/default/webmercator/{z}/{y}/{x}.png', {
+            maxZoom: 18,
+            attribution: '&copy; <a href="https://kartverket.no/">Kartverket</a>'
+        });
+
+        // Seçilen harita katmanını belirle
+        var selectedLayer;
+        switch (selectedMapType) {
+            case 'gratonekart':
+                selectedLayer = gratonekart;
+                break;
+            case 'turkart':
+                selectedLayer = turkart;
+                break;
+            case 'sjokart':
+                selectedLayer = sjokart;
+                break;
+            default:
+                selectedLayer = fargekart;
+        }
+
+        // Haritayı başlat ve seçilen harita katmanını ekle
+        var map = L.map('map').setView([58.1467, 7.9956], 15);
+        selectedLayer.addTo(map);
 
         // Koordinatları tabloya ekleme
         var tbody = document.getElementById('coordinatesTableBody');
         var counter = 1;
 
         // GeoJSON verisini haritaya ekle ve pop-up'ları ayarla
-        var layer = L.geoJSON(geoJsonData, {
-            onEachFeature: function (feature, layer) {
-                // Eğer nokta (Point) varsa
-                if (feature.geometry.type === 'Point') {
-                    var coords = feature.geometry.coordinates;
-                    var lat = coords[1];
-                    var lng = coords[0];
-
-                    // Tabloda koordinatları göster
-                    var row = `<tr><td>${counter}</td><td>${lat}</td><td>${lng}</td></tr>`;
-                    tbody.innerHTML += row;
-                    counter++;
-
-                    // Pop-up ile koordinat bilgilerini göster
-                    layer.bindPopup("Koordinatlar: Lat " + lat + ", Lng " + lng).openPopup();
-                } 
-                // Eğer Polygon ise
-                else if (feature.geometry.type === 'Polygon') {
-                    var coords = feature.geometry.coordinates[0]; // İlk halka
-                    coords.forEach(function(coord, index) {
-                        var lat = coord[1];
-                        var lng = coord[0];
+        if (geoJsonData && geoJsonData.features) {
+            var layer = L.geoJSON(geoJsonData, {
+                onEachFeature: function (feature, layer) {
+                    if (feature.geometry.type === 'Point') {
+                        var lat = feature.geometry.coordinates[1];
+                        var lng = feature.geometry.coordinates[0];
 
                         // Tabloda koordinatları göster
                         var row = `<tr><td>${counter}</td><td>${lat}</td><td>${lng}</td></tr>`;
                         tbody.innerHTML += row;
                         counter++;
 
-                        // Her köşe noktası için bir pop-up ekleyelim
-                        var marker = L.marker([lat, lng]).addTo(map);
-                        marker.bindPopup("Koordinatlar: Lat " + lat + ", Lng " + lng);
-                    });
-                } 
-                // Eğer çizgi (LineString) ise
-                else if (feature.geometry.type === 'LineString') {
-                    feature.geometry.coordinates.forEach(function(coord, index) {
-                        var lat = coord[1];
-                        var lng = coord[0];
+                        // Pop-up ile koordinat bilgilerini göster
+                        layer.bindPopup("Koordinatlar: Lat " + lat + ", Lng " + lng).openPopup();
+                    } 
+                    else if (feature.geometry.type === 'Polygon') {
+                        var coords = feature.geometry.coordinates[0]; // İlk halka
+                        coords.forEach(function(coord, index) {
+                            var lat = coord[1];
+                            var lng = coord[0];
 
-                        // Tabloda koordinatları göster
-                        var row = `<tr><td>${counter}</td><td>${lat}</td><td>${lng}</td></tr>`;
-                        tbody.innerHTML += row;
-                        counter++;
+                            // Tabloda koordinatları göster
+                            var row = `<tr><td>${counter}</td><td>${lat}</td><td>${lng}</td></tr>`;
+                            tbody.innerHTML += row;
+                            counter++;
 
-                        // Her nokta için bir pop-up ekleyelim
-                        var marker = L.marker([lat, lng]).addTo(map);
-                        marker.bindPopup("Koordinatlar: Lat " + lat + ", Lng " + lng);
-                    });
+                            // Her köşe noktası için pop-up ekle
+                            var marker = L.marker([lat, lng]).addTo(map);
+                            marker.bindPopup("Koordinatlar: Lat " + lat + ", Lng " + lng);
+                        });
+                    } 
+                    else if (feature.geometry.type === 'LineString') {
+                        feature.geometry.coordinates.forEach(function(coord, index) {
+                            var lat = coord[1];
+                            var lng = coord[0];
+
+                            // Tabloda koordinatları göster
+                            var row = `<tr><td>${counter}</td><td>${lat}</td><td>${lng}</td></tr>`;
+                            tbody.innerHTML += row;
+                            counter++;
+
+                            // Her nokta için pop-up ekle
+                            var marker = L.marker([lat, lng]).addTo(map);
+                            marker.bindPopup("Koordinatlar: Lat " + lat + ", Lng " + lng);
+                        });
+                    }
                 }
-            }
-        }).addTo(map);
+            }).addTo(map);
 
-        // Harita görünümünü katmanlara göre ayarla
-        map.fitBounds(layer.getBounds());
-
+            // Harita görünümünü katmanlara göre ayarla
+            map.fitBounds(layer.getBounds());
+        } else {
+            // GeoJSON verisi yoksa bir uyarı mesajı göster
+            alert('Geçerli GeoJSON verisi bulunamadı.');
+        }
     </script>
 }
