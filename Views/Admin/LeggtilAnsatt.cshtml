@@ -1,0 +1,45 @@
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewBag.IsLeggTilAnsatt = true; @* Bu sayfanın sadece form içermesini sağlıyoruz *@
+}
+
+<div class="legg-til-ansatt-form">
+    <form>
+        <h4>Legg til ansatt</h4>
+        <div class="form-group">
+            <label for="navn">Navn</label>
+            <input type="text" id="navn" name="navn" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="etternavn">Etternavn</label>
+            <input type="text" id="etternavn" name="etternavn" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="mobilnummer">Mobilnummer</label>
+            <input type="text" id="mobilnummer" name="mobilnummer" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="epost">E-postadresse</label>
+            <input type="email" id="epost" name="epost" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="kommune">Kommune</label>
+            <input type="text" id="kommune" name="kommune" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="rolle">Rolle</label>
+            <select id="rolle" name="rolle" class="form-control">
+                <option>Velg</option>
+                <option value="admin">Admin</option>
+                <option value="user">User</option>
+            </select>
+        </div>
+        <div class="form-actions">
+                        <button type="button" class="btn btn-secondary">Avbryt</button>
+
+            <button type="submit" class="btn btn-primary">Legg til</button>
+        </div>
+    </form>
+</div>
+
+

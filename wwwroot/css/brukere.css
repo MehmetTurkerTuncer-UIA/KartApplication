@@ -44,6 +44,7 @@ header {
     flex-direction: column;
     justify-content: flex-end;
     align-items: flex-end;
+    padding-right: 20px;
 }
 
 .header-right h4, .header-right p {
@@ -91,11 +92,11 @@ header {
     display: block;
     padding: 10px;
     background-color: #28a745;
-    text-align: center;
+    text-align: left;
 }
 
 .menu ul.top-menu li a:hover {
-    background-color: #208839;
+    background-color: #1A833B;
 }
 
 /* Alt menü öğeleri (profil ve log out en altta olacak) */
@@ -118,7 +119,7 @@ header {
     display: block;
     padding: 10px;
     background-color: #28a745;
-    text-align: center;
+    text-align: left;
 }
 
 .menu ul.bottom-menu li a:hover {
@@ -129,12 +130,31 @@ header {
 .menu ul.bottom-menu li a.log-out {
     background-color: #dc3545;
     color: white;
+
 }
 
 .menu ul.bottom-menu li a.log-out:hover {
     background-color: #c82333;
 }
 
+
+.menu-item {
+    display: flex;
+    align-items: center; /* Dikeyde ortalama */
+    justify-content: center; /* Yatayda ortalama */
+    text-decoration: none; /* Linkin altındaki çizgiyi kaldırır */
+}
+
+.menu-item i {
+    margin-right: 8px; /* İkon ile metin arasına boşluk ekler */
+}
+
+
+
+.menu-item:hover {
+    text-decoration: underline; /* İsteğe bağlı: hover olduğunda alt çizgi ekleyebilirsiniz */
+}
+  
 /* Responsive ayar - küçük ekranlarda alt menüyü gizle (500px ve altı için) */
 @media (max-width: 500px) {
     .menu ul.bottom-menu {
@@ -439,9 +459,9 @@ h1 {
     border-radius: 5px;
     font-size: 16px;
     box-sizing: border-box;
-    background-color: #333;
-    border: 1px solid #444;
-    color: white;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    color: #000;
 }
 
 
@@ -455,19 +475,25 @@ h1 {
     position: absolute;
     right: 0; /* Sağ tarafa sabitle */
     top: 0;
-    height: 100%; /* Butonun input yüksekliğine eşit olmasını sağlar */
+    height: 90%; /* Butonun input yüksekliğine eşit olmasını sağlar */
+    margin-top: 2px;
+    margin-right: 2px;
     border: none;
-    background-color: #4CAF50; /* Yeşil buton */
     color: white;
     padding: 0 20px;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
     font-size: 16px;
     cursor: pointer;
+    background-color: #ffffff;
+
 }
 
 #searchAddressBtn:hover {
-    background-color: #45a049; /* Hover durumu için daha koyu yeşil */
+}
+
+.black-icon {
+    color: rgb(101, 101, 101);
 }
 
 /* Responsive ayar */

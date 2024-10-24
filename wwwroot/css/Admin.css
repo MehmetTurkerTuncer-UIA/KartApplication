@@ -1,0 +1,539 @@
+/* Body ayarları */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #121212;
+    color: white;
+}
+
+/* Ana iskelet (içerik ve footer ayarı için) */
+.outer-container {
+    flex: 1; /* İçeriğin tüm ekran yüksekliğini kaplaması için */
+    width: 100%;
+    max-width: 1300px;
+    margin: 0 auto; /* Ortala */
+
+}
+
+/* Üst Menü */
+.headermenu-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center; /* Menüyü yatayda ortalar */
+    background-color: #1A1A1A;
+    position: fixed;
+    top: 0;
+    z-index: 999;
+    max-width: 1300px; /* Maksimum genişliği outer-container ile uyumlu olacak */
+
+}
+
+.headermenu {
+    width: 100%;
+    height: 60px;
+    display: flex;
+    justify-content: space-between; /* Butonları en sola ve en sağa yayar */
+    align-items: center;
+    color: white;
+    padding: 0 10px; /* Sol ve sağa padding ekleyerek içerikleri içe çekiyoruz */
+}
+
+
+
+/* Menü Butonları */
+.menu-button {
+    padding: 10px 20px;
+    text-decoration: none;
+    color: white;
+    font-size: 16px;
+}
+
+/* Hjem butonu - Yeşil */
+.btn-hjem {
+    background-color: #28a745; /* Yeşil */
+    padding: 10px 40px;
+
+}
+
+.btn-hjem:hover {
+    background-color: #218838; /* Koyu yeşil hover rengi */
+}
+
+/* Logg ut butonu - Kırmızı */
+.btn-logout {
+    background-color: #dc3545; /* Kırmızı */
+    padding: 10px 40px;
+
+}
+
+.btn-logout:hover {
+    background-color: #c82333; /* Koyu kırmızı hover rengi */
+}
+
+
+
+/* Header ayarları */
+.header {
+    width: 100%;
+    padding: 10px 0;
+    margin: 0 auto; /* Ortala */
+ 
+
+
+
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 70px;
+
+}
+
+.logo img {
+    max-height: 150px;
+    margin-bottom: 1%;
+    padding-left: 10px;
+}
+
+.header-right {
+    float: right;
+    width: 400px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+    margin-right: 10px;
+}
+
+.header-right h4, .header-right p {
+    margin: 0;
+}
+
+/* Ana konteyner: Menü ve İçerik */
+.main-container {
+    display: flex;
+    width: 100%;
+    height: 100%; /* İçerik ve menünün tam ekran kaplaması için */
+    margin: 0 auto; /* Ortala */
+    justify-content: center; /* Yatayda ortala */
+
+}
+
+
+
+/* İçerik alanı */
+.content-top {
+    width: 100%;
+    background-color: #232323;
+    border-radius: 8px; 
+    height: 100%;
+    color: white;
+}
+.content {
+    padding: 10px 10px 10px 10px;
+    background-color: #232323;
+    height: 100%;
+    color: white;
+    margin: 0 auto; /* Ortala */
+
+}
+
+
+/* Responsive ayarlar */
+/* Tabletler (max-width: 1024px) */
+@media (max-width: 1024px) {
+    .menu {
+        width: 25%; /* Menü genişliği daha küçük */
+        margin-right: 5%;
+    }
+
+    .content-top {
+        width: 70%;
+    }
+
+    .details-table {
+        width: 90%; /* Tablo genişliği daha uygun */
+    }
+
+    .footer-container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+/* Küçük ekranlar (max-width: 768px) */
+@media (max-width: 768px) {
+    .header-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .logo img {
+        max-height: 100px;
+        padding-left: 0;
+    }
+
+    .header-right {
+        width: 100%;
+        align-items: center;
+        text-align: center;
+    }
+
+    .main-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .menu {
+        width: 100%;
+        margin-right: 0;
+    }
+
+    .menu ul li {
+        text-align: center;
+    }
+
+    .content-top {
+        width: 100%;
+        margin-top: 20px;
+    }
+
+    .details-table {
+        width: 100%;
+        font-size: 14px;
+    }
+
+    .footer-container {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .footer-links a {
+        margin-left: 10px;
+        font-size: 14px;
+    }
+}
+
+/* Daha küçük telefonlar (max-width: 480px) */
+@media (max-width: 480px) {
+    .menu ul li a {
+        font-size: 16px;
+        padding: 8px;
+    }
+
+    .content h2 {
+        font-size: 18px;
+    }
+
+    .details-table th, .details-table td {
+        padding: 8px;
+        font-size: 12px;
+    }
+
+    .footer-links a {
+        font-size: 12px;
+    }
+}
+
+.footer {
+    width: 100%;
+    background-color: #151515;
+    color: white;
+    position: relative; /* Footer sabit olmayacak, sayfanın altına yerleşecek */
+    padding: 10px 20px; /* Üst ve alt 10px, sağ ve sol 20px */
+    box-sizing: border-box;
+    border-top: 1px solid #5c5c5c; /* Gri border */
+    text-align: center;
+    margin-top: 20px; /* Üstteki içeriğin hemen altında yer alması için boşluk */
+}
+
+
+.footer-container {
+    max-width: 1250px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between; /* Sol ve sağ tarafları iki yana yay */
+    align-items: center;
+    padding: 0 20px;
+}
+
+.footer-left {
+    font-size: 14px;
+}
+
+.footer-right {
+    text-align: right;
+}
+
+.footer-links a {
+    color: white;
+    text-decoration: none;
+    margin-left: 15px;
+}
+
+.footer-links a:hover {
+    text-decoration: underline; /* Hover efektinde alt çizgi */
+}
+
+/* Arama ve butonlar için genel kapsayıcı */
+.search-filter-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 30px 20px 0px 20px;
+    max-width: 1260px;
+}
+
+/* Arama kutusu */
+.search-box {
+    display: flex;
+    align-items: center;
+}
+
+.search-input {
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #444;
+    background-color: #121212;
+    color: white;
+    margin-right: 10px;
+    width: 400px;
+}
+
+.search-btn {
+    background-color: #232323;
+    color: white;
+    border: 1px solid #444;
+    border-radius: 4px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.search-btn:hover {
+    background-color: #444;
+}
+
+/* Filtre ve Legg til ansatt butonları */
+.filter-buttons {
+    display: flex;
+    align-items: center;
+}
+
+.filter-btn, .add-employee-btn {
+    background-color: #232323;
+    color: white;
+    border: 1px solid #444;
+    border-radius: 4px;
+    padding: 10px 20px;
+    margin-left: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.filter-btn i {
+    margin-left: 5px;
+}
+
+.filter-btn:hover, .add-employee-btn:hover {
+    background-color: #444;
+}
+
+
+
+
+
+
+
+
+
+
+
+/* Tablo genel düzeni */
+.tablesaksbehandler {
+    width: 100%;
+    border-collapse: separate; /* Hücre border'larının birleşmesini önlemek için */
+    border-spacing: 0 2px; /* Satırlar arasında 2px boşluk oluşturmak için */
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+}
+
+/* Tablodaki başlık hücreleri (th) */
+.tablesaksbehandler th {
+    background-color: #1B1A1A; /* Başlık arka plan rengi (koyu gri) */
+    color: white; /* Başlık yazı rengi beyaz */
+    padding: 10px;
+    text-align: center;
+    position: relative; /* Pseudo-element kullanabilmek için position */
+    height: 34px;;
+
+}
+
+/* Başlık hücrelerine kısa border eklemek için */
+.tablesaksbehandler th:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 1px; /* Kısa dikey border */
+    background-color: #505050; /* Border rengi */
+    height: 30%; /* Border hücre yüksekliğinin %60'ı olacak */
+    margin: auto 0;
+    text-align: center;
+
+}
+
+/* Son başlık hücresinde (th) sağdaki border olmayacak */
+.tablesaksbehandler th:last-child:after {
+    display: none; /* Son sütunda border olmaması için */
+}
+
+/* Tablodaki veri hücreleri (td) */
+.tablesaksbehandler td {
+    padding: 10px;
+    color: white; /* Yazı rengi beyaz */
+    background-color: #303030; /* Satırların varsayılan arka plan rengi (yeşil tonları) */
+    border-right: none; /* Genel border kaldırıldı */
+    position: relative;
+    height: 34px; /* Satır yüksekliği 68px */
+    text-align: center;
+}
+
+/* Border'ları kısa ve hücre içinde göstermek için: */
+.tablesaksbehandler td:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 1px; /* Kısa dikey border */
+    background-color:  rgba(255, 255, 255, 0.5); /* Başlık yazı rengi %50 transparan beyaz */
+
+    height: 30%; /* Border hücre yüksekliğinin %60'ı olacak */
+    margin: auto 0;
+}
+
+/* Son sütundaki Vis sak linkleri için border olmadan ortalanmış stil */
+.tablesaksbehandler td:last-child:after {
+    display: none; /* Son sütunda border olmayacak */
+}
+
+/* Üzerine gelince (hover) satırların arka plan rengini biraz daha koyu yap */
+.tablesaksbehandler tbody tr:hover td {
+    background-color: #842D2D; /* Üzerine gelince satırların koyu yeşil rengi */
+}
+
+/* Satırların yüksekliği ve aralarındaki boşluğu belirginleştir */
+.tablesaksbehandler tbody tr {
+    height: 68px; /* Satır yüksekliği 68px */
+}
+
+/* Responsive tablo - küçük ekranlar */
+@media (max-width: 768px) {
+    .tablesaksbehandler {
+        font-size: 14px; /* Küçük ekranlarda yazı boyutunu küçült */
+    }
+}
+
+
+
+.legg-til-ansatt-form {
+    background-color: #232323;
+    color: white;
+    width: 476px;
+    padding: 10px 20px;
+    border-radius: 8px;
+    margin: 0 auto; /* Formu ortalar */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    margin-top: 50px;
+    margin-bottom: 50px;
+    font-size: 16px;
+}
+
+.legg-til-ansatt-form h4 {
+    text-align: left;
+    margin-bottom: 20px;
+    font-size: 18px;
+}
+
+/* Flexbox yapısıyla form grubu etiket ve input aynı satırda */
+.form-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Yatayda hizalar */
+    margin-bottom: 15px;
+
+}
+
+.form-group label {
+    width: 30%; /* Etiketlerin genişliğini ayarladım */
+    margin-right: 10px; /* Etiket ile input arasında boşluk */
+}
+
+.form-control {
+    width: 65%; /* Input alanının genişliği */
+    padding: 10px;
+    font-size: 16px;
+    background-color: #2E2E2E;
+    border: 1px solid #000;
+    color: white;
+    border-radius: 4px;
+}
+
+.form-actions {
+    margin-bottom: 10px;
+    width: 100%;
+    float: right;
+}
+
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 10px; /* Butonlar arasına boşluk ekler */
+}
+
+.btn-secondary {
+    background-color: #dc3545;
+    color: white; 
+    float: left;
+}
+
+
+
+
+.btn-primary {
+    background-color: #007bff;
+    color: white;
+float: right;
+}
+
+.btn-danger {
+    background-color: #ff0000; /* Slett butonu kırmızı */
+    color: white;
+    float: right;
+}
+
+
+.form-header {
+    display: flex;
+    justify-content: space-between; /* Başlık ve ID numarasını iki yana yerleştirir */
+    align-items: center;
+}
+
+.employee-id {
+    font-size: 14px;
+    color: #ffffff; /* ID'nin daha ince ve zarif görünmesi için */
+}
