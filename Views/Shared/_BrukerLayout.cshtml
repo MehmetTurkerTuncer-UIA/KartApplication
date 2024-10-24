@@ -7,6 +7,8 @@
     
     <!-- Ortak CSS Dosyası -->
     <link rel="stylesheet" href="~/css/brukere.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
 
     
     @RenderSection("Head", required: false)
@@ -29,13 +31,18 @@
           <nav class="menu">
     <!-- Sol Menü İçeriği -->
     <ul class="top-menu">
-        <li><a href="/bruker/index">Opprett Saker</a></li>
-        <li><a href="#">Ferdige Saker</a></li>
+        <li><a href="/home/OpprettSak" class="menu-item"><i class="bi bi-pencil-square"></i> Opprett Saker</a></li>
+        <li><a href="/home/OpprettSak" class="menu-item"><i class="bi bi-folder2"></i> Mine Saker</a></li>
+
+
     </ul>
 
     <ul class="bottom-menu">
-        <li><a href="#">Profil</a></li>
-        <li><a href="#" class="log-out">Logg ut</a></li>
+    
+        <li><a href="/home/OpprettSak" class="menu-item"><i class="bi bi-person-circle"></i> Profil </a></li>
+        <li><a href="/home/OpprettSak" class="log-out menu-item"><i class="bi bi-door-open"></i> Logg ut</a></li>
+
+
     </ul>
 </nav>
 
@@ -77,25 +84,25 @@
     <ul style="display: flex; align-items: center; list-style: none; padding: 0; margin: 0;">
         <!-- 1. Adım: Velg sted -->
         <li class="@(currentStep >= 1 ? "active" : "")" style="margin-right: 10px;">
-            <a href="/Bruker/index" style="color: @(currentStep >= 1 ? "white" : "rgba(255, 255, 255, 0.5)"); @(isKvitteringPage ? "pointer-events: none;" : "")">1. Velg sted</a>
+            <a href="/Home/OpprettSak" style="color: @(currentStep >= 1 ? "white" : "rgba(255, 255, 255, 0.5)"); @(isKvitteringPage ? "pointer-events: none;" : "")">1. Velg sted</a>
         </li>
         <img src="~/images/right-svgrepo.png" alt="Arrow" style="width: 16px; height: 16px; margin-right: 10px; opacity:@(currentStep >= 1 ? "1" : "0.3");" />
 
         <!-- 2. Adım: Beskrivelse -->
         <li class="@(currentStep >= 2 ? "active" : "")" style="margin-right: 10px;">
-            <a href="/Bruker/Beskrivelse" style="color: @(currentStep >= 2 ? "white" : "rgba(255, 255, 255, 0.5)"); @(isKvitteringPage ? "pointer-events: none;" : "")">2. Beskrivelse</a>
+            <a href="/Home/Beskrivelse" style="color: @(currentStep >= 2 ? "white" : "rgba(255, 255, 255, 0.5)"); @(isKvitteringPage ? "pointer-events: none;" : "")">2. Beskrivelse</a>
         </li>
         <img src="~/images/right-svgrepo.png" alt="Arrow" style="width: 16px; height: 16px; margin-right: 10px; opacity:@(currentStep >= 2 ? "1" : "0.3");" />
 
         <!-- 3. Adım: Oppsummering -->
         <li class="@(currentStep >= 3 ? "active" : "")" style="margin-right: 10px;">
-            <a href="/Bruker/Oversikt" style="color: @(currentStep >= 3 ? "white" : "rgba(255, 255, 255, 0.5)"); @(isKvitteringPage ? "pointer-events: none;" : "")">3. Oppsummering</a>
+            <a href="/Home/Oversikt" style="color: @(currentStep >= 3 ? "white" : "rgba(255, 255, 255, 0.5)"); @(isKvitteringPage ? "pointer-events: none;" : "")">3. Oppsummering</a>
         </li>
         <img src="~/images/right-svgrepo.png" alt="Arrow" style="width: 16px; height: 16px; margin-right: 10px; opacity:@(currentStep >= 3 ? "1" : "0.3");" />
 
         <!-- 4. Adım: Kvittering -->
         <li class="@(currentStep >= 4 ? "active" : "")">
-            <a href="/Bruker/Kvittering" style="color: @(currentStep == 4 ? "white" : "rgba(255, 255, 255, 0.5)"); @(isKvitteringPage ? "pointer-events: none;" : "")">4. Kvittering</a>
+            <a href="/Home/Kvittering" style="color: @(currentStep == 4 ? "white" : "rgba(255, 255, 255, 0.5)"); @(isKvitteringPage ? "pointer-events: none;" : "")">4. Kvittering</a>
         </li>
     </ul>
 </div>

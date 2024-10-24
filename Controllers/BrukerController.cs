@@ -8,14 +8,14 @@ public class BrukerController : Controller
 
     // GET: Bruker/Index formunu görüntüle
     [HttpGet]
-    public IActionResult Index()
+    public IActionResult OpprettSak()
     {
         return View();
     }
 
     // POST: Kullanıcıdan gelen GeoJson, adres ve açıklamayı işleme al
     [HttpPost]
-    public IActionResult Index(string geoJson, string description, string address)
+    public IActionResult OpprettSak(string geoJson, string description, string address)
     {
         // Yeni 8 haneli numeric ID oluştur
         string newId = IdGenerator.GenerateNumericIdFromGuid();

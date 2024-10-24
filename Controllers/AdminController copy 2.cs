@@ -4,7 +4,7 @@ using System;
 
 namespace KartApplication.Controllers
 {
-    public class SaksbehandlerController : Controller
+    public class AdminController : Controller
     {
         // Saksbehandler giriş sayfası
         public IActionResult Index()
@@ -14,20 +14,15 @@ namespace KartApplication.Controllers
             return View(); // Modeli Index.cshtml'e yolluyoruz
         }
 
-        public IActionResult FerdigeSaker(){
+        public IActionResult LeggtilAnsatt(){
             return View();
 
         }
         // Detay sayfası
-        public IActionResult Detaljer(string id)
+        public IActionResult Oppdatere(string id)
         {
             return View(); // Detay.cshtml'e model yollanıyor
         }
 
-          // Profil sayfası
-        public IActionResult Profil(string id)
-        {
-            return View(); // Profil.cshtml'e model yollanıyor
-        }
     }
 }

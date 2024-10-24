@@ -1,0 +1,566 @@
+/* Body ayarları */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #121212;
+    color: white;
+}
+
+/* Ana iskelet (içerik ve footer ayarı için) */
+.outer-container {
+    flex: 1; /* İçeriğin tüm ekran yüksekliğini kaplaması için */
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto; /* Ortala */
+
+}
+
+/* Üst Menü */
+.headermenu-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center; /* Menüyü yatayda ortalar */
+    background-color: #1A1A1A;
+    position: fixed;
+    top: 0;
+    z-index: 999;
+    max-width: 1000px; /* Maksimum genişliği outer-container ile uyumlu olacak */
+
+}
+
+.headermenu {
+    width: 100%;
+    height: 60px;
+    display: flex;
+    justify-content: space-between; /* Butonları en sola ve en sağa yayar */
+    align-items: center;
+    color: white;
+    padding: 0 10px; /* Sol ve sağa padding ekleyerek içerikleri içe çekiyoruz */
+}
+
+
+
+/* Menü Butonları */
+.menu-button {
+    padding: 10px 20px;
+    text-decoration: none;
+    color: white;
+    font-size: 16px;
+}
+
+/* Hjem butonu - Yeşil */
+.btn-hjem {
+    background-color: #28a745; /* Yeşil */
+    padding: 10px 40px;
+
+}
+
+.btn-hjem:hover {
+    background-color: #218838; /* Koyu yeşil hover rengi */
+}
+
+/* Logg ut butonu - Kırmızı */
+.btn-logout {
+    background-color: #dc3545; /* Kırmızı */
+    padding: 10px 40px;
+
+}
+
+.btn-logout:hover {
+    background-color: #c82333; /* Koyu kırmızı hover rengi */
+}
+
+
+
+/* Header ayarları */
+.header {
+    width: 100%;
+    padding: 10px 0;
+    margin: 0 auto; /* Ortala */
+ 
+
+
+
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 70px;
+
+}
+
+.logo img {
+    max-height: 150px;
+    margin-bottom: 1%;
+    padding-left: 10px;
+}
+
+.header-right {
+    float: right;
+    width: 400px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+    margin-right: 10px;
+}
+
+.header-right h4, .header-right p {
+    margin: 0;
+}
+
+/* Ana konteyner: Menü ve İçerik */
+.main-container {
+    display: flex;
+    width: 100%;
+    height: 100%; /* İçerik ve menünün tam ekran kaplaması için */
+    margin: 0 auto; /* Ortala */
+    justify-content: center; /* Yatayda ortala */
+
+}
+
+
+
+/* İçerik alanı */
+.content-top {
+    width: 100%;
+    background-color: #232323;
+    border-radius: 8px; 
+    height: 100%;
+    color: white;
+
+}
+.content {
+    padding: 10px 10px 10px 10px;
+    background-color: #232323;
+    height: 100%;
+    color: white;
+    margin: 0 auto; /* Ortala */
+
+}
+
+
+/* Responsive ayarlar */
+/* Tabletler (max-width: 1024px) */
+@media (max-width: 1024px) {
+    .menu {
+        width: 25%; /* Menü genişliği daha küçük */
+        margin-right: 5%;
+    }
+
+    .content-top {
+        width: 70%;
+    }
+
+    .details-table {
+        width: 90%; /* Tablo genişliği daha uygun */
+    }
+
+    .footer-container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+/* Küçük ekranlar (max-width: 768px) */
+@media (max-width: 768px) {
+    .header-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .logo img {
+        max-height: 100px;
+        padding-left: 0;
+    }
+
+    .header-right {
+        width: 100%;
+        align-items: center;
+        text-align: center;
+    }
+
+    .main-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .menu {
+        width: 100%;
+        margin-right: 0;
+    }
+
+    .menu ul li {
+        text-align: center;
+    }
+
+    .content-top {
+        width: 100%;
+        margin-top: 20px;
+    }
+
+    .details-table {
+        width: 100%;
+        font-size: 14px;
+    }
+
+    .footer-container {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .footer-links a {
+        margin-left: 10px;
+        font-size: 14px;
+    }
+}
+
+/* Daha küçük telefonlar (max-width: 480px) */
+@media (max-width: 480px) {
+    .menu ul li a {
+        font-size: 16px;
+        padding: 8px;
+    }
+
+    .content h2 {
+        font-size: 18px;
+    }
+
+    .details-table th, .details-table td {
+        padding: 8px;
+        font-size: 12px;
+    }
+
+    .footer-links a {
+        font-size: 12px;
+    }
+}
+
+.footer {
+    width: 100%;
+    background-color: #151515;
+    color: white;
+    position: relative; /* Footer sabit olmayacak, sayfanın altına yerleşecek */
+    padding: 10px 20px; /* Üst ve alt 10px, sağ ve sol 20px */
+    box-sizing: border-box;
+    border-top: 1px solid #5c5c5c; /* Gri border */
+    text-align: center;
+    margin-top: 20px; /* Üstteki içeriğin hemen altında yer alması için boşluk */
+}
+
+
+.footer-container {
+    max-width: 1250px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between; /* Sol ve sağ tarafları iki yana yay */
+    align-items: center;
+    padding: 0 20px;
+}
+
+.footer-left {
+    font-size: 14px;
+}
+
+.footer-right {
+    text-align: right;
+}
+
+.footer-links a {
+    color: white;
+    text-decoration: none;
+    margin-left: 15px;
+}
+
+.footer-links a:hover {
+    text-decoration: underline; /* Hover efektinde alt çizgi */
+}
+
+/* Arama ve butonlar için genel kapsayıcı */
+.search-filter-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 30px 20px 0px 20px;
+    max-width: 950px;
+}
+
+/* Arama kutusu */
+.search-box {
+    display: flex;
+    align-items: center;
+}
+
+.search-input {
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #444;
+    background-color: #121212;
+    color: white;
+    margin-right: 10px;
+    width: 400px;
+}
+
+.search-btn {
+    background-color: #232323;
+    color: white;
+    border: 1px solid #444;
+    border-radius: 4px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.search-btn:hover {
+    background-color: #444;
+}
+
+
+/* Tablo genel düzeni */
+.tablesaksbehandler {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 2px; /* Satırlar arasında 2px boşluk */
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+}
+
+/* Tablodaki başlık hücreleri (th) */
+.tablesaksbehandler th {
+    background-color: #1B1A1A;
+    color: white;
+    padding: 10px 20px;
+    text-align: left;
+    height: 34px;
+}
+
+/* Tablodaki veri hücreleri (td) */
+.tablesaksbehandler td {
+    padding: 10px 20px;
+    color: white;
+    background-color: #303030;
+    height: 34px;
+    text-align: left;
+}
+
+/* Dato ve Referansenummer sütunları */
+.tablesaksbehandler td:nth-child(1), .tablesaksbehandler td:nth-child(2),
+.tablesaksbehandler th:nth-child(1), .tablesaksbehandler th:nth-child(2) {
+    padding-right: 10px; /* Dato ve Referansenummer birbirine yakın */
+    padding-left: 20px; /* Soldan hizalama */
+}
+
+/* Vis sak sütunu */
+.tablesaksbehandler td:nth-child(3), .tablesaksbehandler th:nth-child(3) {
+    text-align: right;
+    padding-right: 40px; /* En sağda 40px padding */
+    white-space: nowrap;
+}
+
+/* Üzerine gelince (hover) satırların arka plan rengini koyulaştır */
+.tablesaksbehandler tbody tr:hover td {
+    background-color: #505050;
+}
+
+/* Satır yüksekliği */
+.tablesaksbehandler tbody tr {
+    height: 68px;
+}
+
+/* Responsive tablo - küçük ekranlar */
+@media (max-width: 768px) {
+    .tablesaksbehandler {
+        font-size: 14px; /* Küçük ekranlarda yazı boyutunu küçült */
+    }
+}
+
+
+
+
+
+/* DETALJER SAKSBEHANDLER */
+
+/* Tablo genel düzeni */
+.tableForDetaljer {
+    width: 100%;
+    border-collapse: separate; /* Hücre border'larının birleşmesini önlemek için */
+    border-spacing: 0 0px; /* Satırlar arasında 2px boşluk oluşturmak için */
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    border: 1px solid #000000;
+}
+
+/* Tablodaki başlık hücreleri (th) */
+.tableForDetaljer th {
+    background-color: #303030; /* Başlık arka plan rengi (daha koyu siyah ton) */
+    padding: 10px;
+    text-align: center;
+    position: relative; /* Pseudo-element kullanabilmek için position */
+    height: 34px; /* Satır yüksekliği 34px */
+
+}
+
+/* Başlık hücrelerine kısa border eklemek için */
+.tableForDetaljer th:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 1px; /* Kısa dikey border */
+    background-color: #505050; /* Border rengi */
+    height: 30%; /* Border hücre yüksekliğinin %60'ı olacak */
+    margin: auto 0;
+}
+
+/* Son başlık hücresinde (th) sağdaki border olmayacak */
+.tableForDetaljer th:last-child:after {
+    display: none; /* Son sütunda border olmaması için */
+}
+
+/* Tablodaki veri hücreleri (td) */
+.tableForDetaljer td {
+    padding: 10px;
+    color: white; /* Yazı rengi beyaz */
+    background-color: #232323; /* Satırların varsayılan arka plan rengi (koyu siyah tonları) */
+    border-right: none; /* Genel border kaldırıldı */
+    position: relative; /* Pseudo-element kullanabilmek için position */
+    height: 34px; /* Satır yüksekliği 34px */
+    text-align: center;
+
+}
+
+/* Veri hücrelerine kısa border eklemek için */
+.tableForDetaljer td:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 1px; /* Kısa dikey border */
+    background-color: #505050; /* Border rengi */
+    height: 30%; /* Border hücre yüksekliğinin %60'ı olacak */
+    margin: auto 0;
+}
+
+/* Son veri hücresinde (td) sağdaki border olmayacak */
+.tableForDetaljer td:last-child:after {
+    display: none; /* Son sütunda border olmaması için */
+}
+
+
+
+/* Satırların yüksekliği ve aralarındaki boşluğu belirginleştir */
+.tableForDetaljer tbody tr {
+    height: 34px; /* Satır yüksekliği 68px */
+}
+
+/* Responsive tablo - küçük ekranlar */
+@media (max-width: 768px) {
+    .tableForDetaljer {
+        font-size: 14px; /* Küçük ekranlarda yazı boyutunu küçült */
+    }
+}
+
+
+
+
+/* Genel tablo düzeni */
+.table-borderless-detaljer {
+    width: 100%;
+    border-collapse: collapse; /* Tablonun kenarlarını birleştirmek için */
+    margin-top: 20px;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    table-layout: fixed; /* Sabit sütun genişliklerini sağlamak için */
+}
+
+/* Sol taraftaki metin kısmı */
+.beskrive-avdeling {
+    width: 100%; /* Genişlik %70 */
+    padding: 20px; /* İçerik etrafında boşluk */
+    vertical-align: top; /* İçeriği üst hizaya getirmek için */
+    color: #fff; /* Metin rengi koyu gri */
+}
+
+/* Sağ taraftaki harita ve adres kısmı */
+.map-section {
+    width: 100%; /* Genişlik %30 */
+    padding: 10px; /* İçerik etrafında boşluk */
+    vertical-align: top; /* İçeriği üst hizaya getirmek için */
+    color: #fff; /* Metin rengi koyu gri */
+}
+
+/* Harita tutucu (map-holder) */
+.map-holder {
+    background-color: #4976ff; /* Haritanın yeri için geçici gri arka plan */
+    width: 100%; /* Tam genişlik */
+    height: 200px; /* Sabit yükseklik */
+}
+
+/* Adres tutucu (adress-holder) */
+.adress-holder {
+    margin-top: 10px; /* Haritanın üstüne biraz boşluk eklemek için */
+    font-weight: bold; /* Adresin belirgin olması için kalın yazı */
+    color: #fff;
+}
+
+/* Responsive düzen - küçük ekranlar için */
+@media (max-width: 768px) {
+    .beskrive-avdeling, .map-section {
+        width: 100%; /* Küçük ekranlarda her iki taraf %100 genişlik alacak */
+        display: block; /* Üst üste gelecek şekilde */
+    }
+
+    .map-section {
+        border-left: none; /* Küçük ekranlarda border kaldırılacak */
+        margin-top: 20px; /* Alt tarafa boşluk ekleniyor */
+    }
+}
+
+
+
+/* Düğme stili */
+.form-actions {
+    display: flex;
+    margin-top: 20px;
+    width: 200px;
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
+
+.btn {
+    padding: 10px 20px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+}
+
+/* Kırmızı buton */
+.btn-danger {
+    background-color: #dc3545; /* Bootstrap kırmızı tonu */
+    color: white;
+    margin-right: 10px;
+}
+
+.btn-danger:hover {
+    background-color: #c82333; /* Hover efekti için daha koyu kırmızı */
+}
+
+/* Mavi buton */
+.btn-primary {
+    background-color: #007bff; /* Bootstrap mavi tonu */
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3; /* Hover efekti için daha koyu mavi */
+}
