@@ -1,0 +1,79 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml"; 
+}
+
+<div class="login-container">
+    <!-- Sol Tarafta Logo ve Metin -->
+    <div class="login-left">
+        <div class="brand-logo">
+            <img src="~/images/as.png" alt="Logo" style="width: 200px; height: auto;">
+            <div class="logo-description">
+                <p style="margin-top: 10px; color: rgba(255, 255, 255, 0.47); text-align: center;">
+                    Hjelp oss med å holde kartet oppdatert!
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sağ Tarafta Giriş Formu -->
+    <div class="login-right">
+        <div class="account-box">
+            <div class="text-center logintitle">Logg inn</div>
+            <form asp-action="Login" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"> </div>
+                <div class="mb-3">
+                    <input id="email" @* asp-for="Email" *@ class="form-control" placeholder="E-postadresse" oninput="checkForm()" />
+                    <span @* asp-validation-for="Email" *@ class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <input id="password" @* asp-for="Password" *@ class="form-control" placeholder="Passord" oninput="checkForm()" />
+                    <span @* asp-validation-for="Password" *@ class="text-danger"></span>
+                </div>
+             
+                <input type="submit" id="loginButton" value="Logg inn" class="btn btn-secondary w-100 p-2" style="margin-bottom: 10px;" disabled />
+                <div class="float-end">
+                    <a asp-controller="Account" asp-action="VerifyEmail" class="text-decoration-none">
+                        Glemt passord?
+                    </a>
+                </div>
+                <div class="form-check mb-3">
+                    <label class="form-check-label">
+                        <input @* asp-for="RememberMe" *@ class="form-check-input" />
+                        Husk meg!
+                    </label>
+                </div>
+                <input type="button" value="Register" class="btn btn-success w-100 p-2 buttonregistrer" onclick="window.location.href='@Url.Action("UserRegister", "UserRegister")'" />
+                <hr style="margin-top: 20px;">
+                <p class="text-center mt-2">
+                    <a asp-controller="Gjest" asp-action="Index" class="gjest-link">Gjest</a>
+                </p>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    function checkForm() {
+        var email = document.getElementById('email').value;
+        var password = document.getElementById('password').value;
+        var loginButton = document.getElementById('loginButton');
+
+        if (email.trim() !== "" && password.trim() !== "") {
+            loginButton.disabled = false;
+            loginButton.classList.remove('disabled-button');
+            loginButton.classList.add('enabled-button');
+        } else {
+            loginButton.disabled = true;
+            loginButton.classList.remove('enabled-button');
+            loginButton.classList.add('disabled-button');
+        }
+    }
+</script>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial.cshtml");
+    }
+}
