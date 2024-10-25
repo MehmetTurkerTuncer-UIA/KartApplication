@@ -2,82 +2,97 @@
 @model LoginModel
 
 @{
-    ViewData["Title"] = "Log in";
-    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml"; 
 }
+<div class="login-container">
+    <!-- Sol Tarafta Logo ve Metin -->
+    <div class="login-left">
+        <div class="brand-logo">
+            <img src="~/images/as.png" alt="Logo" style="width: 200px; height: auto;">
+            <div class="logo-description">
+                <p style="margin-top: 10px; color: rgba(255, 255, 255, 0.47); text-align: center;">
+                    Hjelp oss med å holde kartet oppdatert!
+                </p>
+            </div>
+        </div>
+    </div>
 
-<h1>@ViewData["Title"]</h1>
-<div class="row">
-    <div class="col-md-4">
-        <section>
+    <!-- Sağ Tarafta Giriş Formu -->
+    <div class="login-right">
+        <div class="account-box">
+            <div class="text-center logintitle">Logg inn</div>
             <form id="account" method="post">
-                <h2>Use a local account to log in.</h2>
-                <hr />
                 <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+
+                <!-- Email Input -->
                 <div class="form-floating mb-3">
-                    <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
+                    <input asp-for="Input.Email" class="form-control" id="email" autocomplete="username" aria-required="true" placeholder="name@example.com" oninput="checkForm()" />
                     <label asp-for="Input.Email" class="form-label">Epost</label>
                     <span asp-validation-for="Input.Email" class="text-danger"></span>
                 </div>
+
+                <!-- Password Input -->
                 <div class="form-floating mb-3">
-                    <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="password" />
+                    <input asp-for="Input.Password" class="form-control" id="password" autocomplete="current-password" aria-required="true" placeholder="password" oninput="checkForm()" />
                     <label asp-for="Input.Password" class="form-label">Password</label>
                     <span asp-validation-for="Input.Password" class="text-danger"></span>
                 </div>
-                <div class="checkbox mb-3">
-                    <label asp-for="Input.RememberMe" class="form-label">
+
+            
+
+                <!-- Submit Button -->
+                <div>
+                    <input type="submit" id="login-submit" value="Log in" class="btn btn-secondary w-100 p-2" style="margin-bottom: 10px;" disabled />
+                </div>
+
+    <div class="float-end">
+                     <a id="forgot-password" asp-page="./ForgotPassword">
+                        Glemt passord?
+                    </a>
+                </div>
+                <div class="form-check mb-3">
+                   <label asp-for="Input.RememberMe" class="form-label">
                         <input class="form-check-input" asp-for="Input.RememberMe" />
                         @Html.DisplayNameFor(m => m.Input.RememberMe)
                     </label>
                 </div>
-                <div>
-                    <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary">Log in</button>
-                </div>
-                <div>
-                    <p>
-                        <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
-                    </p>
-                    <p>
-                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
-                    </p>
-                   @*  <p>
-                        <a id="resend-confirmation" asp-page="./ResendEmailConfirmation">Resend email confirmation</a>
-                    </p>
- *@                </div>
+                
+               
+<input type="button" value="Register" class="btn btn-success w-100 p-2 buttonregistrer" 
+       onclick="window.location.href='@Url.Page("./Register", new { returnUrl = Model.ReturnUrl })'" />
+
+                <hr style="margin-top: 20px;">
+                <p class="text-center mt-2">
+                    <a asp-controller="Gjest" asp-action="Index" class="gjest-link">Gjest</a>
+                </p>
+
             </form>
-        </section>
-    </div>
-    <div class="col-md-6 col-md-offset-2">
-        <section>
-            <h3>Use another service to log in.</h3>
-            <hr />
-            @{
-                if ((Model.ExternalLogins?.Count ?? 0) == 0)
-                {
-                    <div>
-                        <p>
-                            There are no external authentication services configured. See this <a href="https://go.microsoft.com/fwlink/?LinkID=532715">article
-                            about setting up this ASP.NET application to support logging in via external services</a>.
-                        </p>
-                    </div>
-                }
-                else
-                {
-                    <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
-                        <div>
-                            <p>
-                                @foreach (var provider in Model.ExternalLogins!)
-                                {
-                                    <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
-                                }
-                            </p>
-                        </div>
-                    </form>
-                }
-            }
-        </section>
+        </div>
     </div>
 </div>
+
+<script>
+    function checkForm() {
+        var email = document.getElementById('email').value;
+        var password = document.getElementById('password').value;
+        var loginButton = document.getElementById('login-submit');
+
+        if (email.trim() !== "" && password.trim() !== "") {
+            loginButton.disabled = false;
+            loginButton.classList.remove('disabled-button');
+            loginButton.classList.add('enabled-button');
+        } else {
+            loginButton.disabled = true;
+            loginButton.classList.remove('enabled-button');
+            loginButton.classList.add('disabled-button');
+        }
+    }
+</script>
+
+
+
+
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
