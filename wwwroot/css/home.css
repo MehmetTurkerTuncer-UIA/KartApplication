@@ -31,6 +31,34 @@ body {
 
 }
 
+.containerRegister {
+    display: flex;
+    flex-direction: column;          /* Dikey yerleşim için */
+    justify-content: center;         /* Dikeyde ortalama için */
+    align-items: center;             /* Yatayda ortalama için */
+    padding-top: 60px;
+    flex: 1;
+    max-width: 1200px;               /* Sayfa genişliği sınırı */
+    margin: 0 auto;
+    box-sizing: border-box;
+    min-height: calc(90vh - 100px);   /* Tam ekran yüksekliği - Footer boşluğu */
+}
+
+.containerRegisterTitle {
+    height: 40px;
+    font-size: 24px;                 /* Başlık için uygun font boyutu */
+    font-weight: bold;               /* Kalın yazı stili */
+    margin-bottom: 20px;
+
+}
+
+.containerRegisterDetalje {
+    height: 60px;
+    font-size: 16px;                 /* İçerik için uygun font boyutu */
+    text-align: center;              /* İçeriği ortala */
+}
+
+
 .form-control {
     color: #ffffff;
     background-color: #2A2828;
