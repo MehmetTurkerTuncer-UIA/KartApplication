@@ -1,14 +1,21 @@
 ﻿@page
 @model ConfirmEmailModel
 
-
-   
-   @{
-    ViewData["Title"] = "Confirm email";
-       Layout = "~/Views/Shared/_AccountLayout.cshtml";
-
+@{
+    ViewData["Title"] = "Bekreft e-post";
+    Layout = "~/Views/Shared/_AccountLayout.cshtml";
 }
 
-<h1>@ViewData["Title"]</h1>
-<partial name="_StatusMessage" model="Model.StatusMessage" />
-<h2> login sayfasina git BUTONU EKLENECEK</h2>
+<div class="containerRegister">
+    <div class="containerRegisterTitle"> <!-- Sınıf adı düzeltildi -->
+        @ViewData["Title"]
+    </div>
+
+    <div class="containerRegisterDetalje"> <!-- Sınıf adı düzeltildi -->
+        <partial name="_StatusMessage" model="Model.StatusMessage" />
+        
+        
+<a href="/Identity/Account/Login" class="loginGoButton">Giriş Yap</a>
+
+    </div>
+</div>
