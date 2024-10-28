@@ -8,37 +8,48 @@
 
 @if (!string.IsNullOrEmpty(Model.Description))
 {
-    <div>
-        <h4>Description:</h4>
-        <p>@Model.Description</p>
-    </div>
-}
+    
+   <div class="OppsummeringBox">    
+    <div class="OppsummeringContentTitle"> Beskrivelse: </div>
 
+    <p class="OppsummeringContent"> @Model.Description</p> </div>
+
+
+
+
+
+       
+   
+}
 @if (!string.IsNullOrEmpty(Model.Address))
 {
-    <div>
-        <h4>Address:</h4>
-        <p>@Model.Address</p>
-    </div>
+     <div class="OppsummeringBox">    
+    <div class="OppsummeringContentTitle"> Adresse: </div>
+     
+         <p class="OppsummeringContent"> @Model.Address</p> </div>
+
+
 }
 
 <!-- Harita konteyneri -->
+ <div class="OppsummeringBox">    
+    <div class="OppsummeringContentTitle"> Kart: </div>
 <div id="map" style="height: 400px; width: 100%;"></div>
-
+</div>
 <!-- Koordinatlar tablosu -->
-<h4>Coordinates:</h4>
 <table class="table table-bordered">
     <thead>
         <tr>
             <th>#</th>
-            <th>Latitude</th>
-            <th>Longitude</th>
+            <th>Breddegrad</th>
+            <th>Lengdegrad</th>
         </tr>
     </thead>
     <tbody id="coordinatesTableBody">
         <!-- Koordinatlar burada doldurulacak -->
     </tbody>
 </table>
+
 
 <!-- Send inn butonu -->
 <form asp-action="Kvittering" method="post">
@@ -47,6 +58,8 @@
         <button type="submit" class="btn btn-primary" style="background-color: #4CAF50; color: white; padding: 10px 20px; border-radius: 5px; border: none; cursor: pointer;">Send inn</button>
     </div>
 </form>
+
+
 
 @section Scripts {
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
@@ -116,7 +129,7 @@
                         counter++;
 
                         // Pop-up ile koordinat bilgilerini göster
-                        layer.bindPopup("Koordinatlar: Lat " + lat + ", Lng " + lng).openPopup();
+                        layer.bindPopup("Koordinater: Lat " + lat + ", Lng " + lng).openPopup();
                     } 
                     else if (feature.geometry.type === 'Polygon') {
                         var coords = feature.geometry.coordinates[0]; // İlk halka
@@ -131,7 +144,7 @@
 
                             // Her köşe noktası için pop-up ekle
                             var marker = L.marker([lat, lng]).addTo(map);
-                            marker.bindPopup("Koordinatlar: Lat " + lat + ", Lng " + lng);
+                            marker.bindPopup("Koordinater: Lat " + lat + ", Lng " + lng);
                         });
                     } 
                     else if (feature.geometry.type === 'LineString') {
@@ -146,7 +159,7 @@
 
                             // Her nokta için pop-up ekle
                             var marker = L.marker([lat, lng]).addTo(map);
-                            marker.bindPopup("Koordinatlar: Lat " + lat + ", Lng " + lng);
+                            marker.bindPopup("Koordinater: Lat " + lat + ", Lng " + lng);
                         });
                     }
                 }

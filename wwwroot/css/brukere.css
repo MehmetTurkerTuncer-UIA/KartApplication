@@ -519,18 +519,18 @@ h1 {
 
 /* Başlık satırı */
 .table thead th {
-    background-color: #4CAF50; /* Başlık satırı arka plan rengi (yeşil) */
+    background-color: #000000; /* Başlık satırı arka plan rengi (yeşil) */
     color: white; /* Başlık metin rengi */
     font-weight: bold;
-    padding: 10px;
+    padding: 14px 10px;
     text-align: center;
-    border-bottom: 2px solid #ccc; /* Başlık altına gri çizgi */
+    border-bottom: 2px solid #636363; /* Başlık altına gri çizgi */
 }
 
 /* Satır hücreleri */
 .table tbody td {
     padding: 10px;
-    border: 1px solid #5c5c5c; /* Hücre sınırları için gri çizgi */
+    border: 1px solid #000000; /* Hücre sınırları için gri çizgi */
     text-align: center; /* Metni sola hizalar */
 }
 
@@ -645,3 +645,36 @@ textarea.form-control:focus {
 .btn-secondary:hover {
     background-color: #444444; /* Hover durumu için koyu gri */
 }
+
+
+
+
+
+.OppsummeringBox {
+    color: #ffffff; /* Yazı rengi */
+    margin-bottom: 20px; /* Üst ve alt boşluk */
+    font-family: 'Georgia', serif; /* Yazı tipi */
+    border: 1px solid #000000; /* Kenar rengi siyah */
+    background-color: #262c58;
+
+}
+
+.OppsummeringContentTitle {
+    margin: 0; /* Paragrafın varsayılan boşluğunu kaldır */
+    font-size: 20px; /* Yazı boyutu */
+    padding-bottom: 10px;
+    background-color: #000000; /* Başlık arka plan rengi siyah */
+    padding: 10px; /* Başlık içi boşluk */
+}
+
+.OppsummeringContent {
+    margin: 0; /* Paragrafın varsayılan boşluğunu kaldır */
+    font-size: 16px; /* Yazı boyutu */
+    border-top: 1px solid #545454; /* Üst kenar rengi */
+    padding: 20px 20px; /* İçerik üst boşluk */
+    line-height: 1.8; /* Satır arası boşluk */
+
+    
+}
+
+
