@@ -645,3 +645,36 @@ textarea.form-control:focus {
 .btn-secondary:hover {
     background-color: #444444; /* Hover durumu için koyu gri */
 }
+
+
+
+
+
+.OppsummeringBox {
+    color: #ffffff; /* Yazı rengi */
+    margin-bottom: 20px; /* Üst ve alt boşluk */
+    font-family: 'Georgia', serif; /* Yazı tipi */
+    border: 1px solid #000000; /* Kenar rengi siyah */
+    background-color: #262c58;
+
+}
+
+.OppsummeringContentTitle {
+    margin: 0; /* Paragrafın varsayılan boşluğunu kaldır */
+    font-size: 20px; /* Yazı boyutu */
+    padding-bottom: 10px;
+    background-color: #000000; /* Başlık arka plan rengi siyah */
+    padding: 10px; /* Başlık içi boşluk */
+}
+
+.OppsummeringContent {
+    margin: 0; /* Paragrafın varsayılan boşluğunu kaldır */
+    font-size: 16px; /* Yazı boyutu */
+    border-top: 1px solid #545454; /* Üst kenar rengi */
+    padding: 20px 20px; /* İçerik üst boşluk */
+    line-height: 1.8; /* Satır arası boşluk */
+
+    
+}
+
+
