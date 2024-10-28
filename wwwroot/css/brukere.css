@@ -519,18 +519,18 @@ h1 {
 
 /* Başlık satırı */
 .table thead th {
-    background-color: #4CAF50; /* Başlık satırı arka plan rengi (yeşil) */
+    background-color: #000000; /* Başlık satırı arka plan rengi (yeşil) */
     color: white; /* Başlık metin rengi */
     font-weight: bold;
-    padding: 10px;
+    padding: 14px 10px;
     text-align: center;
-    border-bottom: 2px solid #ccc; /* Başlık altına gri çizgi */
+    border-bottom: 2px solid #636363; /* Başlık altına gri çizgi */
 }
 
 /* Satır hücreleri */
 .table tbody td {
     padding: 10px;
-    border: 1px solid #5c5c5c; /* Hücre sınırları için gri çizgi */
+    border: 1px solid #000000; /* Hücre sınırları için gri çizgi */
     text-align: center; /* Metni sola hizalar */
 }
 
