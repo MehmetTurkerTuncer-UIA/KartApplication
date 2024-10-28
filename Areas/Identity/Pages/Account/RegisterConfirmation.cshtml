@@ -1,24 +1,32 @@
 ﻿@page
 @model RegisterConfirmationModel
 @{
-    ViewData["Title"] = "Register confirmation";
-       Layout = "~/Views/Shared/_AccountLayout.cshtml";
+    ViewData["Title"] = "Registrer bekreftelse";
+    Layout = "~/Views/Shared/_AccountLayout.cshtml";
 }
+<div class="containerRegister">
+<div class="tainerRegisterTitle">
+
 
 <h1>@ViewData["Title"]</h1>
+
+</div>
+
+<div class="tainerRegisterDetalje">
 @{
     if (@Model.DisplayConfirmAccountLink)
     {
-<p>
-    This app does not currently have a real email sender registered, see <a href="https://aka.ms/aspaccountconf">these docs</a> for how to configure a real email sender.
-    Normally this would be emailed: <a id="confirm-link" href="@Model.EmailConfirmationUrl">Click here to confirm your account</a>
-</p>
-    }
-    else
-    {
-<p>
-        Please check your email to confirm your account.
-</p>
+ <p>
+                    Denne appen har for øyeblikket ikke en ekte e-postsender registrert. Se <a href="https://aka.ms/aspaccountconf">disse dokumentene</a> for å konfigurere en ekte e-postsender.
+                    Normalt ville dette blitt sendt på e-post: <a id="confirm-link" href="@Model.EmailConfirmationUrl">Klikk her for å bekrefte kontoen din</a>
+                </p>
+            }
+            else
+            {
+                <p>
+                    Vennligst sjekk e-posten din for å bekrefte kontoen din.
+                </p>
     }
 }
-
+</div>
+</div>
