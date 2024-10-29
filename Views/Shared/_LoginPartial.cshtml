@@ -24,7 +24,7 @@
         <ul class="nav navbar-nav navbar-right">
             <li>
                 <span title="Manage">
-                    Velkommen, @userName @userSurname
+                    Velkommen, @(char.ToUpper(userName[0]) + userName.Substring(1)) @(string.IsNullOrEmpty(userSurname) ? "" : char.ToUpper(userSurname[0]) + userSurname.Substring(1))
                 </span>
             </li>
             @* <li>
@@ -33,6 +33,7 @@
         </ul>
     </form>
 }
+
 else
 {
     <ul class="nav navbar-nav navbar-right">
@@ -40,3 +41,8 @@ else
         <li><a asp-area="Identity" asp-controller="Account" asp-action="Register">Kayıt Ol</a></li>
     </ul>
 }
+
+
+<style>.navbar-nav li {
+    list-style-type: none; /* Liste stilini kaldır */
+}</style>
