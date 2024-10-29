@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace KartApplication.Models
 {
@@ -23,9 +24,10 @@ namespace KartApplication.Models
 
 
 
-        // Foreign key for ApplicationUser
-        //public string? UserId { get; set; }  // Foreign key to InputUserModel
-        //public ApplicationUser? ApplicationUser { get; set; }  // Navigation property
+        public string? UserId { get; set; }  // Foreign key
+
+        [ForeignKey("UserId")]
+        public ApplicationUser? ApplicationUser { get; set; }  // Navigation property
 
         ////public ICollection<FeedbackModel>? FeedbackModels { get; set; }
 

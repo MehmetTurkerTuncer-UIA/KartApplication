@@ -86,7 +86,12 @@ namespace KartApplication.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<string>("UserId")
+                        .HasColumnType("varchar(255)");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("SakModels");
                 });
@@ -321,6 +326,15 @@ namespace KartApplication.Migrations
                     b.HasOne("KartApplication.Models.SakModel", null)
                         .WithMany("Coordinates")
                         .HasForeignKey("SakModelId");
+                });
+
+            modelBuilder.Entity("KartApplication.Models.SakModel", b =>
+                {
+                    b.HasOne("KartApplication.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("ApplicationUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
