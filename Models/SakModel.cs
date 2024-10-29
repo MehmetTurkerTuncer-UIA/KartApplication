@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace KartApplication.Models
 {
@@ -12,21 +13,27 @@ namespace KartApplication.Models
         public string? Description { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;
 
+        public string SelectedMapType { get; set; }
+        public List<Coordinate> Coordinates { get; set; }
+
+        public SakModel()
+        {
+            Coordinates = new List<Coordinate>();
+        }
 
 
 
 
+        public string? UserId { get; set; }  // Foreign key
 
-
-        // Foreign key for ApplicationUser
-        //public string? UserId { get; set; }  // Foreign key to InputUserModel
-        //public ApplicationUser? ApplicationUser { get; set; }  // Navigation property
+        [ForeignKey("UserId")]
+        public ApplicationUser? ApplicationUser { get; set; }  // Navigation property
 
         ////public ICollection<FeedbackModel>? FeedbackModels { get; set; }
 
 
 
-         //SakStatus enum'ı eklendi
+        //SakStatus enum'ı eklendi
         //public SakStatus Status { get; set; } = SakStatus.SakMottatt;
 
         //// SakStatus değiştiğinde mesaj gönderme fonksiyonu
@@ -48,5 +55,12 @@ namespace KartApplication.Models
         //        });
         //    }
         //} 
+    }
+
+    public class Coordinate
+    {
+        public int Id { get; set; }
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
     }
 }

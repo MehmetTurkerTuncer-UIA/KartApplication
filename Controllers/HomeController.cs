@@ -2,7 +2,10 @@
 using KartApplication.Models;
 using System.Diagnostics;
 
-public class HomeController : Controller
+namespace KartApplication.Controllers
+{
+
+    public class HomeController : Controller
 {
     // If you need database connection, you can use the following lines:
     // private readonly ApplicationDbContext _context;
@@ -121,4 +124,5 @@ public class HomeController : Controller
 
         return NotFound(); // Return 404 if the session has no data
     }
+}
 }
