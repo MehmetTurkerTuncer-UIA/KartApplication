@@ -667,8 +667,8 @@ textarea.form-control:focus {
 }
 
 .checkboxImage {
-    width: 20px; /* Resmin genişliği (uygun boyutta ayarlayın) */
-    height: auto; /* Orantılı yükseklik */
+    width: 16px; 
+    height: 16px;/* Resmin genişliği (uygun boyutta ayarlayın) */
     margin-right: 8px; /* Başlık ile resim arasında boşluk */
 }
 
