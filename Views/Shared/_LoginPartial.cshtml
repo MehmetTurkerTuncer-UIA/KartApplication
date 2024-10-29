@@ -9,11 +9,11 @@
         <ul class="nav navbar-nav navbar-right">
             <li>
                 <a asp-area="Identity" asp-controller="Manage" asp-action="Index" title="Manage">
-                    Merhaba, @UserManager.GetUserAsync(User).Result.Name!
+                    Hei, @UserManager.GetUserAsync(User).Result.Name!
                 </a>
             </li>
             <li>
-                <button type="submit" class="btn btn-link navbar-btn navbar-link">Çıkış Yap</button>
+                <button type="submit" class="btn btn-link navbar-btn navbar-link">Logge ut</button>
             </li>
         </ul>
     </form>
