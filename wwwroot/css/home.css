@@ -31,6 +31,35 @@ body {
 
 }
 
+.containerRegister {
+    display: flex;
+    flex-direction: column;          /* Dikey yerleşim için */
+    justify-content: center;         /* Dikeyde ortalama için */
+    align-items: center;             /* Yatayda ortalama için */
+    padding-top: 60px;
+    flex: 1;
+    max-width: 1200px;               /* Sayfa genişliği sınırı */
+    margin: 0 auto;
+    box-sizing: border-box;
+    min-height: calc(90vh - 100px);   /* Tam ekran yüksekliği - Footer boşluğu */
+}
+
+.containerRegisterTitle {
+    height: 40px;
+    font-size: 26px;                 /* Başlık için uygun font boyutu */
+    font-weight: bold;               /* Kalın yazı stili */
+    margin-bottom: 20px;
+    color: #ceaf00;
+
+}
+
+.containerRegisterDetalje {
+    height: 100px;
+    font-size: 16px;                 /* İçerik için uygun font boyutu */
+    text-align: center;              /* İçeriği ortala */
+}
+
+
 .form-control {
     color: #ffffff;
     background-color: #2A2828;
@@ -289,4 +318,29 @@ h1 {
     color: #ffffff;
     font-size: 24px;
     margin-bottom: 10px;
+}
+
+
+
+
+
+/* <---- registercomfirmation --->*/
+
+
+   .loginGoButton {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 20px; /* Buton ile üstteki içerik arasında boşluk */
+    font-size: 16px;
+    color: white;
+    background-color: #007bff; /* Mavi arka plan rengi */
+    text-decoration: none; /* Alt çizgiyi kaldır */
+    border-radius: 5px; /* Köşeleri yuvarlat */
+    transition: background-color 0.3s; /* Geçiş efekti */
+}
+
+.loginGoButton:hover {
+    background-color: #0056b3; /* Hover durumunda daha koyu mavi */
+    color: white;
+
 }
