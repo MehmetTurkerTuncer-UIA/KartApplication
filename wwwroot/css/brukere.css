@@ -655,7 +655,7 @@ textarea.form-control:focus {
     margin-bottom: 20px; /* Üst ve alt boşluk */
     font-family: 'Georgia', serif; /* Yazı tipi */
     border: 1px solid #000000; /* Kenar rengi siyah */
-    background-color: #262c58;
+    background-color: #11350d;
 
 }
 
@@ -665,6 +665,12 @@ textarea.form-control:focus {
     padding-bottom: 10px;
     background-color: #000000; /* Başlık arka plan rengi siyah */
     padding: 10px; /* Başlık içi boşluk */
+}
+
+.checkboxImage {
+    width: 20px; /* Resmin genişliği (uygun boyutta ayarlayın) */
+    height: auto; /* Orantılı yükseklik */
+    margin-right: 8px; /* Başlık ile resim arasında boşluk */
 }
 
 .OppsummeringContent {
