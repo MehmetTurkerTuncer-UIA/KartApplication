@@ -4,7 +4,10 @@
     Layout = "~/Views/Shared/_BrukerLayout.cshtml"; 
 }
 
-<h2>Oversikt</h2>
+<br>
+<center><h2>Oppsummering</h2></center>
+
+
 
 @if (!string.IsNullOrEmpty(Model.Description))
 {
@@ -56,7 +59,7 @@
 <!-- Send inn butonu -->
 <form asp-action="Kvittering" method="post">
     <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px;">
-        <button type="button" class="btn" style="background-color: gray; color: white; padding: 10px 20px; border-radius: 5px; cursor: pointer;" onclick="window.location.href='@Url.Action("Beskrivelse", "Bruker")'">Tilbake</button>
+        <button type="button" class="btn" style="background-color: gray; color: white; padding: 10px 20px; border-radius: 5px; cursor: pointer;" onclick="window.location.href='@Url.Action("Beskrivelse", "Home")'">Tilbake</button>
         <button type="submit" class="btn btn-primary" style="background-color: #4CAF50; color: white; padding: 10px 20px; border-radius: 5px; border: none; cursor: pointer;">Send inn</button>
     </div>
 </form>
