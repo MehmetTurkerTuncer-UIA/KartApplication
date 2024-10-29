@@ -1,5 +1,5 @@
 ﻿@using Microsoft.AspNetCore.Identity
-@using KartApplication.Models   
+@using KartApplication.Models 
 @inject UserManager<ApplicationUser> UserManager
 @inject SignInManager<ApplicationUser> SignInManager
 
@@ -7,14 +7,14 @@
 {
     <form asp-area="Identity" asp-controller="Account" asp-action="Logout" method="post" id="logoutForm" class="navbar-right">
         <ul class="nav navbar-nav navbar-right">
-            <li>
+            @* <li>
                 <a asp-area="Identity" asp-controller="Manage" asp-action="Index" title="Manage">
-                    Velkommen, @UserManager.GetUserAsync(User).Result.Name!
+                    Hei, @UserManager.GetUserAsync(User).Result.Name!
                 </a>
             </li>
-            @* <li>
+ *@            <li>
                 <button type="submit" class="btn btn-link navbar-btn navbar-link">Logge ut</button>
-            </li> *@
+            </li>
         </ul>
     </form>
 }
