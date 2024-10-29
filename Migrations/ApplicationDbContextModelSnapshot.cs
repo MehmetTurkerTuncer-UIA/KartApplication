@@ -22,6 +22,30 @@ namespace KartApplication.Migrations
 
             MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
 
+            modelBuilder.Entity("KartApplication.Models.Coordinate", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<double>("Latitude")
+                        .HasColumnType("double");
+
+                    b.Property<double>("Longitude")
+                        .HasColumnType("double");
+
+                    b.Property<int?>("SakModelId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SakModelId");
+
+                    b.ToTable("Coordinate");
+                });
+
             modelBuilder.Entity("KartApplication.Models.FeedbackModel", b =>
                 {
                     b.Property<int>("Id")
@@ -56,6 +80,10 @@ namespace KartApplication.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<string>("GeoJson")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("SelectedMapType")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.HasKey("Id");
@@ -288,6 +316,13 @@ namespace KartApplication.Migrations
                     b.HasDiscriminator().HasValue("ApplicationUser");
                 });
 
+            modelBuilder.Entity("KartApplication.Models.Coordinate", b =>
+                {
+                    b.HasOne("KartApplication.Models.SakModel", null)
+                        .WithMany("Coordinates")
+                        .HasForeignKey("SakModelId");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -337,6 +372,11 @@ namespace KartApplication.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("KartApplication.Models.SakModel", b =>
+                {
+                    b.Navigation("Coordinates");
                 });
 #pragma warning restore 612, 618
         }
