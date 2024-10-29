@@ -12,8 +12,13 @@ namespace KartApplication.Models
         public string? Description { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;
 
+        public string SelectedMapType { get; set; }
+        public List<Coordinate> Coordinates { get; set; }
 
-
+        public SakModel()
+        {
+            Coordinates = new List<Coordinate>();
+        }
 
 
 
@@ -26,7 +31,7 @@ namespace KartApplication.Models
 
 
 
-         //SakStatus enum'ı eklendi
+        //SakStatus enum'ı eklendi
         //public SakStatus Status { get; set; } = SakStatus.SakMottatt;
 
         //// SakStatus değiştiğinde mesaj gönderme fonksiyonu
@@ -48,5 +53,12 @@ namespace KartApplication.Models
         //        });
         //    }
         //} 
+    }
+
+    public class Coordinate
+    {
+        public int Id { get; set; }
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
     }
 }
