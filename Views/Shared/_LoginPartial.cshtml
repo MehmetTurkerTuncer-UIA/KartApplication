@@ -1,5 +1,5 @@
 ﻿@using Microsoft.AspNetCore.Identity
-@using KartApplication.Models  // ApplicationUser sınıfınızın namespace'i
+@using KartApplication.Models   
 @inject UserManager<ApplicationUser> UserManager
 @inject SignInManager<ApplicationUser> SignInManager
 
@@ -9,12 +9,12 @@
         <ul class="nav navbar-nav navbar-right">
             <li>
                 <a asp-area="Identity" asp-controller="Manage" asp-action="Index" title="Manage">
-                    Merhaba, @UserManager.GetUserAsync(User).Result.Name!
+                    Velkommen, @UserManager.GetUserAsync(User).Result.Name!
                 </a>
             </li>
-            <li>
-                <button type="submit" class="btn btn-link navbar-btn navbar-link">Çıkış Yap</button>
-            </li>
+            @* <li>
+                <button type="submit" class="btn btn-link navbar-btn navbar-link">Logge ut</button>
+            </li> *@
         </ul>
     </form>
 }
