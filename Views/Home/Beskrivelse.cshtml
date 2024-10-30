@@ -1,4 +1,4 @@
-@model KartApplication.Models.AreaChange
+@model KartApplication.Models.SakModel
 @{
     ViewData["Title"] = "Beskrivelse";
     Layout = "~/Views/Shared/_BrukerLayout.cshtml";
@@ -7,12 +7,15 @@
 <h2>Beskrivelse</h2>
 
 <!-- Açıklama formu -->
-<form asp-action="Beskrivelse" method="post">
+<form asp-controller="Home" asp-action="Beskrivelse" method="post">
+    <input type="hidden" asp-for="Id" /> @*  Eklendi *@
+    <input type="hidden" id="selectedMapType" name="SelectedMapType" value="fargekart"
+
     <div style="display: flex; justify-content: space-between; align-items: flex-start;">
         <!-- Sol tarafta mesaj alanı (textarea) -->
         <div style="width: 48%;">
             <label for="description" style="color: white; display: block; margin-bottom: 10px;">Beskrivelse:</label>
-            <textarea id="description" name="description" class="form-control" required style="width: 100%; height: 200px; background-color: #333; color: white; border: 1px solid #ccc; border-radius: 5px; padding: 10px;"></textarea>
+            <textarea id="description" name="Description" class="form-control" required style="width: 100%; height: 200px; background-color: #333; color: white; border: 1px solid #ccc; border-radius: 5px; padding: 10px;"></textarea>
         </div>
 
         <!-- Sağ tarafta harita ve başlık -->

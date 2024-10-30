@@ -1,128 +1,132 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using KartApplication.Data;
 using KartApplication.Models;
-using System.Diagnostics;
 
 namespace KartApplication.Controllers
 {
-
     public class HomeController : Controller
-{
-    // If you need database connection, you can use the following lines:
-    // private readonly ApplicationDbContext _context;
-
-    //public HomeController(ApplicationDbContext context)
-    //{
-    //    _context = context;
-    //}
-
-    private static AreaChange lastChange = null;
-
-    // GET: Display the form to create a new case (OpprettSak)
-    [HttpGet]
-    public IActionResult Index()
     {
-        return View();
-    }
+        private readonly ApplicationDbContext _context;
 
-    // Privacy page (you can skip this or update as per your needs)
-    public IActionResult Privacy()
-    {
-        return View();
-    }
-
-    // Handle error page
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public IActionResult Error()
-    {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-    }
-
-    // GET: Bruker/Index formunu görüntüle
-    [HttpGet]
-    public IActionResult OpprettSak()
-    {
-        return View();
-    }
-
-    // POST: Process the GeoJSON, description, address, and selected map type from the form
-    [HttpPost]
-    public IActionResult OpprettSak(string geoJson, string description, string address, string selectedMapType)
-    {
-        // Generate a new 8-digit numeric ID
-        string newId = IdGenerator.GenerateNumericIdFromGuid();
-
-        // Populate the AreaChange object
-        lastChange = new AreaChange
+        public HomeController(ApplicationDbContext context)
         {
-            Id = newId,
-            GeoJson = geoJson,
-            Description = description,
-            Address = address,
-            Dato = DateTime.Now, // Timestamp for the submission
-            SelectedMapType = selectedMapType // Save the selected map type (fargekart, gratonekart, turkart, sjokart)
-        };
-
-        // Redirect to the 'Beskrivelse' page after submission
-        return RedirectToAction("Beskrivelse");
-    }
-
-    // GET: Show the Beskrivelse page with the data submitted from OpprettSak
-    [HttpGet]
-    public IActionResult Beskrivelse()
-    {
-        if (lastChange != null)
-        {
-            return View(lastChange); // Pass the lastChange object to the view
+            _context = context;
         }
 
-        return RedirectToAction("OpprettSak"); // If no data, redirect to the form
-    }
-
-    // POST: Handle the description submission and redirect to the 'Oversikt' page
-    [HttpPost]
-    public IActionResult Beskrivelse(string description)
-    {
-        if (lastChange != null)
+        // Index sayfası - Kullanıcının harita verisi ve adres bilgisi girişi yapması
+        [HttpGet]
+        public IActionResult Index()
         {
-            lastChange.Description = description; // Update the description
-        }
-        return RedirectToAction("Oversikt");
-    }
-
-    // GET: Show the Oversikt page to display a summary of the submitted data
-    [HttpGet]
-    public IActionResult Oversikt()
-    {
-        if (lastChange != null)
-        {
-            return View(lastChange); // Pass the data to the view
+            var model = new SakModel();
+            return View(model);
         }
 
-        return RedirectToAction("OpprettSak"); // Redirect to form if no data exists
-    }
-
-    // GET: Display the confirmation page (Kvittering) with a reference number
-    [HttpGet]
-    public IActionResult Kvittering(string id)
-    {
-        if (lastChange != null && lastChange.Id == id)
+        [HttpPost]
+        public async Task<IActionResult> Index(SakModel model)
         {
-            return View(lastChange); // Display the saved data
+            if (ModelState.IsValid)
+            {
+                model.IsTemporary = true;  // Geçici kayıt olarak işaretle
+                model.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier); // Kullanıcı ID'si atanıyor
+                model.CreatedAt = DateTime.Now;
+
+                _context.SakModels.Add(model);
+                await _context.SaveChangesAsync();
+
+                return RedirectToAction("Beskrivelse", new { id = model.Id });
+            }
+            return View(model);
         }
 
-        return NotFound(); // Return 404 if no data is found
-    }
-
-    // POST: Redirect to Kvittering page
-    [HttpPost]
-    public IActionResult Kvittering()
-    {
-        if (lastChange != null)
+        // Beskrivelse sayfası - Kullanıcının açıklama eklemesi
+        [HttpGet]
+        public async Task<IActionResult> Beskrivelse(int id)
         {
-            return View(lastChange); // Show the confirmation data
+            // Index'te kaydedilen verileri almak için veritabanından id ile sorgulama yapılır
+            var model = await _context.SakModels.FindAsync(id);
+
+            // Model null ya da geçici değilse hata döndür
+            if (model == null || model.IsTemporary == false)
+                return NotFound();
+
+            return View(model); // Modeli Beskrivelse sayfasına aktar
         }
 
-        return NotFound(); // Return 404 if the session has no data
+        [HttpPost]
+        public async Task<IActionResult> Beskrivelse(SakModel model)
+        {
+          
+            if (ModelState.IsValid)
+            {
+                // Mevcut kaydı güncelle
+                var existingModel = await _context.SakModels.FindAsync(model.Id);
+                if (existingModel != null)
+                {
+                    existingModel.Description = model.Description; // Kullanıcının girdiği açıklama kaydediliyor
+                    existingModel.IsTemporary = true; // Geçici olarak işaretle
+                    _context.SakModels.Update(existingModel);
+                    await _context.SaveChangesAsync();
+                }
+
+                return RedirectToAction("Oversikt", new { id = model.Id });
+            }
+            return View(model);
+        }
+
+        // Oversikt sayfası - Tüm bilgilerin gözden geçirilip onaylanması
+        [HttpGet]
+        public async Task<IActionResult> Oversikt(int id)
+        {
+            // Veritabanından id ile kaydı bul
+            var model = await _context.SakModels.FindAsync(id);
+
+            if (model == null || model.IsTemporary == false)
+                return NotFound();
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SubmitOversikt(int id)
+        {
+            var model = await _context.SakModels.FindAsync(id);
+
+            if (model == null)
+                return NotFound();
+
+            // Geçici işareti kaldırarak kalıcı hale getir
+            model.IsTemporary = false;
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("Kvittering", new { id = model.Id });
+        }
+
+        // Kvittering sayfası - Onay sayfası ve özet bilgileri gösterme
+        [HttpGet]
+        public async Task<IActionResult> Kvittering(int id)
+        {
+            var model = await _context.SakModels
+                .Include(s => s.ApplicationUser)
+                .FirstOrDefaultAsync(s => s.Id == id);
+
+            if (model == null)
+                return NotFound();
+
+            return View(model);
+        }
+
+        // Geçici Kayıtları Silme Metodu (isteğe bağlı zamanlayıcı ile kullanılabilir)
+        public async Task DeleteTemporaryRecords()
+        {
+            var temporaryRecords = await _context.SakModels
+                .Where(s => s.IsTemporary == true)
+                .ToListAsync();
+
+            _context.SakModels.RemoveRange(temporaryRecords);
+            await _context.SaveChangesAsync();
+        }
     }
-}
 }
