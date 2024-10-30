@@ -42,6 +42,8 @@ namespace KartApplication.Controllers
 
         public IActionResult Detaljer(int id)
         {
+            Console.WriteLine("id değeri: " + id);
+
             var sak = _context.SakModels.FirstOrDefault(s => s.Id == id);
             if (sak == null)
             {
@@ -52,9 +54,11 @@ namespace KartApplication.Controllers
 
         // Status ve Kontroll Status Güncelleme İşlemi
         [HttpPost]
-        public IActionResult UpdateStatus(int id, string sakStatus, string kontrollStatus)
+        public IActionResult UpdateStatus(int id, string sakStatus /*, string kontrollStatus*/ )
         {
-            var sak = _context.SakModels.FirstOrDefault(s => s.Id == id);
+            Console.WriteLine("id değeri: " + id);
+            SakModel? sakModel = _context.SakModels.FirstOrDefault(s => s.Id == id);
+            var sak = sakModel;
             if (sak == null)
             {
                 return NotFound();
@@ -67,10 +71,10 @@ namespace KartApplication.Controllers
             }
 
             // KontrollStatus güncelleme (örneğin `IsTemporary` alanını kullanarak)
-            sak.IsTemporary = kontrollStatus == "Ikke Tildordnet";
+//            sak.IsTemporary = kontrollStatus == "Ikke Tildordnet";
 
             _context.SaveChanges(); // Değişiklikleri kaydediyoruz
-            return RedirectToAction("Detaljer", new { id = id }); // Güncelleme sonrası Detaljer sayfasına dönüyoruz
+            return RedirectToAction("Detaljer", new { id }); // Güncelleme sonrası Detaljer sayfasına dönüyoruz
         }
         // Profil sayfası
         public IActionResult Profil(string id)
