@@ -1,37 +1,55 @@
 using Microsoft.AspNetCore.Mvc;
 using KartApplication.Models;
-using System;
 using KartApplication.Data;
 using Microsoft.AspNetCore.Authorization;
+using System.Linq;
 
 namespace KartApplication.Controllers
 {
     //[Authorize(Roles = UserRoles.Role_Saksbehandler)]
-
     public class SaksbehandlerController : Controller
     {
+        private readonly ApplicationDbContext _context;
+
+        public SaksbehandlerController(ApplicationDbContext context)
+        {
+            _context = context;
+        }
+
         // Saksbehandler giriş sayfası
         public IActionResult Index()
         {
-          
-            // Modeli View'e gönderiyoruz
-            return View(); // Modeli Index.cshtml'e yolluyoruz
+            List<SakModel> objSakList = _context.SakModels
+                .Where(s => s.Status == SakStatus.SakMottatt || s.Status == SakStatus.UnderBehandling)
+                .ToList();
+
+           
+            return View(objSakList); // Veriyi Index.cshtml'e gönderiyoruz
+
+           
         }
 
-        public IActionResult FerdigeSaker(){
-            return View();
-
-        }
-        // Detay sayfası
-        public IActionResult Detaljer(string id)
+        public IActionResult FerdigeSaker()
         {
-            return View(); // Detay.cshtml'e model yollanıyor
+         
+
+            return View();
         }
 
-          // Profil sayfası
+        public IActionResult Detaljer(int id)
+        {
+            var sak = _context.SakModels.Find(id);
+            return sak != null ? View(sak) : NotFound();
+        }
+
+        // Profil sayfası
         public IActionResult Profil(string id)
         {
             return View(); // Profil.cshtml'e model yollanıyor
         }
+
+
     }
 }
+
+
