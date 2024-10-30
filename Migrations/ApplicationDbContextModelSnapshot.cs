@@ -43,7 +43,7 @@ namespace KartApplication.Migrations
 
                     b.HasIndex("SakModelId");
 
-                    b.ToTable("Coordinate", (string)null);
+                    b.ToTable("Coordinate");
                 });
 
             modelBuilder.Entity("KartApplication.Models.FeedbackModel", b =>
@@ -59,7 +59,7 @@ namespace KartApplication.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("FeedbackModel", (string)null);
+                    b.ToTable("FeedbackModel");
                 });
 
             modelBuilder.Entity("KartApplication.Models.SakModel", b =>
@@ -89,6 +89,9 @@ namespace KartApplication.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
                     b.Property<string>("UserId")
                         .HasColumnType("varchar(255)");
 
@@ -96,7 +99,7 @@ namespace KartApplication.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("SakModels", (string)null);
+                    b.ToTable("SakModels");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -251,12 +254,10 @@ namespace KartApplication.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("varchar(128)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("ProviderKey")
-                        .HasMaxLength(128)
-                        .HasColumnType("varchar(128)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("longtext");
@@ -293,12 +294,10 @@ namespace KartApplication.Migrations
                         .HasColumnType("varchar(255)");
 
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("varchar(128)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(128)
-                        .HasColumnType("varchar(128)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("Value")
                         .HasColumnType("longtext");
