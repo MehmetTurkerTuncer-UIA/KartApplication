@@ -4,9 +4,12 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using KartApplication.Data;
 using KartApplication.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace KartApplication.Controllers
 {
+    [Authorize(Roles = UserRoles.Role_Bruker + "," + UserRoles.Role_Admin + "," + UserRoles.Role_Saksbehandler)]
+
     public class HomeController : Controller
     {
         private readonly ApplicationDbContext _context;
