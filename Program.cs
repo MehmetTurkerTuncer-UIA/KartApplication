@@ -18,6 +18,15 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<ApplicationDbContext>(); // <IdentityUser> i  <ApplicationUser> olarak degistirdim.
 builder.Services.AddRazorPages();
 
+builder.Services.AddDistributedMemoryCache();  // Session için geçici bir bellek cache’i kullanılır
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30);  // Session süresi (örneğin 30 dakika)
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;  // GDPR ve diğer kurallar için gerekli
+});
+
+
 //builder.Services.AddScoped<IEmailSender, EmailSender>();
 
 var app = builder.Build();
@@ -35,6 +44,7 @@ app.UseRouting();
 app.UseAuthentication();  // Bunu ekledim SignInManager ve UserManager gibi kimlik doğrulama hizmetlerinin çalışabilmesi için 
 app.UseAuthorization();
 app.MapRazorPages();
+app.UseSession();   // Session middleware'i ekleyin
 
 app.MapGet("/", async context =>
 {

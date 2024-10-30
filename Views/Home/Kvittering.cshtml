@@ -1,4 +1,4 @@
-@model KartApplication.Models.AreaChange
+@model KartApplication.Models.SakModel
 @{
     ViewData["Title"] = "Kvittering";
     Layout = "~/Views/Shared/_BrukerLayout.cshtml"; 
@@ -15,20 +15,21 @@
             <table class="details-table">
                 <tr>
                     <th>Navn</th>
-                    <td>Kristin Barfot</td>
+             <td>@Model.ApplicationUser?.Name</td>
                 </tr>
                 <tr>
                     <th>E-postadresse</th>
-                    <td>amtkrycr@gmail.com</td>
+            <td>@Model.ApplicationUser?.Email</td>
                 </tr>
                 <tr>
                     <th>Referansenummer</th>
-                    <td><p>@Model.Id</p>
+            <td>
+                <p>@Model.Id</p>
 </td>
                 </tr>
                 <tr>
                     <th>Dato</th>
-                    <td>@Model.Dato.ToString("dd.MM.yyyy")</td>
+            <td>@Model.CreatedAt.ToString("dd.MM.yyyy")</td>
                 </tr>
             </table>
 

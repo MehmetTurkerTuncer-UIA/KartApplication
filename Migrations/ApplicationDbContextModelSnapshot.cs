@@ -43,7 +43,7 @@ namespace KartApplication.Migrations
 
                     b.HasIndex("SakModelId");
 
-                    b.ToTable("Coordinate");
+                    b.ToTable("Coordinate", (string)null);
                 });
 
             modelBuilder.Entity("KartApplication.Models.FeedbackModel", b =>
@@ -59,7 +59,7 @@ namespace KartApplication.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("FeedbackModel");
+                    b.ToTable("FeedbackModel", (string)null);
                 });
 
             modelBuilder.Entity("KartApplication.Models.SakModel", b =>
@@ -82,6 +82,9 @@ namespace KartApplication.Migrations
                     b.Property<string>("GeoJson")
                         .HasColumnType("longtext");
 
+                    b.Property<bool>("IsTemporary")
+                        .HasColumnType("tinyint(1)");
+
                     b.Property<string>("SelectedMapType")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -93,7 +96,7 @@ namespace KartApplication.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("SakModels");
+                    b.ToTable("SakModels", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

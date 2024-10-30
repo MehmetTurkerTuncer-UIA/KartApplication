@@ -1,4 +1,4 @@
-﻿@model KartApplication.Models.AreaChange
+﻿@model KartApplication.Models.SakModel
 @{
     ViewData["Title"] = "Oversikt";
     Layout = "~/Views/Shared/_BrukerLayout.cshtml"; 
@@ -54,9 +54,10 @@
 
 
 <!-- Send inn butonu -->
-<form asp-action="Kvittering" method="post">
+<form asp-controller="Home" asp-action="SubmitOversikt" method="post">
     <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px;">
-        <button type="button" class="btn" style="background-color: gray; color: white; padding: 10px 20px; border-radius: 5px; cursor: pointer;" onclick="window.location.href='@Url.Action("Beskrivelse", "Bruker")'">Tilbake</button>
+        <input type="hidden" asp-for="Id" />
+        <button type="button" class="btn" style="background-color: gray; color: white; padding: 10px 20px; border-radius: 5px; cursor: pointer;" onclick="window.location.href='@Url.Action("Beskrivelse", "Bruker")'">Tilbake</button> 
         <button type="submit" class="btn btn-primary" style="background-color: #4CAF50; color: white; padding: 10px 20px; border-radius: 5px; border: none; cursor: pointer;">Send inn</button>
     </div>
 </form>
