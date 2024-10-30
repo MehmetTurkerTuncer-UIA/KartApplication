@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace KartApplication.Controllers
 {
-    [Authorize(Roles = UserRoles.Role_Bruker + "," + UserRoles.Role_Admin + "," + UserRoles.Role_Saksbehandler)]
+    //[Authorize(Roles = UserRoles.Role_Bruker + "," + UserRoles.Role_Admin + "," + UserRoles.Role_Saksbehandler + "," + UserRoles.Role_Kontrolleren)]
 
     public class HomeController : Controller
     {

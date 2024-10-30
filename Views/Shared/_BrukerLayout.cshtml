@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using KartApplication.Data
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -33,13 +34,26 @@
     <!-- Sol Menü İçeriği -->
     <ul class="top-menu">
                     
-        
+        @if (User.IsInRole(UserRoles.Role_Admin)) {
         <li><a href="/home/OpprettSak" class="menu-item"><i class="bi bi-folder2"></i> Admin </a></li>
+             }
+                    @if (User.IsInRole(UserRoles.Role_Saksbehandler))
+                    {
+                      
                     <li><a href="/home/OpprettSak" class="menu-item"><i class="bi bi-folder2"></i> Saksbehandler </a></li>
-                    <li><a href="/home/OpprettSak" class="menu-item"><i class="bi bi-folder2"></i> Kontrolleren </a></li>
+                    }
+              
+                    @if (User.IsInRole(UserRoles.Role_Kontrolleren))
+                    {
 
-                    <li><a href="/home/OpprettSak" class="menu-item"><i class="bi bi-pencil-square"></i> Opprett Saker</a></li>
-                    <li><a href="/home/OpprettSak" class="menu-item"><i class="bi bi-folder2"></i> Mine Saker</a></li>
+                        <li><a href="/home/OpprettSak" class="menu-item"><i class="bi bi-folder2"></i> Kontrolleren </a></li>
+                    }
+                    @* 
+                    @if (User.IsInRole(UserRoles.Role_Bruker))
+                    { } *@
+
+                        <li><a href="/home/OpprettSak" class="menu-item"><i class="bi bi-pencil-square"></i> Opprett Saker</a></li>
+                        <li><a href="/home/OpprettSak" class="menu-item"><i class="bi bi-folder2"></i> Mine Saker</a></li>
                     
 
     </ul>
