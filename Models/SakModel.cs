@@ -23,6 +23,8 @@ namespace KartApplication.Models
         public SakModel()
         {
             Coordinates = new List<Coordinate>();
+
+
         }
 
 
@@ -38,7 +40,7 @@ namespace KartApplication.Models
 
 
         //SakStatus enum'ı eklendi
-        //public SakStatus Status { get; set; } = SakStatus.SakMottatt;
+        public SakStatus Status { get; set; } = SakStatus.SakMottatt;
 
         //// SakStatus değiştiğinde mesaj gönderme fonksiyonu
         //public void ChangeStatus(SakStatus newStatus)
