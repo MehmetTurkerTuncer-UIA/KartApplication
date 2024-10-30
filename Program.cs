@@ -15,7 +15,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"),
     new MySqlServerVersion(new Version(10, 5, 11))));
 
-builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<ApplicationDbContext>(); // <IdentityUser> i  <ApplicationUser> olarak degistirdim.
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<ApplicationDbContext>(); // <IdentityUser> i  <ApplicationUser> olarak degistirdim.
 builder.Services.AddRazorPages();
 
 builder.Services.AddDistributedMemoryCache();  // Session için geçici bir bellek cache’i kullanılır
