@@ -41,22 +41,56 @@
         </td>
     </tr>
 </table>
-@* 
+ 
 <!-- Yönetim Paneli -->
 <div class="admin-panel">
     <div class="admin-card">
         <h2>Administer saken</h2>
-        <form method="post" asp-action="UpdateStatus" asp-controller="Saksbehandler">
+        <form method="post" asp-action="UpdateStatus" asp-controller="Saksbehandler" asp-route-id="@Model.Id">
             <div class="form-group">
                 <label for="sakStatus">Sak Status</label>
                 <select id="sakStatus" name="sakStatus" class="form-control">
                     <option value="">Velg</option>
-                    <option value="SakMottatt" @(Model.Status == SakStatus.SakMottatt ? "selected" : "")>Sak Mottatt</option>
-                    <option value="UnderBehandling" @(Model.Status == SakStatus.UnderBehandling ? "selected" : "")>Under Behandling</option>
-                    <option value="Ferdigstilt" @(Model.Status == SakStatus.Ferdigstilt ? "selected" : "")>Ferdigstilt</option>
-                    <option value="Avsluttet" @(Model.Status == SakStatus.Avsluttet ? "selected" : "")>Avsluttet</option>
+
+                    @if (Model.Status == SakStatus.SakMottatt)
+                    {
+                        <option value="SakMottatt" selected>Sak Mottatt</option>
+                    }
+                    else
+                    {
+                        <option value="SakMottatt">Sak Mottatt</option>
+                    }
+
+                    @if (Model.Status == SakStatus.UnderBehandling)
+                    {
+                        <option value="UnderBehandling" selected>Under Behandling</option>
+                    }
+                    else
+                    {
+                        <option value="UnderBehandling">Under Behandling</option>
+                    }
+
+                    @if (Model.Status == SakStatus.Ferdigstilt)
+                    {
+                        <option value="Ferdigstilt" selected>Ferdigstilt</option>
+                    }
+                    else
+                    {
+                        <option value="Ferdigstilt">Ferdigstilt</option>
+                    }
+
+                    @if (Model.Status == SakStatus.Avsluttet)
+                    {
+                        <option value="Avsluttet" selected>Avsluttet</option>
+                    }
+                    else
+                    {
+                        <option value="Avsluttet">Avsluttet</option>
+                    }
                 </select>
+
             </div>
+ @* 
             <div class="form-group">
                 <label for="kontrollStatus">Kontroll Status</label>
                 <select id="kontrollStatus" name="kontrollStatus" class="form-control">
@@ -65,6 +99,7 @@
                     <option value="Ikke Tildordnet" @(Model.IsTemporary ? "selected" : "")>Ikke Tildordnet</option>
                 </select>
             </div>
+  *@       @*     
             <div class="form-group">
                 <label for="tildordnetPerson">Tildordnet Person</label>
                 <select id="tildordnetPerson" name="tildordnetPerson" class="form-control">
@@ -73,6 +108,7 @@
                     <option>Person 2</option>
                 </select>
             </div>
+            *@ 
             <div class="form-actions">
                 <button type="button" class="btn btn-danger">Avvis</button>
                 <button type="submit" class="btn btn-primary">Lagre</button>
@@ -80,4 +116,4 @@
         </form>
     </div>
 </div>
- *@
+ 
