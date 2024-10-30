@@ -1,6 +1,6 @@
 ﻿namespace KartApplication.Data
 {
-    public class UserRoles
+    public static class UserRoles
     {
         public const string Role_Admin = "Admin";
 
