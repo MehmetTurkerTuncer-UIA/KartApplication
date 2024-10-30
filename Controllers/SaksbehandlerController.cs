@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace KartApplication.Controllers
 {
-    [Authorize(Roles = UserRoles.Role_Saksbehandler)]
+    //[Authorize(Roles = UserRoles.Role_Saksbehandler)]
 
     public class SaksbehandlerController : Controller
     {

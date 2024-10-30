@@ -6,7 +6,7 @@
 
         public const string Role_Saksbehandler = "Saksbehandler";
 
-        public const string Role_Kontrelleren = "Kontrelleren";
+        public const string Role_Kontrolleren = "Kontrolleren";
 
         public const string Role_Bruker = "Bruker";
 
