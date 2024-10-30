@@ -3,14 +3,29 @@
 @inject UserManager<ApplicationUser> UserManager
 @inject SignInManager<ApplicationUser> SignInManager
 
+@{
+    string userName = "User"; // Varsayılan değer
+    string userSurname = ""; // Surname için başlangıç değeri ekledik
+    
+    if (SignInManager.IsSignedIn(User))
+    {
+        var user = await UserManager.GetUserAsync(User);
+        if (user != null)
+        {
+            userName = user.Name ?? "User"; // Eğer user.Name null ise "User" kullan
+            userSurname = user.Surname ?? ""; // Eğer user.Surname null ise boş değer kullan
+        }
+    }
+}
+
 @if (SignInManager.IsSignedIn(User))
 {
     <form asp-area="Identity" asp-controller="Account" asp-action="Logout" method="post" id="logoutForm" class="navbar-right">
         <ul class="nav navbar-nav navbar-right">
             <li>
-                <a asp-area="Identity" asp-controller="Manage" asp-action="Index" title="Manage">
-                    Velkommen, @UserManager.GetUserAsync(User).Result.Name!
-                </a>
+                <span title="Manage">
+                    Velkommen, @(char.ToUpper(userName[0]) + userName.Substring(1)) @(string.IsNullOrEmpty(userSurname) ? "" : char.ToUpper(userSurname[0]) + userSurname.Substring(1))
+                </span>
             </li>
             @* <li>
                 <button type="submit" class="btn btn-link navbar-btn navbar-link">Logge ut</button>
@@ -18,6 +33,7 @@
         </ul>
     </form>
 }
+
 else
 {
     <ul class="nav navbar-nav navbar-right">
@@ -25,3 +41,8 @@ else
         <li><a asp-area="Identity" asp-controller="Account" asp-action="Register">Kayıt Ol</a></li>
     </ul>
 }
+
+
+<style>.navbar-nav li {
+    list-style-type: none; /* Liste stilini kaldır */
+}</style>
