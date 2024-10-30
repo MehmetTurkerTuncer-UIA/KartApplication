@@ -1,36 +1,26 @@
-@{
-    ViewData["Title"] = "Saksbehandler Sayfasi";
-    Layout = "~/Views/Shared/_SaksbehandlerLayout.cshtml"; 
+﻿@model List<SakModel>
 
+@{
+    ViewData["Title"] = "Saksbehandler Sayfası";
+    Layout = "~/Views/Shared/_SaksBehandlerLayout.cshtml";
 }
 
-<table class="tablesaksbehandlerFerdigeSaks" id="saksbehandlerFerdigeSaksmenu">
+<table class="tablesaksbehandler" id="saksbehandlermenu">
     <thead>
         <tr>
-            <th>Dato</th>
-            <th>ID</th>
-            <th>Sak Status</th>
-            <th>Kontroll Status</th>
+            <th>Tarih</th>
+            <th>Referans Numarası</th>
+            <th>Durum</th>
         </tr>
     </thead>
-    <tbody id="saksbehandlerFerdigeSaks">
-        <tr onclick="goToDetails(12345);" style="cursor: pointer;">
-            <td>20.10.2024</td>
-            <td>543216789</td>
-            <td>Aktivt</td>
-            <td>Ikke Tilordnet</td>
-        </tr>
-        <tr onclick="goToDetails(54321);" style="cursor: pointer;">
-            <td>20.10.2024</td>
-            <td>543216789</td>
-            <td>Aktivt</td>
-            <td>Tilordnet</td>
-        </tr>
+    <tbody id="saksbehandlersaks">
+        @foreach (var sakModel in Model)
+        {
+            <tr onclick="window.location.href='@Url.Action("Detaljer", "Saksbehandler", new { id = sakModel.Id })'" style="cursor: pointer;">
+                <td>@sakModel.CreatedAt.ToShortDateString()</td>
+                <td>@sakModel.Id</td>
+                <td>@sakModel.Status</td>
+            </tr>
+        }
     </tbody>
 </table>
-
-<script>
-    function goToDetails(id) {
-        window.location.href = '/saks/detaljer/' + id;
-    }
-</script>

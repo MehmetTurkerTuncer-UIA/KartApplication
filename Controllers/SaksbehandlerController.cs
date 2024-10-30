@@ -31,9 +31,13 @@ namespace KartApplication.Controllers
 
         public IActionResult FerdigeSaker()
         {
-         
+            List<SakModel> objSakList = _context.SakModels
+                  .Where(s => s.Status == SakStatus.Ferdigstilt || s.Status == SakStatus.Avsluttet)
+                  .ToList();
 
-            return View();
+
+            return View(objSakList);
+                       
         }
 
         public IActionResult Detaljer(int id)
