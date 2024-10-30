@@ -14,6 +14,10 @@ namespace KartApplication.Models
         public DateTime CreatedAt { get; set; } = DateTime.Now;
 
         public string SelectedMapType { get; set; }
+
+        public bool IsTemporary { get; set; } = true;  // Varsayılan olarak geçici kaydediliyor
+
+
         public List<Coordinate> Coordinates { get; set; }
 
         public SakModel()

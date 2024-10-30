@@ -42,7 +42,7 @@
     
         <li><a href="/home/OpprettSak" class="menu-item"><i class="bi bi-person-circle"></i> Profil </a></li>
         <li><a href="/home/OpprettSak" class="log-out menu-item"><i class="bi bi-door-open"></i> Logg ut</a></li>
-                    <partial name="_LoginPartial2" />
+
 
     </ul>
 </nav>
@@ -85,7 +85,7 @@
     <ul style="display: flex; align-items: center; list-style: none; padding: 0; margin: 0;">
         <!-- 1. Adım: Velg sted -->
         <li class="@(currentStep >= 1 ? "active" : "")" style="margin-right: 10px;">
-            <a href="/Home/OpprettSak" style="color: @(currentStep >= 1 ? "white" : "rgba(255, 255, 255, 0.5)"); @(isKvitteringPage ? "pointer-events: none;" : "")">1. Velg sted</a>
+            <a href="/Home/Index" style="color: @(currentStep >= 1 ? "white" : "rgba(255, 255, 255, 0.5)"); @(isKvitteringPage ? "pointer-events: none;" : "")">1. Velg sted</a>
         </li>
         <img src="~/images/right-svgrepo.png" alt="Arrow" style="width: 16px; height: 16px; margin-right: 10px; opacity:@(currentStep >= 1 ? "1" : "0.3");" />
 

@@ -1,4 +1,4 @@
-@model KartApplication.Models.AreaChange
+@model KartApplication.Models.SakModel
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_BrukerLayout.cshtml";
@@ -43,10 +43,12 @@
 </table>
 
 <!-- Form -->
-<form asp-controller="Home" asp-action="OpprettSak" method="post" onsubmit="return validateForm()">
-    <input type="hidden" id="geoJsonInput" name="geoJson" /> <!-- GeoJSON verisini saklamak için gizli alan -->
-    <input type="hidden" id="addressInput" name="address" /> <!-- Adres verisini saklamak için gizli alan -->
-    <input type="hidden" id="selectedMapType" name="selectedMapType" value="fargekart" /> <!-- Seçilen harita tipini saklamak için gizli alan -->
+<form asp-controller="Home" asp-action="Index" method="post" onsubmit="return validateForm()">
+    <input type="hidden" asp-for="Id" />   @*  Eklendi *@
+
+    <input type="hidden" id="geoJsonInput" name="GeoJson" /> <!-- GeoJSON verisini saklamak için gizli alan -->
+    <input type="hidden" id="addressInput" name="Address" /> <!-- Adres verisini saklamak için gizli alan -->
+    <input type="hidden" id="selectedMapType" name="SelectedMapType" value="fargekart" /> <!-- Seçilen harita tipini saklamak için gizli alan -->
     <br />
         <button type="submit" class="btn btn-primary" style="background-color: #006aff; color: white; padding: 10px 20px; border-radius: 5px; border: none; cursor: pointer;">Neste</button>
 </form>
