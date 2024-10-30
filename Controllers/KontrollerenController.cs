@@ -1,9 +1,13 @@
 using Microsoft.AspNetCore.Mvc;
 using KartApplication.Models;
 using System;
+using KartApplication.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace KartApplication.Controllers
 {
+    [Authorize(Roles = UserRoles.Role_Kontrelleren)]
+
     public class KontrollerenController : Controller
     {
         // Saksbehandler giriş sayfası
