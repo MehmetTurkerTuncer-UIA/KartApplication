@@ -23,6 +23,8 @@ namespace KartApplication.Models
         public SakModel()
         {
             Coordinates = new List<Coordinate>();
+
+
         }
 
 
