@@ -10,7 +10,9 @@
 {
     
    <div class="OppsummeringBox">    
-    <div class="OppsummeringContentTitle"> Beskrivelse: </div>
+
+    <div class="OppsummeringContentTitle">    <img src="~/images/check-mark.png" alt="Checkbox" class="checkboxImage"> <!-- Resim yolu güncellendi -->
+ Beskrivelse: </div>
 
     <p class="OppsummeringContent"> @Model.Description</p> </div>
 
@@ -24,7 +26,7 @@
 @if (!string.IsNullOrEmpty(Model.Address))
 {
      <div class="OppsummeringBox">    
-    <div class="OppsummeringContentTitle"> Adresse: </div>
+    <div class="OppsummeringContentTitle"> <img src="~/images/check-mark.png" alt="Checkbox" class="checkboxImage"> <!-- Resim yolu güncellendi --> Adresse: </div>
      
          <p class="OppsummeringContent"> @Model.Address</p> </div>
 
@@ -33,7 +35,7 @@
 
 <!-- Harita konteyneri -->
  <div class="OppsummeringBox">    
-    <div class="OppsummeringContentTitle"> Kart: </div>
+    <div class="OppsummeringContentTitle"> <img src="~/images/check-mark.png" alt="Checkbox" class="checkboxImage"> <!-- Resim yolu güncellendi --> Kart: </div>
 <div id="map" style="height: 400px; width: 100%;"></div>
 </div>
 <!-- Koordinatlar tablosu -->
