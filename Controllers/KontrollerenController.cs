@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace KartApplication.Controllers
 {
-    [Authorize(Roles = UserRoles.Role_Kontrelleren)]
+    [Authorize(Roles = UserRoles.Role_Kontrolleren)]
 
     public class KontrollerenController : Controller
     {
