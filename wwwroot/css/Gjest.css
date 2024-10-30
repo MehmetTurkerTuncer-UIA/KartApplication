@@ -244,16 +244,24 @@ header {
     }
 }
 
+
+
+
+
+
+
+
+
 .footer {
     width: 100%;
     background-color: #151515;
     color: white;
-    position: relative; /* Footer sabit olmayacak, sayfanın altına yerleşecek */
-    padding: 10px 20px; /* Üst ve alt 10px, sağ ve sol 20px */
+    position: relative; /* Footer sabit olmayacak, sayfanÄ±n altÄ±na yerleÅŸecek */
+    padding: 10px 20px; /* Ãœst ve alt 10px, saÄŸ ve sol 20px */
     box-sizing: border-box;
     border-top: 1px solid #5c5c5c; /* Gri border */
     text-align: center;
-    margin-top: 20px; /* Üstteki içeriğin hemen altında yer alması için boşluk */
+    margin-top: 20px; /* Ãœstteki iÃ§eriÄŸin hemen altÄ±nda yer almasÄ± iÃ§in boÅŸluk */
 }
 
 
@@ -261,7 +269,7 @@ header {
     max-width: 1250px;
     margin: 0 auto;
     display: flex;
-    justify-content: space-between; /* Sol ve sağ tarafları iki yana yay */
+    justify-content: space-between; /* Sol ve saÄŸ taraflarÄ± iki yana yay */
     align-items: center;
     padding: 0 20px;
 }
@@ -281,11 +289,11 @@ header {
 }
 
 .footer-links a:hover {
-    text-decoration: underline; /* Hover efektinde alt çizgi */
+    text-decoration: underline; /* Hover efektinde alt Ã§izgi */
 }
 
 h1 {
-    color: #4CAF50; /* Başlık rengi */
+    color: #4CAF50; /* BaÅŸlÄ±k rengi */
     margin-bottom: 20px;
     text-align: center;
 }
@@ -341,18 +349,18 @@ h1 {
 
 /* INDEX
 
-/* Konteyner ayarları */
+/* Konteyner ayarlarÄ± */
 .search-container {
    
     top: 10px;
     left: 10px;
     padding: 10px;
     z-index: 1000;
-    width: 97%; /* Input ve buton genişliği ayarına yardımcı olur */
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Hafif gölge efekti */
+    width: 97%; /* Input ve buton geniÅŸliÄŸi ayarÄ±na yardÄ±mcÄ± olur */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Hafif gÃ¶lge efekti */
 }
 
-/* Input alanı */
+/* Input alanÄ± */
 .input-group {
     display: flex;
     width: 100%;
@@ -360,42 +368,47 @@ h1 {
 }
 
 #searchInput {
-    width: 100%; /* Input alanı %100 genişlikte olacak */
-    padding-right: 130px; /* Buton için sağda boşluk bırak */
-    padding-left: 10px; /* İç boşluk */
-    height: 40px; /* Yükseklik */
+    width: 100%; /* Input alanÄ± %100 geniÅŸlikte olacak */
+    padding-right: 130px; /* Buton iÃ§in saÄŸda boÅŸluk bÄ±rak */
+    padding-left: 10px; /* Ä°Ã§ boÅŸluk */
+    height: 40px; /* YÃ¼kseklik */
     border-radius: 5px;
     font-size: 16px;
     box-sizing: border-box;
-    background-color: #333;
-    border: 1px solid #444;
-    color: white;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    color: #000;
 }
 
 
 #searchInput:focus {
 
-    outline: none; /* Mavi outline'ı kaldırır */
+    outline: none; /* Mavi outline'Ä± kaldÄ±rÄ±r */
 }
 
 /* Buton */
 #searchAddressBtn {
     position: absolute;
-    right: 0; /* Sağ tarafa sabitle */
+    right: 0; /* SaÄŸ tarafa sabitle */
     top: 0;
-    height: 100%; /* Butonun input yüksekliğine eşit olmasını sağlar */
+    height: 90%; /* Butonun input yÃ¼ksekliÄŸine eÅŸit olmasÄ±nÄ± saÄŸlar */
+    margin-top: 2px;
+    margin-right: 2px;
     border: none;
-    background-color: #4CAF50; /* Yeşil buton */
     color: white;
     padding: 0 20px;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
     font-size: 16px;
     cursor: pointer;
+    background-color: #ffffff;
+
 }
 
-#searchAddressBtn:hover {
-    background-color: #45a049; /* Hover durumu için daha koyu yeşil */
+
+
+.black-icon {
+    color: rgb(101, 101, 101);
 }
 
 /* Responsive ayar */
@@ -410,93 +423,93 @@ h1 {
 
 
 
-/* Tablo genel düzeni */
+/* Tablo genel dÃ¼zeni */
 .table {
-    width: 100%; /* Tablo tam genişlikte */
-    border-collapse: collapse; /* Hücre aralarındaki boşluğu kaldır */
-    margin-top: 10px; /* Başlıkla tablo arasında boşluk */
+    width: 100%; /* Tablo tam geniÅŸlikte */
+    border-collapse: collapse; /* HÃ¼cre aralarÄ±ndaki boÅŸluÄŸu kaldÄ±r */
+    margin-top: 10px; /* BaÅŸlÄ±kla tablo arasÄ±nda boÅŸluk */
     background-color: #202020; /* Tablo arka plan rengi */
     color: white; /* Metin rengi */
 }
 
-/* Başlık satırı */
+/* BaÅŸlÄ±k satÄ±rÄ± */
 .table thead th {
-    background-color: #4CAF50; /* Başlık satırı arka plan rengi (yeşil) */
-    color: white; /* Başlık metin rengi */
+    background-color: #000000; /* BaÅŸlÄ±k satÄ±rÄ± arka plan rengi (yeÅŸil) */
+    color: white; /* BaÅŸlÄ±k metin rengi */
     font-weight: bold;
-    padding: 10px;
+    padding: 14px 10px;
     text-align: center;
-    border-bottom: 2px solid #ccc; /* Başlık altına gri çizgi */
+    border-bottom: 2px solid #636363; /* BaÅŸlÄ±k altÄ±na gri Ã§izgi */
 }
 
-/* Satır hücreleri */
+/* SatÄ±r hÃ¼creleri */
 .table tbody td {
     padding: 10px;
-    border: 1px solid #5c5c5c; /* Hücre sınırları için gri çizgi */
+    border: 1px solid #000000; /* HÃ¼cre sÄ±nÄ±rlarÄ± iÃ§in gri Ã§izgi */
     text-align: center; /* Metni sola hizalar */
 }
 
-/* Satır hover efekti */
+/* SatÄ±r hover efekti */
 .table tbody tr:hover {
-    background-color: #333333; /* Satırın üzerine gelindiğinde arka plan değişir */
+    background-color: #333333; /* SatÄ±rÄ±n Ã¼zerine gelindiÄŸinde arka plan deÄŸiÅŸir */
 }
 
-/* Alternatif satır arka plan rengi */
+/* Alternatif satÄ±r arka plan rengi */
 .table tbody tr:nth-child(even) {
-    background-color: #2a2a2a; /* Çift numaralı satırlar için farklı arka plan */
+    background-color: #2a2a2a; /* Ã‡ift numaralÄ± satÄ±rlar iÃ§in farklÄ± arka plan */
 }
 
-/* Koordinat hücrelerinin genel hizalaması */
+/* Koordinat hÃ¼crelerinin genel hizalamasÄ± */
 #coordinatesTable td {
-    text-align: center; /* Koordinatları ortala */
+    text-align: center; /* KoordinatlarÄ± ortala */
 }
 
-/* Responsive düzenlemeler (mobil ve küçük ekranlar için) */
+/* Responsive dÃ¼zenlemeler (mobil ve kÃ¼Ã§Ã¼k ekranlar iÃ§in) */
 @media (max-width: 768px) {
     .table {
-        font-size: 14px; /* Küçük ekranlarda font boyutunu küçült */
+        font-size: 14px; /* KÃ¼Ã§Ã¼k ekranlarda font boyutunu kÃ¼Ã§Ã¼lt */
     }
 
     .table thead th, .table tbody td {
-        padding: 8px; /* Daha küçük padding */
+        padding: 8px; /* Daha kÃ¼Ã§Ã¼k padding */
     }
 }
 
 /* INDEX */
-/* Buton kapsayıcısı - butonu sağa hizalamak için */
+/* Buton kapsayÄ±cÄ±sÄ± - butonu saÄŸa hizalamak iÃ§in */
 
 .button-container {
     display: flex;
-    justify-content: flex-end; /* Butonu sağa yapışık yapar */
-    margin-top: 10px; /* Üst kısımda biraz boşluk bırakır */
+    justify-content: flex-end; /* Butonu saÄŸa yapÄ±ÅŸÄ±k yapar */
+    margin-top: 10px; /* Ãœst kÄ±sÄ±mda biraz boÅŸluk bÄ±rakÄ±r */
 }
 
-/* Butonun tasarımı */
+/* Butonun tasarÄ±mÄ± */
 .btn {
-    background-color: #4CAF50; /* Yeşil renk */
-    color: white; /* Buton yazı rengi */
-    border: none; /* Buton sınırı yok */
-    padding: 10px 20px; /* İç boşluklar */
-    border-radius: 5px; /* Köşeleri yuvarlat */
-    font-size: 16px; /* Yazı boyutu */
-    cursor: pointer; /* Mouse üstüne gelince el işareti olur */
+    background-color: #4CAF50; /* YeÅŸil renk */
+    color: white; /* Buton yazÄ± rengi */
+    border: none; /* Buton sÄ±nÄ±rÄ± yok */
+    padding: 10px 20px; /* Ä°Ã§ boÅŸluklar */
+    border-radius: 5px; /* KÃ¶ÅŸeleri yuvarlat */
+    font-size: 16px; /* YazÄ± boyutu */
+    cursor: pointer; /* Mouse Ã¼stÃ¼ne gelince el iÅŸareti olur */
     float: right; 
     margin-bottom: 10px;
 }
 
 .btn:hover {
-    background-color: #45a049; /* Hover durumu için daha koyu yeşil */
+    background-color: #45a049; /* Hover durumu iÃ§in daha koyu yeÅŸil */
 }
 
-/* Responsive ayarları (küçük ekranlar için) */
+/* Responsive ayarlarÄ± (kÃ¼Ã§Ã¼k ekranlar iÃ§in) */
 @media (max-width: 768px) {
     .btn {
-        width: 100%; /* Küçük ekranlarda buton genişliği %100 olur */
-        text-align: center; /* Buton yazısını ortalar */
+        width: 100%; /* KÃ¼Ã§Ã¼k ekranlarda buton geniÅŸliÄŸi %100 olur */
+        text-align: center; /* Buton yazÄ±sÄ±nÄ± ortalar */
     }
 
     .button-container {
-        justify-content: center; /* Küçük ekranlarda ortalanmış */
+        justify-content: center; /* KÃ¼Ã§Ã¼k ekranlarda ortalanmÄ±ÅŸ */
     }
 }
 
@@ -506,44 +519,82 @@ h1 {
 
 /* Form grubu */
 .form-group {
-    width: 100%; /* Form genişliği %100 olacak */
-    margin-bottom: 15px; /* Form alanları arasında boşluk bırak */
+    width: 100%; /* Form geniÅŸliÄŸi %100 olacak */
+    margin-bottom: 15px; /* Form alanlarÄ± arasÄ±nda boÅŸluk bÄ±rak */
 }
 
-/* Label ayarları */
+/* Label ayarlarÄ± */
 label {
-    color: white; /* Label yazıları beyaz */
-    font-size: 16px; /* Yazı boyutu */
-    display: block; /* Block yaparak label ve input aynı hizada olur */
-    margin-bottom: 5px; /* Label ile input arasında boşluk bırak */
+    color: white; /* Label yazÄ±larÄ± beyaz */
+    font-size: 16px; /* YazÄ± boyutu */
+    display: block; /* Block yaparak label ve input aynÄ± hizada olur */
+    margin-bottom: 5px; /* Label ile input arasÄ±nda boÅŸluk bÄ±rak */
 }
 
-/* Textarea alanı */
+/* Textarea alanÄ± */
 textarea.form-control {
-    width: 48%; /* Genişliği %100 */
+    width: 48%; /* GeniÅŸliÄŸi %100 */
     background-color: #333; /* Gri arka plan */
-    color: white; /* Yazılan yazılar beyaz olacak */
+    color: white; /* YazÄ±lan yazÄ±lar beyaz olacak */
     border: 1px solid #ccc; /* Hafif gri border */
-    border-radius: 5px; /* Köşeleri yuvarla */
-    padding: 10px; /* İç boşluklar */
-    font-size: 16px; /* Yazı boyutu */
-    box-sizing: border-box; /* Genişlik ayarı için */
-    min-height: 150px; /* Textarea minimum yüksekliği */
+    border-radius: 5px; /* KÃ¶ÅŸeleri yuvarla */
+    padding: 10px; /* Ä°Ã§ boÅŸluklar */
+    font-size: 16px; /* YazÄ± boyutu */
+    box-sizing: border-box; /* GeniÅŸlik ayarÄ± iÃ§in */
+    min-height: 150px; /* Textarea minimum yÃ¼ksekliÄŸi */
 }
 
-/* Textarea focus (tıklanınca) */
+/* Textarea focus (tÄ±klanÄ±nca) */
 textarea.form-control:focus {
-    outline: none; /* Mavi outline'ı kaldır */
-    border-color: #4CAF50; /* Focus durumunda yeşil border */
-    box-shadow: 0 0 5px rgba(76, 175, 80, 0.5); /* Yeşil glow efekti */
+    outline: none; /* Mavi outline'Ä± kaldÄ±r */
+    border-color: #4CAF50; /* Focus durumunda yeÅŸil border */
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.5); /* YeÅŸil glow efekti */
 }
 
 
 .btn-secondary {
-    background-color: #555555; /* Gri buton (Tilbake butonu için) */
-    float: left; /* Sol tarafa yapışık */
+    background-color: #555555; /* Gri buton (Tilbake butonu iÃ§in) */
+    float: left; /* Sol tarafa yapÄ±ÅŸÄ±k */
 }
 
 .btn-secondary:hover {
-    background-color: #444444; /* Hover durumu için koyu gri */
+    background-color: #444444; /* Hover durumu iÃ§in koyu gri */
 }
+
+
+
+
+
+.OppsummeringBox {
+    color: #ffffff; /* YazÄ± rengi */
+    margin-bottom: 20px; /* Ãœst ve alt boÅŸluk */
+    font-family: 'Georgia', serif; /* YazÄ± tipi */
+    border: 1px solid #000000; /* Kenar rengi siyah */
+    background-color: #11350d;
+
+}
+
+.OppsummeringContentTitle {
+    margin: 0; /* ParagrafÄ±n varsayÄ±lan boÅŸluÄŸunu kaldÄ±r */
+    font-size: 20px; /* YazÄ± boyutu */
+    padding-bottom: 10px;
+    background-color: #000000; /* BaÅŸlÄ±k arka plan rengi siyah */
+    padding: 10px; /* BaÅŸlÄ±k iÃ§i boÅŸluk */
+}
+
+.checkboxImage {
+    width: 16px; 
+    height: 16px;/* Resmin geniÅŸliÄŸi (uygun boyutta ayarlayÄ±n) */
+    margin-right: 8px; /* BaÅŸlÄ±k ile resim arasÄ±nda boÅŸluk */
+}
+
+.OppsummeringContent {
+    margin: 0; /* ParagrafÄ±n varsayÄ±lan boÅŸluÄŸunu kaldÄ±r */
+    font-size: 16px; /* YazÄ± boyutu */
+    border-top: 1px solid #545454; /* Ãœst kenar rengi */
+    padding: 20px 20px; /* Ä°Ã§erik Ã¼st boÅŸluk */
+    line-height: 1.8; /* SatÄ±r arasÄ± boÅŸluk */
+
+    
+}
+

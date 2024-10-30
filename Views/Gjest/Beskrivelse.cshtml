@@ -1,10 +1,11 @@
 @model KartApplication.Models.AreaChange
 @{
     ViewData["Title"] = "Beskrivelse";
-    Layout = "~/Views/Shared/_GjestLayout.cshtml"; 
+    Layout = "~/Views/Shared/_GjestLayout.cshtml";
 }
 
-<h2>Beskrivelse</h2>
+<br>
+<center><h2>Beskrivelse</h2></center>
 
 <!-- Açıklama formu -->
 <form asp-action="Beskrivelse" method="post">
@@ -18,14 +19,13 @@
         <!-- Sağ tarafta harita ve başlık -->
         <div style="width: 48%;">
             <!-- Harita başlığı -->
-            <label for="map" style="color: white; display: block; margin-bottom: 10px;">Map View:</label>
+            <label for="map" style="color: white; display: block; margin-bottom: 10px;">Kartvisning:</label>
             <div id="map" style="height: 400px; width: 100%; background-color: lightgray;"></div>
 
             <!-- Adres bilgisi varsa göster (haritanın altında) -->
             @if (!string.IsNullOrEmpty(Model.Address))
             {
                 <div style="margin-top: 15px;">
-                    
                     <p><strong>Adress:</strong> @Model.Address</p>
                 </div>
             }
@@ -37,7 +37,7 @@
     <!-- Alt tarafta butonlar aynı satırda -->
     <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px;">
         <!-- Geri butonu solda -->
-        <button type="button" class="btn" style="background-color: gray; color: white; padding: 10px 20px; border-radius: 5px; cursor: pointer;" onclick="window.location.href='@Url.Action("Index", "Bruker")'">Tilbake</button>
+        <button type="button" class="btn" style="background-color: gray; color: white; padding: 10px 20px; border-radius: 5px; cursor: pointer;" onclick="window.location.href='@Url.Action("Index", "Gjest")'">Tilbake</button>
         <!-- İleri (Save and Continue) butonu sağda -->
         <button type="submit" class="btn btn-primary" style="background-color: #006aff; color: white; padding: 10px 20px; border-radius: 5px; border: none; cursor: pointer;">Neste</button>
     </div>
@@ -50,24 +50,60 @@
     <script>
         // GeoJSON verisini modelden alıyoruz
         var geoJsonData = @Html.Raw(Model.GeoJson);
+        var selectedMapType = '@Model.SelectedMapType'; // Seçilen harita tipi (fargekart, gratonekart, turkart, sjokart)
 
-        // Eğer GeoJSON verisi varsa, haritayı başlat
+        // Harita katmanlarını tanımla
+        var fargekart = L.tileLayer('https://cache.kartverket.no/v1/wmts/1.0.0/topo/default/webmercator/{z}/{y}/{x}.png', {
+            maxZoom: 18,
+            attribution: '&copy; <a href="https://kartverket.no/">Kartverket</a>'
+        });
+
+        var gratonekart = L.tileLayer('https://cache.kartverket.no/v1/wmts/1.0.0/topograatone/default/webmercator/{z}/{y}/{x}.png', {
+            maxZoom: 18,
+            attribution: '&copy; <a href="https://kartverket.no/">Kartverket</a>'
+        });
+
+        var turkart = L.tileLayer('https://cache.kartverket.no/v1/wmts/1.0.0/toporaster/default/webmercator/{z}/{y}/{x}.png', {
+            maxZoom: 18,
+            attribution: '&copy; <a href="https://kartverket.no/">Kartverket</a>'
+        });
+
+        var sjokart = L.tileLayer('https://cache.kartverket.no/v1/wmts/1.0.0/sjokartraster/default/webmercator/{z}/{y}/{x}.png', {
+            maxZoom: 18,
+            attribution: '&copy; <a href="https://kartverket.no/">Kartverket</a>'
+        });
+
+        // Seçilen harita katmanına göre haritayı başlat
+        var selectedLayer;
+        switch (selectedMapType) {
+            case 'gratonekart':
+                selectedLayer = gratonekart;
+                break;
+            case 'turkart':
+                selectedLayer = turkart;
+                break;
+            case 'sjokart':
+                selectedLayer = sjokart;
+                break;
+            default:
+                selectedLayer = fargekart;
+        }
+
+        // Haritayı başlat
+        var map = L.map('map').setView([58.1467, 7.9956], 15);
+
+        // Seçilen harita katmanını ekle
+        selectedLayer.addTo(map);
+
+        // GeoJSON verisini haritaya ekle
         if (geoJsonData && geoJsonData.features) {
-            var map = L.map('map').setView([58.1467, 7.9956], 15); // Varsayılan merkez konumu
-
-            // OpenStreetMap katmanını haritaya ekle
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            }).addTo(map);
-
-            // GeoJSON verisini haritaya ekle
             var layer = L.geoJSON(geoJsonData, {
                 onEachFeature: function (feature, layer) {
                     // Eğer özellik bir Point ise (işaretleyici)
                     if (feature.geometry.type === 'Point') {
                         var lat = feature.geometry.coordinates[1];
                         var lng = feature.geometry.coordinates[0];
-                        layer.bindPopup("Koordinatlar: Lat " + lat + ", Lng " + lng).openPopup();
+                        layer.bindPopup("Koordinater: Br. " + lat + ", Lgr. " + lng).openPopup();
                     }
                     // Eğer Polygon ise
                     else if (feature.geometry.type === 'Polygon') {
@@ -75,7 +111,7 @@
                             var lat = coord[1];
                             var lng = coord[0];
                             L.marker([lat, lng]).addTo(map)
-                                .bindPopup("Koordinatlar: Lat " + lat + ", Lng " + lng).openPopup();
+                                .bindPopup("Koordinater: Br. " + lat + ", Lgr. " + lng).openPopup();
                         });
                     }
                     // Eğer Polyline (çizgi) ise
@@ -84,7 +120,7 @@
                             var lat = coord[1];
                             var lng = coord[0];
                             L.marker([lat, lng]).addTo(map)
-                                .bindPopup("Koordinatlar: Lat " + lat + ", Lng " + lng).openPopup();
+                                .bindPopup("Koordinater: Br. " + lat + ", Lgr. " + lng).openPopup();
                         });
                     }
                 }
