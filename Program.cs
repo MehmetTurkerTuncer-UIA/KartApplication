@@ -6,6 +6,7 @@ using System;
 using Microsoft.AspNetCore.Identity;
 using KartApplication.Models;
 using KartApplication.Utilities;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,7 +16,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"),
     new MySqlServerVersion(new Version(10, 5, 11))));
 
-builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<ApplicationDbContext>(); // <IdentityUser> i  <ApplicationUser> olarak degistirdim.
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<ApplicationDbContext>()
+                                    .AddDefaultTokenProviders(); // <IdentityUser> i  <ApplicationUser> olarak degistirdim.
 builder.Services.AddRazorPages();
 
 builder.Services.AddDistributedMemoryCache();  // Session için geçici bir bellek cache’i kullanılır
@@ -27,7 +29,7 @@ builder.Services.AddSession(options =>
 });
 
 
-//builder.Services.AddScoped<IEmailSender, EmailSender>();
+builder.Services.AddScoped<IEmailSender, EmailSender>();
 
 var app = builder.Build();
 
