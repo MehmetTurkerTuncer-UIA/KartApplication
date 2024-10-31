@@ -42,6 +42,14 @@ namespace KartApplication.Models
         //SakStatus enum'ı eklendi
         public SakStatus Status { get; set; } = SakStatus.SakMottatt;
 
+        
+        public ArbeidStatus ArbeidStatus { get; set; }
+        
+        
+        
+        
+        
+        
         //// SakStatus değiştiğinde mesaj gönderme fonksiyonu
         //public void ChangeStatus(SakStatus newStatus)
         //{
