@@ -1,8 +1,36 @@
+@model IEnumerable<KartApplication.Models.SakModel>
+
 @{
     ViewData["Title"] = "Mine Saker";
-            Layout = "~/Views/Shared/_BrukerLayout.cshtml"; 
-
+    Layout = "~/Views/Shared/_BrukerLayout.cshtml"; 
 }
 
 <h2>Mine Saker</h2>
-<p>Bu, Mine Saker sayfasıdır ve şu an için boştur.</p>
+@if (Model == null || !Model.Any())
+{
+    <p>No records found for the user.</p>
+}
+else
+{
+    <table class="tablesaksbehandlerFerdigeSaks" id="mineSakerTable">
+        <thead>
+            <tr>
+                <th>Dato</th>
+                <th>Sak Status</th>
+                <th>Referansenummer</th>
+                <th>Kontroll Status</th>
+            </tr>
+        </thead>
+        <tbody id="saksbehandlersaks">
+            @foreach (var sakModel in Model)
+            {
+                <tr onclick="window.location.href='@Url.Action("Detaljer", "Saksbehandler", new { id = sakModel.Id })'" style="cursor: pointer;">
+                    <td>@sakModel.CreatedAt.ToShortDateString()</td>
+                    <td>@sakModel.Status.ToString()</td>
+                    <td>@sakModel.Id</td>
+                    <td>@(sakModel.IsTemporary ? "Temporary" : "Permanent")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
