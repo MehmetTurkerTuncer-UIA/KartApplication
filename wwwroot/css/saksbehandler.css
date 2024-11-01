@@ -44,10 +44,12 @@ header {
     flex-direction: column;
     justify-content: flex-end;
     align-items: flex-end;
+    padding-right: 20px;
 }
 
 .header-right h4, .header-right p {
     margin: 0;
+
 }
 
 /* Ana konteyner: Menü ve İçerik */
@@ -78,7 +80,6 @@ header {
     list-style-type: none;
     padding: 0;
     margin: 0;
-
 }
 
 .menu ul.top-menu li {
@@ -92,11 +93,11 @@ header {
     display: block;
     padding: 10px;
     background-color: #28a745;
-    text-align: center;
+    text-align: left;
 }
 
 .menu ul.top-menu li a:hover {
-    background-color: #208839;
+    background-color: #1A833B;
 }
 
 /* Alt menü öğeleri (profil ve log out en altta olacak) */
@@ -119,11 +120,40 @@ header {
     display: block;
     padding: 10px;
     background-color: #28a745;
-    text-align: center;
+    text-align: left;
 }
 
 .menu ul.bottom-menu li a:hover {
     background-color: #208839;
+}
+
+/* Logg ut butonu için kırmızı renk */
+.menu ul.bottom-menu li a.log-out {
+    background-color: #dc3545;
+    color: white;
+
+}
+
+.menu ul.bottom-menu li a.log-out:hover {
+    background-color: #c82333;
+}
+
+
+.menu-item {
+    display: flex;
+    align-items: center; /* Dikeyde ortalama */
+    justify-content: center; /* Yatayda ortalama */
+    text-decoration: none; /* Linkin altındaki çizgiyi kaldırır */
+}
+
+.menu-item i {
+    margin-right: 8px; /* İkon ile metin arasına boşluk ekler */
+}
+
+
+
+.menu-item:hover {
+    text-decoration: underline; /* İsteğe bağlı: hover olduğunda alt çizgi ekleyebilirsiniz */
 }
 
 /* Logg ut butonu için kırmızı renk */
@@ -567,7 +597,7 @@ header {
 
 /* Tablodaki başlık hücreleri (th) */
 .tableForDetaljer th {
-    background-color: #303030; /* Başlık arka plan rengi (daha koyu siyah ton) */
+    background-color: #232323; /* Başlık arka plan rengi (daha koyu siyah ton) */
     padding: 10px;
     text-align: center;
     position: relative; /* Pseudo-element kullanabilmek için position */
@@ -597,7 +627,7 @@ header {
 .tableForDetaljer td {
     padding: 10px;
     color: white; /* Yazı rengi beyaz */
-    background-color: #232323; /* Satırların varsayılan arka plan rengi (koyu siyah tonları) */
+    background-color: #303030; /* Satırların varsayılan arka plan rengi (koyu siyah tonları) */
     border-right: none; /* Genel border kaldırıldı */
     position: relative; /* Pseudo-element kullanabilmek için position */
     height: 34px; /* Satır yüksekliği 34px */
@@ -835,4 +865,96 @@ header {
 
 .btn-success:hover {
     background-color: #218838;
+}
+
+
+
+
+
+
+.OppsummeringBox {
+    color: #ffffff; /* YazÄ± rengi */
+    margin-bottom: 20px; /* Ãœst ve alt boÅŸluk */
+    font-family: 'Georgia', serif; /* YazÄ± tipi */
+    border: 1px solid #000000; /* Kenar rengi siyah */
+    background-color: #303030;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+
+}
+
+.OppsummeringContentTitle {
+    margin: 0; /* ParagrafÄ±n varsayÄ±lan boÅŸluÄŸunu kaldÄ±r */
+    padding-bottom: 10px;
+    background-color: #000000; /* BaÅŸlÄ±k arka plan rengi siyah */
+    padding: 10px; /* BaÅŸlÄ±k iÃ§i boÅŸluk */
+    font-weight: bold;
+}
+
+.checkboxImage {
+    width: 16px; 
+    height: 16px;/* Resmin geniÅŸliÄŸi (uygun boyutta ayarlayÄ±n) */
+    margin-right: 8px; /* BaÅŸlÄ±k ile resim arasÄ±nda boÅŸluk */
+}
+
+.OppsummeringContent {
+    margin: 0; /* ParagrafÄ±n varsayÄ±lan boÅŸluÄŸunu kaldÄ±r */
+    font-size: 16px; /* YazÄ± boyutu */
+    border-top: 1px solid #545454; /* Ãœst kenar rengi */
+    padding: 20px 20px; /* Ä°Ã§erik Ã¼st boÅŸluk */
+    line-height: 1.8; /* SatÄ±r arasÄ± boÅŸluk */
+
+    
+}
+
+
+
+
+/* Tablo genel dÃ¼zeni */
+.table {
+    width: 100%; /* Tablo tam geniÅŸlikte */
+    border-collapse: collapse; /* HÃ¼cre aralarÄ±ndaki boÅŸluÄŸu kaldÄ±r */
+    margin-top: 10px; /* BaÅŸlÄ±kla tablo arasÄ±nda boÅŸluk */
+    background-color: #202020; /* Tablo arka plan rengi */
+    color: white; /* Metin rengi */
+}
+
+/* BaÅŸlÄ±k satÄ±rÄ± */
+.table thead th {
+    background-color: #000000; /* BaÅŸlÄ±k satÄ±rÄ± arka plan rengi (yeÅŸil) */
+    color: white; /* BaÅŸlÄ±k metin rengi */
+    font-weight: bold;
+    padding: 14px 10px;
+    text-align: center;
+    border-bottom: 2px solid #636363; /* BaÅŸlÄ±k altÄ±na gri Ã§izgi */
+}
+
+/* SatÄ±r hÃ¼creleri */
+.table tbody td {
+    padding: 10px;
+    border: 1px solid #000000; /* HÃ¼cre sÄ±nÄ±rlarÄ± iÃ§in gri Ã§izgi */
+    text-align: center; /* Metni sola hizalar */
+}
+
+/* SatÄ±r hover efekti */
+.table tbody tr:hover {
+    background-color: #333333; /* SatÄ±rÄ±n Ã¼zerine gelindiÄŸinde arka plan deÄŸiÅŸir */
+}
+
+
+
+/* Koordinat hÃ¼crelerinin genel hizalamasÄ± */
+#coordinatesTable td {
+    text-align: center; /* KoordinatlarÄ± ortala */
+}
+
+/* Responsive dÃ¼zenlemeler (mobil ve kÃ¼Ã§Ã¼k ekranlar iÃ§in) */
+@media (max-width: 768px) {
+    .table {
+        font-size: 14px; /* KÃ¼Ã§Ã¼k ekranlarda font boyutunu kÃ¼Ã§Ã¼lt */
+    }
+
+    .table thead th, .table tbody td {
+        padding: 8px; /* Daha kÃ¼Ã§Ã¼k padding */
+    }
 }

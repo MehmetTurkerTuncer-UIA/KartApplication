@@ -7,6 +7,8 @@
     
     <!-- Ortak CSS Dosyası -->
 <link rel="stylesheet" href="~/css/saksbehandler.css" asp-append-version="true" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
 
     
     @RenderSection("Head", required: false)
@@ -19,8 +21,8 @@
                 <img src="~/images/as.png" alt="Logo" style="width: auto; height: 150px;">
             </div>
             <div class="header-right">
-                <h2>Velkommen Ahmet Kirac</h2>
-                <p>Saksbehandler</p>
+                  <h2><partial name="_LoginPartial" /></h2>
+                <p style="margin-top: -25px;">Saksbehandler</p>
             </div>
         </div>
     </header>
@@ -29,13 +31,13 @@
           <nav class="menu">
     <!-- Sol Menü İçeriği -->
     <ul class="top-menu">
-        <li><a href="/Saksbehandler/index">Aktive Saker</a></li>
-        <li><a href="/Saksbehandler/FerdigeSaker">Ferdige Saker</a></li>
+        <li><a href="/Saksbehandler/index" class="menu-item"> <i class="bi bi-folder"></i> Aktive Saker</a></li>
+        <li><a href="/Saksbehandler/FerdigeSaker" class="menu-item"> <i class="bi bi-folder-check"></i> Ferdige Saker</a></li>
     </ul>
 
     <ul class="bottom-menu">
-        <li><a href="/Saksbehandler/Profil">Profil</a></li>
-        <li><a href="#" class="log-out">Logg ut</a></li>
+        <li><a href="/Saksbehandler/Profil" class="menu-item"><i class="bi bi-person-circle"></i> Profil </a></li>
+       <partial name="_LoginPartial2" />
     </ul>
 </nav>
 

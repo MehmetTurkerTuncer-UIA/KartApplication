@@ -538,10 +538,7 @@ h1 {
     background-color: #333333; /* Satırın üzerine gelindiğinde arka plan değişir */
 }
 
-/* Alternatif satır arka plan rengi */
-.table tbody tr:nth-child(even) {
-    background-color: #2a2a2a; /* Çift numaralı satırlar için farklı arka plan */
-}
+
 
 /* Koordinat hücrelerinin genel hizalaması */
 #coordinatesTable td {
