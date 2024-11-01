@@ -80,7 +80,6 @@ header {
     list-style-type: none;
     padding: 0;
     margin: 0;
-
 }
 
 .menu ul.top-menu li {
@@ -94,11 +93,11 @@ header {
     display: block;
     padding: 10px;
     background-color: #28a745;
-    text-align: center;
+    text-align: left;
 }
 
 .menu ul.top-menu li a:hover {
-    background-color: #208839;
+    background-color: #1A833B;
 }
 
 /* Alt menü öğeleri (profil ve log out en altta olacak) */
@@ -121,11 +120,40 @@ header {
     display: block;
     padding: 10px;
     background-color: #28a745;
-    text-align: center;
+    text-align: left;
 }
 
 .menu ul.bottom-menu li a:hover {
     background-color: #208839;
+}
+
+/* Logg ut butonu için kırmızı renk */
+.menu ul.bottom-menu li a.log-out {
+    background-color: #dc3545;
+    color: white;
+
+}
+
+.menu ul.bottom-menu li a.log-out:hover {
+    background-color: #c82333;
+}
+
+
+.menu-item {
+    display: flex;
+    align-items: center; /* Dikeyde ortalama */
+    justify-content: center; /* Yatayda ortalama */
+    text-decoration: none; /* Linkin altındaki çizgiyi kaldırır */
+}
+
+.menu-item i {
+    margin-right: 8px; /* İkon ile metin arasına boşluk ekler */
+}
+
+
+
+.menu-item:hover {
+    text-decoration: underline; /* İsteğe bağlı: hover olduğunda alt çizgi ekleyebilirsiniz */
 }
 
 /* Logg ut butonu için kırmızı renk */
