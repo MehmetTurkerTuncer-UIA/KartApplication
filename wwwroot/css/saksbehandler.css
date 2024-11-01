@@ -913,10 +913,7 @@ header {
     background-color: #333333; /* SatÄ±rÄ±n Ã¼zerine gelindiÄŸinde arka plan deÄŸiÅŸir */
 }
 
-/* Alternatif satÄ±r arka plan rengi */
-.table tbody tr:nth-child(even) {
-    background-color: #2a2a2a; /* Ã‡ift numaralÄ± satÄ±rlar iÃ§in farklÄ± arka plan */
-}
+
 
 /* Koordinat hÃ¼crelerinin genel hizalamasÄ± */
 #coordinatesTable td {
