@@ -1,0 +1,170 @@
+﻿@model List<SakModel>
+
+@{
+    ViewData["Title"] = "Sok";
+    Layout = "~/Views/Shared/_AccountLayout.cshtml";
+}
+
+<style>
+    /* Sayfanın tam ortalanması için genel stil ayarları */
+    body {
+        display: flex;
+        justify-content: center; /* Yatayda ortalama */
+        align-items: center; /* Dikeyde ortalama */
+        min-height: 100vh; /* Sayfa yüksekliği kadar boşluk bırakma */
+        margin: 0; /* Varsayılan margin'leri sıfırlama */
+        font-family: Arial, sans-serif; /* Yazı tipi ayarı */
+    }
+
+    /* Genel stil ayarları */
+    .container {
+        max-width: 1200px; /* Maksimum genişlik 1200px */
+        margin: 20px; /* İçerik alanı */
+        border: 1px solid #000; /* Çerçeve rengi */
+        padding: 20px; /* İçerik alanı */
+        display: flex; /* Flexbox düzeni */
+        flex-direction: column; /* Dikey düzen */
+        align-items: center; /* İçeriği ortala */
+        justify-content: center; /* Yatay ortalama */
+        height: 80vh; /* Container yüksekliğini ayarlayın */
+    }
+
+    /* Form ve başlıklar için stil ayarları */
+    h2 {
+        text-align: center; /* Başlık ortalama */
+        margin-bottom: 20px; /* Başlık ile form arasına boşluk */
+    }
+
+    form {
+        text-align: center; /* Formun ortalanması */
+        margin-bottom: 20px; /* Form ile tablo arasında boşluk */
+    }
+
+    /* Tablo genel düzeni */
+    .tableForDetaljer {
+        width: 100%;
+        border-collapse: separate; /* Hücre border'larının birleşmesini önlemek için */
+        border-spacing: 0 0px; /* Satırlar arasında 0px boşluk oluşturmak için */
+        font-family: Arial, sans-serif;
+        font-size: 16px;
+        border: 1px solid #000000;
+        margin-top: 20px; /* Tablo ile üst alan arasına boşluk ekle */
+    }
+
+    /* Tablodaki başlık hücreleri (th) */
+    .tableForDetaljer th {
+        background-color: #232323; /* Başlık arka plan rengi (daha koyu siyah ton) */
+        padding: 10px;
+        text-align: center;
+        position: relative; /* Pseudo-element kullanabilmek için position */
+        height: 34px; /* Satır yüksekliği 34px */
+    }
+
+    /* Başlık hücrelerine kısa border eklemek için */
+    .tableForDetaljer th:after {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        width: 1px; /* Kısa dikey border */
+        background-color: #505050; /* Border rengi */
+        height: 30%; /* Border hücre yüksekliğinin %30'u olacak */
+        margin: auto 0;
+    }
+
+    /* Son başlık hücresinde (th) sağdaki border olmayacak */
+    .tableForDetaljer th:last-child:after {
+        display: none; /* Son sütunda border olmaması için */
+    }
+
+    /* Tablodaki veri hücreleri (td) */
+    .tableForDetaljer td {
+        padding: 10px;
+        color: white; /* Yazı rengi beyaz */
+        background-color: #303030; /* Satırların varsayılan arka plan rengi (koyu siyah tonları) */
+        border-right: none; /* Genel border kaldırıldı */
+        position: relative; /* Pseudo-element kullanabilmek için position */
+        height: 34px; /* Satır yüksekliği 34px */
+        text-align: center;
+    }
+
+    /* Veri hücrelerine kısa border eklemek için */
+    .tableForDetaljer td:after {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        width: 1px; /* Kısa dikey border */
+        background-color: #505050; /* Border rengi */
+        height: 30%; /* Border hücre yüksekliğinin %30'u olacak */
+        margin: auto 0;
+    }
+
+    /* Son veri hücresinde (td) sağdaki border olmayacak */
+    .tableForDetaljer td:last-child:after {
+        display: none; /* Son sütunda border olmaması için */
+    }
+
+    /* Satırların yüksekliği ve aralarındaki boşluğu belirginleştir */
+    .tableForDetaljer tbody tr {
+        height: 34px; /* Satır yüksekliği 34px */
+    }
+
+    /* Sonuç mesajı için stil ayarları */
+    .result-message {
+        margin-top: 20px; /* Üstten boşluk */
+        text-align: center; /* Merkezde hizala */
+        color: white; /* Yazı rengi */
+    }
+</style>
+
+<div class="container">
+    <h2>Referans Numarası ile Søk</h2>
+    <form method="get" action="@Url.Action("Sok", "Home")">
+        <label for="referenceNumber">Referans Numarası:</label>
+        <input type="text" id="referenceNumber" name="referenceNumber" required />
+        <button type="submit">Søk</button>
+    </form>
+
+    @if (Model != null && Model.Any())
+    {
+        <div class="result-message">Referans Numarası: <strong>@Model.First().Id</strong></div>
+    }
+    else
+    {
+        <div class="result-message">Sisteminizde bu referans numarası bulunamadı.</div>
+    }
+
+    <table class="tableForDetaljer" id="saksbehandlermenu">
+        <thead>
+            <tr>
+                <th>Dato</th>
+                <th>Sak Status</th>
+                <th>Referansenummer</th>
+                <th>Kontroll Status</th>
+            </tr>
+        </thead>
+        <tbody id="saksbehandlersaks">
+            @if (Model != null && Model.Any())
+            {
+                foreach (var sakModel in Model)
+                {
+                    <tr onclick="window.location.href='@Url.Action("Detaljer", "Saksbehandler", new { id = sakModel.Id })'" style="cursor: pointer;">
+                        <td>@sakModel.CreatedAt.ToShortDateString()</td>
+                        <td>@sakModel.Status.ToString()</td>
+                        <td>@sakModel.Id</td>
+                        <td>@sakModel.IsTemporary</td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="4">Ingen saker funnet med det oppgitte referansenummeret.</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

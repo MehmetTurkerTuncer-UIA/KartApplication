@@ -91,7 +91,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 70px;
+    margin-top: 100px;
 
 }
 
@@ -110,6 +110,7 @@ body {
     justify-content: flex-end;
     align-items: flex-end;
     margin-right: 10px;
+    padding-bottom: 40px;
 }
 
 .header-right h4, .header-right p {

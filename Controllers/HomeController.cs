@@ -131,5 +131,79 @@ namespace KartApplication.Controllers
             _context.SakModels.RemoveRange(temporaryRecords);
             await _context.SaveChangesAsync();
         }
+
+        // Profil sayfası - Kullanıcının profil bilgilerini görüntüleme ve güncelleme
+[HttpGet]
+public async Task<IActionResult> Profil()
+{
+    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+    var user = await _context.Users.FindAsync(userId);
+
+    if (user == null)
+        return NotFound();
+
+    return View(user);
+}
+
+[HttpPost]
+public async Task<IActionResult> Profil(ApplicationUser model)
+{
+    if (ModelState.IsValid)
+    {
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        var existingUser = await _context.Users.FindAsync(userId);
+
+        if (existingUser != null)
+        {
+            // Kullanıcı bilgilerini güncelle
+            existingUser.UserName = model.Name;
+            existingUser.Email = model.Email;
+            existingUser.PhoneNumber = model.PhoneNumber;
+
+            _context.Users.Update(existingUser);
+            await _context.SaveChangesAsync();
+        }
+
+        return RedirectToAction("Profil");
+    }
+
+    return View(model);
+}
+
+[HttpGet]
+        public IActionResult MineSaker()
+        {
+            return View();
+        }
+
+
+         // GET: Home/Sok
+    public ActionResult Sok(string referenceNumber)
+    {
+        // Referans numarasına göre durumu kontrol et
+        var status = CheckStatus(referenceNumber);
+        
+        // Modeli view'e gönder
+        ViewBag.Status = status;
+        ViewBag.ReferenceNumber = referenceNumber;
+
+        return View();
+    }
+
+    private string CheckStatus(string referenceNumber)
+    {
+        // Burada referans numarasına göre durumu kontrol eden bir mantık yer alacak
+        // Örnek: veri tabanından veya başka bir kaynaktan kontrol edebilirsiniz
+        if (string.IsNullOrEmpty(referenceNumber))
+        {
+            return "Geçersiz referans numarası.";
+        }
+
+        // Örnek durum kontrolü
+        // Gerçek uygulamada burada bir veri kaynağına bağlanarak durum kontrolü yapmalısınız
+        return "Durum: Aktif"; // veya "Durum: Pasif", "Durum: Beklemede" vb.
     }
 }
+
+    }
+
