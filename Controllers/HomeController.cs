@@ -176,5 +176,34 @@ public async Task<IActionResult> Profil(ApplicationUser model)
             return View();
         }
 
+
+         // GET: Home/Sok
+    public ActionResult Sok(string referenceNumber)
+    {
+        // Referans numarasına göre durumu kontrol et
+        var status = CheckStatus(referenceNumber);
+        
+        // Modeli view'e gönder
+        ViewBag.Status = status;
+        ViewBag.ReferenceNumber = referenceNumber;
+
+        return View();
+    }
+
+    private string CheckStatus(string referenceNumber)
+    {
+        // Burada referans numarasına göre durumu kontrol eden bir mantık yer alacak
+        // Örnek: veri tabanından veya başka bir kaynaktan kontrol edebilirsiniz
+        if (string.IsNullOrEmpty(referenceNumber))
+        {
+            return "Geçersiz referans numarası.";
+        }
+
+        // Örnek durum kontrolü
+        // Gerçek uygulamada burada bir veri kaynağına bağlanarak durum kontrolü yapmalısınız
+        return "Durum: Aktif"; // veya "Durum: Pasif", "Durum: Beklemede" vb.
     }
 }
+
+    }
+
