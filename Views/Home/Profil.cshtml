@@ -1,0 +1,34 @@
+
+
+@model KartApplication.Models.ApplicationUser
+
+@{
+    ViewData["Title"] = "Profil";
+        Layout = "~/Views/Shared/_BrukerLayout.cshtml"; 
+}
+
+
+
+<h2>Profil Bilgileri</h2>
+
+<form asp-action="Profil" method="post">
+    <div class="form-group">
+        <label asp-for="Name">Ad:</label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    
+    <div class="form-group">
+        <label asp-for="Email">E-posta:</label>
+        <input asp-for="Email" type="email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="PhoneNumber">Telefon Numarası:</label>
+        <input asp-for="PhoneNumber" class="form-control" />
+        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Güncelle</button>
+</form>

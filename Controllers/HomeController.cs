@@ -131,5 +131,50 @@ namespace KartApplication.Controllers
             _context.SakModels.RemoveRange(temporaryRecords);
             await _context.SaveChangesAsync();
         }
+
+        // Profil sayfası - Kullanıcının profil bilgilerini görüntüleme ve güncelleme
+[HttpGet]
+public async Task<IActionResult> Profil()
+{
+    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+    var user = await _context.Users.FindAsync(userId);
+
+    if (user == null)
+        return NotFound();
+
+    return View(user);
+}
+
+[HttpPost]
+public async Task<IActionResult> Profil(ApplicationUser model)
+{
+    if (ModelState.IsValid)
+    {
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        var existingUser = await _context.Users.FindAsync(userId);
+
+        if (existingUser != null)
+        {
+            // Kullanıcı bilgilerini güncelle
+            existingUser.UserName = model.Name;
+            existingUser.Email = model.Email;
+            existingUser.PhoneNumber = model.PhoneNumber;
+
+            _context.Users.Update(existingUser);
+            await _context.SaveChangesAsync();
+        }
+
+        return RedirectToAction("Profil");
+    }
+
+    return View(model);
+}
+
+[HttpGet]
+        public IActionResult MineSaker()
+        {
+            return View();
+        }
+
     }
 }
