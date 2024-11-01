@@ -24,24 +24,56 @@
         </tr>
     </tbody>
 </table>
+<br>
+    
 
-<!-- Açıklama ve Harita Alanı -->
-<table class="table-borderless-detaljer">
-    <tr>
-        <td class="beskrive-avdeling">
-            <p>@Model.Description </p>
-        </td>
-    </tr>
-    <tr>
-        <td class="map-section">
-            <div class="map-holder" style="height: 400px; width: 100%;">
-                <!-- Harita entegrasyonu için Leaflet veya Google Maps gibi bir API ekleyebilirsiniz -->
-            </div>
-            <p class="adress-holder"><strong>Adres:</strong> @Model.Address</p>
-        </td>
-    </tr>
+@if (!string.IsNullOrEmpty(Model.Description))
+{
+    
+   <div class="OppsummeringBox">    
+
+    <div class="OppsummeringContentTitle">    <img src="~/images/check-mark.png" alt="Checkbox" class="checkboxImage"> <!-- Resim yolu güncellendi -->
+ Beskrivelse: </div>
+
+    <p class="OppsummeringContent"> @Model.Description</p> </div>
+
+
+
+
+
+       
+   
+}
+@if (!string.IsNullOrEmpty(Model.Address))
+{
+     <div class="OppsummeringBox">    
+    <div class="OppsummeringContentTitle"> <img src="~/images/check-mark.png" alt="Checkbox" class="checkboxImage"> <!-- Resim yolu güncellendi --> Adresse: </div>
+     
+         <p class="OppsummeringContent"> @Model.Address</p> </div>
+
+
+}
+
+<!-- Harita konteyneri -->
+ <div class="OppsummeringBox">    
+    <div class="OppsummeringContentTitle"> <img src="~/images/check-mark.png" alt="Checkbox" class="checkboxImage"> <!-- Resim yolu güncellendi --> Kart: </div>
+<div id="map" style="height: 400px; width: 100%;"></div>
+</div>
+<!-- Koordinatlar tablosu -->
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Breddegrad</th>
+            <th>Lengdegrad</th>
+        </tr>
+    </thead>
+    <tbody id="coordinatesTableBody">
+        <!-- Koordinatlar burada doldurulacak -->
+    </tbody>
 </table>
- 
+
+
 <!-- Yönetim Paneli -->
 <div class="admin-panel">
     <div class="admin-card">
@@ -117,3 +149,120 @@
     </div>
 </div>
  
+
+
+@section Scripts {
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <script>
+        // GeoJSON verisini modelden alıyoruz
+        var geoJsonData = @Html.Raw(Model.GeoJson);
+        var selectedMapType = '@Model.SelectedMapType'; // Seçilen harita tipi (fargekart, gratonekart, turkart, sjokart)
+
+        // Harita katmanlarını tanımla
+        var fargekart = L.tileLayer('https://cache.kartverket.no/v1/wmts/1.0.0/topo/default/webmercator/{z}/{y}/{x}.png', {
+            maxZoom: 18,
+            attribution: '&copy; <a href="https://kartverket.no/">Kartverket</a>'
+        });
+
+        var gratonekart = L.tileLayer('https://cache.kartverket.no/v1/wmts/1.0.0/topograatone/default/webmercator/{z}/{y}/{x}.png', {
+            maxZoom: 18,
+            attribution: '&copy; <a href="https://kartverket.no/">Kartverket</a>'
+        });
+
+        var turkart = L.tileLayer('https://cache.kartverket.no/v1/wmts/1.0.0/toporaster/default/webmercator/{z}/{y}/{x}.png', {
+            maxZoom: 18,
+            attribution: '&copy; <a href="https://kartverket.no/">Kartverket</a>'
+        });
+
+        var sjokart = L.tileLayer('https://cache.kartverket.no/v1/wmts/1.0.0/sjokartraster/default/webmercator/{z}/{y}/{x}.png', {
+            maxZoom: 18,
+            attribution: '&copy; <a href="https://kartverket.no/">Kartverket</a>'
+        });
+
+        // Seçilen harita katmanına göre haritayı başlat
+        var selectedLayer;
+        switch (selectedMapType) {
+            case 'gratonekart':
+                selectedLayer = gratonekart;
+                break;
+            case 'turkart':
+                selectedLayer = turkart;
+                break;
+            case 'sjokart':
+                selectedLayer = sjokart;
+                break;
+            default:
+                selectedLayer = fargekart;
+        }
+
+        // Haritayı başlat
+        var map = L.map('map').setView([58.1467, 7.9956], 15);
+
+        // Seçilen harita katmanını ekle
+        selectedLayer.addTo(map);
+
+        // GeoJSON verisini haritaya ekle
+        if (geoJsonData && geoJsonData.features) {
+            var layer = L.geoJSON(geoJsonData, {
+                onEachFeature: function (feature, layer) {
+                    // Eğer özellik bir Point ise (işaretleyici)
+                    if (feature.geometry.type === 'Point') {
+                        var lat = feature.geometry.coordinates[1];
+                        var lng = feature.geometry.coordinates[0];
+                        layer.bindPopup("Koordinater: Br. " + lat + ", Lgr. " + lng).openPopup();
+                    }
+                    // Eğer Polygon ise
+                    else if (feature.geometry.type === 'Polygon') {
+                        feature.geometry.coordinates[0].forEach(function (coord) {
+                            var lat = coord[1];
+                            var lng = coord[0];
+                            L.marker([lat, lng]).addTo(map)
+                                .bindPopup("Koordinater: Br. " + lat + ", Lgr. " + lng).openPopup();
+                        });
+                    }
+                    // Eğer Polyline (çizgi) ise
+                    else if (feature.geometry.type === 'LineString') {
+                        feature.geometry.coordinates.forEach(function (coord) {
+                            var lat = coord[1];
+                            var lng = coord[0];
+                            L.marker([lat, lng]).addTo(map)
+                                .bindPopup("Koordinater: Br. " + lat + ", Lgr. " + lng).openPopup();
+                        });
+                    }
+                }
+            }).addTo(map);
+
+            // Harita görünümünü katmanlara göre ayarla
+            map.fitBounds(layer.getBounds());
+
+        } else {
+            // GeoJSON verisi yoksa bir uyarı mesajı göster
+            alert('Gyldige GeoJSON-data ble ikke funnet.');
+        }
+
+
+        function removePlaceholder() {
+    var textarea = document.getElementById("description");
+    if (textarea.value === "Bir açıklama yazın...") {
+        textarea.value = "";
+        textarea.style.color = "white";
+    }
+}
+
+function addPlaceholder() {
+    var textarea = document.getElementById("description");
+    if (textarea.value === "") {
+        textarea.value = "Bir açıklama yazın...";
+        textarea.style.color = "gray";
+    }
+}
+
+// Sayfa yüklendiğinde placeholder rengini ayarlayın
+document.addEventListener("DOMContentLoaded", function() {
+    var textarea = document.getElementById("description");
+    textarea.style.color = "gray";
+});
+    </script>
+}
