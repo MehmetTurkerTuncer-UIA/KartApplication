@@ -35,7 +35,16 @@ namespace KartApplication.Models
         [ForeignKey("UserId")]
         public ApplicationUser? ApplicationUser { get; set; }  // Navigation property
 
+
+        public string? AssignedKontrollerenId { get; set; }  // Foreign key for assigned Kontrolleren
+        [ForeignKey("AssignedKontrollerenId")]
+        public ApplicationUser? AssignedKontrolleren { get; set; }  // Atanmış Kontrolleren bilgisi
+
+
+
         ////public ICollection<FeedbackModel>? FeedbackModels { get; set; }
+
+
 
 
 

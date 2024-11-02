@@ -76,6 +76,9 @@ namespace KartApplication.Migrations
                     b.Property<int>("ArbeidStatus")
                         .HasColumnType("int");
 
+                    b.Property<string>("AssignedKontrollerenId")
+                        .HasColumnType("varchar(255)");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
 
@@ -99,6 +102,8 @@ namespace KartApplication.Migrations
                         .HasColumnType("varchar(255)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AssignedKontrollerenId");
 
                     b.HasIndex("UserId");
 
@@ -335,11 +340,17 @@ namespace KartApplication.Migrations
 
             modelBuilder.Entity("KartApplication.Models.SakModel", b =>
                 {
+                    b.HasOne("KartApplication.Models.ApplicationUser", "AssignedKontrolleren")
+                        .WithMany()
+                        .HasForeignKey("AssignedKontrollerenId");
+
                     b.HasOne("KartApplication.Models.ApplicationUser", "ApplicationUser")
                         .WithMany()
                         .HasForeignKey("UserId");
 
                     b.Navigation("ApplicationUser");
+
+                    b.Navigation("AssignedKontrolleren");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
