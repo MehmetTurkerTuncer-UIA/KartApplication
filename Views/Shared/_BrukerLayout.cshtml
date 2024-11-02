@@ -18,6 +18,11 @@
         <div class="outer-container">
     <header>
         <div class="header-container">
+
+                          <div class="overlay" onclick="toggleMenu()"></div>
+<div class="hamburger-menu" onclick="toggleMenu()">☰</div>
+
+
             <div class="logo">
                 <img src="~/images/as.png" alt="Logo" style="width: auto; height: 150px;">
             </div>
@@ -159,5 +164,38 @@
 </footer>
 
     @RenderSection("Scripts", required: false)
+<script>
+ let isAnimating = false; // Animasyon durumu kontrolü için
+
+function toggleMenu() {
+    if (isAnimating) return; // Eğer animasyon devam ediyorsa fonksiyonu durdur
+
+    const menu = document.querySelector('.menu');
+    const overlay = document.querySelector('.overlay');
+    isAnimating = true; // Animasyon başlıyor
+
+    if (!menu.classList.contains('active')) {
+        // Menü açılırken
+        overlay.style.display = 'block';
+        setTimeout(() => {
+            overlay.classList.add('active'); // Kararma animasyonunu başlat
+            menu.classList.add('active'); // Menü aç
+            setTimeout(() => {
+                isAnimating = false; // Animasyon bitti
+            }, 1000); // 1 saniye sonra animasyon tamamlanır
+        }, 10); // Küçük bir gecikme ile class ekle
+    } else {
+        // Menü kapanırken
+        overlay.classList.remove('active'); // Kararma animasyonunu geri al
+        menu.classList.remove('active'); // Menü kapat
+        setTimeout(() => {
+            overlay.style.display = 'none'; // Animasyon bitince tamamen gizle
+            isAnimating = false; // Animasyon bitti
+        }, 1000); // 1 saniye sonra gizle
+    }
+}
+
+</script>
+    
 </body>
 </html>

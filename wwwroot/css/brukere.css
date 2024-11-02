@@ -856,3 +856,152 @@ textarea.form-control:focus {
 }
 
 
+
+
+
+
+
+
+
+/* Genel responsive yapı */
+.outer-container, .main-container, .content-top, .header-container {
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0 10px;
+    box-sizing: border-box;
+}
+
+/* Büyük ekranlarda hamburger menüyü gizle */
+.hamburger-menu {
+    display: none; /* Varsayılan olarak büyük ekranlarda gizle */
+    z-index: 100001;
+}
+
+/* Overlay ayarları (arka plan karartması) */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* %50 kararma */
+    opacity: 0; /* Başlangıçta görünmez */
+    transition: opacity 1s ease; /* 1 saniyede kararma geçişi */
+    z-index: 1999; /* Menüden bir kademe altta */
+    display: none; /* Başlangıçta gizli */
+}
+
+.overlay.active {
+    display: block;
+    opacity: 0.5; /* Menü açıldığında %50 kararma */
+}
+
+
+/* Küçük ekranlar için hamburger menüyü göster */
+@media (max-width: 768px) {
+    .header-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .logo img {
+        max-height: 100px;
+        padding-left: 0;
+    }
+
+    /* Mobil görünüm için hamburger ikon ayarları */
+    .hamburger-menu {
+        display: block;
+        position: fixed;
+        top: 10px;
+        left: 10px;
+        cursor: pointer;
+        font-size: 24px;
+        color: white;
+        z-index: 1100001;
+    }
+
+    /* Menü mobilde gizli olarak başlasın */
+    .menu {
+        width: 200px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: calc(100vh - 40px);
+        z-index: 11000;
+        transform: translateX(-100%); /* Başlangıçta ekranın dışında */
+        transition: transform 0.3s ease-in-out;
+        display: flex;
+        flex-direction: column;
+        background-color: #0f0f0f;
+        padding-top: 60px; /* Menü seçenekleri hamburger ikonunun altında başlasın */
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    /* Menü açıldığında görünsün */
+    .menu.active {
+        transform: translateX(0);
+    }
+
+    /* Menü içindeki tüm liste elemanları dikey hizalanır */
+    .menu ul {
+        flex-direction: column;
+        width: 100%;
+        text-align: center;
+    }
+
+    /* Alt Menü ayarları */
+    .menu ul.bottom-menu {
+        display: flex; /* Alt menü mobilde görünür */
+        flex-direction: column;
+        margin-top: auto;
+        text-align: center;
+    }
+
+    .menu ul li {
+        list-style: none;
+        width: 100%;
+        text-align: center;
+    }
+
+    /* Mobilde menü bağlantılarını ortalamak için ek ayar */
+    .menu ul li a, .btna {
+        width: calc(90%);
+        display: block;
+        padding: 10px 0;
+        background-color: #272727;
+        color: white;
+        text-decoration: none;
+        font-size: 18px;
+        border-radius: 8px;
+        margin-bottom: 10px;
+    }
+
+    .menu ul li a:hover, .btna:hover {
+        background-color: #c82333;
+    }
+
+    .btna i {
+        margin-right: 8px;
+    }
+
+    /* Menü içindeki içeriklerin düzenlenmesi */
+    .content-top {
+        width: 100%;
+        margin-top: 60px;
+    }
+}
+
+/* Ek küçük ekran genişlikleri için */
+@media (max-width: 500px) {
+    .menu ul li a {
+        font-size: 16px;
+        padding: 8px;
+    }
+
+    .content h2 {
+        font-size: 18px;
+    }
+}
