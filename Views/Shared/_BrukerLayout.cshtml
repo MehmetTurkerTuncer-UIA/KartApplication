@@ -18,6 +18,10 @@
         <div class="outer-container">
     <header>
         <div class="header-container">
+
+                            <div class="hamburger-menu" onclick="toggleMenu()">☰</div>
+
+
             <div class="logo">
                 <img src="~/images/as.png" alt="Logo" style="width: auto; height: 150px;">
             </div>
@@ -159,5 +163,11 @@
 </footer>
 
     @RenderSection("Scripts", required: false)
+<script>function toggleMenu() {
+    const menu = document.querySelector('.menu');
+    menu.classList.toggle('active');
+}
+</script>
+    
 </body>
 </html>
