@@ -3,6 +3,7 @@ using KartApplication.Models;
 using KartApplication.Data;
 using Microsoft.AspNetCore.Authorization;
 using System.Linq;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace KartApplication.Controllers
 {
@@ -42,19 +43,35 @@ namespace KartApplication.Controllers
 
         public IActionResult Detaljer(int id)
         {
-            Console.WriteLine("id değeri: " + id);
-
             var sak = _context.SakModels.FirstOrDefault(s => s.Id == id);
             if (sak == null)
             {
                 return NotFound();
             }
-            return View(sak); // SakModel nesnesini Detaljer görünümüne gönderiyoruz
+
+            var kontrollerenRoleId = _context.Roles
+                .Where(r => r.Name == UserRoles.Role_Kontrolleren)
+                .Select(r => r.Id)
+                .FirstOrDefault();
+
+            var kontrollerenUsers = _context.Users
+                .Where(u => _context.UserRoles
+                    .Any(ur => ur.UserId == u.Id && ur.RoleId == kontrollerenRoleId))
+                .Select(u => new SelectListItem
+                {
+                    Value = u.Id,
+                    Text = u.UserName,
+                    Selected = u.Id == sak.AssignedKontrollerenId  // selected durumu burada ayarlanıyor
+                })
+                .ToList();
+
+            ViewBag.KontrollerenUsers = new SelectList(kontrollerenUsers, "Value", "Text", sak.AssignedKontrollerenId);
+            return View(sak);
         }
 
         // Status ve Kontroll Status Güncelleme İşlemi
         [HttpPost]
-        public IActionResult UpdateStatus(int id, string sakStatus, string arbeidStatus)
+        public IActionResult UpdateStatus(int id, string sakStatus, string arbeidStatus, string kontrollerenId)
         {
             Console.WriteLine("id değeri: " + id);
             SakModel? sakModel = _context.SakModels.FirstOrDefault(s => s.Id == id);
@@ -74,6 +91,12 @@ namespace KartApplication.Controllers
             if (Enum.TryParse(arbeidStatus, out ArbeidStatus newArbeidStatus))
             {
                 sakModel.ArbeidStatus = newArbeidStatus;
+            }
+
+            // Kontrolleren atanması
+            if (!string.IsNullOrEmpty(kontrollerenId))
+            {
+                sakModel.AssignedKontrollerenId = kontrollerenId;
             }
 
             _context.SaveChanges(); // Değişiklikleri kaydet

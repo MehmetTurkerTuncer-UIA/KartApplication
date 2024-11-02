@@ -142,7 +142,18 @@
                     }
                 </select>
             </div>
+                <!-- Kontrolleren Atama Seçimi -->
+            <div class="form-group">
+                <label for="kontrollerenId">Oppdrag Til Kontrolleren</label>
+                <select id="kontrollerenId" name="kontrollerenId" class="form-control" asp-items="ViewBag.KontrollerenUsers">
+                    <option value="">Velg</option>
+                </select>
+            </div>
+
+
             <div class="form-actions">
+
+
                 <button type="button" class="btn btn-danger">Avvis</button>
                 <button type="submit" class="btn btn-primary">Lagre</button>
             </div>
