@@ -35,18 +35,18 @@
     <ul class="top-menu">
                     
         @if (User.IsInRole(UserRoles.Role_Admin)) {
-        <li><a href="/home/OpprettSak" class="menu-item"><i class="bi bi-folder2"></i> Admin </a></li>
+        <li><a href="/Admin/index" class="menu-item"><i class="bi bi-folder2"></i> Admin </a></li>
              }
                     @if (User.IsInRole(UserRoles.Role_Saksbehandler))
                     {
                       
-                    <li><a href="/home/OpprettSak" class="menu-item"><i class="bi bi-folder2"></i> Saksbehandler </a></li>
+                    <li><a href="/Saksbehandler/index" class="menu-item"><i class="bi bi-folder2"></i> Saksbehandler </a></li>
                     }
               
                     @if (User.IsInRole(UserRoles.Role_Kontrolleren))
                     {
 
-                        <li><a href="/home/OpprettSak" class="menu-item"><i class="bi bi-folder2"></i> Kontrolleren </a></li>
+                        <li><a href="/Kontrolleren/index" class="menu-item"><i class="bi bi-folder2"></i> Kontrolleren </a></li>
                     }
                     @* 
                     @if (User.IsInRole(UserRoles.Role_Bruker))
