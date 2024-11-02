@@ -76,6 +76,29 @@ namespace KartApplication.Controllers
             _context.SaveChanges(); // Değişiklikleri kaydediyoruz
             return RedirectToAction("Detaljer", new { id }); // Güncelleme sonrası Detaljer sayfasına dönüyoruz
         }
+
+        // Status ve Kontroll Status Güncelleme İşlemi
+        [HttpPost]
+        public IActionResult UpdateArbeidStatus(int id, string ArbeidStatus /*, string kontrollStatus*/ )
+        {
+            Console.WriteLine("id değeri: " + id);
+            SakModel? sakModel = _context.SakModels.FirstOrDefault(s => s.Id == id);
+            var sak = sakModel;
+            if (sak == null)
+            {
+                return NotFound();
+            }
+
+            // Status güncelleme
+            if (Enum.TryParse(ArbeidStatus, out ArbeidStatus newArbeidStatus))
+            {
+                sak.ArbeidStatus = newArbeidStatus;
+            }
+
+            
+            _context.SaveChanges(); // Değişiklikleri kaydediyoruz
+            return RedirectToAction("Detaljer", new { id }); // Güncelleme sonrası Detaljer sayfasına dönüyoruz
+        }
         // Profil sayfası
         public IActionResult Profil(string id)
         {
