@@ -2,9 +2,9 @@
 {
     public enum ArbeidStatus
     {
-        Tilordnet,
         IkkeTilordnet,
-        ArbeidAvlyst
+        Tilordnet,
+        KontrollAvlyst
 
     }
 

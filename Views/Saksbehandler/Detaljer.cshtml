@@ -20,7 +20,7 @@
             <td>@Model.CreatedAt.ToShortDateString()</td>
             <td>@Model.Status</td>
             <td>@Model.Id</td>
-            <td>@Model.IsTemporary</td>
+            <td>@Model.ArbeidStatus</td>
         </tr>
     </tbody>
 </table>
@@ -112,6 +112,37 @@
                 </select>
             </div>
             <div class="form-actions">
+                <label for="arbeidStatus">Kontrol Status</label>
+                <select id="arbeidStatus" name="arbeidStatus" class="form-control">
+                    <option value="">Velg</option>
+                    @if (Model.ArbeidStatus == ArbeidStatus.IkkeTilordnet)
+                    {
+                        <option value="IkkeTilordnet" selected>IkkeTilordnet</option>
+                    }
+                    else
+                    {
+                        <option value="IkkeTilordnet">IkkeTilordnet</option>
+                    }
+                    @if (Model.ArbeidStatus == ArbeidStatus.Tilordnet)
+                    {
+                        <option value="Tilordnet" selected>Tilordnet</option>
+                    }
+                    else
+                    {
+                        <option value="Tilordnet">Tilordnet</option>
+                    }
+                    @if (Model.ArbeidStatus == ArbeidStatus.KontrollAvlyst)
+                    {
+                        <option value="ArbeidStatus" selected>ArbeidStatus</option>
+                    }
+                    else
+                    {
+                        <option value="ArbeidStatus">ArbeidStatus</option>
+                    }
+                </select>
+            </div>
+            <div class="form-actions">
+
                 <button type="button" class="btn btn-danger">Avvis</button>
                 <button type="submit" class="btn btn-primary">Lagre</button>
             </div>
