@@ -111,17 +111,18 @@
                     }
                 </select>
             </div>
-            <div class="form-actions">
-                <label for="arbeidStatus">Kontrol Status</label>
+            <!-- Arbeid Status Seçimi -->
+            <div class="form-group">
+                <label for="arbeidStatus">Kontroll Status</label>
                 <select id="arbeidStatus" name="arbeidStatus" class="form-control">
                     <option value="">Velg</option>
                     @if (Model.ArbeidStatus == ArbeidStatus.IkkeTilordnet)
                     {
-                        <option value="IkkeTilordnet" selected>IkkeTilordnet</option>
+                        <option value="IkkeTilordnet" selected>Ikke Tilordnet</option>
                     }
                     else
                     {
-                        <option value="IkkeTilordnet">IkkeTilordnet</option>
+                        <option value="IkkeTilordnet">Ikke Tilordnet</option>
                     }
                     @if (Model.ArbeidStatus == ArbeidStatus.Tilordnet)
                     {
@@ -133,16 +134,15 @@
                     }
                     @if (Model.ArbeidStatus == ArbeidStatus.KontrollAvlyst)
                     {
-                        <option value="ArbeidStatus" selected>ArbeidStatus</option>
+                        <option value="KontrollAvlyst" selected>Kontroll Avlyst</option>
                     }
                     else
                     {
-                        <option value="ArbeidStatus">ArbeidStatus</option>
+                        <option value="KontrollAvlyst">Kontroll Avlyst</option>
                     }
                 </select>
             </div>
             <div class="form-actions">
-
                 <button type="button" class="btn btn-danger">Avvis</button>
                 <button type="submit" class="btn btn-primary">Lagre</button>
             </div>
