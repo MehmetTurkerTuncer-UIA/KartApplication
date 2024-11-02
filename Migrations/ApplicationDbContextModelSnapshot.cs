@@ -91,6 +91,9 @@ namespace KartApplication.Migrations
                     b.Property<bool>("IsTemporary")
                         .HasColumnType("tinyint(1)");
 
+                    b.Property<int>("KontrolStatus")
+                        .HasColumnType("int");
+
                     b.Property<string>("SelectedMapType")
                         .IsRequired()
                         .HasColumnType("longtext");
