@@ -51,11 +51,10 @@ namespace KartApplication.Models
         //SakStatus enum'ı eklendi
         public SakStatus Status { get; set; } = SakStatus.SakMottatt;
 
-        
-        public ArbeidStatus ArbeidStatus { get; set; }
-        
-        
-        
+
+        public ArbeidStatus ArbeidStatus { get; set; } = ArbeidStatus.IkkeTilordnet;
+
+        public KontrolStatus KontrolStatus { get; set; } = KontrolStatus.villKontrollere;
         
         
         
