@@ -863,9 +863,6 @@ textarea.form-control:focus {
 
 
 
-
-
-
 /* Genel responsive yapı */
 .outer-container, .main-container, .content-top, .header-container {
     width: 100%;
@@ -880,6 +877,26 @@ textarea.form-control:focus {
     display: none; /* Varsayılan olarak büyük ekranlarda gizle */
     z-index: 100001;
 }
+
+/* Overlay ayarları (arka plan karartması) */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* %50 kararma */
+    opacity: 0; /* Başlangıçta görünmez */
+    transition: opacity 1s ease; /* 1 saniyede kararma geçişi */
+    z-index: 1999; /* Menüden bir kademe altta */
+    display: none; /* Başlangıçta gizli */
+}
+
+.overlay.active {
+    display: block;
+    opacity: 0.5; /* Menü açıldığında %50 kararma */
+}
+
 
 /* Küçük ekranlar için hamburger menüyü göster */
 @media (max-width: 768px) {
@@ -902,6 +919,7 @@ textarea.form-control:focus {
         cursor: pointer;
         font-size: 24px;
         color: white;
+        z-index: 1100001;
     }
 
     /* Menü mobilde gizli olarak başlasın */
@@ -911,15 +929,15 @@ textarea.form-control:focus {
         top: 0;
         left: 0;
         height: calc(100vh - 40px);
-        z-index: 1000;
+        z-index: 11000;
         transform: translateX(-100%); /* Başlangıçta ekranın dışında */
         transition: transform 0.3s ease-in-out;
         display: flex;
         flex-direction: column;
         background-color: #0f0f0f;
-        z-index: 100000;
         padding-top: 60px; /* Menü seçenekleri hamburger ikonunun altında başlasın */
-        padding-left: 10px; padding-right: 10px;
+        padding-left: 10px;
+        padding-right: 10px;
     }
 
     /* Menü açıldığında görünsün */
@@ -938,62 +956,42 @@ textarea.form-control:focus {
     .menu ul.bottom-menu {
         display: flex; /* Alt menü mobilde görünür */
         flex-direction: column;
-        margin-top: auto; /* Alt menünün menüde en aşağıda yer almasını sağlar */
+        margin-top: auto;
         text-align: center;
     }
 
     .menu ul li {
         list-style: none;
-        width: 100%; /* Tam genişlik */
+        width: 100%;
         text-align: center;
     }
 
     /* Mobilde menü bağlantılarını ortalamak için ek ayar */
-    .menu ul li a {
-        width: calc(90%); /* Sağdan ve soldan 20px boşluk bırak */
-       
-
-
+    .menu ul li a, .btna {
+        width: calc(90%);
         display: block;
-        padding: 10px 0; /* Bağlantıların içindeki metni dikey ortalamak için üst ve alt padding */
+        padding: 10px 0;
         background-color: #272727;
         color: white;
         text-decoration: none;
         font-size: 18px;
         border-radius: 8px;
-
-
+        margin-bottom: 10px;
     }
 
-  /* Logout butonu için özel stil */
-  .btna {
-    width: calc(90%); /* Sağdan ve soldan 20px boşluk bırak */
-       
+    .menu ul li a:hover, .btna:hover {
+        background-color: #c82333;
+    }
 
+    .btna i {
+        margin-right: 8px;
+    }
 
-    display: block;
-    padding: 10px 0; /* Bağlantıların içindeki metni dikey ortalamak için üst ve alt padding */
-    background-color: #272727;
-    color: white;
-    text-decoration: none;
-    font-size: 18px;
-    border-radius: 8px;
-    margin-bottom: 10px; /* Her butonun üstünde ve altında 5px boşluk */
-}
-
-.btna:hover {
-    background-color: #c82333; /* Hover durumu için kırmızı tonu */
-}
-
-.btna i {
-    margin-right: 8px; /* İkon ile metin arasındaki boşluk */
-}
-
-/* Menü içindeki içeriklerin düzenlenmesi */
-.content-top {
-    width: 100%;
-    margin-top: 60px;
-}
+    /* Menü içindeki içeriklerin düzenlenmesi */
+    .content-top {
+        width: 100%;
+        margin-top: 60px;
+    }
 }
 
 /* Ek küçük ekran genişlikleri için */
