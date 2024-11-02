@@ -54,28 +54,33 @@ namespace KartApplication.Controllers
 
         // Status ve Kontroll Status Güncelleme İşlemi
         [HttpPost]
-        public IActionResult UpdateStatus(int id, string sakStatus /*, string kontrollStatus*/ )
+        public IActionResult UpdateStatus(int id, string sakStatus, string arbeidStatus)
         {
             Console.WriteLine("id değeri: " + id);
             SakModel? sakModel = _context.SakModels.FirstOrDefault(s => s.Id == id);
-            var sak = sakModel;
-            if (sak == null)
+
+            if (sakModel == null)
             {
                 return NotFound();
             }
 
-            // Status güncelleme
-            if (Enum.TryParse(sakStatus, out SakStatus newStatus))
+            // SakStatus güncelleme
+            if (Enum.TryParse(sakStatus, out SakStatus newSakStatus))
             {
-                sak.Status = newStatus;
+                sakModel.Status = newSakStatus;
             }
 
-            // KontrollStatus güncelleme (örneğin `IsTemporary` alanını kullanarak)
-//            sak.IsTemporary = kontrollStatus == "Ikke Tildordnet";
+            // ArbeidStatus güncelleme
+            if (Enum.TryParse(arbeidStatus, out ArbeidStatus newArbeidStatus))
+            {
+                sakModel.ArbeidStatus = newArbeidStatus;
+            }
 
-            _context.SaveChanges(); // Değişiklikleri kaydediyoruz
-            return RedirectToAction("Detaljer", new { id }); // Güncelleme sonrası Detaljer sayfasına dönüyoruz
+            _context.SaveChanges(); // Değişiklikleri kaydet
+            return RedirectToAction("Detaljer", new { id }); // Güncelleme sonrası Detaljer sayfasına dön
         }
+
+
         // Profil sayfası
         public IActionResult Profil(string id)
         {

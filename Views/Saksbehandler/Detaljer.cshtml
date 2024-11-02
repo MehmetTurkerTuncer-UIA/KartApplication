@@ -20,7 +20,7 @@
             <td>@Model.CreatedAt.ToShortDateString()</td>
             <td>@Model.Status</td>
             <td>@Model.Id</td>
-            <td>@Model.IsTemporary</td>
+            <td>@Model.ArbeidStatus</td>
         </tr>
     </tbody>
 </table>
@@ -108,6 +108,37 @@
                     else
                     {
                         <option value="Avsluttet">Avsluttet</option>
+                    }
+                </select>
+            </div>
+            <!-- Arbeid Status Seçimi -->
+            <div class="form-group">
+                <label for="arbeidStatus">Kontroll Status</label>
+                <select id="arbeidStatus" name="arbeidStatus" class="form-control">
+                    <option value="">Velg</option>
+                    @if (Model.ArbeidStatus == ArbeidStatus.IkkeTilordnet)
+                    {
+                        <option value="IkkeTilordnet" selected>Ikke Tilordnet</option>
+                    }
+                    else
+                    {
+                        <option value="IkkeTilordnet">Ikke Tilordnet</option>
+                    }
+                    @if (Model.ArbeidStatus == ArbeidStatus.Tilordnet)
+                    {
+                        <option value="Tilordnet" selected>Tilordnet</option>
+                    }
+                    else
+                    {
+                        <option value="Tilordnet">Tilordnet</option>
+                    }
+                    @if (Model.ArbeidStatus == ArbeidStatus.KontrollAvlyst)
+                    {
+                        <option value="KontrollAvlyst" selected>Kontroll Avlyst</option>
+                    }
+                    else
+                    {
+                        <option value="KontrollAvlyst">Kontroll Avlyst</option>
                     }
                 </select>
             </div>
