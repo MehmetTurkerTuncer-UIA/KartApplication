@@ -1,4 +1,4 @@
-@model KartApplication.Models.AreaChange
+@model List<SakModel>
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_KontrollerenLayout.cshtml"; 
@@ -12,7 +12,29 @@
 
 </div>
 <br>
+<h2>Atanmış Saklar</h2>
+<br>
 <table class="tablesaksbehandler" id="saksbehandlermenu">
+    <thead>
+        <tr>
+            <th>Dato</th>
+            <th>Referansenummer</th>
+            <th>Kontrol Status</th>
+        </tr>
+    </thead>
+    <tbody id="saksbehandlersaks">
+        @foreach (var sak in Model)
+        {
+            <tr>
+                <td>@sak.CreatedAt.ToShortDateString()</td>
+                <td>@sak.Id</td>
+                <td>@sak.ArbeidStatus</td>
+                
+            </tr>
+        }
+    </tbody>
+    
+    
     <thead>
         <tr>
             <th>Dato</th>
