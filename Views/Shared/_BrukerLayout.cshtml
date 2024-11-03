@@ -48,13 +48,13 @@
 
                         <li><a href="/Kontrolleren/index" class="menu-item"><i class="bi bi-folder2"></i> Kontrolleren </a></li>
                     }
-                    @* 
+                    
                     @if (User.IsInRole(UserRoles.Role_Bruker))
-                    { } *@
+                    {  
 
                         <li><a href="/home/index" class="menu-item"><i class="bi bi-pencil-square"></i> Opprett Saker</a></li>
                         <li><a href="/home/minesaker" class="menu-item"><i class="bi bi-folder2"></i> Mine Saker</a></li>
-                    
+                    }
 
     </ul>
 
