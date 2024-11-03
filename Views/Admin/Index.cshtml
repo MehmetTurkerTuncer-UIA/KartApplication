@@ -1,72 +1,55 @@
-@model KartApplication.Models.AreaChange
+﻿@*  @model List<ApplicationUser>
+ *@ 
+@model IEnumerable<KartApplication.Models.ApplicationUserViewModel>
+
 @{
-    ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/_AdminLayout.cshtml"; 
+    ViewData["Title"] = "Kullanıcı Yönetimi";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<br>
+<h2>Kullanıcı Yönetimi</h2>
 
-
-<table class="tablesaksbehandler" id="saksbehandlermenu">
+<table class="tablesaksbehandler">
     <thead>
         <tr>
-            <th>ID Nummer</th>
-            <th>Rolle</th>
             <th>Navn</th>
-            <th>Kommune</th>
-            <th>E-posta adresse</th>
-            <th>Mobil</th>
-
+            <th>E-post</th>
+            <th>Telefon</th>
+            <th>Roll</th>
+            <th>Bytte Roll</th>
+            <th>Slette Bruker</th>
         </tr>
     </thead>
-    <tbody id="saksbehandlersaks">
-        <tr onclick="window.location.href='admin/oppdatere'" style="cursor: pointer;">
-            <td>123456789</td>
-            <td>Saksbehandler</td>
-            <td>Ahmet Kirac</td>
-            <td>Kristiansand</td>
-            <td>Kristreferfiansa@gmail.com</td>
-            <td>123456789</td>
-        </tr>
-        <tr onclick="window.location.href='admin/oppdatere'" style="cursor: pointer;">
-            <td>123456789</td>
-            <td>Saksbehandler</td>
-            <td>Ahmet Kirac</td>
-            <td>Kristiansand</td>
-            <td>Kristreferfiansa@gmail.com</td>
-            <td>123456789</td>
-        </tr>
-        <tr onclick="window.location.href='admin/oppdatere'" style="cursor: pointer;">
-            <td>123456789</td>
-            <td>Saksbehandler</td>
-            <td>Ahmet Kirac</td>
-            <td>Kristiansand</td>
-            <td>Kristreferfiansa@gmail.com</td>
-            <td>123456789</td>
-        </tr>
-        <tr onclick="window.location.href='admin/oppdatere'" style="cursor: pointer;">
-            <td>123456789</td>
-            <td>Saksbehandler</td>
-            <td>Ahmet Kirac</td>
-            <td>Kristiansand</td>
-            <td>Kristreferfiansa@gmail.com</td>
-            <td>123456789</td>
-        </tr>
-        <tr onclick="window.location.href='admin/oppdatere'" style="cursor: pointer;">
-            <td>123456789</td>
-            <td>Saksbehandler</td>
-            <td>Ahmet Kirac</td>
-            <td>Kristiansand</td>
-            <td>Kristreferfiansa@gmail.com</td>
-            <td>123456789</td>
-        </tr>
-        <tr onclick="window.location.href='admin/oppdatere'" style="cursor: pointer;">
-            <td>123456789</td>
-            <td>Saksbehandler</td>
-            <td>Ahmet Kirac</td>
-            <td>Kristiansand</td>
-            <td>Kristreferfiansa@gmail.com</td>
-            <td>123456789</td>
-        </tr>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                
+                <td>@user.Name</td>
+                <td>@user.Email</td>
+                <td>@user.PhoneNumber</td>
+                <td>@user.CurrentRole </td>
+                <!-- Rol değiştirme -->
+                <td>
+                    <form method="post" asp-action="UpdateUserRole" asp-controller="Admin">
+                        <input type="hidden" name="userId" value="@user.UserId" />
+                        <select name="newRole" asp-items="ViewBag.RoleOptions" class="form-select">
+                            <option selected="selected" value="@user.CurrentRole">@user.CurrentRole</option>
+                        </select>
+                        <button type="submit" class="btn btn-primary">Güncelle</button>
+                    </form>
+                </td>
+
+                <!-- Kullanıcı silme -->
+                <td>
+                    <form method="post" asp-action="DeleteUser" asp-controller="Admin">
+                        <input type="hidden" name="userId" value="@user.UserId" />
+                        <button type="submit" class="btn btn-danger" onclick="return confirm('Bu kullanıcıyı silmek istediğinize emin misiniz?');">Sil</button>
+                    </form>
+                </td>
+                
+
+            </tr>
+        }
     </tbody>
 </table>
