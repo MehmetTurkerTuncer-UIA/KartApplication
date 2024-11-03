@@ -71,7 +71,7 @@ namespace KartApplication.Controllers
 
         // Status ve Arbeid Status Güncelleme İşlemi
         [HttpPost]
-        public IActionResult UpdateStatus(int id, string sakStatus, string arbeidStatus, string kontrollerenId)
+        public IActionResult UpdateStatus(int id, string sakStatus, string arbeidStatus, string kontrollerenId, string saksBehandlerDescription)
         {
             Console.WriteLine("id değeri: " + id);
             SakModel? sakModel = _context.SakModels.FirstOrDefault(s => s.Id == id);
@@ -98,6 +98,11 @@ namespace KartApplication.Controllers
             {
                 sakModel.AssignedKontrollerenId = kontrollerenId;
             }
+
+
+            // Yeni yorumu güncelle
+            sakModel.SaksBehandlerDescription = saksBehandlerDescription;
+
 
             _context.SaveChanges(); // Değişiklikleri kaydet
             return RedirectToAction("Detaljer", new { id }); // Güncelleme sonrası Detaljer sayfasına dön
