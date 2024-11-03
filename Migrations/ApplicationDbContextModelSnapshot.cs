@@ -94,12 +94,10 @@ namespace KartApplication.Migrations
                     b.Property<int>("KontrolStatus")
                         .HasColumnType("int");
 
-                    b.Property<string>("KontrollerensDescription")
-                        .IsRequired()
+                    b.Property<string>("KontrollerenDescription")
                         .HasColumnType("longtext");
 
-                    b.Property<string>("SaksbehandlersDescription")
-                        .IsRequired()
+                    b.Property<string>("SaksBehandlerDescription")
                         .HasColumnType("longtext");
 
                     b.Property<string>("SelectedMapType")

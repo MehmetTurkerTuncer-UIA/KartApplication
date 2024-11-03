@@ -77,26 +77,15 @@
 <div class="admin-panel">
     <div class="admin-card">
 
-@* 
-        <table class="tableForDetaljer">
-            <thead>
-                <tr>
-                    <th>Kontrollerensbeskrivelse</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var sak in Model){
-                <tr>
-                    <td>@Model.KontrollerenBeskrivelse</td>
+        @if (!string.IsNullOrEmpty(Model.KontrollerenDescription))
+        {
+            <div class="OppsummeringBox">
+                <p>Kontrollerens Beskrivelse:</p>
 
-                </tr>
-                }
-            </tbody>
-        </table>
- *@
+                <p class="OppsummeringContent">@Model.KontrollerenDescription</p>
+            </div>
+        }
 
-
- 
  <h2>Administer saken</h2>
               
         
@@ -108,7 +97,7 @@
                     <textarea id="KontrollerenDescription" name="KontrollerenDescription" class="form-control" required
           style="width: 100%; height: 200px; background-color: #333; color: white;
     border: 1px solid #ccc; border-radius: 5px; padding: 10px;"
-          onfocus="removePlaceholder()" onblur="addPlaceholder()">Skriv en beskrivelse...</textarea>
+                          onfocus="removePlaceholder()" onblur="addPlaceholder()"> Skriv en kommentar eller oppdater kommentaren ... </textarea>
             </div>
 
 
