@@ -17,16 +17,17 @@ namespace KartApplication.Models
 
         public bool IsTemporary { get; set; } = true;  // Varsayılan olarak geçici kaydediliyor
 
-        public List<string> KontrollerensDescription { get; set; } = new List<string>();
+        public string? KontrollerenDescription { get; set; }
 
-        public List<string> SaksbehandlersDescription { get; set; } = new List<string>();
+        public string? SaksBehandlerDescription { get; set; }
+
 
         public List<Coordinate> Coordinates { get; set; }
 
         public SakModel()
         {
             Coordinates = new List<Coordinate>();
-
+          
 
         }
 
