@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace KartApplication.Controllers
 {
-   [Authorize(Roles = UserRoles.Role_Admin)]
+   [Authorize(Roles = UserRoles.Role_Kontrolleren)]
 
     public class KontrollerenController : Controller
     {
