@@ -846,6 +846,15 @@ textarea.form-control:focus {
     padding: 0 15px;
 }
 
+/* Style for the user name */
+.headerfixed .user-name {
+    color: white;
+    font-size: 16px;
+    margin-left: auto; /* Pushes user name to the far right */
+    margin-right: 50px; /* Adjust this to align with gray area below */
+
+}
+
 /* Responsive settings for smaller screens (max-width: 988px) */
 @media (max-width: 988px) {
 
@@ -868,6 +877,10 @@ textarea.form-control:focus {
         font-size: 26px;
         color: white;
         cursor: pointer;
+    }
+
+    .headerfixed .user-name {
+        display: block;
     }
 
     /* Separate clickable logo link for home, positioned 20px right of the hamburger menu */
@@ -1047,4 +1060,5 @@ textarea.form-control:focus {
     .content h2 {
         font-size: 18px;
     }
+}
 }
