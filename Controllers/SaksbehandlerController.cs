@@ -69,7 +69,7 @@ namespace KartApplication.Controllers
             return View(sak);
         }
 
-        // Status ve Kontroll Status Güncelleme İşlemi
+        // Status ve Arbeid Status Güncelleme İşlemi
         [HttpPost]
         public IActionResult UpdateStatus(int id, string sakStatus, string arbeidStatus, string kontrollerenId)
         {

@@ -25,7 +25,9 @@
     <tbody id="saksbehandlersaks">
         @foreach (var sak in Model)
         {
-            <tr>
+
+            <tr onclick="window.location.href='@Url.Action("Detaljer", "Kontrolleren", new { id = sak.Id })'" style="cursor: pointer;">
+
                 <td>@sak.CreatedAt.ToShortDateString()</td>
                 <td>@sak.Id</td>
                 <td>@sak.ArbeidStatus</td>
@@ -33,65 +35,5 @@
             </tr>
         }
     </tbody>
-    
-    
-    <thead>
-        <tr>
-            <th>Dato</th>
-            <th>Referansenummer</th>
-            <th></th> <!-- Vis sak için boş başlık -->
-        </tr>
-    </thead>
-    <tbody id="saksbehandlersaks">
-        <tr onclick="goToDetails(12);" style="cursor: pointer;">
-            <td>12.12.2023</td>
-            <td>123456789</td>
-            <td class="vis-sak">Vis sak</td> <!-- Vis sak burada -->
-        </tr>
-        <tr onclick="goToDetails(12);" style="cursor: pointer;">
-            <td>12.12.2023</td>
-            <td>987654321</td>
-            <td class="vis-sak">Vis sak</td> <!-- Vis sak burada -->
-        </tr>
-        <tr onclick="goToDetails(1ff2);" style="cursor: pointer;">
-            <td>12.12.2023</td>
-            <td>654987321</td>
-            <td class="vis-sak">Vis sak</td> <!-- Vis sak burada -->
-        </tr>
-          <tr onclick="goToDetails(12);" style="cursor: pointer;">
-            <td>12.12.2023</td>
-            <td>987654321</td>
-            <td class="vis-sak">Vis sak</td> <!-- Vis sak burada -->
-        </tr>
-          <tr onclick="goToDetails(12);" style="cursor: pointer;">
-            <td>12.12.2023</td>
-            <td>987654321</td>
-            <td class="vis-sak">Vis sak</td> <!-- Vis sak burada -->
-        </tr>
-          <tr onclick="goToDetails(12);" style="cursor: pointer;">
-            <td>12.12.2023</td>
-            <td>987654321</td>
-            <td class="vis-sak">Vis sak</td> <!-- Vis sak burada -->
-        </tr>
-          <tr onclick="goToDetails(12);" style="cursor: pointer;">
-            <td>12.12.2023</td>
-            <td>987654321</td>
-            <td class="vis-sak">Vis sak</td> <!-- Vis sak burada -->
-        </tr>
-          <tr onclick="goToDetails(12);" style="cursor: pointer;">
-            <td>12.12.2023</td>
-            <td>987654321</td>
-            <td class="vis-sak">Vis sak</td> <!-- Vis sak burada -->
-        </tr>
-          <tr onclick="goToDetails(12);" style="cursor: pointer;">
-            <td>12.12.2023</td>
-            <td>987654321</td>
-            <td class="vis-sak">Vis sak</td> <!-- Vis sak burada -->
-        </tr>
-        <tr onclick="goToDetails(12);" style="cursor: pointer;">
-            <td>12.12.2023</td>
-            <td>321654987</td>
-            <td class="vis-sak">Vis sak</td> <!-- Vis sak burada -->
-        </tr>
-    </tbody>
+      
 </table>
