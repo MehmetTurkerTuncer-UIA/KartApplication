@@ -220,6 +220,11 @@ header {
 .stepper ul li a {
     text-decoration: none;
     pointer-events: none; /* Varsayılan olarak tüm linkleri devre dışı bırak */
+
+}
+
+.stepper ul li a i {
+    display: none;
 }
 
 /* Sadece aktif ve geçmiş adımlar tıklanabilir olacak */
@@ -237,6 +242,11 @@ header {
     opacity: 1; /* Aktif adımın ikonu tam opak */
 }
 
+.step-header {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+}
 
 
 
@@ -400,15 +410,7 @@ h1 {
     color: rgb(101, 101, 101);
 }
 
-/* Responsive ayar */
-@media (max-width: 768px) {
-    .search-container {
-        max-width: 100%;
-        left: 0;
-        right: 0;
-        margin: 0 auto;
-    }
-}
+
 
 
 
@@ -846,6 +848,15 @@ textarea.form-control:focus {
     padding: 0 15px;
 }
 
+/* Style for the user name */
+.headerfixed .user-name {
+    color: white;
+    font-size: 16px;
+    margin-left: auto; /* Pushes user name to the far right */
+    margin-right: 50px; /* Adjust this to align with gray area below */
+
+}
+
 /* Responsive settings for smaller screens (max-width: 988px) */
 @media (max-width: 988px) {
 
@@ -868,6 +879,10 @@ textarea.form-control:focus {
         font-size: 26px;
         color: white;
         cursor: pointer;
+    }
+
+    .headerfixed .user-name {
+        display: block;
     }
 
     /* Separate clickable logo link for home, positioned 20px right of the hamburger menu */
@@ -1033,8 +1048,64 @@ textarea.form-control:focus {
     .content-top {
         width: 100%;
         margin-top: 60px;
-        max-width: 988px;
+        max-width: none; /* Maksimum genişlik sınırlamasını kaldırır */
+        
+
     }
+
+
+    .stepper {
+        height: auto;
+    }
+    
+    .stepper ul {
+        display: flex;
+        justify-content: space-between;
+        padding: 0;
+        width: calc(90%) !important; 
+        padding: 10px 0 !important;
+        align-items: center; /* Ortala */
+        gap: 10px; /* Adımlar arasında boşluk oluştur */
+    }
+    
+    .stepper ul li {
+        font-size: 24px; /* Yazı boyutunu küçült */
+        display: flex;
+        align-items: center;
+        gap: 8px; /* İkon ile metin arasında boşluk */
+        text-align: center;
+    }
+
+  
+
+    .stepper ul li a i {
+        display: inline; /* İkonları göster */
+    }
+    
+    .stepper ul li a .step-text {
+        display: none; /* Yazıları gizle */
+    }
+
+    /* Ek olarak, .step-header başlığını da gizlemek için */
+    .step-header {
+        display: none !important;
+    }
+
+    .stepper ul li img {
+        width: 16px; /* İkon boyutunu küçült */
+        height: 16px;
+    }
+
+    .stepper ul li.active img,
+    .stepper ul li.completed img {
+        opacity: 1; /* Aktif ve tamamlanan adımlar için tam opak */
+    }
+
+   
+}
+
+
+
 
 
 /* Additional small screen adjustments */
@@ -1048,3 +1119,6 @@ textarea.form-control:focus {
         font-size: 18px;
     }
 }
+
+
+
