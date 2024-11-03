@@ -17,6 +17,9 @@ namespace KartApplication.Models
 
         public bool IsTemporary { get; set; } = true;  // Varsayılan olarak geçici kaydediliyor
 
+        public List<string> KontrollerensDescription { get; set; } = new List<string>();
+
+        public List<string> SaksbehandlersDescription { get; set; } = new List<string>();
 
         public List<Coordinate> Coordinates { get; set; }
 

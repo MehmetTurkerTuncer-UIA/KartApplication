@@ -1,4 +1,5 @@
 @model KartApplication.Models.SakModel
+@* @model List<SakModel> *@
 @{
     ViewData["Title"] = "Beskrivelse";
     Layout = "~/Views/Shared/_KontrollerenLayout.cshtml"; 
@@ -70,12 +71,47 @@
     </tbody>
 </table>
 
+
+
 <!-- Yönetim Paneli -->
 <div class="admin-panel">
     <div class="admin-card">
-        <h2>Administer saken</h2>
+
+@* 
+        <table class="tableForDetaljer">
+            <thead>
+                <tr>
+                    <th>Kontrollerensbeskrivelse</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var sak in Model){
+                <tr>
+                    <td>@Model.KontrollerenBeskrivelse</td>
+
+                </tr>
+                }
+            </tbody>
+        </table>
+ *@
+
+
+ 
+ <h2>Administer saken</h2>
+              
+        
         <form method="post" asp-action="UpdateStatus" asp-controller="Kontrolleren" asp-route-id="@Model.Id">
-               
+            
+            <!-- Sol tarafta mesaj alanı (textarea) -->
+            <div style="width: 48%;">
+                <label for="KontrollerenDescription" style="color: white; display: block; margin-bottom: 10px;">Beskrivelse:</label>
+                    <textarea id="KontrollerenDescription" name="KontrollerenDescription" class="form-control" required
+          style="width: 100%; height: 200px; background-color: #333; color: white;
+    border: 1px solid #ccc; border-radius: 5px; padding: 10px;"
+          onfocus="removePlaceholder()" onblur="addPlaceholder()">Skriv en beskrivelse...</textarea>
+            </div>
+
+
             <!-- Kontrol Status Seçimi -->
             <div class="form-group">
                 <label for="kontrolStatus">Kontroll Status</label>
