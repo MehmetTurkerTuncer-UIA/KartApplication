@@ -119,39 +119,45 @@
     var isKvitteringPage = currentStep == 4;
 }
 
-<!-- Stepper Menüsü -->
 <div class="stepper" style="display: flex; align-items: center;">
-    <!-- "Oppritt Sak" başlığı ve resim -->
-    <div style="display: flex; align-items: center; margin-right: 20px;">
-        <span>Opprett Sak</span>
+    <div class="step-header">
+        <span class="step-title">Opprett Sak</span>
         <img src="~/images/right.png" alt="Arrow" style="width: 24px; height: 24px; margin-left: 5px;" />
     </div>
-
     <ul style="display: flex; align-items: center; list-style: none; padding: 0; margin: 0;">
         <!-- 1. Adım: Velg sted -->
         <li class="@(currentStep >= 1 ? "active" : "")" style="margin-right: 10px;">
-            <a href="/Home/Index" style="color: @(currentStep >= 1 ? "white" : "rgba(255, 255, 255, 0.5)"); @(isKvitteringPage ? "pointer-events: none;" : "")">1. Velg sted</a>
+            <a href="/Home/Index" style="color: @(currentStep >= 1 ? "white" : "rgba(255, 255, 255, 0.5)"); @(isKvitteringPage ? "pointer-events: none;" : "")">
+               <span class="step-text">1. Velg sted</span>  <i class="bi bi-geo-alt"></i> 
+            </a>
         </li>
         <img src="~/images/right-svgrepo.png" alt="Arrow" style="width: 16px; height: 16px; margin-right: 10px; opacity:@(currentStep >= 1 ? "1" : "0.3");" />
-
+        
         <!-- 2. Adım: Beskrivelse -->
         <li class="@(currentStep >= 2 ? "active" : "")" style="margin-right: 10px;">
-            <a href="/Home/Beskrivelse" style="color: @(currentStep >= 2 ? "white" : "rgba(255, 255, 255, 0.5)"); @(isKvitteringPage ? "pointer-events: none;" : "")">2. Beskrivelse</a>
+            <a href="/Home/Beskrivelse" style="color: @(currentStep >= 2 ? "white" : "rgba(255, 255, 255, 0.5)"); @(isKvitteringPage ? "pointer-events: none;" : "")">
+               <span class="step-text">2. Beskrivelse</span> <i class="bi bi-pencil"></i> 
+            </a>
         </li>
         <img src="~/images/right-svgrepo.png" alt="Arrow" style="width: 16px; height: 16px; margin-right: 10px; opacity:@(currentStep >= 2 ? "1" : "0.3");" />
-
+        
         <!-- 3. Adım: Oppsummering -->
         <li class="@(currentStep >= 3 ? "active" : "")" style="margin-right: 10px;">
-            <a href="/Home/Oversikt" style="color: @(currentStep >= 3 ? "white" : "rgba(255, 255, 255, 0.5)"); @(isKvitteringPage ? "pointer-events: none;" : "")">3. Oppsummering</a>
+            <a href="/Home/Oversikt" style="color: @(currentStep >= 3 ? "white" : "rgba(255, 255, 255, 0.5)"); @(isKvitteringPage ? "pointer-events: none;" : "")">
+              <span class="step-text">3. Oppsummering</span>   <i class="bi bi-file-earmark-text"></i>
+            </a>
         </li>
         <img src="~/images/right-svgrepo.png" alt="Arrow" style="width: 16px; height: 16px; margin-right: 10px; opacity:@(currentStep >= 3 ? "1" : "0.3");" />
 
         <!-- 4. Adım: Kvittering -->
         <li class="@(currentStep >= 4 ? "active" : "")">
-            <a href="/Home/Kvittering" style="color: @(currentStep == 4 ? "white" : "rgba(255, 255, 255, 0.5)"); @(isKvitteringPage ? "pointer-events: none;" : "")">4. Kvittering</a>
+            <a href="/Home/Kvittering" style="color: @(currentStep == 4 ? "white" : "rgba(255, 255, 255, 0.5)"); @(isKvitteringPage ? "pointer-events: none;" : "")">
+               <span class="step-text">4. Kvittering</span>  <i class="bi bi-check-circle"></i> 
+            </a>
         </li>
     </ul>
 </div>
+
 
 
 
