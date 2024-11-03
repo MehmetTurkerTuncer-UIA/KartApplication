@@ -6,9 +6,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace KartApplication.Controllers
 {
+    [Authorize(Roles = UserRoles.Role_Admin )]
+
     public class AdminController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
