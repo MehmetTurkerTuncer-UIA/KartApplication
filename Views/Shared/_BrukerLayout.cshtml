@@ -15,24 +15,41 @@
     @RenderSection("Head", required: false)
 </head>
 <body>
-        <div class="outer-container">
-    <header>
-        <div class="header-container">
+    <div class="outer-container">
 
-                          <div class="overlay" onclick="toggleMenu()"></div>
-<div class="hamburger-menu" onclick="toggleMenu()">☰</div>
-
-
-            <div class="logo">
-                <img src="~/images/as.png" alt="Logo" style="width: auto; height: 150px;">
+        <!-- Overlay for background dimming -->
+        <div class="overlay" onclick="toggleMenu()"></div>
+        
+        <!-- Fixed Header for Mobile View Only -->
+        <div class="headerfixed">
+            <div class="hamburger-menu" onclick="toggleMenu()">
+                <i class="bi bi-list"></i>
             </div>
-            <div class="header-right">
-                <h2><partial name="_LoginPartial" /></h2>
-                <p style="margin-top: -25px;">Medlem</p>
-               
-            </div>
+            <!-- Logo as a link to the homepage -->
+            <a href="/home/index" class="alt-logo-link">
+                <img src="/images/Logo2.png" alt="Alternate Logo" class="alt-logo">
+            </a>
         </div>
-    </header>
+
+        <!-- Main Header (Visible on Larger Screens) -->
+        <header>
+            <div class="header-container">
+                <div class="hamburger-menu" onclick="toggleMenu()">
+                    <i class="bi bi-list"></i>
+                </div>
+
+                <!-- Main logo for larger screens -->
+                <div class="logo">
+                    <img src="~/images/as.png" alt="Logo" style="width: auto; height: 150px;">
+                </div>
+
+                <div class="header-right">
+                    <h2><partial name="_LoginPartial" /></h2>
+                    <p style="margin-top: -25px;">Medlem</p>
+                </div>
+            </div>
+        </header>
+
    
     <div class="main-container">
           <nav class="menu">
@@ -164,38 +181,37 @@
 </footer>
 
     @RenderSection("Scripts", required: false)
+
+
+
 <script>
- let isAnimating = false; // Animasyon durumu kontrolü için
+        let isAnimating = false; // Control to prevent rapid toggling
 
-function toggleMenu() {
-    if (isAnimating) return; // Eğer animasyon devam ediyorsa fonksiyonu durdur
+        function toggleMenu() {
+            if (isAnimating) return; // Prevent further clicks during animation
 
-    const menu = document.querySelector('.menu');
-    const overlay = document.querySelector('.overlay');
-    isAnimating = true; // Animasyon başlıyor
+            const menu = document.querySelector('.menu');
+            const overlay = document.querySelector('.overlay');
+            isAnimating = true; // Start animation
 
-    if (!menu.classList.contains('active')) {
-        // Menü açılırken
-        overlay.style.display = 'block';
-        setTimeout(() => {
-            overlay.classList.add('active'); // Kararma animasyonunu başlat
-            menu.classList.add('active'); // Menü aç
-            setTimeout(() => {
-                isAnimating = false; // Animasyon bitti
-            }, 1000); // 1 saniye sonra animasyon tamamlanır
-        }, 10); // Küçük bir gecikme ile class ekle
-    } else {
-        // Menü kapanırken
-        overlay.classList.remove('active'); // Kararma animasyonunu geri al
-        menu.classList.remove('active'); // Menü kapat
-        setTimeout(() => {
-            overlay.style.display = 'none'; // Animasyon bitince tamamen gizle
-            isAnimating = false; // Animasyon bitti
-        }, 1000); // 1 saniye sonra gizle
-    }
-}
-
-</script>
-    
+            if (!menu.classList.contains('active')) {
+                // Open the menu
+                overlay.style.display = 'block'; // Make overlay visible
+                setTimeout(() => {
+                    overlay.classList.add('active'); // Start fade-in transition
+                    menu.classList.add('active'); // Show menu
+                    isAnimating = false; // End animation
+                }, 10); // Small delay to ensure classes are applied
+            } else {
+                // Close the menu
+                overlay.classList.remove('active'); // Start fade-out transition
+                menu.classList.remove('active'); // Hide menu
+                setTimeout(() => {
+                    overlay.style.display = 'none'; // Hide overlay after fade-out
+                    isAnimating = false; // End animation
+                }, 500); // Match the CSS transition time for smooth effect
+            }
+        }
+    </script>
 </body>
 </html>
