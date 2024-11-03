@@ -344,3 +344,192 @@ h1 {
     color: white;
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Responsive Tasarım */
+
+/* Tablet Görünümü */
+@media (max-width: 992px) {
+    .login-left, .login-right {
+        flex-basis: 100%;
+        padding: 20px;
+    }
+
+    .login-container, .containerRegister {
+        flex-direction: column;
+        padding-top: 20px;
+    }
+
+    .form-control, .search-input {
+        width: 100%;
+    }
+
+    .footer-container {
+        flex-direction: column;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .footer-links {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .account-box {
+        width: 100%;
+        padding: 15px;
+        box-sizing: border-box;
+        margin: 0;
+        min-width: 340px;
+    }
+
+    .logo {
+        width: 150px;
+        max-width: 150px;
+        height: auto;
+    }
+
+    .footer-container .search-input, .footer-container .btn-dark {
+        margin: 0;
+        width: auto;
+        max-width: 320px;
+    }
+
+    .search-form {
+        width: 100%;
+        max-width: 320px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 10px;
+        margin: 0 auto; /* Ortala */
+    }
+}
+
+/* Mobil Görünüm */
+@media (max-width: 576px) {
+    h1 {
+        font-size: 2em;
+    }
+
+    .login-left p {
+        font-size: 1em;
+    }
+
+    .account-box {
+        padding: 10px;
+        max-width: 100%;
+        width: 100%;
+        box-sizing: border-box;
+        margin: 0;
+        min-width: 300px;
+    }
+
+    .footer {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .footer-links {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 10px;
+        flex-direction: row;
+    }
+
+    .buttonregistrer {
+        width: 100%;
+    }
+
+    .loginGoButton {
+        width: 100%;
+        text-align: center;
+    }
+
+    .logo {
+        width: 120px;
+        max-width: 120px;
+        height: auto;
+    }
+
+    .footer-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .footer-container .search-input, .footer-container .btn-dark {
+        margin: 0;
+        width: auto;
+        max-width: 320px;
+    }
+
+    .search-form {
+        width: 100%;
+        max-width: 320px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 10px;
+        margin: 0 auto; /* Ortala */
+    }
+}
+
+/* Bilgisayar Görünümü */
+@media (min-width: 993px) {
+    .logo {
+        width: 150px;
+        max-width: 150px;
+        height: auto;
+    }
+}

@@ -20,7 +20,7 @@
 <textarea id="description" name="Description" class="form-control" required 
     style="width: 100%; height: 200px; background-color: #333; color: white; 
     border: 1px solid #ccc; border-radius: 5px; padding: 10px;"
-    onfocus="removePlaceholder()" onblur="addPlaceholder()">Bir açıklama yazın...</textarea>
+    onfocus="removePlaceholder()" onblur="addPlaceholder()">Skriv en beskrivelse...</textarea>
             </div>
 
         <!-- Sağ tarafta harita ve başlık -->
@@ -147,7 +147,7 @@
 
         function removePlaceholder() {
     var textarea = document.getElementById("description");
-    if (textarea.value === "Bir açıklama yazın...") {
+    if (textarea.value === "Skriv en beskrivelse...") {
         textarea.value = "";
         textarea.style.color = "white";
     }
@@ -156,7 +156,7 @@
 function addPlaceholder() {
     var textarea = document.getElementById("description");
     if (textarea.value === "") {
-        textarea.value = "Bir açıklama yazın...";
+        textarea.value = "Skriv en beskrivelse...";
         textarea.style.color = "gray";
     }
 }

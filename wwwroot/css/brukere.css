@@ -173,6 +173,8 @@ header {
     border-radius: 8px; 
     height: 100%;
     color: white;
+    max-width: 988px; /* Ensures content stays within 988px when screen shrinks */
+
 }
 .content {
     padding: 10px 10px 10px 10px;
@@ -218,6 +220,11 @@ header {
 .stepper ul li a {
     text-decoration: none;
     pointer-events: none; /* Varsayılan olarak tüm linkleri devre dışı bırak */
+
+}
+
+.stepper ul li a i {
+    display: none;
 }
 
 /* Sadece aktif ve geçmiş adımlar tıklanabilir olacak */
@@ -235,106 +242,14 @@ header {
     opacity: 1; /* Aktif adımın ikonu tam opak */
 }
 
-
-
-
-
-/* Responsive ayarlar */
-/* Tabletler (max-width: 1024px) */
-@media (max-width: 1024px) {
-    .menu {
-        width: 25%; /* Menü genişliği daha küçük */
-        margin-right: 5%;
-    }
-
-    .content-top {
-        width: 70%;
-    }
-
-    .details-table {
-        width: 90%; /* Tablo genişliği daha uygun */
-    }
-
-    .footer-container {
-        flex-direction: column;
-        align-items: flex-start;
-    }
+.step-header {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
 }
 
-/* Küçük ekranlar (max-width: 768px) */
-@media (max-width: 768px) {
-    .header-container {
-        flex-direction: column;
-        align-items: center;
-    }
 
-    .logo img {
-        max-height: 100px;
-        padding-left: 0;
-    }
 
-    .header-right {
-        width: 100%;
-        align-items: center;
-        text-align: center;
-    }
-
-    .main-container {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .menu {
-        width: 100%;
-        margin-right: 0;
-    }
-
-    .menu ul li {
-        text-align: center;
-    }
-
-    .content-top {
-        width: 100%;
-        margin-top: 20px;
-    }
-
-    .details-table {
-        width: 100%;
-        font-size: 14px;
-    }
-
-    .footer-container {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
-
-    .footer-links a {
-        margin-left: 10px;
-        font-size: 14px;
-    }
-}
-
-/* Daha küçük telefonlar (max-width: 480px) */
-@media (max-width: 480px) {
-    .menu ul li a {
-        font-size: 16px;
-        padding: 8px;
-    }
-
-    .content h2 {
-        font-size: 18px;
-    }
-
-    .details-table th, .details-table td {
-        padding: 8px;
-        font-size: 12px;
-    }
-
-    .footer-links a {
-        font-size: 12px;
-    }
-}
 
 .footer {
     width: 100%;
@@ -495,15 +410,7 @@ h1 {
     color: rgb(101, 101, 101);
 }
 
-/* Responsive ayar */
-@media (max-width: 768px) {
-    .search-container {
-        max-width: 100%;
-        left: 0;
-        right: 0;
-        margin: 0 auto;
-    }
-}
+
 
 
 
@@ -854,5 +761,364 @@ textarea.form-control:focus {
         font-size: 14px; /* Küçük ekranlarda yazı boyutunu küçült */
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* General structure and responsive design */
+.outer-container, .main-container, .content-top, .header-container {
+    width: 100%;
+    max-width: 1300px; /* Limit width to 1300px on larger screens */
+    margin: 0 auto;
+    padding: 0 10px;
+    box-sizing: border-box;
+    flex: 1;
+}
+
+/* Hide the hamburger menu and mobile header by default on larger screens */
+.hamburger-menu {
+    display: none;
+    z-index: 100001;
+}
+
+/* Overlay settings for background dimming */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8); /* 50% dimming */
+    opacity: 0;
+    transition: opacity 1s ease;
+    z-index: 1001;
+    display: none;
+}
+
+.overlay.active {
+    display: block;
+    opacity: 0.5; /* Dimming when menu is active */
+}
+
+/* Header structure for desktop */
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Fixed header bar for mobile view */
+.headerfixed {
+    width: 100%;
+    background-color: #0f0f0f;
+    height: 58px;
+    position: fixed;
+    top: 0;
+    display: none; /* Hidden by default on larger screens */
+    z-index: 999999;
+    align-items: center;
+    justify-content: start;
+    padding: 0 15px;
+}
+
+/* Style for the user name */
+.headerfixed .user-name {
+    color: white;
+    font-size: 16px;
+    margin-left: auto; /* Pushes user name to the far right */
+    margin-right: 50px; /* Adjust this to align with gray area below */
+
+}
+
+/* Responsive settings for smaller screens (max-width: 988px) */
+@media (max-width: 988px) {
+
+    /* Hide the main header content on smaller screens */
+    .header-container {
+        display: none;
+    }
+
+    /* Display the fixed header for small screens */
+    .headerfixed {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 0 15px;
+    }
+
+    /* Hamburger menu settings inside fixed header */
+    .headerfixed .hamburger-menu {
+        display: flex;
+        font-size: 26px;
+        color: white;
+        cursor: pointer;
+    }
+
+    .headerfixed .user-name {
+        display: block;
+    }
+
+    /* Separate clickable logo link for home, positioned 20px right of the hamburger menu */
+    .headerfixed .alt-logo-link {
+        display: flex;
+        align-items: center;
+        margin-left: 25px; /* Space the logo 20px from the hamburger icon */
+        text-decoration: none;
+    }
+
+    /* Alternate logo within fixed header */
+    .headerfixed .alt-logo {
+        display: block;
+        max-height: 30px;
+    }
+
+    /* Mobile hamburger menu styling */
+    .hamburger-menu {
+        display: block;
+        position: relative;
+        color: white;
+        cursor: pointer;
+        padding: 5px;
+        border-radius: 50%; /* Örneğin, bir kutuyu daire yapmak için */
+        margin-left: -10px; /* Moves the hamburger menu icon 10px to the left */
+
+
+    }
+
+    .hamburger-menu:hover {
+        background-color: #303030;
+    }
+
+    /* Hide the main logo on small screens */
+    .logo img {
+        display: none;
+    }
+
+    /* Alternate logo displayed next to hamburger menu */
+    .alt-logo {
+        display: block;
+        max-height: 50px;
+    }
+
+    /* Position alternate logo inside menu when active */
+    .menu.active .alt-logo {
+        display: block;
+        margin: 0 auto 20px;
+        padding-bottom: 10px;
+    }
+
+    /* Mobile menu settings */
+    .menu {
+        width: 225px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: calc(100vh - 40px);
+        z-index: 11000;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease-in-out;
+        display: flex;
+        flex-direction: column;
+        background-color: #0f0f0f;
+        padding-top: 65px;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    /* Show menu when active */
+    .menu.active {
+        transform: translateX(0);
+    }
+
+    /* Vertical alignment for menu items */
+    .menu ul {
+        flex-direction: column;
+        width: 100%;
+        text-align: center;
+    }
+
+    /* Bottom menu adjustments for mobile */
+    .menu ul.bottom-menu {
+        display: flex;
+        flex-direction: column;
+        margin-top: auto;
+        text-align: center;
+    }
+
+    /* List items for mobile menu */
+    .menu ul li {
+        list-style: none;
+        width: 100%;
+        text-align: center;
+
+    }
+
+   /* Default styling for menu links in the mobile menu */
+   .menu ul li a {
+    width: calc(90%);
+    display: flex !important;
+    align-items: center !important; /* Vertically center the content */
+    justify-content: flex-start !important; /* Align icon and text to the left */
+    text-align: left !important; /* Ensure text is aligned to the left */
+    padding: 10px 0px 10px 12px !important; /* Add left padding for spacing */
+    color: white !important; /* Set text color */
+    text-decoration: none;
+    font-size: 16px !important; 
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+
+.menu ul li a i{
+    font-size: 24px !important; 
+    margin-right: 18px !important; 
+}
+
+/* Hover styling for menu links */
+.menu ul li a:hover {
+    color: #E0E0E0 !important; /* Light gray text on hover */
+}
+
+/* Active styling for menu links */
+.menu ul li a:active {
+    background-color: #222222 !important; /* Darker shade of black when active */
+    color: #FFFFFF !important; /* Ensure white text on active */
+}
+
+
+
+
+
+    /* Menu links on mobile */
+     .btna {
+        width: calc(95%) !important; 
+    
+        display: flex !important;
+        align-items: center !important; /* Vertically center the content */
+        justify-content: flex-start !important; /* Align icon and text to the left */
+        text-align: left !important; /* Ensure text is aligned to the left */
+        padding: 10px 0px 10px 12px !important; /* Add left padding for spacing */
+        color: white !important; /* Set text color */
+        text-decoration: none !important; 
+        font-size: 16px !important; 
+        border-radius: 8px !important; 
+        margin-bottom: 10px !important; 
+        margin-top: -10px !important; 
+    }
+
+    .btna:hover {
+        background-color: #c82333;
+    }
+
+    .btna i {
+        font-size: 24px !important; 
+    margin-right: 18px !important; 
+}
+
+    
+
+    /* Content area adjustments for smaller screens */
+    .content-top {
+        width: 100%;
+        margin-top: 60px;
+        max-width: none; /* Maksimum genişlik sınırlamasını kaldırır */
+        
+
+    }
+
+
+    .stepper {
+        height: auto;
+    }
+    
+    .stepper ul {
+        display: flex;
+        justify-content: space-between;
+        padding: 0;
+        width: calc(90%) !important; 
+        padding: 10px 0 !important;
+        align-items: center; /* Ortala */
+        gap: 10px; /* Adımlar arasında boşluk oluştur */
+    }
+    
+    .stepper ul li {
+        font-size: 24px; /* Yazı boyutunu küçült */
+        display: flex;
+        align-items: center;
+        gap: 8px; /* İkon ile metin arasında boşluk */
+        text-align: center;
+    }
+
+  
+
+    .stepper ul li a i {
+        display: inline; /* İkonları göster */
+    }
+    
+    .stepper ul li a .step-text {
+        display: none; /* Yazıları gizle */
+    }
+
+    /* Ek olarak, .step-header başlığını da gizlemek için */
+    .step-header {
+        display: none !important;
+    }
+
+    .stepper ul li img {
+        width: 16px; /* İkon boyutunu küçült */
+        height: 16px;
+    }
+
+    .stepper ul li.active img,
+    .stepper ul li.completed img {
+        opacity: 1; /* Aktif ve tamamlanan adımlar için tam opak */
+    }
+
+   
+}
+
+
+
+
+
+/* Additional small screen adjustments */
+@media (max-width: 500px) {
+    .menu ul li a {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    .content h2 {
+        font-size: 18px;
+    }
+}
+
 
 

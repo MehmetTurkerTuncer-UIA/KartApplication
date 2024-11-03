@@ -15,19 +15,44 @@
     @RenderSection("Head", required: false)
 </head>
 <body>
-        <div class="outer-container">
-    <header>
-        <div class="header-container">
-            <div class="logo">
-                <img src="~/images/as.png" alt="Logo" style="width: auto; height: 150px;">
+    <div class="outer-container">
+
+        <!-- Overlay for background dimming -->
+        <div class="overlay" onclick="toggleMenu()"></div>
+        
+        <!-- Fixed Header for Mobile View Only -->
+        <div class="headerfixed">
+            <div class="hamburger-menu" onclick="toggleMenu()">
+                <i class="bi bi-list"></i>
             </div>
-            <div class="header-right">
-                <h2><partial name="_LoginPartial" /></h2>
-                <p style="margin-top: -25px;">Medlem</p>
-               
-            </div>
+            <!-- Logo as a link to the homepage -->
+            <a href="/home/index" class="alt-logo-link">
+                <img src="/images/Logo2.png" alt="Alternate Logo" class="alt-logo">
+            </a>
+
+                <div class="user-name"><partial name="_LoginPartial" /></div>
+
         </div>
-    </header>
+
+        <!-- Main Header (Visible on Larger Screens) -->
+        <header>
+            <div class="header-container">
+                <div class="hamburger-menu" onclick="toggleMenu()">
+                    <i class="bi bi-list"></i>
+                </div>
+
+                <!-- Main logo for larger screens -->
+                <div class="logo">
+                    <img src="~/images/as.png" alt="Logo" style="width: auto; height: 150px;">
+                </div>
+
+                <div class="header-right">
+                    <h2><partial name="_LoginPartial" /></h2>
+                    <p style="margin-top: -25px;">Medlem</p>
+                </div>
+            </div>
+        </header>
+
    
     <div class="main-container">
           <nav class="menu">
@@ -94,39 +119,45 @@
     var isKvitteringPage = currentStep == 4;
 }
 
-<!-- Stepper Menüsü -->
 <div class="stepper" style="display: flex; align-items: center;">
-    <!-- "Oppritt Sak" başlığı ve resim -->
-    <div style="display: flex; align-items: center; margin-right: 20px;">
-        <span>Opprett Sak</span>
+    <div class="step-header">
+        <span class="step-title">Opprett Sak</span>
         <img src="~/images/right.png" alt="Arrow" style="width: 24px; height: 24px; margin-left: 5px;" />
     </div>
-
     <ul style="display: flex; align-items: center; list-style: none; padding: 0; margin: 0;">
         <!-- 1. Adım: Velg sted -->
         <li class="@(currentStep >= 1 ? "active" : "")" style="margin-right: 10px;">
-            <a href="/Home/Index" style="color: @(currentStep >= 1 ? "white" : "rgba(255, 255, 255, 0.5)"); @(isKvitteringPage ? "pointer-events: none;" : "")">1. Velg sted</a>
+            <a href="/Home/Index" style="color: @(currentStep >= 1 ? "white" : "rgba(255, 255, 255, 0.5)"); @(isKvitteringPage ? "pointer-events: none;" : "")">
+               <span class="step-text">1. Velg sted</span>  <i class="bi bi-geo-alt"></i> 
+            </a>
         </li>
         <img src="~/images/right-svgrepo.png" alt="Arrow" style="width: 16px; height: 16px; margin-right: 10px; opacity:@(currentStep >= 1 ? "1" : "0.3");" />
-
+        
         <!-- 2. Adım: Beskrivelse -->
         <li class="@(currentStep >= 2 ? "active" : "")" style="margin-right: 10px;">
-            <a href="/Home/Beskrivelse" style="color: @(currentStep >= 2 ? "white" : "rgba(255, 255, 255, 0.5)"); @(isKvitteringPage ? "pointer-events: none;" : "")">2. Beskrivelse</a>
+            <a href="/Home/Beskrivelse" style="color: @(currentStep >= 2 ? "white" : "rgba(255, 255, 255, 0.5)"); @(isKvitteringPage ? "pointer-events: none;" : "")">
+               <span class="step-text">2. Beskrivelse</span> <i class="bi bi-pencil"></i> 
+            </a>
         </li>
         <img src="~/images/right-svgrepo.png" alt="Arrow" style="width: 16px; height: 16px; margin-right: 10px; opacity:@(currentStep >= 2 ? "1" : "0.3");" />
-
+        
         <!-- 3. Adım: Oppsummering -->
         <li class="@(currentStep >= 3 ? "active" : "")" style="margin-right: 10px;">
-            <a href="/Home/Oversikt" style="color: @(currentStep >= 3 ? "white" : "rgba(255, 255, 255, 0.5)"); @(isKvitteringPage ? "pointer-events: none;" : "")">3. Oppsummering</a>
+            <a href="/Home/Oversikt" style="color: @(currentStep >= 3 ? "white" : "rgba(255, 255, 255, 0.5)"); @(isKvitteringPage ? "pointer-events: none;" : "")">
+              <span class="step-text">3. Oppsummering</span>   <i class="bi bi-file-earmark-text"></i>
+            </a>
         </li>
         <img src="~/images/right-svgrepo.png" alt="Arrow" style="width: 16px; height: 16px; margin-right: 10px; opacity:@(currentStep >= 3 ? "1" : "0.3");" />
 
         <!-- 4. Adım: Kvittering -->
         <li class="@(currentStep >= 4 ? "active" : "")">
-            <a href="/Home/Kvittering" style="color: @(currentStep == 4 ? "white" : "rgba(255, 255, 255, 0.5)"); @(isKvitteringPage ? "pointer-events: none;" : "")">4. Kvittering</a>
+            <a href="/Home/Kvittering" style="color: @(currentStep == 4 ? "white" : "rgba(255, 255, 255, 0.5)"); @(isKvitteringPage ? "pointer-events: none;" : "")">
+               <span class="step-text">4. Kvittering</span>  <i class="bi bi-check-circle"></i> 
+            </a>
         </li>
     </ul>
 </div>
+
 
 
 
@@ -159,5 +190,37 @@
 </footer>
 
     @RenderSection("Scripts", required: false)
+
+
+
+<script>
+        let isAnimating = false; // Control to prevent rapid toggling
+
+        function toggleMenu() {
+            if (isAnimating) return; // Prevent further clicks during animation
+
+            const menu = document.querySelector('.menu');
+            const overlay = document.querySelector('.overlay');
+            isAnimating = true; // Start animation
+
+            if (!menu.classList.contains('active')) {
+                // Open the menu
+                overlay.style.display = 'block'; // Make overlay visible
+                setTimeout(() => {
+                    overlay.classList.add('active'); // Start fade-in transition
+                    menu.classList.add('active'); // Show menu
+                    isAnimating = false; // End animation
+                }, 10); // Small delay to ensure classes are applied
+            } else {
+                // Close the menu
+                overlay.classList.remove('active'); // Start fade-out transition
+                menu.classList.remove('active'); // Hide menu
+                setTimeout(() => {
+                    overlay.style.display = 'none'; // Hide overlay after fade-out
+                    isAnimating = false; // End animation
+                }, 500); // Match the CSS transition time for smooth effect
+            }
+        }
+    </script>
 </body>
 </html>
