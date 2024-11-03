@@ -368,7 +368,7 @@ h1 {
 
 #searchInput {
     width: 100%; /* Input alanı %100 genişlikte olacak */
-    padding-right: 130px; /* Buton için sağda boşluk bırak */
+    padding-right: 10px; /* Buton için sağda boşluk bırak */
     padding-left: 10px; /* İç boşluk */
     height: 40px; /* Yükseklik */
     border-radius: 5px;
