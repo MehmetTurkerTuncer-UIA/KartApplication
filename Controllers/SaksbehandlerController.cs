@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace KartApplication.Controllers
 {
-    //[Authorize(Roles = UserRoles.Role_Saksbehandler)]
+    [Authorize(Roles = UserRoles.Role_Saksbehandler)]
     public class SaksbehandlerController : Controller
     {
         private readonly ApplicationDbContext _context;
