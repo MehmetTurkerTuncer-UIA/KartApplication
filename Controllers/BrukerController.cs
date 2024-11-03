@@ -1,9 +1,13 @@
 using Microsoft.AspNetCore.Mvc;
 using KartApplication.Models;
 using System;
+using KartApplication.Data;
+using Microsoft.AspNetCore.Authorization;
 
 public class BrukerController : Controller
 {
+  
+
     private static AreaChange lastChange = null;
 
     // GET: Bruker/Index formunu görüntüle
