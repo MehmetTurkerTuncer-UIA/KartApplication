@@ -186,3 +186,10 @@
             img.title = mapInfo.title; // Fare üzerine gelince harita adını göstermek için title kullanıyoruz
             thumbnailDiv.appendChild(img);
             thumbnailsContainer.appendChild(thumbnailDiv);
+
+            // Tıklanınca haritayı değiştir
+            thumbnailDiv.addEventListener('click', function() {
+                if (currentLayer !== mapInfo.layer) {
+                    map.removeLayer(currentLayer);
+                    map.addLayer(mapInfo.layer);
+                    currentLayer = mapInfo.layer;
