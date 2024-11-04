@@ -345,3 +345,62 @@
                 alert('Please enter an address.');
             }
         }
+
+        // Adres önerileri gösterimi
+        document.getElementById('searchInput').addEventListener('input', function() {
+            var query = this.value;
+            if (query.length > 0) {
+                var url = `https://nominatim.openstreetmap.org/search?format=json&addressdetails=1&limit=5&q=${encodeURIComponent(query)}`;
+
+                fetch(url)
+                    .then(response => response.json())
+                    .then(data => {
+                        var suggestions = document.getElementById('suggestions');
+                        suggestions.innerHTML = '';
+                        suggestions.style.display = 'block';
+
+                        data.slice(0, 3).forEach(function(item) {
+                            if (item.display_name.includes('Norveç')) {
+                                var street = item.address.road || item.address.pedestrian || item.address.highway || '';
+                                var house_number = item.address.house_number || '';
+                                var city = item.address.city || item.address.village || '';
+                                var county = item.address.county || '';
+                                var country = "Norge";
+
+                                var option = document.createElement('div');
+                                option.classList.add('suggestion-item');
+                                option.innerHTML = `
+                                    <div class="suggestion-title">${street} ${house_number}</div>
+                                    <div class="suggestion-address">${city}, ${county}, ${country}</div>
+                                `;
+                                option.addEventListener('click', function() {
+                                    document.getElementById('searchInput').value = `${street} ${house_number}, ${city}, ${county}, ${country}`;
+                                    suggestions.innerHTML = '';
+                                    suggestions.style.display = 'none';
+
+                                    var lat = item.lat;
+                                    var lon = item.lon;
+                                    drawnItems.clearLayers();
+                                    var marker = L.marker([lat, lon]).addTo(drawnItems);
+                                    map.setView([lat, lon], 15);
+                                    updateGeoJson();
+                                    updateCoordinatesTable(marker);
+                                });
+                                suggestions.appendChild(option);
+                            }
+                        });
+                    })
+                    .catch(error => console.error('Error fetching suggestions:', error));
+            }
+        });
+
+        // Arama butonuna tıklayınca arama yap
+        document.getElementById('searchAddressBtn').addEventListener('click', searchAddress);
+        document.getElementById('searchInput').addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                searchAddress();
+            }
+        });
+    </script>
+}
