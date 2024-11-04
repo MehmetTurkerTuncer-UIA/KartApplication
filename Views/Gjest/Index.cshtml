@@ -289,3 +289,19 @@
                 });
             }
         }
+
+        // Çizim tamamlandığında yeni katmanı ekle
+        map.on('draw:created', function(event) {
+            var layer = event.layer;
+            if (drawnItems.getLayers().length > 0) {
+                drawnItems.clearLayers();
+            }
+            drawnItems.addLayer(layer);
+            updateGeoJson();
+            updateCoordinatesTable(layer);
+
+            if (layer instanceof L.Marker) {
+                var latLng = layer.getLatLng();
+                updateAddressInput(latLng.lat, latLng.lng);
+            }
+        });
