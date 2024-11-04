@@ -172,3 +172,10 @@
             { id: 'turkart', layer: turkart, imageUrl: '@Url.Content("~/images/2.png")', title: 'Turkart' },
             { id: 'sjokart', layer: sjokart, imageUrl: '@Url.Content("~/images/1.png")', title: 'Sjøkart' }
         ];
+
+        maps.forEach(function(mapInfo, index) {
+            var thumbnailDiv = document.createElement('div');
+            thumbnailDiv.classList.add('map-thumbnail');
+            if (index === 0) {
+                thumbnailDiv.classList.add('selected');
+            }
