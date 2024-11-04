@@ -1,0 +1,28 @@
+@model KartApplication.Models.AreaChange
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_GjestLayout.cshtml";
+}
+
+<br>
+<center><h2>Velg Sted</h2></center>
+
+<!-- Harita konteyneri -->
+<div id="map" style="height: 400px; width: 100%; position: relative;">
+    <!-- Arama kutusunu haritanın içinde yapacak kapsayıcı -->
+    <div id="search-container" style="position: absolute; top: 10px; right: 0; margin-right:10px; z-index: 1000; width: 400px;">
+        <div class="input-group">
+            <input type="text" id="searchInput" name="address" class="form-control" placeholder="Enter full address" aria-label="Search Address" autocomplete="off" />
+            <div class="input-group-append">
+                <button type="button" class="btn-primary" id="searchAddressBtn">
+                    <i class="bi bi-search black-icon"></i> <!-- Bootstrap büyüteç ikonu -->
+                </button>
+            </div>
+        </div>
+        <!-- Öneriler için dropdown menü -->
+        <div id="suggestions" class="suggestions-dropdown" style="display: none;">
+            <!-- Öneriler buraya eklenecek -->
+        </div>
+    </div>
+</div>
+<br />
