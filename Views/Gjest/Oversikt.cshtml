@@ -15,3 +15,24 @@
 
     <div class="OppsummeringContentTitle">    <img src="~/images/check-mark.png" alt="Checkbox" class="checkboxImage"> <!-- Resim yolu güncellendi -->
  Beskrivelse: </div>
+        <p class="OppsummeringContent"> @Model.Description</p>
+    </div>
+
+
+
+
+
+
+
+}
+@if (!string.IsNullOrEmpty(Model.Address))
+{
+    <div class="OppsummeringBox">
+        <div class="OppsummeringContentTitle"> <img src="~/images/check-mark.png" alt="Checkbox" class="checkboxImage"> <!-- Resim yolu güncellendi --> Adresse: </div>
+
+        <p class="OppsummeringContent"> @Model.Address</p>
+    </div>
+
+
+}
+
