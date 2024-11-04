@@ -360,94 +360,6 @@ body {
 
 
 
-/* Tablo genel düzeni */
-.tablesaksbehandler {
-    width: 100%;
-    border-collapse: separate; /* Hücre border'larının birleşmesini önlemek için */
-    border-spacing: 0 2px; /* Satırlar arasında 2px boşluk oluşturmak için */
-    font-family: Arial, sans-serif;
-    font-size: 16px;
-}
-
-/* Tablodaki başlık hücreleri (th) */
-.tablesaksbehandler th {
-    background-color: #1B1A1A; /* Başlık arka plan rengi (koyu gri) */
-    color: white; /* Başlık yazı rengi beyaz */
-    padding: 10px;
-    text-align: center;
-    position: relative; /* Pseudo-element kullanabilmek için position */
-    height: 34px;;
-
-}
-
-/* Başlık hücrelerine kısa border eklemek için */
-.tablesaksbehandler th:after {
-    content: '';
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    width: 1px; /* Kısa dikey border */
-    background-color: #505050; /* Border rengi */
-    height: 30%; /* Border hücre yüksekliğinin %60'ı olacak */
-    margin: auto 0;
-    text-align: center;
-
-}
-
-/* Son başlık hücresinde (th) sağdaki border olmayacak */
-.tablesaksbehandler th:last-child:after {
-    display: none; /* Son sütunda border olmaması için */
-}
-
-/* Tablodaki veri hücreleri (td) */
-.tablesaksbehandler td {
-    padding: 10px;
-    color: white; /* Yazı rengi beyaz */
-    background-color: #303030; /* Satırların varsayılan arka plan rengi (yeşil tonları) */
-    border-right: none; /* Genel border kaldırıldı */
-    position: relative;
-    height: 34px; /* Satır yüksekliği 68px */
-    text-align: center;
-}
-
-/* Border'ları kısa ve hücre içinde göstermek için: */
-.tablesaksbehandler td:after {
-    content: '';
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    width: 1px; /* Kısa dikey border */
-    background-color:  rgba(255, 255, 255, 0.5); /* Başlık yazı rengi %50 transparan beyaz */
-
-    height: 30%; /* Border hücre yüksekliğinin %60'ı olacak */
-    margin: auto 0;
-}
-
-/* Son sütundaki Vis sak linkleri için border olmadan ortalanmış stil */
-.tablesaksbehandler td:last-child:after {
-    display: none; /* Son sütunda border olmayacak */
-}
-
-/* Üzerine gelince (hover) satırların arka plan rengini biraz daha koyu yap */
-.tablesaksbehandler tbody tr:hover td {
-    background-color: #842D2D; /* Üzerine gelince satırların koyu yeşil rengi */
-}
-
-/* Satırların yüksekliği ve aralarındaki boşluğu belirginleştir */
-.tablesaksbehandler tbody tr {
-    height: 68px; /* Satır yüksekliği 68px */
-}
-
-/* Responsive tablo - küçük ekranlar */
-@media (max-width: 768px) {
-    .tablesaksbehandler {
-        font-size: 14px; /* Küçük ekranlarda yazı boyutunu küçült */
-    }
-}
-
-
 
 .legg-til-ansatt-form {
     background-color: #232323;
@@ -538,3 +450,7 @@ float: right;
     font-size: 14px;
     color: #ffffff; /* ID'nin daha ince ve zarif görünmesi için */
 }
+
+
+
+
