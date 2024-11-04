@@ -313,3 +313,35 @@
                 updateCoordinatesTable(layers[0]);
             }
         });
+
+        // Adres arama işlevi
+        function searchAddress() {
+            var address = document.getElementById('searchInput').value;
+            if (address) {
+                var url = `https://nominatim.openstreetmap.org/search?format=json&limit=1&q=${encodeURIComponent(address)}`;
+
+                fetch(url)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.length > 0) {
+                            var lat = data[0].lat;
+                            var lon = data[0].lon;
+
+                            drawnItems.clearLayers();
+                            var marker = L.marker([lat, lon]).addTo(drawnItems);
+                            map.setView([lat, lon], 15);
+
+                            updateGeoJson();
+                            updateCoordinatesTable(marker);
+                        } else {
+                            alert('Address not found.');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error fetching address:', error);
+                        alert('Error fetching address.');
+                    });
+            } else {
+                alert('Please enter an address.');
+            }
+        }
