@@ -197,7 +197,7 @@
                     // Update the selected map type value
                     selectedMapType = mapInfo.id;
                     document.getElementById('selectedMapType').value = selectedMapType;
-                    
+
                     // Seçili sınıfı güncelle
                     document.querySelectorAll('.map-thumbnail').forEach(function(thumb) {
                         thumb.classList.remove('selected');
@@ -206,3 +206,24 @@
                 }
             });
         });
+
+        // Çizim işlevselliği
+        var drawnItems = new L.FeatureGroup();
+        map.addLayer(drawnItems);
+
+        var drawControl = new L.Control.Draw({
+            edit: {
+                featureGroup: drawnItems,
+                edit: true,
+                remove: true
+            },
+            draw: {
+                polygon: true,
+                polyline: true,
+                rectangle: true,
+                circle: false,
+                circlemarker: false,
+                marker: true
+            }
+        });
+        map.addControl(drawControl);
