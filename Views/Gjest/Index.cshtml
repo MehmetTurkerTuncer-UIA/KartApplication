@@ -193,3 +193,16 @@
                     map.removeLayer(currentLayer);
                     map.addLayer(mapInfo.layer);
                     currentLayer = mapInfo.layer;
+
+                    // Update the selected map type value
+                    selectedMapType = mapInfo.id;
+                    document.getElementById('selectedMapType').value = selectedMapType;
+                    
+                    // Seçili sınıfı güncelle
+                    document.querySelectorAll('.map-thumbnail').forEach(function(thumb) {
+                        thumb.classList.remove('selected');
+                    });
+                    thumbnailDiv.classList.add('selected');
+                }
+            });
+        });
