@@ -227,3 +227,19 @@
             }
         });
         map.addControl(drawControl);
+
+        // GeoJSON'u güncelleyen bir fonksiyon
+        function updateGeoJson() {
+            var allLayers = [];
+            drawnItems.eachLayer(function(layer) {
+                var geoJson = layer.toGeoJSON();
+                allLayers.push(geoJson);
+            });
+
+            var featureCollection = {
+                "type": "FeatureCollection",
+                "features": allLayers
+            };
+
+            document.getElementById('geoJsonInput').value = JSON.stringify(featureCollection);
+        }
