@@ -243,3 +243,20 @@
 
             document.getElementById('geoJsonInput').value = JSON.stringify(featureCollection);
         }
+
+        // Adres input alanını güncelleyen fonksiyon
+        function updateAddressInput(lat, lng) {
+            var url = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lng}&accept-language=no`;
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    var address = data.display_name ? data.display_name : "Address not found";
+                    document.getElementById('searchInput').value = address;
+                    document.getElementById('addressInput').value = address;
+                })
+                .catch(error => {
+                    console.error('Error fetching address:', error);
+                    document.getElementById('searchInput').value = "Error fetching address";
+                });
+        }
