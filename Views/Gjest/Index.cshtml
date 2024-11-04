@@ -164,3 +164,11 @@
         var thumbnailsContainer = document.createElement('div');
         thumbnailsContainer.classList.add('map-thumbnails');
         document.getElementById('map').appendChild(thumbnailsContainer);
+
+        // Harita küçük resimlerini ekle
+        var maps = [
+            { id: 'fargekart', layer: fargekart, imageUrl: '@Url.Content("~/images/4.png")', title: 'Fargekart' },
+            { id: 'gratonekart', layer: gratonekart, imageUrl: '@Url.Content("~/images/3.png")', title: 'Gråtonekart' },
+            { id: 'turkart', layer: turkart, imageUrl: '@Url.Content("~/images/2.png")', title: 'Turkart' },
+            { id: 'sjokart', layer: sjokart, imageUrl: '@Url.Content("~/images/1.png")', title: 'Sjøkart' }
+        ];
