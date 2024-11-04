@@ -7,19 +7,27 @@
     
     <!-- Ortak CSS Dosyası -->
     <link rel="stylesheet" href="~/css/Admin.css" />
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
     @RenderSection("Head", required: false)
 </head>
 <body>
 
     <div class="outer-container">
-        <div class="headermenu-wrapper">    
+        <div class="headermenu-wrapper">   
+
             <div class="headermenu">  
                 <!-- Hjem butonu -->
-                <a href="/admin" class="menu-button btn-hjem">Hjem</a>
+@*<a href="/admin" class="menu-button btn-hjem">
+    <i class="fas fa-home"></i> Hjem
+</a>
 
                 <!-- Logg ut butonu -->
-                <a href="/logout" class="menu-button btn-logout">Logg ut</a>
+                <a href="/logout" class="menu-button btn-logout">
+    <i class="bi bi-door-open"></i> </i> Logg ut
+</a>*@
+   <partial name="_LoginPartial2" />
+
             </div>
         </div>
 
