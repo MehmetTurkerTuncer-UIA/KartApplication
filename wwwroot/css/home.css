@@ -86,7 +86,7 @@ body {
 }
 
 .brand-logo img {
-    width: 300px;
+    width: 200px;
 display: block;            /* Blok seviyesine geçir */
 margin: 0 auto;            /* Yatayda ortalar */
 }
@@ -346,47 +346,6 @@ h1 {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /* Responsive Tasarım */
 
 /* Tablet Görünümü */
@@ -525,11 +484,3 @@ h1 {
     }
 }
 
-/* Bilgisayar Görünümü */
-@media (min-width: 993px) {
-    .logo {
-        width: 150px;
-        max-width: 150px;
-        height: auto;
-    }
-}
