@@ -260,3 +260,32 @@
                     document.getElementById('searchInput').value = "Error fetching address";
                 });
         }
+
+         // Koordinatları tabloya ekleyen/güncelleyen fonksiyon
+        function updateCoordinatesTable(layer) {
+            var tbody = document.getElementById('coordinatesTableBody');
+            tbody.innerHTML = '';
+
+            if (layer instanceof L.Marker) {
+                var latLng = layer.getLatLng();
+                var row = `<tr><td>1</td><td>${latLng.lat}</td><td>${latLng.lng}</td></tr>`;
+                tbody.innerHTML = row;
+            } else if (layer instanceof L.Polygon || layer instanceof L.Polyline || layer instanceof L.Rectangle) {
+                var latlngs = layer.getLatLngs();
+                var counter = 1;
+
+                latlngs.forEach(function(latlngArray) {
+                    if (Array.isArray(latlngArray)) {
+                        latlngArray.forEach(function(latlng) {
+                            var row = `<tr><td>${counter}</td><td>${latlng.lat}</td><td>${latlng.lng}</td></tr>`;
+                            tbody.innerHTML += row;
+                            counter++;
+                        });
+                    } else {
+                        var row = `<tr><td>${counter}</td><td>${latlngArray.lat}</td><td>${latlngArray.lng}</td></tr>`;
+                        tbody.innerHTML += row;
+                        counter++;
+                    }
+                });
+            }
+        }
