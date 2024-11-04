@@ -305,3 +305,11 @@
                 updateAddressInput(latLng.lat, latLng.lng);
             }
         });
+
+        map.on('draw:edited', function () {
+            var layers = drawnItems.getLayers();
+            if (layers.length > 0) {
+                updateGeoJson();
+                updateCoordinatesTable(layers[0]);
+            }
+        });
