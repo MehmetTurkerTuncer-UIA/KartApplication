@@ -26,3 +26,27 @@
     </div>
 </div>
 <br />
+
+<!-- Koordinatları tablo halinde göstermek için -->
+<h3>Valgte Koordinater:</h3>
+<table class="table table-bordered" id="coordinatesTable">
+    <thead>
+        <tr>
+            <th>#</th>
+           <th>Breddegrad</th>
+            <th>Lengdegrad</th>
+        </tr>
+    </thead>
+    <tbody id="coordinatesTableBody">
+        <!-- Koordinatlar buraya eklenecek -->
+    </tbody>
+</table>
+
+<!-- Form -->
+<form asp-controller="Gjest" asp-action="Index" method="post" onsubmit="return validateForm()">
+    <input type="hidden" id="geoJsonInput" name="geoJson" /> <!-- GeoJSON verisini saklamak için gizli alan -->
+    <input type="hidden" id="addressInput" name="address" /> <!-- Adres verisini saklamak için gizli alan -->
+    <input type="hidden" id="selectedMapType" name="selectedMapType" value="fargekart" /> <!-- Seçilen harita tipini saklamak için gizli alan -->
+    <br />
+        <button type="submit" class="btn btn-primary" style="background-color: #006aff; color: white; padding: 10px 20px; border-radius: 5px; border: none; cursor: pointer;">Neste</button>
+</form>
