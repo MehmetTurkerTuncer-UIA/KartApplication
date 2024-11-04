@@ -155,3 +155,12 @@
             maxZoom: 18,
             attribution: '&copy; <a href="https://kartverket.no/">Kartverket</a>'
         });
+
+        // Başlangıç haritası olarak Fargekart'ı ekle
+        var currentLayer = fargekart;
+        var selectedMapType = 'fargekart'; // Varsayılan harita tipi
+
+        // Sağ altta küçük kareler şeklinde harita seçenekleri ekle
+        var thumbnailsContainer = document.createElement('div');
+        thumbnailsContainer.classList.add('map-thumbnails');
+        document.getElementById('map').appendChild(thumbnailsContainer);
