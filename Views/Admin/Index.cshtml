@@ -1,5 +1,4 @@
-﻿
-<style>
+﻿<style>
     .user-management-wrapper {
         width: 100%;
         font-family: Arial, sans-serif;
@@ -36,11 +35,11 @@
         content: "";
         position: absolute;
         right: 0;
-        top: 50%; /* Sınırın ortalanması için */
+        top: 50%;
         transform: translateY(-50%);
-        height: 60%; /* Sınırın yüksekliği */
-        width: 1px; /* Sınırın kalınlığı */
-        background-color: #505050; /* Sınırın rengi */
+        height: 60%;
+        width: 1px;
+        background-color: #505050;
     }
 
     .user-header .user-column {
@@ -55,11 +54,11 @@
         content: "";
         position: absolute;
         right: 0;
-        top: 50%; /* Sınırın ortalanması için */
+        top: 50%;
         transform: translateY(-50%);
-        height: 60%; /* Sınırın yüksekliği */
-        width: 1px; /* Sınırın kalınlığı */
-        background-color: #505050; /* Sınırın rengi */
+        height: 60%;
+        width: 1px;
+        background-color: #505050;
     }
 
     .user-header .user-column:last-child::after {
@@ -157,9 +156,24 @@
     }
 
     .user-column:last-child::after {
-    display: none;
-}
+        display: none;
+    }
 
+    /* Success message styling */
+    .success-message {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #28a745;
+        color: white;
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        display: none;
+        z-index: 1000;
+        font-weight: bold;
+    }
 </style>
 
 <!-- HTML KODU (Razor View) -->
@@ -169,6 +183,8 @@
     ViewData["Title"] = "Brukeradministrasjon";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
+
+<div class="success-message" id="successMessage">Endringer lagret</div>
 
 <center><h2>Brukeradministrasjon</h2></center>
 
@@ -193,11 +209,12 @@
                 </button>
             </div>
         </div>
+
         <div class="extra-info" style="display: none;">
             <div class="extra-details-container">
                 <div class="extra-details half-width">
                     <!-- Rol değiştirme formu burada eklendi -->
-                    <form method="post" asp-action="UpdateUserRole" asp-controller="Admin" class="dark-form">
+                    <form method="post" asp-action="UpdateUserRole" asp-controller="Admin" class="dark-form" onsubmit="showSuccessMessage(event)">
                         <div style="display: flex; align-items: center; gap: 10px;">
                             <input type="hidden" name="userId" value="@user.UserId" class="dark-input" />
                             <label for="newRoleSelect" class="dark-label">Endre rolle:</label>
@@ -255,6 +272,18 @@
             icon.removeClass('bi-chevron-down').addClass('bi-chevron-up');
         });
     });
+
+    function showSuccessMessage(event) {
+        event.preventDefault(); // Formun varsayılan davranışını engelle
+
+        // Ajax çağrısı ile rol değişikliğini göndermek için (isteğe bağlı)
+        var form = event.target;
+        var formData = $(form).serialize();
+        $.post(form.action, formData, function(response) {
+            // Başarı mesajını göster
+            $('#successMessage').fadeIn(400).delay(2000).fadeOut(400);
+        });
+    }
 </script>
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
