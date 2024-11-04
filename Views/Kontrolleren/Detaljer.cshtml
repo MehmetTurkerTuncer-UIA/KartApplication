@@ -23,7 +23,6 @@
             <td>@Model.Id</td>
             <td>@Model.ArbeidStatus</td>
             <td>@Model.KontrolStatus</td>
-
         </tr>
     </tbody>
 </table>
@@ -71,43 +70,34 @@
     </tbody>
 </table>
 
-@if (!string.IsNullOrEmpty(Model.KontrollerenDescription))
-{
-    <div class="OppsummeringBox">
-        <p>Kontrollerens Kommentar:</p>
-
-        <p class="OppsummeringContent">@Model.KontrollerenDescription</p>
+<br>
+<div class="OppsummeringBox">
+    <div class="OppsummeringContentTitle">
+        <img src="~/images/check-mark.png" alt="Checkbox" class="checkboxImage"> Kontrollerens Kommentar:
     </div>
-}
-
+    <p style="padding-left: 10px;"> @Model.KontrollerenDescription</p>
+</div>
 
 <!-- Yönetim Paneli -->
 <div class="admin-panel">
     <div class="admin-card">
-
-
- <h2>Administer saken</h2>
-              
-        
+        <h2>Administer saken</h2>
         <form method="post" asp-action="UpdateStatus" asp-controller="Kontrolleren" asp-route-id="@Model.Id">
-            
             <!-- Sol tarafta mesaj alanı (textarea) -->
-            <div style="width: 48%;">
+            <div style="width: 95%;">
                 <label for="KontrollerenDescription" style="color: white; display: block; margin-bottom: 10px;">Beskrivelse:</label>
-                    <textarea id="KontrollerenDescription" name="KontrollerenDescription" class="form-control" required
-          style="width: 100%; height: 200px; background-color: #333; color: white;
-    border: 1px solid #ccc; border-radius: 5px; padding: 10px;"
-                          onfocus="removePlaceholder()" onblur="addPlaceholder()"> Skriv en kommentar eller oppdater kommentaren ... </textarea>
+                <textarea id="KontrollerenDescription" name="KontrollerenDescription" class="form-control" required
+                    style="width: 100%; height: 200px; background-color: #333; color: gray;
+                    border: 1px solid #ccc; border-radius: 5px; padding: 10px; margin-bottom: 20px;"
+                    onfocus="removePlaceholder()" onblur="addPlaceholder()">Skriv en kommentar eller oppdater kommentaren ...</textarea>
             </div>
-
 
             <!-- Kontrol Status Seçimi -->
             <div class="form-group">
                 <label for="kontrolStatus">Kontroll Status</label>
                 <select id="kontrolStatus" name="kontrolStatus" class="form-control">
                     <option value="">Velg</option>
-                    @if (Model.KontrolStatus == KontrolStatus.villKontrollere
-                    )
+                    @if (Model.KontrolStatus == KontrolStatus.villKontrollere)
                     {
                         <option value="villKontrollere" selected>villKontrollere</option>
                     }
@@ -135,9 +125,6 @@
             </div>
             
             <div class="form-actions">
-
-
-            @*     <button type="button" class="btn btn-danger">Avvis</button> *@
                 <button type="submit" class="btn btn-primary">Lagre</button>
             </div>
         </form>
@@ -240,5 +227,34 @@
         } else {
             alert('Gyldige GeoJSON-data ble ikke funnet.');
         }
+
+        // Function to remove placeholder text when focusing on textarea
+        function removePlaceholder() {
+            var textarea = document.getElementById("KontrollerenDescription");
+            if (textarea.value.trim() === "Skriv en kommentar eller oppdater kommentaren ...") {
+                textarea.value = "";
+                textarea.style.color = "white";
+            }
+        }
+
+        // Function to add placeholder text when textarea loses focus
+        function addPlaceholder() {
+            var textarea = document.getElementById("KontrollerenDescription");
+            if (textarea.value.trim() === "") {
+                textarea.value = "Skriv en kommentar eller oppdater kommentaren ...";
+                textarea.style.color = "gray";
+            }
+        }
+
+        // Set placeholder color when the page loads
+        document.addEventListener("DOMContentLoaded", function() {
+            var textarea = document.getElementById("KontrollerenDescription");
+            if (textarea.value.trim() === "" || textarea.value.trim() === "Skriv en kommentar eller oppdater kommentaren ...") {
+                textarea.value = "Skriv en kommentar eller oppdater kommentaren ...";
+                textarea.style.color = "gray";
+            } else {
+                textarea.style.color = "white";
+            }
+        });
     </script>
 }
