@@ -1,55 +1,290 @@
-﻿@*  @model List<ApplicationUser>
- *@ 
+﻿<style>
+    .user-management-wrapper {
+        width: 100%;
+        font-family: Arial, sans-serif;
+        font-size: 16px;
+    }
+
+    .user-header{
+        display: flex;
+        background-color: #000000;
+        color: white;
+        padding: 10px;
+        margin-bottom: 2px;
+    }
+
+    .user-row {
+        display: flex;
+        background-color: #0000003c;
+        color: white;
+        padding: 10px;
+        margin-bottom: 2px;
+    }
+
+    .user-column {
+        flex: 1;
+        text-align: center;
+        position: relative;
+        padding: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .user-column::after {
+        content: "";
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        height: 60%;
+        width: 1px;
+        background-color: #505050;
+    }
+
+    .user-header .user-column {
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+    }
+
+    .user-header .user-column::after {
+        content: "";
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        height: 60%;
+        width: 1px;
+        background-color: #505050;
+    }
+
+    .user-header .user-column:last-child::after {
+        display: none;
+    }
+
+    .clickable-row {
+        transition: background-color 0.3s;
+    }
+
+    .clickable-row:hover {
+        background-color: #842D2D;
+    }
+
+    .extra-info {
+        padding: 15px;
+        display: none;
+    }
+
+    .extra-details-container {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+    }
+
+    .extra-details {
+        padding: 10px;
+        border-radius: 4px;
+        transition: background-color 0.3s;
+        width: 48%;
+    }
+
+    .vertical-border {
+        width: 1px;
+        background-color: #505050;
+        height: auto;
+        margin: 0 20px;
+    }
+
+    .btn-toggle {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 20px;
+        cursor: pointer;
+        transition: transform 0.3s;
+    }
+
+    .btn-toggle i {
+        transition: transform 0.3s ease;
+    }
+
+    .btn-toggle:focus {
+        outline: none;
+    }
+
+    .dark-form {
+        padding: 15px;
+        border-radius: 8px;
+    }
+
+    .dark-input {
+        background-color: #333;
+        color: white;
+        border: 1px solid #555;
+        padding: 8px;
+        border-radius: 4px;
+        width: 100%;
+    }
+
+    .dark-label {
+        color: white;
+        font-weight: bold;
+        margin-bottom: 5px;
+        display: block;
+    }
+
+    .dark-button {
+        background-color: #444;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        border-radius: 4px;
+    }
+
+    .dark-button:hover {
+        background-color: #555;
+    }
+
+    /* Highlighted background for expanded rows and extra-info sections */
+    .active-expand {
+        background-color: #181818 !important;
+    }
+
+    .user-column:last-child::after {
+        display: none;
+    }
+
+    /* Success message styling */
+    .success-message {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #28a745;
+        color: white;
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        display: none;
+        z-index: 1000;
+        font-weight: bold;
+    }
+</style>
+
+<!-- HTML KODU (Razor View) -->
 @model IEnumerable<KartApplication.Models.ApplicationUserViewModel>
 
 @{
-    ViewData["Title"] = "Kullanıcı Yönetimi";
+    ViewData["Title"] = "Brukeradministrasjon";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h2>Kullanıcı Yönetimi</h2>
+<div class="success-message" id="successMessage">Endringer lagret</div>
 
-<table class="tablesaksbehandler">
-    <thead>
-        <tr>
-            <th>Navn</th>
-            <th>E-post</th>
-            <th>Telefon</th>
-            <th>Roll</th>
-            <th>Bytte Roll</th>
-            <th>Slette Bruker</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var user in Model)
-        {
-            <tr>
-                
-                <td>@user.Name</td>
-                <td>@user.Email</td>
-                <td>@user.PhoneNumber</td>
-                <td>@user.CurrentRole </td>
-                <!-- Rol değiştirme -->
-                <td>
-                    <form method="post" asp-action="UpdateUserRole" asp-controller="Admin">
-                        <input type="hidden" name="userId" value="@user.UserId" />
-                        <select name="newRole" asp-items="ViewBag.RoleOptions" class="form-select">
-                            <option selected="selected" value="@user.CurrentRole">@user.CurrentRole</option>
-                        </select>
-                        <button type="submit" class="btn btn-primary">Güncelle</button>
+<center><h2>Brukeradministrasjon</h2></center>
+
+<div class="user-management-wrapper">
+    <div class="user-header">
+        <div class="user-column header">Navn</div>
+        <div class="user-column header">E-post</div>
+        <div class="user-column header">Telefon</div>
+        <div class="user-column header">Rolle</div>
+        <div class="user-column header">Åpne/Lukke</div>
+    </div>
+    @foreach (var user in Model)
+    {
+        <div class="user-row clickable-row">
+            <div class="user-column">@user.Name</div>
+            <div class="user-column">@user.Email</div>
+            <div class="user-column">96694651 @* @user.PhoneNumber *@</div>
+            <div class="user-column">@user.CurrentRole</div>
+            <div class="user-column">
+                <button type="button" class="btn btn-toggle">
+                    <i class="bi bi-chevron-down"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="extra-info" style="display: none;">
+            <div class="extra-details-container">
+                <div class="extra-details half-width">
+                    <!-- Rol değiştirme formu burada eklendi -->
+                    <form method="post" asp-action="UpdateUserRole" asp-controller="Admin" class="dark-form" onsubmit="showSuccessMessage(event)">
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <input type="hidden" name="userId" value="@user.UserId" class="dark-input" />
+                            <label for="newRoleSelect" class="dark-label">Endre rolle:</label>
+                            <select id="newRoleSelect" name="newRole" asp-items="ViewBag.RoleOptions" class="form-select dark-input" style="flex: 1;">
+                                <option selected="selected" value="@user.CurrentRole">@user.CurrentRole</option>
+                            </select>
+                            <button type="submit" class="btn btn-primary dark-button">Oppdater</button>
+                        </div>
                     </form>
-                </td>
-
-                <!-- Kullanıcı silme -->
-                <td>
+                </div>
+                <div class="vertical-border"></div>
+                <div class="extra-details half-width" style="display: flex; align-items: center; justify-content: center;">
+                    <!-- Kullanıcı silme butonu -->
                     <form method="post" asp-action="DeleteUser" asp-controller="Admin">
                         <input type="hidden" name="userId" value="@user.UserId" />
-                        <button type="submit" class="btn btn-danger" onclick="return confirm('Bu kullanıcıyı silmek istediğinize emin misiniz?');">Sil</button>
+                        <button type="submit" class="btn btn-danger" onclick="return confirm('Er du sikker på at du vil slette denne brukeren?');">Slett</button>
                     </form>
-                </td>
-                
+                </div>
+            </div>
+        </div>
+    }
+</div>
 
-            </tr>
-        }
-    </tbody>
-</table>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<script>
+    $(document).ready(function() {
+        // Vis/Skjul ekstra informasjon ved siden av den klikkede raden
+        var toggleButtons = $(".btn-toggle");
+        toggleButtons.on("click", function(event) {
+            event.stopPropagation(); // Forhindre radklikk
+            var row = $(this).closest(".user-row");
+            var nextRow = row.next(".extra-info");
+            var icon = $(this).find("i");
+
+            // Hvis den klikkede raden allerede er åpen, lukk den
+            if (nextRow.is(":visible")) {
+                nextRow.stop(true, true).slideUp(400, 'easeInOutCubic');
+                row.removeClass('active-expand');
+                nextRow.removeClass('active-expand');
+                icon.removeClass('bi-chevron-up').addClass('bi-chevron-down');
+                return;
+            }
+
+            // Lukk først andre åpne menyer
+            $(".extra-info:visible").not(nextRow).stop(true, true).slideUp(400, 'easeInOutCubic');
+            $(".user-row.active-expand").not(row).removeClass('active-expand');
+            $(".extra-info.active-expand").not(nextRow).removeClass('active-expand');
+            $(".btn-toggle i").not(icon).removeClass('bi-chevron-up').addClass('bi-chevron-down');
+
+            // Åpne detaljene for den klikkede raden
+            nextRow.stop(true, true).slideDown(400, 'easeInOutCubic');
+            row.addClass('active-expand');
+            nextRow.addClass('active-expand');
+            icon.removeClass('bi-chevron-down').addClass('bi-chevron-up');
+        });
+    });
+
+    function showSuccessMessage(event) {
+        event.preventDefault(); // Formun varsayılan davranışını engelle
+
+        // Ajax çağrısı ile rol değişikliğini göndermek için (isteğe bağlı)
+        var form = event.target;
+        var formData = $(form).serialize();
+        $.post(form.action, formData, function(response) {
+            // Başarı mesajını göster
+            $('#successMessage').fadeIn(400).delay(2000).fadeOut(400);
+        });
+    }
+</script>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">

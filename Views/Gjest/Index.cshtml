@@ -1,7 +1,7 @@
-@model KartApplication.Models.SakModel
+@model KartApplication.Models.AreaChange
 @{
     ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/_BrukerLayout.cshtml";
+    Layout = "~/Views/Shared/_GjestLayout.cshtml";
 }
 
 <br>
@@ -10,9 +10,9 @@
 <!-- Harita konteyneri -->
 <div id="map" style="height: 400px; width: 100%; position: relative;">
     <!-- Arama kutusunu haritanın içinde yapacak kapsayıcı -->
-    <div id="search-container" style="position: absolute; top: 10px; right: 0; margin-right:10px; z-index: 1000; width: 360px;">
+    <div id="search-container" style="position: absolute; top: 10px; right: 0; margin-right:10px; z-index: 1000; width: 400px;">
         <div class="input-group">
-            <input type="text" id="searchInput" name="address" class="form-control" placeholder="Skriv inn full adresse" aria-label="Search Address" autocomplete="off" />
+            <input type="text" id="searchInput" name="address" class="form-control" placeholder="Enter full address" aria-label="Search Address" autocomplete="off" />
             <div class="input-group-append">
                 <button type="button" class="btn-primary" id="searchAddressBtn">
                     <i class="bi bi-search black-icon"></i> <!-- Bootstrap büyüteç ikonu -->
@@ -28,12 +28,12 @@
 <br />
 
 <!-- Koordinatları tablo halinde göstermek için -->
-<h3>Valgte koordinater:</h3>
+<h3>Valgte Koordinater:</h3>
 <table class="table table-bordered" id="coordinatesTable">
     <thead>
         <tr>
             <th>#</th>
-            <th>Breddegrad</th>
+           <th>Breddegrad</th>
             <th>Lengdegrad</th>
         </tr>
     </thead>
@@ -43,12 +43,10 @@
 </table>
 
 <!-- Form -->
-<form asp-controller="Home" asp-action="Index" method="post" onsubmit="return validateForm()">
-    <input type="hidden" asp-for="Id" />   @*  Eklendi *@
-
-    <input type="hidden" id="geoJsonInput" name="GeoJson" /> <!-- GeoJSON verisini saklamak için gizli alan -->
-    <input type="hidden" id="addressInput" name="Address" /> <!-- Adres verisini saklamak için gizli alan -->
-    <input type="hidden" id="selectedMapType" name="SelectedMapType" value="fargekart" /> <!-- Seçilen harita tipini saklamak için gizli alan -->
+<form asp-controller="Gjest" asp-action="Index" method="post" onsubmit="return validateForm()">
+    <input type="hidden" id="geoJsonInput" name="geoJson" /> <!-- GeoJSON verisini saklamak için gizli alan -->
+    <input type="hidden" id="addressInput" name="address" /> <!-- Adres verisini saklamak için gizli alan -->
+    <input type="hidden" id="selectedMapType" name="selectedMapType" value="fargekart" /> <!-- Seçilen harita tipini saklamak için gizli alan -->
     <br />
         <button type="submit" class="btn btn-primary" style="background-color: #006aff; color: white; padding: 10px 20px; border-radius: 5px; border: none; cursor: pointer;">Neste</button>
 </form>
@@ -72,85 +70,36 @@
             border-radius: 5px;
         }
 
-/* Harita kutuları stili */
-.map-thumbnails {
-    position: absolute;
-    bottom: 10px;
-    left: 10px;
-    display: flex;
-    gap: 5px;
-    z-index: 1000;
-    background-color: rgb(255, 255, 255);
-    padding: 5px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 1.5); /* Siyah gölge ekle */
-        border-radius: 4px;
+        /* Harita kutuları stili */
+        .map-thumbnails {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
+        }
 
-}
+        .map-thumbnail {
+            width: 60px;
+            height: 60px;
+            border: 3px solid transparent;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: border-color 0.3s ease;
+        }
 
-.map-thumbnail {
-    position: relative; /* Ok ve yazıyı konumlandırmak için relative olarak ayarlanmalı */
-    width: 48px; /* %80 boyutlandırma: 60px * 0.8 = 48px */
-    height: 48px; /* %80 boyutlandırma: 60px * 0.8 = 48px */
-    border: 3px solid transparent;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: border-color 0.3s ease;
-    overflow: visible; /* İçeriğin taşmasına izin ver */
-    border-color: rgba(255, 166, 0, 0.266);
-    
-}
+        .map-thumbnail.selected {
+            border-color: orange;
+        }
 
-.map-thumbnail:hover {
-    border-color: rgb(125, 82, 0); /* Hover sırasında kenarlık siyah olsun */
-}
-
-.map-thumbnail .map-title {
-    position: absolute;
-    bottom: 125%; /* Haritanın adını küçük resmin üstüne yerleştir */
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: rgba(0, 0, 0, 0.7); /* Siyah arka plan */
-    color: white;
-    padding: 5px 10px;
-    border-radius: 5px;
-    font-size: 12px;
-    white-space: nowrap;
-    z-index: 1001; /* Yazıyı üst katmana taşı */
-    opacity: 0; /* Varsayılan olarak görünmez */
-    transition: opacity 0.3s ease-in-out;
-    pointer-events: none; /* Yazı, fare ile etkileşime geçmeyecek */
-    margin-bottom: 5px;
-}
-
-.map-thumbnail:hover .map-title {
-    opacity: 1; /* Hover sırasında yazıyı görünür yap */
-}
-
-.map-thumbnail .map-title::after {
-    content: "";
-    position: absolute;
-    top: 100%; /* Yazının hemen altında oku göstermek için */
-    left: 50%;
-    transform: translateX(-50%);
-    border-width: 10px; /* Okun boyutunu belirler */
-    border-style: solid;
-    border-color: black transparent transparent transparent; /* Okun yönünü ters çevirir (yukarıdan aşağı) */
-    opacity: 0.7; /* Oku %50 şeffaf yap */
-    z-index: 1001; /* Oku da yazının üst katmanına taşı */
-}
-
-.map-thumbnail.selected {
-    border-color: orange;
-}
-
-/* Görsellerin küçük olmasını sağla */
-.map-thumbnail img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 8px;
-}
-
+        /* Görsellerin küçük olmasını sağla */
+        .map-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 8px;
+        }
 
         .suggestion-item {
             padding: 10px;
@@ -176,10 +125,10 @@
         }
     </style>
 
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"></script>
 
-    <script>
+<script>
         // Haritayı başlat
         var map = L.map('map').setView([58.1467, 7.9956], 15); // Kristiansand, UiA konumu
 
@@ -195,7 +144,7 @@
             attribution: '&copy; <a href="https://kartverket.no/">Kartverket</a>'
         });
 
-        // Kartverket Turkart (Yürüyüş Haritası)
+         // Kartverket Turkart (Yürüyüş Haritası)
         var turkart = L.tileLayer('https://cache.kartverket.no/v1/wmts/1.0.0/toporaster/default/webmercator/{z}/{y}/{x}.png', {
             maxZoom: 18,
             attribution: '&copy; <a href="https://kartverket.no/">Kartverket</a>'
@@ -211,8 +160,6 @@
         var currentLayer = fargekart;
         var selectedMapType = 'fargekart'; // Varsayılan harita tipi
 
- 
-
         // Sağ altta küçük kareler şeklinde harita seçenekleri ekle
         var thumbnailsContainer = document.createElement('div');
         thumbnailsContainer.classList.add('map-thumbnails');
@@ -226,48 +173,39 @@
             { id: 'sjokart', layer: sjokart, imageUrl: '@Url.Content("~/images/1.png")', title: 'Sjøkart' }
         ];
 
+        maps.forEach(function(mapInfo, index) {
+            var thumbnailDiv = document.createElement('div');
+            thumbnailDiv.classList.add('map-thumbnail');
+            if (index === 0) {
+                thumbnailDiv.classList.add('selected');
+            }
 
-      maps.forEach(function(mapInfo, index) {
-    var thumbnailDiv = document.createElement('div');
-    thumbnailDiv.classList.add('map-thumbnail');
-    if (index === 0) {
-        thumbnailDiv.classList.add('selected');
-    }
-    
-    var img = document.createElement('img');
-    img.src = mapInfo.imageUrl;
-    img.alt = mapInfo.title;
-    thumbnailDiv.appendChild(img);
-    
-    // Başlık eklemek için yeni bir div
-    var titleDiv = document.createElement('div');
-    titleDiv.classList.add('map-title');
-    titleDiv.textContent = mapInfo.title; // Harita adını yazı olarak ekle
-    thumbnailDiv.appendChild(titleDiv);
+            var img = document.createElement('img');
+            img.src = mapInfo.imageUrl;
+            img.alt = mapInfo.title;
+            img.title = mapInfo.title; // Fare üzerine gelince harita adını göstermek için title kullanıyoruz
+            thumbnailDiv.appendChild(img);
+            thumbnailsContainer.appendChild(thumbnailDiv);
 
-    thumbnailsContainer.appendChild(thumbnailDiv);
+            // Tıklanınca haritayı değiştir
+            thumbnailDiv.addEventListener('click', function() {
+                if (currentLayer !== mapInfo.layer) {
+                    map.removeLayer(currentLayer);
+                    map.addLayer(mapInfo.layer);
+                    currentLayer = mapInfo.layer;
 
-    // Tıklanınca haritayı değiştir
-    thumbnailDiv.addEventListener('click', function() {
-        if (currentLayer !== mapInfo.layer) {
-            map.removeLayer(currentLayer);
-            map.addLayer(mapInfo.layer);
-            currentLayer = mapInfo.layer;
+                    // Update the selected map type value
+                    selectedMapType = mapInfo.id;
+                    document.getElementById('selectedMapType').value = selectedMapType;
 
-            // Update the selected map type value
-            selectedMapType = mapInfo.id;
-            document.getElementById('selectedMapType').value = selectedMapType;
-
-            // Seçili sınıfı güncelle
-            document.querySelectorAll('.map-thumbnail').forEach(function(thumb) {
-                thumb.classList.remove('selected');
+                    // Seçili sınıfı güncelle
+                    document.querySelectorAll('.map-thumbnail').forEach(function(thumb) {
+                        thumb.classList.remove('selected');
+                    });
+                    thumbnailDiv.classList.add('selected');
+                }
             });
-            thumbnailDiv.classList.add('selected');
-        }
-    });
-});
-
-
+        });
 
         // Çizim işlevselliği
         var drawnItems = new L.FeatureGroup();
@@ -323,7 +261,7 @@
                 });
         }
 
-        // Koordinatları tabloya ekleyen/güncelleyen fonksiyon
+         // Koordinatları tabloya ekleyen/güncelleyen fonksiyon
         function updateCoordinatesTable(layer) {
             var tbody = document.getElementById('coordinatesTableBody');
             tbody.innerHTML = '';
@@ -375,17 +313,6 @@
                 updateCoordinatesTable(layers[0]);
             }
         });
-
-        map.on('draw:deleted', function () {
-            updateGeoJson();
-            document.getElementById('coordinatesTableBody').innerHTML = '';
-        });
-           
-            // Manuel olarak adres girildiğinde, gizli input alanını güncelle
-     document.getElementById('searchInput').addEventListener('input', function() {
-    document.getElementById('addressInput').value = this.value;
-    });
-
 
         // Adres arama işlevi
         function searchAddress() {
