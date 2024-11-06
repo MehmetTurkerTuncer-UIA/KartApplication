@@ -9,3 +9,28 @@
 
 
 
+<center>
+    <h1>Saken er mottatt!</h1>
+
+    <table class="details-table">
+
+        <tr>
+            <th>Referansenummer</th>
+            <td>
+                <p>@Model.Id</p>
+            </td>
+        </tr>
+        <tr>
+            <th>Dato</th>
+            <td>@Model.Dato.ToString("dd.MM.yyyy")</td>
+        </tr>
+    </table>
+
+    <p class="info-text">Du kan følge opp saken din med referansenummeret.</p>
+
+    <p class="thank-you-text">TUSEN TAKK FOR HJELP!</p>
+
+    <button class="print-button" onclick="printContent()">Skriv ut</button>
+    </div>
+    </div>
+
