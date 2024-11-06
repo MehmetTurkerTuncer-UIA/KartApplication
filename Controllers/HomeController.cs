@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using KartApplication.Data;
 using KartApplication.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace KartApplication.Controllers
 {
@@ -13,6 +14,7 @@ namespace KartApplication.Controllers
     public class HomeController : Controller
     {
         private readonly ApplicationDbContext _context;
+
 
         public HomeController(ApplicationDbContext context)
         {
@@ -171,14 +173,33 @@ public async Task<IActionResult> Profil(ApplicationUser model)
 }
 
 [HttpGet]
-        public IActionResult MineSaker()
+        // Minesaker Action Method - Kullanıcının tüm Sak kayıtlarını listeler
+        [HttpGet]
+        public async Task<IActionResult> Minesaker()
         {
-            return View();
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userSaks = await _context.SakModels
+                .Where(s => s.UserId == userId)
+                .ToListAsync();
+
+            return View(userSaks);
+        }
+
+        // Detaljer Action Method - Belirli bir Sak kaydının detaylarını gösterir
+        [HttpGet]
+        public async Task<IActionResult> Detaljer(int id)
+        {
+            var sak = await _context.SakModels.FindAsync(id);
+
+            if (sak == null)
+                return NotFound();
+
+            return View(sak);
         }
 
 
-         // GET: Home/Sok
-    public ActionResult Sok(string referenceNumber)
+        // GET: Home/Sok
+        public ActionResult Sok(string referenceNumber)
     {
         // Referans numarasına göre durumu kontrol et
         var status = CheckStatus(referenceNumber);
