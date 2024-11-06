@@ -6,3 +6,30 @@
 
 <br>
 <center><h2>Beskrivelse</h2></center>
+
+<!-- Açıklama formu -->
+<form asp-action="Beskrivelse" method="post">
+    <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+        <!-- Sol tarafta mesaj alanı (textarea) -->
+        <div style="width: 48%;">
+            <label for="description" style="color: white; display: block; margin-bottom: 10px;">Beskrivelse:</label>
+            <textarea id="description" name="description" class="form-control" required style="width: 100%; height: 200px; background-color: #333; color: white; border: 1px solid #ccc; border-radius: 5px; padding: 10px;"></textarea>
+        </div>
+
+        <!-- Sağ tarafta harita ve başlık -->
+        <div style="width: 48%;">
+            <!-- Harita başlığı -->
+            <label for="map" style="color: white; display: block; margin-bottom: 10px;">Kartvisning:</label>
+            <div id="map" style="height: 400px; width: 100%; background-color: lightgray;"></div>
+
+            <!-- Adres bilgisi varsa göster (haritanın altında) -->
+            @if (!string.IsNullOrEmpty(Model.Address))
+            {
+                <div style="margin-top: 15px;">
+                    <p><strong>Adress:</strong> @Model.Address</p>
+                </div>
+            }
+        </div>
+    </div>
+
+    <br />
