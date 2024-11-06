@@ -1,8 +1,7 @@
-@model IEnumerable<KartApplication.Models.SakModel>
-
+@model List<KartApplication.Models.SakModel>
 @{
     ViewData["Title"] = "Mine Saker";
-    Layout = "~/Views/Shared/_BrukerLayout.cshtml"; 
+    Layout = "~/Views/Shared/_BrukerLayout.cshtml";
 }
 
 <h2>Mine Saker</h2>
@@ -12,23 +11,23 @@
 }
 else
 {
-    <table class="tablesaksbehandlerFerdigeSaks" id="mineSakerTable">
+    <table class="tablesaksbehandler" id="saksbehandlermenu">
         <thead>
             <tr>
                 <th>Dato</th>
-                <th>Sak Status</th>
                 <th>Referansenummer</th>
+                <th>Sak Status</th>
                 <th>Kontroll Status</th>
             </tr>
         </thead>
         <tbody id="saksbehandlersaks">
-            @foreach (var sakModel in Model)
+            @foreach (var sak in Model)
             {
-                <tr onclick="window.location.href='@Url.Action("Detaljer", "Saksbehandler", new { id = sakModel.Id })'" style="cursor: pointer;">
-                    <td>@sakModel.CreatedAt.ToShortDateString()</td>
-                    <td>@sakModel.Status.ToString()</td>
-                    <td>@sakModel.Id</td>
-                    <td>@(sakModel.IsTemporary ? "Temporary" : "Permanent")</td>
+                <tr onclick="window.location.href='@Url.Action("Detaljer", "Home", new { id = sak.Id })'" style="cursor: pointer;">
+                    <td>@sak.CreatedAt.ToShortDateString()</td>
+                    <td>@sak.Id</td>
+                    <td>@sak.Status</td>
+                    <td>@sak.KontrolStatus</td>
                 </tr>
             }
         </tbody>
