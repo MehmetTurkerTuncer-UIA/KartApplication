@@ -51,3 +51,24 @@
         // GeoJSON verisini modelden alıyoruz
         var geoJsonData = @Html.Raw(Model.GeoJson);
         var selectedMapType = '@Model.SelectedMapType'; // Seçilen harita tipi (fargekart, gratonekart, turkart, sjokart)
+
+        // Harita katmanlarını tanımla
+        var fargekart = L.tileLayer('https://cache.kartverket.no/v1/wmts/1.0.0/topo/default/webmercator/{z}/{y}/{x}.png', {
+            maxZoom: 18,
+            attribution: '&copy; <a href="https://kartverket.no/">Kartverket</a>'
+        });
+
+        var gratonekart = L.tileLayer('https://cache.kartverket.no/v1/wmts/1.0.0/topograatone/default/webmercator/{z}/{y}/{x}.png', {
+            maxZoom: 18,
+            attribution: '&copy; <a href="https://kartverket.no/">Kartverket</a>'
+        });
+
+        var turkart = L.tileLayer('https://cache.kartverket.no/v1/wmts/1.0.0/toporaster/default/webmercator/{z}/{y}/{x}.png', {
+            maxZoom: 18,
+            attribution: '&copy; <a href="https://kartverket.no/">Kartverket</a>'
+        });
+
+        var sjokart = L.tileLayer('https://cache.kartverket.no/v1/wmts/1.0.0/sjokartraster/default/webmercator/{z}/{y}/{x}.png', {
+            maxZoom: 18,
+            attribution: '&copy; <a href="https://kartverket.no/">Kartverket</a>'
+        });
