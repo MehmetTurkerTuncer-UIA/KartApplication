@@ -142,3 +142,18 @@
                             var lat = coord[1];
                             var lng = coord[0];
 
+                                // Tabloda koordinatları göster
+                            var row = `<tr><td>${counter}</td><td>${lat}</td><td>${lng}</td></tr>`;
+                            tbody.innerHTML += row;
+                            counter++;
+
+                            // Her köşe noktası için pop-up ekle
+                            var marker = L.marker([lat, lng]).addTo(map);
+                            marker.bindPopup("Koordinater: Br. " + lat + ", Lgr. " + lng);
+                        });
+                    } 
+                    else if (feature.geometry.type === 'LineString') {
+                        feature.geometry.coordinates.forEach(function(coord, index) {
+                            var lat = coord[1];
+                            var lng = coord[0];
+
