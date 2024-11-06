@@ -112,3 +112,19 @@
                 selectedLayer = fargekart;
         }
 
+            // Haritayı başlat ve seçilen harita katmanını ekle
+        var map = L.map('map').setView([58.1467, 7.9956], 15);
+        selectedLayer.addTo(map);
+
+        // Koordinatları tabloya ekleme
+        var tbody = document.getElementById('coordinatesTableBody');
+        var counter = 1;
+
+        // GeoJSON verisini haritaya ekle ve pop-up'ları ayarla
+        if (geoJsonData && geoJsonData.features) {
+            var layer = L.geoJSON(geoJsonData, {
+                onEachFeature: function (feature, layer) {
+                    if (feature.geometry.type === 'Point') {
+                        var lat = feature.geometry.coordinates[1];
+                        var lng = feature.geometry.coordinates[0];
+
