@@ -189,12 +189,11 @@ public async Task<IActionResult> Profil(ApplicationUser model)
         [HttpGet]
         public async Task<IActionResult> Detaljer(int id)
         {
+            // İlgili Sak kaydını veritabanından getir
             var sak = await _context.SakModels.FindAsync(id);
 
-            if (sak == null)
-                return NotFound();
-
-            return View(sak);
+          
+            return View(sak); // Sak kaydı Detaljer görünümüne gönderilir
         }
 
 
