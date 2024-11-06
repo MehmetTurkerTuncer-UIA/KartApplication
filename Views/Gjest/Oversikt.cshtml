@@ -157,3 +157,25 @@
                             var lat = coord[1];
                             var lng = coord[0];
 
+                            // Tabloda koordinatları göster
+                            var row = `<tr><td>${counter}</td><td>${lat}</td><td>${lng}</td></tr>`;
+                            tbody.innerHTML += row;
+                            counter++;
+
+                            // Her nokta için pop-up ekle
+                            var marker = L.marker([lat, lng]).addTo(map);
+                            marker.bindPopup("Koordinater: Br. " + lat + ", Lgr. " + lng);
+                        });
+                    }
+                }
+            }).addTo(map);
+
+            // Harita görünümünü katmanlara göre ayarla
+            map.fitBounds(layer.getBounds());
+        } else {
+            // GeoJSON verisi yoksa bir uyarı mesajı göster
+            alert('Geçerli GeoJSON verisi bulunamadı.');
+        }
+    </script>
+}
+}
