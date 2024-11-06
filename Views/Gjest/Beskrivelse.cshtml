@@ -88,3 +88,9 @@
             default:
                 selectedLayer = fargekart;
         }
+
+        // Haritayı başlat
+        var map = L.map('map').setView([58.1467, 7.9956], 15);
+
+        // Seçilen harita katmanını ekle
+        selectedLayer.addTo(map);
