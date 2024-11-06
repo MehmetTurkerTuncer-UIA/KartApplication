@@ -128,3 +128,17 @@
                         var lat = feature.geometry.coordinates[1];
                         var lng = feature.geometry.coordinates[0];
 
+                        // Tabloda koordinatları göster
+                        var row = `<tr><td>${counter}</td><td>${lat}</td><td>${lng}</td></tr>`;
+                        tbody.innerHTML += row;
+                        counter++;
+
+                        // Pop-up ile koordinat bilgilerini göster
+                        layer.bindPopup("Koordinater: Br. " + lat + ", Lgr. " + lng).openPopup();
+                    } 
+                    else if (feature.geometry.type === 'Polygon') {
+                        var coords = feature.geometry.coordinates[0]; // İlk halka
+                        coords.forEach(function(coord, index) {
+                            var lat = coord[1];
+                            var lng = coord[0];
+
