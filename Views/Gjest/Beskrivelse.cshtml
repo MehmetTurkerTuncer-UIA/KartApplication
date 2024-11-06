@@ -125,3 +125,13 @@
                     }
                 }
             }).addTo(map);
+
+            // Harita görünümünü katmanlara göre ayarla
+            map.fitBounds(layer.getBounds());
+
+        } else {
+            // GeoJSON verisi yoksa bir uyarı mesajı göster
+            alert('Geçerli GeoJSON verisi bulunamadı.');
+        }
+    </script>
+}
