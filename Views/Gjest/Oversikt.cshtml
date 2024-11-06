@@ -96,3 +96,19 @@
         attribution: '&copy; <a href="https://kartverket.no/">Kartverket</a>'
     });
 
+            // Seçilen harita katmanını belirle
+        var selectedLayer;
+        switch (selectedMapType) {
+            case 'gratonekart':
+                selectedLayer = gratonekart;
+                break;
+            case 'turkart':
+                selectedLayer = turkart;
+                break;
+            case 'sjokart':
+                selectedLayer = sjokart;
+                break;
+            default:
+                selectedLayer = fargekart;
+        }
+
