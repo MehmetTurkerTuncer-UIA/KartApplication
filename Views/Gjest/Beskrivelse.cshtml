@@ -94,3 +94,34 @@
 
         // Seçilen harita katmanını ekle
         selectedLayer.addTo(map);
+
+        // GeoJSON verisini haritaya ekle
+        if (geoJsonData && geoJsonData.features) {
+            var layer = L.geoJSON(geoJsonData, {
+                onEachFeature: function (feature, layer) {
+                    // Eğer özellik bir Point ise (işaretleyici)
+                    if (feature.geometry.type === 'Point') {
+                        var lat = feature.geometry.coordinates[1];
+                        var lng = feature.geometry.coordinates[0];
+                        layer.bindPopup("Koordinater: Br. " + lat + ", Lgr. " + lng).openPopup();
+                    }
+                    // Eğer Polygon ise
+                    else if (feature.geometry.type === 'Polygon') {
+                        feature.geometry.coordinates[0].forEach(function (coord) {
+                            var lat = coord[1];
+                            var lng = coord[0];
+                            L.marker([lat, lng]).addTo(map)
+                                .bindPopup("Koordinater: Br. " + lat + ", Lgr. " + lng).openPopup();
+                        });
+                    }
+                    // Eğer Polyline (çizgi) ise
+                    else if (feature.geometry.type === 'LineString') {
+                        feature.geometry.coordinates.forEach(function (coord) {
+                            var lat = coord[1];
+                            var lng = coord[0];
+                            L.marker([lat, lng]).addTo(map)
+                                .bindPopup("Koordinater: Br. " + lat + ", Lgr. " + lng).openPopup();
+                        });
+                    }
+                }
+            }).addTo(map);
