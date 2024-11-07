@@ -185,6 +185,22 @@ public async Task<IActionResult> Profil(ApplicationUser model)
             return View(userSaks);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteSak(int id)
+        {
+            var sak = await _context.SakModels.FindAsync(id);
+            if (sak == null)
+            {
+                return NotFound();
+            }
+
+            _context.SakModels.Remove(sak);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("Minesaker");
+        }
+
         // Detaljer Action Method - Belirli bir Sak kaydının detaylarını gösterir
         [HttpGet]
         public async Task<IActionResult> Detaljer(int id)
