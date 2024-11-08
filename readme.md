@@ -24,11 +24,34 @@ For å gå inn applkasjonmappen cd KartApplication
 
  ### 1. Denne koden brukes til å opprette en databasecontainer.
 
-    |         Bash (Mac and Linux)            |         PowerShell (Windows)         |
-    |-----------------------------------------|--------------------------------------|
-    | docker run --rm --name mariadb          | docker run --rm --name mariadb -p    |
-    | -p 3308:3306/tcp -v "$(pwd)/database"   | 3308:3306/tcp -v "%cd%\database":    |
-    | :/var/lib/mysql -e MYSQL_ROOT_PASSWORD  | /var/lib/mysql -e MYSQL_ROOT_PASSWORD|
-    | =12345 -d mariadb:10.5.11               | =12345 -d mariadb:10.5.11            |
-    
+
+
+<div style="width: 100%; overflow-x: auto;">
+  <table style="width: 100%; border-collapse: collapse;">
+    <thead>
+      <tr>
+        <th style="border: 1px solid black; padding: 10px; text-align: center; vertical-align: middle;">Bash (Mac and Linux)</th>
+        <th style="border: 1px solid black; padding: 10px; text-align: center; vertical-align: middle;">Powershell (Windows)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="border: 1px solid black; padding: 10px; text-align: center; vertical-align: middle;">
+          <pre style="text-align: left;">docker run --rm --name mariadb -p 
+3308:3306/tcp -v "$(pwd)/database"
+:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=12345 
+-d mariadb:10.5.11</pre>
+        </td>
+        <td style="border: 1px solid black; padding: 10px; text-align: center; vertical-align: middle;">
+          <pre style="text-align: left;">docker run --rm --name mariadb -p 
+3308:3306/tcp -v "%cd%\database"
+:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=12345 
+-d mariadb:10.5.11</pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+     
      Prosjektet kan koble til databasen. For at proskejtet skal kunne koble til databasen, ble Dockerfile redigert og ApplicationDbContext.cs-filen  oppdatert. 
