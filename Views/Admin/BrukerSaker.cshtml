@@ -1,10 +1,11 @@
 ﻿@model List<KartApplication.Models.SakModel>
+
 @{
     ViewData["Title"] = "Bruker Saker";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h2>Bruker Saker</h2>
+<h2>Sakene av @ViewBag.UserName</h2>
 @if (Model == null || !Model.Any())
 {
     <p>No records found for the user.</p>

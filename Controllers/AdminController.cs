@@ -79,17 +79,21 @@ namespace KartApplication.Controllers
         }
         public async Task<IActionResult> BrukerSaker(string userId)
         {
-            // UserManager ile kullanıcıyı getirin
-            //var user = await _userManager.FindByIdAsync(userId);
-            //if (user == null)
-            //{
-            //    return NotFound(); // Kullanıcı bulunamazsa hata döndür
-            //}
+            //UserManager ile kullanıcıyı getirin
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+            {
+                return NotFound(); // Kullanıcı bulunamazsa hata döndür
+            }
 
             // Kullanıcının Sak listesini DbContext üzerinden getirin
+
+            ViewBag.UserName = user.Name;
+
             var saker = await _context.SakModels
                 .Where(s => s.UserId == userId)
                 .ToListAsync();
+
 
            // Sak listesiyle birlikte sayfayı döndürün
             return View(saker);
