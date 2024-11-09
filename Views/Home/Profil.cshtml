@@ -1,36 +1,91 @@
-
-
 @model KartApplication.Models.ApplicationUser
 
 @{
     ViewData["Title"] = "Profil";
     Layout = "~/Views/Shared/_BrukerLayout.cshtml"; 
-    ViewData["ShowStepper"] = false; // Stepper menünün bu sayfada görünmemesi için
-
+    ViewData["ShowStepper"] = false; // For å unngå at stepper-menyen vises på denne siden
 }
 
+<div class="container">
+    <h2>Profilinformasjon</h2>
 
-
-<h2>Profil Bilgileri</h2>
-
-<form asp-action="Profil" method="post">
-    <div class="form-group">
-        <label asp-for="Name">Ad:</label>
-        <input asp-for="Name" class="form-control" />
-        <span asp-validation-for="Name" class="text-danger"></span>
-    </div>
+    <form asp-action="Profil" method="post">
+        <div class="form-group">
+            <label asp-for="Name" class="form-label">Navn:</label>
+            <input asp-for="Name" class="form-control form-control-lg" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        
+        <div class="form-group">
+            <label asp-for="Email" class="form-label">E-post:</label>
+            <input asp-for="Email" type="email" class="form-control form-control-lg" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
     
-    <div class="form-group">
-        <label asp-for="Email">E-posta:</label>
-        <input asp-for="Email" type="email" class="form-control" />
-        <span asp-validation-for="Email" class="text-danger"></span>
-    </div>
+        <div class="form-group">
+            <label asp-for="PhoneNumber" class="form-label">Telefonnummer:</label>
+            <input asp-for="PhoneNumber" class="form-control form-control-lg" />
+            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+        </div>
+    
+        <button type="submit" class="btn btn-primary btn-sm">Oppdater</button>
+    </form>
+</div>
 
-    <div class="form-group">
-        <label asp-for="PhoneNumber">Telefon Numarası:</label>
-        <input asp-for="PhoneNumber" class="form-control" />
-        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
-    </div>
+<!-- CSS for Dark Mode, Larger Inputs, and Center Alignment -->
+<style>
+    .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding-top:10px ;
+    }
 
-    <button type="submit" class="btn btn-primary">Güncelle</button>
-</form>
+    .form-group {
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+    }
+
+    .form-label {
+        color: #E0E0E0; /* Lys grå farge for etiketter */
+        font-size: 16px; /* Litt større skriftstørrelse for etiketter */
+        min-width: 120px; /* Ensartet bredde for etiketter slik at de starter på samme linje */
+        text-align: left;
+        margin-right: 10px;
+    }
+
+    .form-control-lg {
+        background-color: #2C2C2C; /* Mørkere bakgrunn for input-felter */
+        color: #FFFFFF; /* Hvit tekstfarge for input-felter */
+        border: 1px solid #444444; /* Kantlinje for input-felter */
+        height: 20px; /* Større høyde for større input */
+        width: 320px;
+        font-size: 16px; /* Større skriftstørrelse */
+        padding: 10px 15px; /* Økt polstring */
+    }
+
+    .form-control-lg:focus {
+        background-color: #3C3C3C; /* Litt lysere bakgrunn ved fokus */
+        border-color: #BB86FC; /* Lilla kantlinje ved fokus */
+        color: #FFFFFF; /* Hvit tekstfarge */
+    }
+
+    .btn-primary.btn-sm {
+        padding: 10px 20px; /* Mindre polstring for en mer kompakt knapp */
+        font-size: 1rem; /* Mindre skriftstørrelse for knappen */
+    }
+
+    .text-danger {
+        color: #CF6679; /* Rødlig farge for valideringsfeil */
+        font-size: 1rem; /* Litt større skrift for feilmeldinger */
+    }
+
+    h2 {
+        color: #E0E0E0; /* Lys grå farge for overskrift */
+        margin-bottom: 2rem;
+    }
+
+  
+</style>
