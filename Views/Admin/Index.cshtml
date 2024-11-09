@@ -195,6 +195,8 @@
         <div class="user-column header">Telefon</div>
         <div class="user-column header">Rolle</div>
         <div class="user-column header">Åpne/Lukke</div>
+        <div class="user-column header">Vis Sakene</div>
+
     </div>
     @foreach (var user in Model)
     {
@@ -208,6 +210,10 @@
                     <i class="bi bi-chevron-down"></i>
                 </button>
             </div>
+            <div class="user-column">
+                <a href="@Url.Action("BrukerSaker", "Admin", new { userId = user.UserId })">Vis Sakene</a>
+            </div>
+
         </div>
 
         <div class="extra-info" style="display: none;">
