@@ -16,11 +16,13 @@ namespace KartApplication.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly ApplicationDbContext _context;
 
-        public AdminController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
+        public AdminController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, ApplicationDbContext context)
         {
             _userManager = userManager;
             _roleManager = roleManager;
+            _context = context;
         }
 
         public async Task<IActionResult> Index()
@@ -75,6 +77,33 @@ namespace KartApplication.Controllers
             }
             return RedirectToAction("Index");
         }
+        public async Task<IActionResult> BrukerSaker(string userId)
+        {
+            // UserManager ile kullanıcıyı getirin
+            //var user = await _userManager.FindByIdAsync(userId);
+            //if (user == null)
+            //{
+            //    return NotFound(); // Kullanıcı bulunamazsa hata döndür
+            //}
+
+            // Kullanıcının Sak listesini DbContext üzerinden getirin
+            var saker = await _context.SakModels
+                .Where(s => s.UserId == userId)
+                .ToListAsync();
+
+           // Sak listesiyle birlikte sayfayı döndürün
+            return View(saker);
+        }
+
+        public async Task<IActionResult> Detaljer(int id)
+        {
+            var sak = await _context.SakModels.FindAsync(id);
+            return View(sak);
+        }
+
+
     }
+
+
 
 }
