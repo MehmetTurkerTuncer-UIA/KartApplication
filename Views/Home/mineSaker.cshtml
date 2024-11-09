@@ -6,7 +6,10 @@
 
 }
 
-<h2>Mine Saker</h2>
+<br>
+<center>
+    <h2>Mine Saker</h2>
+</center>
 @if (Model == null || !Model.Any())
 {
     <p>No records found for the user.</p>
@@ -14,32 +17,40 @@
 else
 {
     <table class="tablesaksbehandler" id="saksbehandlermenu">
-        <thead>
-            <tr>
-                <th>Dato</th>
-                <th>Referansenummer</th>
-                <th>Sak Status</th>
-                <th>Kontroll Status</th>
-            </tr>
-        </thead>
-        <tbody id="saksbehandlersaks">
-            @foreach (var sak in Model)
+    <thead>
+        <tr>
+            <th>Dato</th>
+            <th>Referansenummer</th>
+            <th>Sak Status</th>
+            <th>Kontroll Status</th>
+            <th>Slette Sak</th>
+
+        </tr>
+    </thead>
+    <tbody id="saksbehandlersaks">
+        @foreach (var sak in Model)
             {
-                <tr onclick="window.location.href='@Url.Action("Detaljer", "Home", new { id = sak.Id })'" style="cursor: pointer;">
+                <tr onclick="window.location.href='@Url.Action("Detaljer", "Home", new { id = sak.Id })'"
+                    style="cursor: pointer;">
                     <td>@sak.CreatedAt.ToShortDateString()</td>
                     <td>@sak.Id</td>
                     <td>@sak.Status</td>
                     <td>@sak.KontrolStatus</td>
-                    <td>
-                   
- <form asp-action="DeleteSak" asp-controller="Home" method="post" style="display:inline;">
-                        <input type="hidden" name="id" value="@sak.Id" />
-                            <button type="submit" class="btn btn-danger" onclick="return confirm('Er du sikker på at du vil slette denne saken?');">Slette</button>
-                    </form>
+                    <td
+                        style="display: flex; justify-content: center; align-items: center; height: 100%; vertical-align: middle; padding-top: 20px;">
+
+
+
+                        <form asp-action="DeleteSak" asp-controller="Home" method="post" style="display:inline;">
+                            <input type="hidden" name="id" value="@sak.Id" />
+                            <button type="submit" class="btn btn-danger"
+                                onclick="return confirm('Er du sikker på at du vil slette denne saken?');">Slette</button>
+                        </form>
                     </td>
                 </tr>
             }
         </tbody>
     </table>
-}
 
+
+}
