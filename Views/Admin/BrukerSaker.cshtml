@@ -32,8 +32,9 @@ else
                     <td>@sak.KontrolStatus</td>
                     <td>
 
-                        <form asp-action="DeleteSak" asp-controller="Home" method="post" style="display:inline;">
+                        <form asp-action="DeleteSak" asp-controller="Admin" method="post" style="display:inline;">
                             <input type="hidden" name="id" value="@sak.Id" />
+                            <input type="hidden" name="userId" value="@ViewBag.UserId" />
                             <button type="submit" class="btn btn-danger" onclick="return confirm('Er du sikker på at du vil slette denne saken?');">Slette</button>
                         </form>
                     </td>

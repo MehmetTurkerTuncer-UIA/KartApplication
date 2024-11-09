@@ -89,6 +89,7 @@ namespace KartApplication.Controllers
             // Kullanıcının Sak listesini DbContext üzerinden getirin
 
             ViewBag.UserName = user.Name;
+            ViewBag.UserId = user.Id;
 
             var saker = await _context.SakModels
                 .Where(s => s.UserId == userId)
@@ -103,6 +104,24 @@ namespace KartApplication.Controllers
         {
             var sak = await _context.SakModels.FindAsync(id);
             return View(sak);
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteSak(int id, string userId)
+        {
+            var sak = await _context.SakModels.FindAsync(id);
+            if (sak == null)
+            {
+                return NotFound(); // Sak bulunamazsa hata döndür
+            }
+
+            _context.SakModels.Remove(sak);
+            await _context.SaveChangesAsync();
+
+            // Sak silindikten sonra aynı kullanıcıya ait Sak listesini göstermek için BrukerSaker'a yönlendiriyoruz
+            return RedirectToAction("BrukerSaker", new { userId = userId });
         }
 
 
