@@ -6,7 +6,8 @@
 
 }
 
-<h2>Mine Saker</h2>
+<br>
+<center><h2>Mine Saker</h2></center>
 @if (Model == null || !Model.Any())
 {
     <p>No records found for the user.</p>
@@ -20,6 +21,8 @@ else
                 <th>Referansenummer</th>
                 <th>Sak Status</th>
                 <th>Kontroll Status</th>
+                <th>Slette Sak</th>
+
             </tr>
         </thead>
         <tbody id="saksbehandlersaks">
@@ -30,9 +33,11 @@ else
                     <td>@sak.Id</td>
                     <td>@sak.Status</td>
                     <td>@sak.KontrolStatus</td>
-                    <td>
+<td style="display: flex; justify-content: center; align-items: center; height: 100%; vertical-align: middle; padding-top: 20px;">
+
+
                    
- <form asp-action="DeleteSak" asp-controller="Home" method="post" style="display:inline;">
+                    <form asp-action="DeleteSak" asp-controller="Home" method="post" style="display:inline;">
                         <input type="hidden" name="id" value="@sak.Id" />
                             <button type="submit" class="btn btn-danger" onclick="return confirm('Er du sikker på at du vil slette denne saken?');">Slette</button>
                     </form>
@@ -41,5 +46,7 @@ else
             }
         </tbody>
     </table>
+
+    
 }
 
