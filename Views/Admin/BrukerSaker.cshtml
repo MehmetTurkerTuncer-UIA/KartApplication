@@ -26,7 +26,7 @@ else
     <tbody id="saksbehandlersaks">
         @foreach (var sak in Model)
             {
-                <tr onclick="window.location.href='@Url.Action("Detaljer", "Home", new { id = sak.Id })'"
+                <tr onclick="window.location.href='@Url.Action("Detaljer", "Admin", new { id = sak.Id })'"
                     style="cursor: pointer;">
                     <td>@sak.CreatedAt.ToShortDateString()</td>
                     <td>@sak.Id</td>
@@ -37,7 +37,7 @@ else
 
 
 
-                        <form asp-action="DeleteSak" asp-controller="Home" method="post" style="display:inline;">
+                        <form asp-action="DeleteSak" asp-controller="Admin" method="post" style="display:inline;">
                             <input type="hidden" name="id" value="@sak.Id" />
                             <button type="submit" class="btn btn-danger"
                                 onclick="return confirm('Er du sikker på at du vil slette denne saken?');">Slette</button>
