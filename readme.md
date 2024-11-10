@@ -54,4 +54,11 @@ For å gå inn applkasjonmappen cd KartApplication
 </div>
 
      
-     Prosjektet kan koble til databasen. For at proskejtet skal kunne koble til databasen, ble Dockerfile redigert og ApplicationDbContext.cs-filen  oppdatert. 
+ Prosjektet kan koble til databasen. For at proskejtet skal kunne koble til databasen, ble Dockerfile redigert og ApplicationDbContext.cs-filen  oppdatert. 
+
+ ### 2. Gå inn i databasen og lag databasen og tabellene:
+        1. docker exec -it mariadb mysql -p.
+        2. Når du blir bedt om det skriv passordet (12345).
+
+# Test ut koden på: 
+  
