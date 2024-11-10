@@ -54,6 +54,7 @@ namespace KartApplication.Controllers
 
             return View(userListWithRoles);
         }
+        
         [HttpPost]
         public async Task<IActionResult> UpdateUserRole(string userId, string newRole)
         {
@@ -68,15 +69,58 @@ namespace KartApplication.Controllers
         }
 
         [HttpPost]
+        [HttpPost]
         public async Task<IActionResult> DeleteUser(string userId)
         {
             var user = await _userManager.FindByIdAsync(userId);
-            if (user != null)
+            if (user == null)
             {
-                await _userManager.DeleteAsync(user);
+                return NotFound();
             }
+
+            // Kullanıcıya ait Sak kayıtlarını kontrol et
+            var hasSakRecords = await _context.SakModels
+                .AnyAsync(s => s.UserId == userId);
+
+            if (hasSakRecords)
+            {
+                // Sak kayıtları varsa uyarı mesajını ViewBag ile gönder
+                ViewBag.ErrorMessage = "Det er Sak-poster for denne brukeren. Slett først Sak-postene.";
+
+                // Kullanıcı ve roller listesini yeniden yüklemek için Index görünümünü hazırlıyoruz
+                var users = _userManager.Users.ToList();
+                var userListWithRoles = new List<ApplicationUserViewModel>();
+
+                foreach (var usr in users)
+                {
+                    var roles = await _userManager.GetRolesAsync(usr);
+                    var currentRole = roles.FirstOrDefault() ?? "Bruker";
+
+                    userListWithRoles.Add(new ApplicationUserViewModel
+                    {
+                        UserId = usr.Id,
+                        UserName = usr.Name,
+                        Email = usr.Email,
+                        PhoneNumber = usr.PhoneNumber,
+                        Name = usr.Name,
+                        Surname = usr.Surname,
+                        Adresse = usr.Adresse,
+                        CurrentRole = currentRole
+                    });
+                }
+
+                ViewBag.RoleOptions = new SelectList(await _roleManager.Roles.Select(r => r.Name).ToListAsync());
+
+                // 5 saniye bekleyip Index görünümüne dönüyoruz
+                return View("Index", userListWithRoles);
+            }
+
+            // Sak kaydı yoksa kullanıcıyı sil
+            await _userManager.DeleteAsync(user);
             return RedirectToAction("Index");
         }
+
+
         public async Task<IActionResult> BrukerSaker(string userId)
         {
             //UserManager ile kullanıcıyı getirin
