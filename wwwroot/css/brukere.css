@@ -1105,6 +1105,9 @@ textarea.form-control:focus {
 }
 
 
+.stepper .active-step {
+    color: white;
+}
 
 
 
