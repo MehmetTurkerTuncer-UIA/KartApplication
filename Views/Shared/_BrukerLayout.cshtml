@@ -118,8 +118,10 @@
     // Kvittering sayfasındaysak menüdeki adımlar tıklanamaz hale gelsin
     var isKvitteringPage = currentStep == 4;
 }
-@if (ViewData["ShowStepper"] == null || (ViewData["ShowStepper"] is bool showStepper && showStepper))
+
+      @if (ViewData["ShowStepper"] == null || (ViewData["ShowStepper"] is bool showStepper && showStepper))
 {
+
 <div class="stepper" style="display: flex; align-items: center;">
     <div class="step-header">
         <span class="step-title">Opprett Sak</span>
