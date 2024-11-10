@@ -5,6 +5,8 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
+
+
 <!-- Sak Detayları Tablosu -->
 <table class="tableForDetaljer">
     <thead>
@@ -70,130 +72,24 @@
     </tbody>
 </table>
 
+
+
+
+
+
+
+
+  
 @section Scripts {
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+         <link rel="stylesheet" href="~/css/detaljer.css" />
+
+
 
     <script>
-        // GeoJSON verisini modelden alıyoruz
-        var geoJsonData = @Html.Raw(Model.GeoJson);
-        var selectedMapType = '@Model.SelectedMapType';
-
-        // Define map layers
-        var fargekart = L.tileLayer('https://cache.kartverket.no/v1/wmts/1.0.0/topo/default/webmercator/{z}/{y}/{x}.png', {
-            maxZoom: 18,
-            attribution: '&copy; <a href="https://kartverket.no/">Kartverket</a>'
-        });
-
-        var gratonekart = L.tileLayer('https://cache.kartverket.no/v1/wmts/1.0.0/topograatone/default/webmercator/{z}/{y}/{x}.png', {
-            maxZoom: 18,
-            attribution: '&copy; <a href="https://kartverket.no/">Kartverket</a>'
-        });
-
-        var turkart = L.tileLayer('https://cache.kartverket.no/v1/wmts/1.0.0/toporaster/default/webmercator/{z}/{y}/{x}.png', {
-            maxZoom: 18,
-            attribution: '&copy; <a href="https://kartverket.no/">Kartverket</a>'
-        });
-
-        var sjokart = L.tileLayer('https://cache.kartverket.no/v1/wmts/1.0.0/sjokartraster/default/webmercator/{z}/{y}/{x}.png', {
-            maxZoom: 18,
-            attribution: '&copy; <a href="https://kartverket.no/">Kartverket</a>'
-        });
-
-        // Initialize map with selected layer
-        var selectedLayer;
-        switch (selectedMapType) {
-            case 'gratonekart':
-                selectedLayer = gratonekart;
-                break;
-            case 'turkart':
-                selectedLayer = turkart;
-                break;
-            case 'sjokart':
-                selectedLayer = sjokart;
-                break;
-            default:
-                selectedLayer = fargekart;
-        }
-
-        var map = L.map('map').setView([58.1467, 7.9956], 15);
-        selectedLayer.addTo(map);
-
-        // Function to add coordinates to the table
-        function addCoordinatesToTable(lat, lng) {
-            var tableBody = document.getElementById("coordinatesTableBody");
-            var rowCount = tableBody.rows.length + 1;
-            var newRow = tableBody.insertRow();
-
-            var cellIndex = newRow.insertCell(0);
-            var cellLat = newRow.insertCell(1);
-            var cellLng = newRow.insertCell(2);
-
-            cellIndex.textContent = rowCount;
-            cellLat.textContent = lat.toFixed(5);
-            cellLng.textContent = lng.toFixed(5);
-        }
-
-        // Load GeoJSON data to the map and table
-        if (geoJsonData && geoJsonData.features) {
-            var layer = L.geoJSON(geoJsonData, {
-                onEachFeature: function (feature, layer) {
-                    if (feature.geometry.type === 'Point') {
-                        var lat = feature.geometry.coordinates[1];
-                        var lng = feature.geometry.coordinates[0];
-                        layer.bindPopup("Koordinater: Br. " + lat + ", Lgr. " + lng).openPopup();
-                        addCoordinatesToTable(lat, lng);
-                    } else if (feature.geometry.type === 'Polygon') {
-                        feature.geometry.coordinates[0].forEach(function (coord) {
-                            var lat = coord[1];
-                            var lng = coord[0];
-                            L.marker([lat, lng]).addTo(map)
-                                .bindPopup("Koordinater: Br. " + lat + ", Lgr. " + lng).openPopup();
-                            addCoordinatesToTable(lat, lng);
-                        });
-                    } else if (feature.geometry.type === 'LineString') {
-                        feature.geometry.coordinates.forEach(function (coord) {
-                            var lat = coord[1];
-                            var lng = coord[0];
-                            L.marker([lat, lng]).addTo(map)
-                                .bindPopup("Koordinater: Br. " + lat + ", Lgr. " + lng).openPopup();
-                            addCoordinatesToTable(lat, lng);
-                        });
-                    }
-                }
-            }).addTo(map);
-            map.fitBounds(layer.getBounds());
-        } else {
-            alert('Gyldige GeoJSON-data ble ikke funnet.');
-        }
-
-        // Function to remove placeholder text when focusing on textarea
-        function removePlaceholder() {
-            var textarea = document.getElementById("KontrollerenDescription");
-            if (textarea.value.trim() === "Skriv en kommentar eller oppdater kommentaren ...") {
-                textarea.value = "";
-                textarea.style.color = "white";
-            }
-        }
-
-        // Function to add placeholder text when textarea loses focus
-        function addPlaceholder() {
-            var textarea = document.getElementById("KontrollerenDescription");
-            if (textarea.value.trim() === "") {
-                textarea.value = "Skriv en kommentar eller oppdater kommentaren ...";
-                textarea.style.color = "gray";
-            }
-        }
-
-        // Set placeholder color when the page loads
-        document.addEventListener("DOMContentLoaded", function () {
-            var textarea = document.getElementById("KontrollerenDescription");
-            if (textarea.value.trim() === "" || textarea.value.trim() === "Skriv en kommentar eller oppdater kommentaren ...") {
-                textarea.value = "Skriv en kommentar eller oppdater kommentaren ...";
-                textarea.style.color = "gray";
-            } else {
-                textarea.style.color = "white";
-            }
-        });
-    </script>
+    var geoJsonData = @Html.Raw(Model.GeoJson);
+    var selectedMapType = '@Model.SelectedMapType';
+</script>
+        <script src="/js/geoJsonViewer.js"></script>
 }
