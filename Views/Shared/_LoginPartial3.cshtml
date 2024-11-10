@@ -6,12 +6,14 @@
 <ul class="navbar-nav">
     @if (SignInManager.IsSignedIn(User))
     {
-        <li class="nav-item">
-            <a id="manage" class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Profile</a>
-        </li>
+        
+
+                   <li class="nav-item"><a id="manage" class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage"><i class="bi bi-person-circle"></i> Profil </a></li>
+
+
         <li class="nav-item">
             <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="/" method="post">
-                <button id="logout" type="submit" class="nav-link btn btn-link text-dark border-0">Logout</button>
+                <button type="submit" class="btna"> <i class="bi bi-door-open"></i> Logg ut </button>
             </form>
         </li>
     }
@@ -25,3 +27,37 @@
         </li>
     }
 </ul>
+
+
+
+
+
+<style>
+
+  .btna {
+    background-color: #dc3545; /* Kırmızı arka plan rengi */
+    color: white;              /* Yazı rengi */
+    border: none;              /* Kenarlık yok */
+    padding: 10px;             /* İç boşluk */
+    cursor: pointer;           /* İmleci el yapar */
+    font-size: 18px;          /* Yazı boyutu */
+    width: 100%;              /* Genişlik */
+    text-align: left;         /* Yazı hizalaması */
+    border-radius: 0px;       /* Kenar yuvarlaklığı */
+    display: flex;            /* Flexbox kullanarak içeriği hizalama */
+    align-items: center;      /* Dikey ortalama */
+    text-decoration: none;    /* Alt çizgiyi kaldır */
+}
+
+.btna:hover {
+    background-color: #c82333; /* Hover durumu için arka plan rengi */
+}
+
+.btna i {
+    margin-right: 8px; /* İkon ile metin arasındaki boşluk */
+}
+
+
+
+</style>
+
