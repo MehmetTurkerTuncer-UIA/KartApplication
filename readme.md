@@ -63,4 +63,15 @@ For å gå inn applkasjonmappen cd KartApplication
 ## Test ut koden på: 
    https://localhost:5103/
   
-  
+# Navigering på nettsiden
+
+## Ved gå inn på nettsiden kan bruke velge mellom:
+   1. Søk(Hjem): Her kan du følge etter saken din med et gyldig referansenummer.
+   2. Logg inn: Her kan du logge inn til din konto.
+   3. Registrer deg: Her kan du registrere deg med din e-post adresse.
+   4. Gjest: Her kan du opprette en sak uten å logge inn.
+
+## Rollebasert Navigering:
+   1. Admin:
+      Hjem: Her er det en oversikt over alle typer brukere. 
+       
