@@ -5,7 +5,7 @@
     ViewData["CurrentStep"] = 2;
 }
 <br>
-<center><h2>Beskrivelse1</h2></center>
+<center><h2>Beskrivelse</h2></center>
 
 <!-- Açıklama formu -->
 <form asp-controller="Home" asp-action="Beskrivelse" method="post">
@@ -56,94 +56,15 @@
 @section Scripts {
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+    var geoJsonData = @Html.Raw(Model.GeoJson);
+    var selectedMapType = '@Model.SelectedMapType';
+</script>
+        <script src="/js/geoJsonViewer.js"></script>
+
+
 
     <script>
-        // GeoJSON verisini modelden alıyoruz
-        var geoJsonData = @Html.Raw(Model.GeoJson);
-        var selectedMapType = '@Model.SelectedMapType'; // Seçilen harita tipi (fargekart, gratonekart, turkart, sjokart)
-
-        // Harita katmanlarını tanımla
-        var fargekart = L.tileLayer('https://cache.kartverket.no/v1/wmts/1.0.0/topo/default/webmercator/{z}/{y}/{x}.png', {
-            maxZoom: 18,
-            attribution: '&copy; <a href="https://kartverket.no/">Kartverket</a>'
-        });
-
-        var gratonekart = L.tileLayer('https://cache.kartverket.no/v1/wmts/1.0.0/topograatone/default/webmercator/{z}/{y}/{x}.png', {
-            maxZoom: 18,
-            attribution: '&copy; <a href="https://kartverket.no/">Kartverket</a>'
-        });
-
-        var turkart = L.tileLayer('https://cache.kartverket.no/v1/wmts/1.0.0/toporaster/default/webmercator/{z}/{y}/{x}.png', {
-            maxZoom: 18,
-            attribution: '&copy; <a href="https://kartverket.no/">Kartverket</a>'
-        });
-
-        var sjokart = L.tileLayer('https://cache.kartverket.no/v1/wmts/1.0.0/sjokartraster/default/webmercator/{z}/{y}/{x}.png', {
-            maxZoom: 18,
-            attribution: '&copy; <a href="https://kartverket.no/">Kartverket</a>'
-        });
-
-        // Seçilen harita katmanına göre haritayı başlat
-        var selectedLayer;
-        switch (selectedMapType) {
-            case 'gratonekart':
-                selectedLayer = gratonekart;
-                break;
-            case 'turkart':
-                selectedLayer = turkart;
-                break;
-            case 'sjokart':
-                selectedLayer = sjokart;
-                break;
-            default:
-                selectedLayer = fargekart;
-        }
-
-        // Haritayı başlat
-        var map = L.map('map').setView([58.1467, 7.9956], 15);
-
-        // Seçilen harita katmanını ekle
-        selectedLayer.addTo(map);
-
-        // GeoJSON verisini haritaya ekle
-        if (geoJsonData && geoJsonData.features) {
-            var layer = L.geoJSON(geoJsonData, {
-                onEachFeature: function (feature, layer) {
-                    // Eğer özellik bir Point ise (işaretleyici)
-                    if (feature.geometry.type === 'Point') {
-                        var lat = feature.geometry.coordinates[1];
-                        var lng = feature.geometry.coordinates[0];
-                        layer.bindPopup("Koordinater: Br. " + lat + ", Lgr. " + lng).openPopup();
-                    }
-                    // Eğer Polygon ise
-                    else if (feature.geometry.type === 'Polygon') {
-                        feature.geometry.coordinates[0].forEach(function (coord) {
-                            var lat = coord[1];
-                            var lng = coord[0];
-                            L.marker([lat, lng]).addTo(map)
-                                .bindPopup("Koordinater: Br. " + lat + ", Lgr. " + lng).openPopup();
-                        });
-                    }
-                    // Eğer Polyline (çizgi) ise
-                    else if (feature.geometry.type === 'LineString') {
-                        feature.geometry.coordinates.forEach(function (coord) {
-                            var lat = coord[1];
-                            var lng = coord[0];
-                            L.marker([lat, lng]).addTo(map)
-                                .bindPopup("Koordinater: Br. " + lat + ", Lgr. " + lng).openPopup();
-                        });
-                    }
-                }
-            }).addTo(map);
-
-            // Harita görünümünü katmanlara göre ayarla
-            map.fitBounds(layer.getBounds());
-
-        } else {
-            // GeoJSON verisi yoksa bir uyarı mesajı göster
-            alert('Gyldige GeoJSON-data ble ikke funnet.');
-        }
-
 
         function removePlaceholder() {
     var textarea = document.getElementById("description");
