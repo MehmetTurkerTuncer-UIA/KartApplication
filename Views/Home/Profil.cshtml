@@ -9,12 +9,21 @@
 <div class="container">
     <h2>Profilinformasjon</h2>
 
+
     <form asp-action="Profil" method="post">
+
         <div class="form-group">
             <label asp-for="Name" class="form-label">Navn:</label>
             <input asp-for="Name" class="form-control form-control-lg" />
             <span asp-validation-for="Name" class="text-danger"></span>
         </div>
+
+          <div class="form-group">
+            <label asp-for="Surname" class="form-label">Etternavn:</label>
+            <input asp-for="Surname" class="form-control form-control-lg" />
+            <span asp-validation-for="Surname" class="text-danger"></span>
+        </div>
+        
         
         <div class="form-group">
             <label asp-for="Email" class="form-label">E-post:</label>
@@ -27,8 +36,14 @@
             <input asp-for="PhoneNumber" class="form-control form-control-lg" />
             <span asp-validation-for="PhoneNumber" class="text-danger"></span>
         </div>
+
+         <div class="form-group">
+            <label asp-for="Adresse" class="form-label"></label>
+                <input asp-for="Adresse" class="form-control form-control-lg" placeholder="Please enter your address." />
+                <span asp-validation-for="Adresse" class="text-danger"></span>
+            </div>
     
-        <button type="submit" class="btn btn-primary btn-sm">Oppdater</button>
+        <button id="update-profile-button" type="submit" class="btn btn-primary btn-sm">Oppdater</button>
     </form>
 </div>
 
@@ -86,6 +101,5 @@
         color: #E0E0E0; /* Lys grå farge for overskrift */
         margin-bottom: 2rem;
     }
-
   
 </style>
