@@ -60,5 +60,7 @@ For å gå inn applkasjonmappen cd KartApplication
         1. docker exec -it mariadb mysql -p.
         2. Når du blir bedt om det skriv passordet (12345).
 
-# Test ut koden på: 
+## Test ut koden på: 
    https://localhost:5103/
+  
+  
