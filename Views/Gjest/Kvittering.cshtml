@@ -4,16 +4,10 @@
     Layout = "~/Views/Shared/_GjestLayout.cshtml";
 }
 
-
-
-
-
-
 <center>
     <h1>Saken er mottatt!</h1>
 
     <table class="details-table">
-
         <tr>
             <th>Referansenummer</th>
             <td>
@@ -27,26 +21,156 @@
     </table>
 
     <p class="info-text">Du kan følge opp saken din med referansenummeret.</p>
+    <p class="thank-you-text">TUSEN TAKK FOR HJELPEN!</p>
 
-    <p class="thank-you-text">TUSEN TAKK FOR HJELP!</p>
+    <!-- Oppdatert skrive ut-knapp: ikon lagt til -->
+    <button class="print-button" onclick="printContent()">
+        <i class="fas fa-print"></i> Skriv ut
+    </button>
 
-    <button class="print-button" onclick="printContent()">Skriv ut</button>
-    </div>
+    <!-- Legger til Bootstrap-ikoner i HTML -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <!-- Oppdatert e-postknapp -->
+    <button class="email-button" onclick="showEmailInput()">
+        <i class="fas fa-envelope"></i> Send med Gmail
+    </button>
+
+    <!-- Oppdatert seksjon for e-postinnsending -->
+    <div id="emailInputSection" style="display: none; margin-top: 20px;">
+        <input type="email" id="recipientEmail" placeholder="Skriv inn e-postadressen" required />
+        <button class="send-button" onclick="sendEmailWithInput()">
+            <i class="fas fa-paper-plane"></i> Send
+        </button>
     </div>
 
     <script>
-        // Yalnızca .content içeriğini yazdıran fonksiyon
+        // Funksjon som skriver ut kun .content-innholdet
         function printContent() {
             var content = document.querySelector('.content').innerHTML;
             var originalContent = document.body.innerHTML;
 
-            // Sayfanın geri kalanını gizleyip sadece içeriği yazdırır
+            // Skjuler resten av siden og skriver ut kun innholdet
             document.body.innerHTML = content;
             window.print();
 
-            // Orijinal sayfa içeriğini geri getirir
+            // Gjenoppretter originalt sideinnhold
             document.body.innerHTML = originalContent;
         }
-    </script>
 
+        // Viser e-post input-feltet
+        function showEmailInput() {
+            document.getElementById('emailInputSection').style.display = 'block';
+        }
+
+        // Funksjon som sender sideinnholdet til angitt e-postadresse
+        function sendEmailWithInput() {
+            var recipientEmail = document.getElementById('recipientEmail').value;
+            if (!recipientEmail) {
+                alert('Vennligst skriv inn en gyldig e-postadresse.');
+                return;
+            }
+
+            var pageContent = document.querySelector('center').innerText;
+            var maxLength = 2000; // Tegnbegrensning for Gmail URL
+
+            if (pageContent.length > maxLength) {
+                pageContent = pageContent.substring(0, maxLength) + '...'; // Hvis for lang, avkort og legg til ellipser
+            }
+
+            var mailUrl = 'https://mail.google.com/mail/?view=cm&fs=1&to=' + encodeURIComponent(recipientEmail) + '&su=Kvittering&body=' + encodeURIComponent(pageContent);
+            
+            // Åpner Gmail i et nytt vindu
+            window.open(mailUrl, '_blank');
+        }
+    </script>
 </center>
+
+<style>
+    /* Oppdatert stil for skrive ut-knapp */
+    .print-button {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        margin-top: 10px;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+    }
+
+    .print-button:hover {
+        background-color: #0056b3;
+    }
+
+    .print-button:focus {
+        outline: none;
+        box-shadow: 0 0 5px #0056b3;
+    }
+
+    /* Stil for e-postknapp */
+    .email-button {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        margin-top: 10px;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+    }
+
+    .email-button:hover {
+        background-color: #0056b3;
+    }
+
+    .email-button:focus {
+        outline: none;
+        box-shadow: 0 0 5px #0056b3;
+    }
+
+    /* Stil for e-post input-seksjon */
+    #emailInputSection {
+        display: none;
+        margin-top: 20px;
+    }
+
+    #recipientEmail {
+        padding: 10px;
+        width: 250px;
+        border: 2px solid #333;
+        background-color: #222;
+        color: #fff;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+
+    #recipientEmail:focus {
+        border-color: #007bff;
+        outline: none;
+    }
+
+    /* Oppdatert stil for send-knapp */
+    .send-button {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        margin-left: 10px;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+    }
+
+    .send-button:hover {
+        background-color: #0056b3;
+    }
+
+    .send-button:focus {
+        outline: none;
+        box-shadow: 0 0 5px #0056b3;
+    }
+</style>
