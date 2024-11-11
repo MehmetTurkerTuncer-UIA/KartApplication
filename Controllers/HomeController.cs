@@ -227,12 +227,20 @@ namespace KartApplication.Controllers
 
         // Detaljer Action Method - Belirli bir Sak kaydının detaylarını gösterir
         [HttpGet]
-        public async Task<IActionResult> Detaljer(int id)
-        {
-            var sak = await _context.SakModels.FindAsync(id);
+public async Task<IActionResult> Detaljer(int id)
+{
+    var sak = await _context.SakModels
+        .Include(s => s.ApplicationUser) // ApplicationUser'ı dahil et
+        .FirstOrDefaultAsync(s => s.Id == id);
 
-            return View(sak);
-        }
+    if (sak == null)
+    {
+        return NotFound();
+    }
+
+    return View(sak);
+}
+
 
         // GET: Home/Sok
         public ActionResult Sok(string referenceNumber)

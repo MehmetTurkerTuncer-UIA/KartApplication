@@ -9,11 +9,11 @@
 <table class="tableForDetaljer">
     <thead>
         <tr>
-            <th>Tarih</th>
-            <th>Sak Status</th>
-            <th>Referans Numarası</th>
-            <th>Tilordnet Status</th>
-            <th>Kontroll Status</th>
+        <th>Dato</th>
+<th>Sakstatus</th>
+<th>Referansenummer</th>
+<th>Tildelt status</th>
+<th>Kontrollstatus</th>
         </tr>
     </thead>
     <tbody>
@@ -27,6 +27,43 @@
         </tr>
     </tbody>
 </table>
+<br>
+@if (Model.ApplicationUser != null)
+{
+    <table class="table table-bordered" style="width: 100%; border-collapse: collapse;">
+    <thead>
+        <tr>
+            <th colspan="2" style="border: 1px solid #3e3e3e;">Personinformasjon</th> <!-- Overskrift venstrejustert og med kant -->
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td style="text-align: left; border: 1px solid #3e3e3e;">Navn</td> <!-- Venstrejustert og med kant -->
+            <td style="text-align: left; border: 1px solid #3e3e3e;">@Model.ApplicationUser.Name</td>
+        </tr>
+        <tr>
+            <td style="text-align: left; border: 1px solid #3e3e3e;">Etternavn</td> <!-- Venstrejustert og med kant -->
+            <td style="text-align: left; border: 1px solid #3e3e3e;">@Model.ApplicationUser.Surname</td>
+        </tr>
+        <tr>
+            <td style="text-align: left; border: 1px solid #3e3e3e;">Telefonnummer</td> <!-- Venstrejustert og med kant -->
+            <td style="text-align: left; border: 1px solid #3e3e3e;">@Model.ApplicationUser.PhoneNumber</td>
+        </tr>
+         <tr>
+            <td style="text-align: left; border: 1px solid #3e3e3e;">E-post</td> <!-- Venstrejustert og med kant -->
+            <td style="text-align: left; border: 1px solid #3e3e3e;">@Model.ApplicationUser.Email</td>
+        </tr>
+        <tr>
+            <td style="text-align: left; border: 1px solid #3e3e3e;">Adresse</td> <!-- Venstrejustert og med kant -->
+            <td style="text-align: left; border: 1px solid #3e3e3e;">@Model.ApplicationUser.Adresse</td>
+        </tr>
+    </tbody>
+</table>
+}
+else
+{
+    <p>Brukerinformasjon kunne ikke lastes inn.</p>
+}
 <br>
 
 @if (!string.IsNullOrEmpty(Model.Description))
