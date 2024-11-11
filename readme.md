@@ -158,6 +158,6 @@ Kodeeksempelet nedenfor viser hvordan @if … brukes.
      
 # Systemarkitektur
 
- <img src="systemarkitektur.png" alt="Diagram showing system architecture" width="400">
+ <img src="~/images/systemarkitektur.png" alt="Diagram showing system architecture" width="400">
 
 
