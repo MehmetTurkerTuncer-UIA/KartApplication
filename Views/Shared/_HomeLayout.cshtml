@@ -20,15 +20,26 @@
     </div>
 
     <!-- Footer alanı -->
+@*  <!-- Footer alanı -->
+<footer class="footer-login-search">
+    <div class="footer-search">
+       <form action="/Sok/Index" method="get" class="search-form">
+           <input type="text" id="referenceNumber" name="referenceNumber" placeholder="Søk etter en sak" class="search-input" />
+           <button type="submit" class="btn btn-dark">Søk</button>
+       </form>
+    </div>
+</footer>
+ *@
+    <!-- Footer alanı -->
     <footer class="footer-login-search">
         <div class="footer-search">
-           <form action="http://localhost:5103/Home/Sok" method="get" class="search-form">
-    <input type="text" id="search" name="search" placeholder="Søk etter en sak" class="search-input" />
-    <button type="submit" class="btn btn-dark">Søk</button>
-</form>
-
+            <form action="/Sok/Index" method="get" class="search-form">
+                <input type="text" id="referenceNumber" name="referenceNumber" placeholder="Søk etter en sak" class="search-input" />
+                <button type="submit" class="btn btn-dark">Søk</button>
+            </form>
         </div>
-        
+    </footer>
+
       <div class="footer">   <div class="footer-container">
   <div class="footer-left">
         &copy; 2024 - KartverketWebApplication
