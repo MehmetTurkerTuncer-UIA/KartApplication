@@ -1,72 +1,123 @@
 ﻿@model List<KartApplication.Models.SakModel>
 
 @{
-    ViewData["Title"] = "Sok";
+    ViewData["Title"] = "Søk";
     Layout = "~/Views/Shared/_AccountLayout.cshtml";
 }
 
 <style>
-    /* Sayfanın tam ortalanması için genel stil ayarları */
+    /* Genel stil ayarları (Dark Mode) */
     body {
         display: flex;
         justify-content: center;
         align-items: center;
         min-height: 100vh;
         margin: 0;
-        font-family: Arial, sans-serif;
+        background-color: #121212;
+        color: #E0E0E0;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
 
     .container {
-        max-width: 1200px;
+        min-width: 1200px;
         margin: 20px;
-        border: 1px solid #000;
+       
+        border-radius: 12px;
         padding: 20px;
         display: flex;
         flex-direction: column;
+   
         align-items: center;
-        justify-content: center;
-        height: 80vh;
+        justify-content: center; /* Dikey ortalama */
+        min-height: 80vh; /* Yükseklik ayarı */
     }
 
     h2 {
-        text-align: center;
+        color: #ffffff; /* Birincil renk: Yeşil */
         margin-bottom: 20px;
     }
 
     form {
-        text-align: center;
         margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+    }
+
+    label {
+        margin-right: 10px;
+        color: #ffffff; /* Etiket rengi: Yeşil */
+    }
+
+    input[type="text"] {
+        padding: 10px;
+        border: 1px solid #333;
+        border-radius: 6px;
+        background-color: #252525;
+        color: #E0E0E0;
+    }
+
+    button {
+        padding: 10px 20px;
+        margin-left: 10px;
+        border: none;
+        border-radius: 6px;
+        background-color: #28a745; /* Birincil renk: Yeşil */
+        color: #121212;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    button:hover {
+        background-color: #25913e; /* Hover rengi: Daha koyu yeşil */
     }
 
     .tableForDetaljer {
         width: 100%;
-        border-collapse: separate;
-        border-spacing: 0 0px;
-        font-family: Arial, sans-serif;
+        border-collapse: collapse;
         font-size: 16px;
-        border: 1px solid #000000;
         margin-top: 20px;
+        background-color: #1C1C1C;
+        border-radius: 8px;
+        overflow: hidden;
     }
 
     .tableForDetaljer th {
-        background-color: #232323;
-        padding: 10px;
+        background-color: #333333;
+        padding: 12px;
         text-align: center;
-        height: 34px;
+        color: #ffffff; /* Birincil renk: Yeşil */
+        border-bottom: 2px solid #444;
     }
 
     .tableForDetaljer td {
-        padding: 10px;
-        color: white;
-        background-color: #303030;
-        height: 34px;
+        padding: 12px;
+        color: #ADD8E6; /* İkincil renk: Mavi */
+        background-color: #252525;
         text-align: center;
+        border-bottom: 1px solid #333;
+        transition: background-color 0.2s;
+    }
+
+    .tableForDetaljer tr:hover td {
+        background-color: #2A2A2A;
     }
 
     .result-message {
         margin-top: 20px;
         text-align: center;
-        color: white;
+        color: #289a02; /* Birincil renk: Yeşil */
+    }
+
+.result-message2 {
+        margin-top: 20px;
+        text-align: center;
+        color: #ff0000; /* Birincil renk: Yeşil */
+    }
+  
+
+        button {
+            padding: 8px 16px;
+        }
     }
 </style>
 
@@ -84,7 +135,7 @@
     }
     else
     {
-        <div class="result-message">Dette referansenummeret ble ikke funnet.</div>
+        <div class="result-message2">Dette referansenummeret ble ikke funnet.</div>
     }
 
     <table class="tableForDetaljer" id="saksbehandlermenu">
@@ -101,7 +152,7 @@
             {
                 foreach (var sakModel in Model)
                 {
-                    <tr onclick="window.location.href='@Url.Action("Detaljer", "Sak", new { id = sakModel.Id })'" style="cursor: pointer;">
+                    <tr onclick="window.location.href='@Url.Action("Detaljer", "Sak", new { id = sakModel.Id })'">
                         <td>@sakModel.CreatedAt.ToShortDateString()</td>
                         <td>@sakModel.Status.ToString()</td>
                         <td>@sakModel.ReferenceNumber</td>
