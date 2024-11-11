@@ -1,3 +1,5 @@
+@using System.Text.RegularExpressions
+
 @model KartApplication.Models.SakModel
 
 @{
@@ -19,10 +21,11 @@
     <tbody>
         <tr>
             <td>@Model.CreatedAt.ToShortDateString()</td>
-            <td>@Model.Status</td>
+            <td><span>@Regex.Replace(Model.Status.ToString(), "([a-z])([A-Z])", "$1 $2")</span></td>
             <td>@Model.Id</td>
-            <td>@Model.ArbeidStatus</td>
-            <td>@Model.KontrolStatus</td>
+            <td><span>@Regex.Replace(Model.ArbeidStatus.ToString(), "([a-z])([A-Z])", "$1 $2")</span></td>
+           <td>@Regex.Replace(Model.KontrolStatus.ToString(), "([a-z])([A-Z])", "$1 $2")</td>
+
 
         </tr>
     </tbody>
@@ -110,7 +113,7 @@ else
 
 @if (!string.IsNullOrEmpty(Model.SaksBehandlerDescription))
 {
-    <div class="OppsummeringBox">
+    <div class="OppsummeringBox" style="margin-top:20px;">
         <div class="OppsummeringContentTitle">
             <img src="~/images/check-mark.png" alt="Checkbox" class="checkboxImage"> Saksbehandlerens Kommentar:
         </div>
@@ -127,12 +130,14 @@ else
         <form method="post" asp-action="UpdateStatus" asp-controller="Saksbehandler" asp-route-id="@Model.Id">
 
             <!-- Sol tarafta mesaj alanı (textarea) -->
-            <div style="width: 48%;">
+            <div style="width: 94%; margin-bottom: 20px;">
                 <label for="SaksBehandlerDescription" style="color: white; display: block; margin-bottom: 10px;">SaksBehandlers Kommentar:</label>
                 <textarea id="SaksBehandlerDescription" name="SaksBehandlerDescription" class="form-control" required
-                          style="width: 100%; height: 200px; background-color: #333; color: white;
-    border: 1px solid #ccc; border-radius: 5px; padding: 10px;"
-                          onfocus="removePlaceholder()" onblur="addPlaceholder()"> Skriv en kommentar eller oppdater kommentaren ... </textarea>
+          style="width: 100%; height: 200px; background-color: #333; color: gray;
+          border: 1px solid #ccc; border-radius: 5px; padding: 10px;"
+          onfocus="removePlaceholder()" onblur="addPlaceholder()">Skriv en kommentar eller oppdater kommentaren ...</textarea>
+
+
             </div>
 
             
@@ -224,101 +229,45 @@ else
     </div>
 </div>
 
+  
 @section Scripts {
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+         <link rel="stylesheet" href="~/css/detaljer.css" />
+
+
 
     <script>
-        // GeoJSON verisini modelden alıyoruz
-        var geoJsonData = @Html.Raw(Model.GeoJson);
-        var selectedMapType = '@Model.SelectedMapType';
+    var geoJsonData = @Html.Raw(Model.GeoJson);
+    var selectedMapType = '@Model.SelectedMapType';
+</script>
+        <script src="/js/geoJsonViewer.js"></script>
 
-        // Define map layers
-        var fargekart = L.tileLayer('https://cache.kartverket.no/v1/wmts/1.0.0/topo/default/webmercator/{z}/{y}/{x}.png', {
-            maxZoom: 18,
-            attribution: '&copy; <a href="https://kartverket.no/">Kartverket</a>'
-        });
 
-        var gratonekart = L.tileLayer('https://cache.kartverket.no/v1/wmts/1.0.0/topograatone/default/webmercator/{z}/{y}/{x}.png', {
-            maxZoom: 18,
-            attribution: '&copy; <a href="https://kartverket.no/">Kartverket</a>'
-        });
-
-        var turkart = L.tileLayer('https://cache.kartverket.no/v1/wmts/1.0.0/toporaster/default/webmercator/{z}/{y}/{x}.png', {
-            maxZoom: 18,
-            attribution: '&copy; <a href="https://kartverket.no/">Kartverket</a>'
-        });
-
-        var sjokart = L.tileLayer('https://cache.kartverket.no/v1/wmts/1.0.0/sjokartraster/default/webmercator/{z}/{y}/{x}.png', {
-            maxZoom: 18,
-            attribution: '&copy; <a href="https://kartverket.no/">Kartverket</a>'
-        });
-
-        // Initialize map with selected layer
-        var selectedLayer;
-        switch (selectedMapType) {
-            case 'gratonekart':
-                selectedLayer = gratonekart;
-                break;
-            case 'turkart':
-                selectedLayer = turkart;
-                break;
-            case 'sjokart':
-                selectedLayer = sjokart;
-                break;
-            default:
-                selectedLayer = fargekart;
+   <script>
+    function removePlaceholder() {
+        var textarea = document.getElementById("SaksBehandlerDescription");
+        if (textarea.value === "Skriv en kommentar eller oppdater kommentaren ...") {
+            textarea.value = "";
+            textarea.style.color = "white";
         }
+    }
 
-        var map = L.map('map').setView([58.1467, 7.9956], 15);
-        selectedLayer.addTo(map);
-
-        // Function to add coordinates to the table
-        function addCoordinatesToTable(lat, lng) {
-            var tableBody = document.getElementById("coordinatesTableBody");
-            var rowCount = tableBody.rows.length + 1;
-            var newRow = tableBody.insertRow();
-
-            var cellIndex = newRow.insertCell(0);
-            var cellLat = newRow.insertCell(1);
-            var cellLng = newRow.insertCell(2);
-
-            cellIndex.textContent = rowCount;
-            cellLat.textContent = lat.toFixed(5);
-            cellLng.textContent = lng.toFixed(5);
+    function addPlaceholder() {
+        var textarea = document.getElementById("SaksBehandlerDescription");
+        if (textarea.value === "") {
+            textarea.value = "Skriv en kommentar eller oppdater kommentaren ...";
+            textarea.style.color = "gray";
         }
+    }
 
-        // Load GeoJSON data to the map and table
-        if (geoJsonData && geoJsonData.features) {
-            var layer = L.geoJSON(geoJsonData, {
-                onEachFeature: function (feature, layer) {
-                    if (feature.geometry.type === 'Point') {
-                        var lat = feature.geometry.coordinates[1];
-                        var lng = feature.geometry.coordinates[0];
-                        layer.bindPopup("Koordinater: Br. " + lat + ", Lgr. " + lng).openPopup();
-                        addCoordinatesToTable(lat, lng);
-                    } else if (feature.geometry.type === 'Polygon') {
-                        feature.geometry.coordinates[0].forEach(function (coord) {
-                            var lat = coord[1];
-                            var lng = coord[0];
-                            L.marker([lat, lng]).addTo(map)
-                                .bindPopup("Koordinater: Br. " + lat + ", Lgr. " + lng).openPopup();
-                            addCoordinatesToTable(lat, lng);
-                        });
-                    } else if (feature.geometry.type === 'LineString') {
-                        feature.geometry.coordinates.forEach(function (coord) {
-                            var lat = coord[1];
-                            var lng = coord[0];
-                            L.marker([lat, lng]).addTo(map)
-                                .bindPopup("Koordinater: Br. " + lat + ", Lgr. " + lng).openPopup();
-                            addCoordinatesToTable(lat, lng);
-                        });
-                    }
-                }
-            }).addTo(map);
-            map.fitBounds(layer.getBounds());
-        } else {
-            alert('Gyldige GeoJSON-data ble ikke funnet.');
+    // Sayfa yüklendiğinde placeholder rengini ayarlayın
+    document.addEventListener("DOMContentLoaded", function() {
+        var textarea = document.getElementById("SaksBehandlerDescription");
+        if (textarea.value === "Skriv en kommentar eller oppdater kommentaren ...") {
+            textarea.style.color = "gray";
         }
-    </script>
+    });
+</script>
+    
 }
