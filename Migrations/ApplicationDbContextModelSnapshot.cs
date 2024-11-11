@@ -97,6 +97,9 @@ namespace KartApplication.Migrations
                     b.Property<string>("KontrollerenDescription")
                         .HasColumnType("longtext");
 
+                    b.Property<string>("ReferenceNumber")
+                        .HasColumnType("longtext");
+
                     b.Property<string>("SaksBehandlerDescription")
                         .HasColumnType("longtext");
 
