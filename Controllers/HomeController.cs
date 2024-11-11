@@ -10,11 +10,9 @@ using Microsoft.AspNetCore.Identity;
 namespace KartApplication.Controllers
 {
     [Authorize(Roles = UserRoles.Role_Bruker + "," + UserRoles.Role_Admin + "," + UserRoles.Role_Saksbehandler + "," + UserRoles.Role_Kontrolleren)]
-
     public class HomeController : Controller
     {
         private readonly ApplicationDbContext _context;
-
 
         public HomeController(ApplicationDbContext context)
         {
@@ -50,28 +48,24 @@ namespace KartApplication.Controllers
         [HttpGet]
         public async Task<IActionResult> Beskrivelse(int id)
         {
-            // Index'te kaydedilen verileri almak için veritabanından id ile sorgulama yapılır
             var model = await _context.SakModels.FindAsync(id);
 
-            // Model null ya da geçici değilse hata döndür
             if (model == null || model.IsTemporary == false)
                 return NotFound();
 
-            return View(model); // Modeli Beskrivelse sayfasına aktar
+            return View(model);
         }
 
         [HttpPost]
         public async Task<IActionResult> Beskrivelse(SakModel model)
         {
-          
             if (ModelState.IsValid)
             {
-                // Mevcut kaydı güncelle
                 var existingModel = await _context.SakModels.FindAsync(model.Id);
                 if (existingModel != null)
                 {
-                    existingModel.Description = model.Description; // Kullanıcının girdiği açıklama kaydediliyor
-                    existingModel.IsTemporary = true; // Geçici olarak işaretle
+                    existingModel.Description = model.Description;
+                    existingModel.IsTemporary = true;
                     _context.SakModels.Update(existingModel);
                     await _context.SaveChangesAsync();
                 }
@@ -85,7 +79,6 @@ namespace KartApplication.Controllers
         [HttpGet]
         public async Task<IActionResult> Oversikt(int id)
         {
-            // Veritabanından id ile kaydı bul
             var model = await _context.SakModels.FindAsync(id);
 
             if (model == null || model.IsTemporary == false)
@@ -102,7 +95,6 @@ namespace KartApplication.Controllers
             if (model == null)
                 return NotFound();
 
-            // Geçici işareti kaldırarak kalıcı hale getir
             model.IsTemporary = false;
             await _context.SaveChangesAsync();
 
@@ -135,44 +127,76 @@ namespace KartApplication.Controllers
         }
 
         // Profil sayfası - Kullanıcının profil bilgilerini görüntüleme ve güncelleme
-[HttpGet]
-public async Task<IActionResult> Profil()
-{
-    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-    var user = await _context.Users.FindAsync(userId);
-
-    if (user == null)
-        return NotFound();
-
-    return View(user);
-}
-
-[HttpPost]
-public async Task<IActionResult> Profil(ApplicationUser model)
-{
-    if (ModelState.IsValid)
-    {
-        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        var existingUser = await _context.Users.FindAsync(userId);
-
-        if (existingUser != null)
+        [HttpGet]
+        public async Task<IActionResult> Profil()
         {
-            // Kullanıcı bilgilerini güncelle
-            existingUser.UserName = model.Name;
-            existingUser.Email = model.Email;
-            existingUser.PhoneNumber = model.PhoneNumber;
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var user = await _context.Users.OfType<ApplicationUser>().FirstOrDefaultAsync(u => u.Id == userId);
 
-            _context.Users.Update(existingUser);
-            await _context.SaveChangesAsync();
+            if (user == null)
+                return NotFound();
+
+            return View(user);
         }
 
-        return RedirectToAction("Profil");
-    }
+        [HttpPost]
+        public async Task<IActionResult> Profil(ApplicationUser model)
+        {
+            if (ModelState.IsValid)
+            {
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                var existingUser = await _context.Users.OfType<ApplicationUser>().FirstOrDefaultAsync(u => u.Id == userId);
 
-    return View(model);
-}
+                if (existingUser != null)
+                {
+                    // Kullanıcı bilgilerini aynı şekilde girmişse uyarı ver
+                    bool isSameData =
+                        existingUser.Name == model.Name &&
+                        existingUser.Surname == model.Surname &&
+                        existingUser.Email == model.Email &&
+                        existingUser.PhoneNumber == model.PhoneNumber &&
+                        existingUser.Adresse == model.Adresse;
 
-[HttpGet]
+
+                    if (isSameData)
+                    {
+                        TempData["WarningMessage"] = "Du har skrevet inn de samme opplysningene, vennligst gjør en endring.";
+                        return View(model);
+                    }
+
+                    // Bilgi boş ise uyarı ver
+                    if (string.IsNullOrWhiteSpace(model.Name) ||
+                        string.IsNullOrWhiteSpace(model.Surname) ||
+                        string.IsNullOrWhiteSpace(model.Email) ||
+                        string.IsNullOrWhiteSpace(model.Adresse) ||
+                        string.IsNullOrWhiteSpace(model.PhoneNumber))
+                    {
+                        TempData["WarningMessage"] = "Vennligst fyll ut alle feltene.";
+                        return View(model);
+                    }
+
+                    // Kullanıcı bilgilerini güncelle
+                    existingUser.Name = model.Name;
+                    existingUser.Surname = model.Surname;
+                    existingUser.Email = model.Email;
+                    existingUser.Adresse = model.Adresse;
+                    existingUser.PhoneNumber = model.PhoneNumber;
+
+                    _context.Users.Update(existingUser);
+                    await _context.SaveChangesAsync();
+
+                    // Başarılı güncelleme sonrası TempData kullanarak mesaj göster
+                    TempData["ProfileUpdated"] = true;
+                }
+
+                return RedirectToAction("Profil");
+            }
+
+            // Model doğrulama hataları durumunda model ile birlikte sayfayı geri döndür
+            TempData["WarningMessage"] = "Det oppstod valideringsfeil under oppdateringen.";
+            return View(model);
+        }
+
         // Minesaker Action Method - Kullanıcının tüm Sak kayıtlarını listeler
         [HttpGet]
         public async Task<IActionResult> Minesaker()
@@ -205,41 +229,30 @@ public async Task<IActionResult> Profil(ApplicationUser model)
         [HttpGet]
         public async Task<IActionResult> Detaljer(int id)
         {
-            // İlgili Sak kaydını veritabanından getir
             var sak = await _context.SakModels.FindAsync(id);
 
-          
-            return View(sak); // Sak kaydı Detaljer görünümüne gönderilir
+            return View(sak);
         }
-
 
         // GET: Home/Sok
         public ActionResult Sok(string referenceNumber)
-    {
-        // Referans numarasına göre durumu kontrol et
-        var status = CheckStatus(referenceNumber);
-        
-        // Modeli view'e gönder
-        ViewBag.Status = status;
-        ViewBag.ReferenceNumber = referenceNumber;
-
-        return View();
-    }
-
-    private string CheckStatus(string referenceNumber)
-    {
-        // Burada referans numarasına göre durumu kontrol eden bir mantık yer alacak
-        // Örnek: veri tabanından veya başka bir kaynaktan kontrol edebilirsiniz
-        if (string.IsNullOrEmpty(referenceNumber))
         {
-            return "Geçersiz referans numarası.";
+            var status = CheckStatus(referenceNumber);
+
+            ViewBag.Status = status;
+            ViewBag.ReferenceNumber = referenceNumber;
+
+            return View();
         }
 
-        // Örnek durum kontrolü
-        // Gerçek uygulamada burada bir veri kaynağına bağlanarak durum kontrolü yapmalısınız
-        return "Durum: Aktif"; // veya "Durum: Pasif", "Durum: Beklemede" vb.
+        private string CheckStatus(string referenceNumber)
+        {
+            if (string.IsNullOrEmpty(referenceNumber))
+            {
+                return "Geçersiz referans numarası.";
+            }
+
+            return "Durum: Aktif";
+        }
     }
 }
-
-    }
-
