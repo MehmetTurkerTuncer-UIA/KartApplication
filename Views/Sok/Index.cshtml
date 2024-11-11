@@ -1,0 +1,120 @@
+﻿@model List<KartApplication.Models.SakModel>
+
+@{
+    ViewData["Title"] = "Sok";
+    Layout = "~/Views/Shared/_AccountLayout.cshtml";
+}
+
+<style>
+    /* Sayfanın tam ortalanması için genel stil ayarları */
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
+        font-family: Arial, sans-serif;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 20px;
+        border: 1px solid #000;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 80vh;
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    form {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .tableForDetaljer {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0 0px;
+        font-family: Arial, sans-serif;
+        font-size: 16px;
+        border: 1px solid #000000;
+        margin-top: 20px;
+    }
+
+    .tableForDetaljer th {
+        background-color: #232323;
+        padding: 10px;
+        text-align: center;
+        height: 34px;
+    }
+
+    .tableForDetaljer td {
+        padding: 10px;
+        color: white;
+        background-color: #303030;
+        height: 34px;
+        text-align: center;
+    }
+
+    .result-message {
+        margin-top: 20px;
+        text-align: center;
+        color: white;
+    }
+</style>
+
+<div class="container">
+    <h2>Søk med referansnummer</h2>
+    <form method="get" action="@Url.Action("Index", "Sok")">
+        <label for="referenceNumber">Referansnummer:</label>
+        <input type="text" id="referenceNumber" name="referenceNumber" required />
+        <button type="submit">Søk</button>
+    </form>
+
+    @if (Model != null && Model.Any())
+    {
+        <div class="result-message">Sak med referansenummer: <strong>@Model.First().ReferenceNumber</strong> funnet.</div>
+    }
+    else
+    {
+        <div class="result-message">Dette referansenummeret ble ikke funnet.</div>
+    }
+
+    <table class="tableForDetaljer" id="saksbehandlermenu">
+        <thead>
+            <tr>
+                <th>Dato</th>
+                <th>Sak Status</th>
+                <th>Referansenummer</th>
+                <th>Kontroll Status</th>
+            </tr>
+        </thead>
+        <tbody id="saksbehandlersaks">
+            @if (Model != null && Model.Any())
+            {
+                foreach (var sakModel in Model)
+                {
+                    <tr onclick="window.location.href='@Url.Action("Detaljer", "Sak", new { id = sakModel.Id })'" style="cursor: pointer;">
+                        <td>@sakModel.CreatedAt.ToShortDateString()</td>
+                        <td>@sakModel.Status.ToString()</td>
+                        <td>@sakModel.ReferenceNumber</td>
+                        <td>@sakModel.KontrolStatus</td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="4">Ingen saker funnet med det oppgitte referansenummeret.</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
