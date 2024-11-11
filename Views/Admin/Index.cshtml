@@ -253,7 +253,7 @@
                     <!-- Kullanıcı silme butonu -->
                     <form method="post" asp-action="DeleteUser" asp-controller="Admin">
                         <input type="hidden" name="userId" value="@user.UserId" />
-                        <button type="submit" class="btn btn-danger" onclick="return confirm('Er du sikker på at du vil slette denne brukeren?');">Slett</button>
+                        <button type="submit" class="btn btn-danger" onclick="return confirm('Er du sikker på at du vil slette denne brukeren?');">Slett @user.CurrentRole</button>
                     </form>
                 </div>
             </div>
