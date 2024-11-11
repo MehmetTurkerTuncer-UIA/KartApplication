@@ -7,6 +7,10 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using System.Text.RegularExpressions;
+using System.Security.Claims;
+using System.Threading.Tasks;
+
+
 
 namespace KartApplication.Controllers
 {
@@ -116,11 +120,77 @@ namespace KartApplication.Controllers
             return RedirectToAction("Detaljer", new { id }); // Güncelleme sonrası Detaljer sayfasına dön
         }
 
-        // Profil sayfası
-        public IActionResult Profil(string id)
+        // Profil sayfası - Kullanıcının profil bilgilerini görüntüleme ve güncelleme
+        [HttpGet]
+        public async Task<IActionResult> Profil()
         {
-            return View(); // Profil.cshtml'e model yollanıyor
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var user = await _context.Users.OfType<ApplicationUser>().FirstOrDefaultAsync(u => u.Id == userId);
+
+            if (user == null)
+                return NotFound();
+
+            return View(user);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Profil(ApplicationUser model)
+        {
+            if (ModelState.IsValid)
+            {
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                var existingUser = await _context.Users.OfType<ApplicationUser>().FirstOrDefaultAsync(u => u.Id == userId);
+
+                if (existingUser != null)
+                {
+                    // Kullanıcı bilgilerini aynı şekilde girmişse uyarı ver
+                    bool isSameData =
+                        existingUser.Name == model.Name &&
+                        existingUser.Surname == model.Surname &&
+                        existingUser.Email == model.Email &&
+                        existingUser.PhoneNumber == model.PhoneNumber &&
+                        existingUser.Adresse == model.Adresse;
+
+
+                    if (isSameData)
+                    {
+                        TempData["WarningMessage"] = "Du har skrevet inn de samme opplysningene, vennligst gjør en endring.";
+                        return View(model);
+                    }
+
+                    // Bilgi boş ise uyarı ver
+                    if (string.IsNullOrWhiteSpace(model.Name) ||
+                        string.IsNullOrWhiteSpace(model.Surname) ||
+                        string.IsNullOrWhiteSpace(model.Email) ||
+                        string.IsNullOrWhiteSpace(model.Adresse) ||
+                        string.IsNullOrWhiteSpace(model.PhoneNumber))
+                    {
+                        TempData["WarningMessage"] = "Vennligst fyll ut alle feltene.";
+                        return View(model);
+                    }
+
+                    // Kullanıcı bilgilerini güncelle
+                    existingUser.Name = model.Name;
+                    existingUser.Surname = model.Surname;
+                    existingUser.Email = model.Email;
+                    existingUser.Adresse = model.Adresse;
+                    existingUser.PhoneNumber = model.PhoneNumber;
+
+                    _context.Users.Update(existingUser);
+                    await _context.SaveChangesAsync();
+
+                    // Başarılı güncelleme sonrası TempData kullanarak mesaj göster
+                    TempData["ProfileUpdated"] = true;
+                }
+
+                return RedirectToAction("Profil");
+            }
+
+            // Model doğrulama hataları durumunda model ile birlikte sayfayı geri döndür
+            TempData["WarningMessage"] = "Det oppstod valideringsfeil under oppdateringen.";
+            return View(model);
+        }
+
 
         // String formatlama fonksiyonu
         private string FormatStatus(string status)
