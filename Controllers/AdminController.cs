@@ -68,7 +68,7 @@ namespace KartApplication.Controllers
             return RedirectToAction("Index");
         }
 
-        [HttpPost]
+        
         [HttpPost]
         public async Task<IActionResult> DeleteUser(string userId)
         {
@@ -141,7 +141,10 @@ namespace KartApplication.Controllers
 
 
            // Sak listesiyle birlikte sayfayı döndürün
-            return View(saker);
+           // return View(saker);
+
+            // Sak listesiyle birlikte "BrukerSaker" görünümünü döndürün
+            return View("BrukerSaker", saker);
         }
 
         public async Task<IActionResult> Detaljer(int id)

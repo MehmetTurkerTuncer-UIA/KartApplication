@@ -29,7 +29,7 @@
             <tr onclick="window.location.href='@Url.Action("Detaljer", "Kontrolleren", new { id = sak.Id })'" style="cursor: pointer;">
 
                 <td>@sak.CreatedAt.ToShortDateString()</td>
-                <td>@sak.Id</td>
+                <td>@sak.ReferenceNumber</td>
                 <td>@sak.ArbeidStatus</td>
                 
             </tr>
