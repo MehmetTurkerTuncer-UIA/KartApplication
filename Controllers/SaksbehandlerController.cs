@@ -4,6 +4,9 @@ using KartApplication.Data;
 using Microsoft.AspNetCore.Authorization;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+
 
 namespace KartApplication.Controllers
 {
@@ -41,33 +44,42 @@ namespace KartApplication.Controllers
                        
         }
 
-        public IActionResult Detaljer(int id)
+     public IActionResult Detaljer(int id)
+{
+    // Sak kaydını ve ilişkili ApplicationUser'ı al
+    var sak = _context.SakModels
+        .Include(s => s.ApplicationUser) // ApplicationUser'ı dahil et
+        .FirstOrDefault(s => s.Id == id);
+
+    if (sak == null)
+    {
+        return NotFound();
+    }
+
+    // Kontrolleren rolünün ID'sini bul
+    var kontrollerenRoleId = _context.Roles
+        .Where(r => r.Name == UserRoles.Role_Kontrolleren)
+        .Select(r => r.Id)
+        .FirstOrDefault();
+
+    // Kontrolleren rolüne sahip kullanıcıları bul ve SelectListItem olarak hazırla
+    var kontrollerenUsers = _context.Users
+        .Where(u => _context.UserRoles
+            .Any(ur => ur.UserId == u.Id && ur.RoleId == kontrollerenRoleId))
+        .Select(u => new SelectListItem
         {
-            var sak = _context.SakModels.FirstOrDefault(s => s.Id == id);
-            if (sak == null)
-            {
-                return NotFound();
-            }
+            Value = u.Id,
+            Text = u.UserName,
+            Selected = u.Id == sak.AssignedKontrollerenId // Seçili durumu ayarlanıyor
+        })
+        .ToList();
 
-            var kontrollerenRoleId = _context.Roles
-                .Where(r => r.Name == UserRoles.Role_Kontrolleren)
-                .Select(r => r.Id)
-                .FirstOrDefault();
+    // Kontrolleren kullanıcılarını ViewBag'e ekle
+    ViewBag.KontrollerenUsers = new SelectList(kontrollerenUsers, "Value", "Text", sak.AssignedKontrollerenId);
 
-            var kontrollerenUsers = _context.Users
-                .Where(u => _context.UserRoles
-                    .Any(ur => ur.UserId == u.Id && ur.RoleId == kontrollerenRoleId))
-                .Select(u => new SelectListItem
-                {
-                    Value = u.Id,
-                    Text = u.UserName,
-                    Selected = u.Id == sak.AssignedKontrollerenId  // selected durumu burada ayarlanıyor
-                })
-                .ToList();
+    return View(sak);
+}
 
-            ViewBag.KontrollerenUsers = new SelectList(kontrollerenUsers, "Value", "Text", sak.AssignedKontrollerenId);
-            return View(sak);
-        }
 
         // Status ve Arbeid Status Güncelleme İşlemi
         [HttpPost]

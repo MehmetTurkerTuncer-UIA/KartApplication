@@ -4,10 +4,25 @@
     ViewData["Title"] = "Profil";
     Layout = "~/Views/Shared/_BrukerLayout.cshtml"; 
     ViewData["ShowStepper"] = false; // For å unngå at stepper-menyen vises på denne siden
+    bool isUpdated = TempData["ProfileUpdated"] as bool? ?? false;
+    string warningMessage = TempData["WarningMessage"] as string;
 }
 
 <div class="container">
     <h2>Profilinformasjon</h2>
+
+    @if (isUpdated)
+    {
+        <div class="alert alert-success" role="alert">
+            Profilen din har blitt oppdatert!
+        </div>
+    }
+    else if (!string.IsNullOrEmpty(warningMessage))
+    {
+        <div class="alert alert-danger" role="alert">
+            @warningMessage
+        </div>
+    }
 
     <form asp-action="Profil" method="post">
         <div class="form-group">
@@ -15,20 +30,32 @@
             <input asp-for="Name" class="form-control form-control-lg" />
             <span asp-validation-for="Name" class="text-danger"></span>
         </div>
-        
+
+        <div class="form-group">
+            <label asp-for="Surname" class="form-label">Etternavn:</label>
+            <input asp-for="Surname" class="form-control form-control-lg" />
+            <span asp-validation-for="Surname" class="text-danger"></span>
+        </div>
+
         <div class="form-group">
             <label asp-for="Email" class="form-label">E-post:</label>
             <input asp-for="Email" type="email" class="form-control form-control-lg" />
             <span asp-validation-for="Email" class="text-danger"></span>
         </div>
-    
+
         <div class="form-group">
             <label asp-for="PhoneNumber" class="form-label">Telefonnummer:</label>
             <input asp-for="PhoneNumber" class="form-control form-control-lg" />
             <span asp-validation-for="PhoneNumber" class="text-danger"></span>
         </div>
-    
-        <button type="submit" class="btn btn-primary btn-sm">Oppdater</button>
+
+        <div class="form-group">
+            <label asp-for="Adresse" class="form-label">Adresse:</label>
+            <input asp-for="Adresse" class="form-control form-control-lg" placeholder="Vennligst oppgi din adresse." />
+            <span asp-validation-for="Adresse" class="text-danger"></span>
+        </div>
+
+        <button id="update-profile-button" type="submit" class="btn btn-primary btn-sm">Oppdater</button>
     </form>
 </div>
 
@@ -39,7 +66,29 @@
         flex-direction: column;
         align-items: center;
         text-align: center;
-        padding-top:10px ;
+        padding-top: 10px;
+    }
+
+    .alert-success {
+        background-color: #66974368; /* Green background */
+        color: #ffffff; /* White text */
+        padding: 10px 20px;
+        margin-bottom: 20px;
+        border-radius: 5px;
+        width: 90%;
+        text-align: center;
+        font-size: 1rem;
+    }
+
+    .alert-danger {
+        background-color: #b0002064; /* Red background */
+        color: #ffffff; /* White text */
+        padding: 10px 20px;
+        margin-bottom: 20px;
+        border-radius: 5px;
+        width: 90%;
+        text-align: center;
+        font-size: 1rem;
     }
 
     .form-group {
@@ -49,43 +98,55 @@
     }
 
     .form-label {
-        color: #E0E0E0; /* Lys grå farge for etiketter */
-        font-size: 16px; /* Litt større skriftstørrelse for etiketter */
-        min-width: 120px; /* Ensartet bredde for etiketter slik at de starter på samme linje */
+        color: #E0E0E0;
+        font-size: 16px;
+        min-width: 120px;
         text-align: left;
         margin-right: 10px;
     }
 
     .form-control-lg {
-        background-color: #2C2C2C; /* Mørkere bakgrunn for input-felter */
-        color: #FFFFFF; /* Hvit tekstfarge for input-felter */
-        border: 1px solid #444444; /* Kantlinje for input-felter */
-        height: 20px; /* Større høyde for større input */
+        background-color: #2C2C2C;
+        color: #FFFFFF;
+        border: 1px solid #444444;
+        height: 20px;
         width: 320px;
-        font-size: 16px; /* Større skriftstørrelse */
-        padding: 10px 15px; /* Økt polstring */
+        font-size: 16px;
+        padding: 10px 15px;
     }
 
     .form-control-lg:focus {
-        background-color: #3C3C3C; /* Litt lysere bakgrunn ved fokus */
-        border-color: #BB86FC; /* Lilla kantlinje ved fokus */
-        color: #FFFFFF; /* Hvit tekstfarge */
+        background-color: #3C3C3C;
+        border-color: #BB86FC;
+        color: #FFFFFF;
     }
 
     .btn-primary.btn-sm {
-        padding: 10px 20px; /* Mindre polstring for en mer kompakt knapp */
-        font-size: 1rem; /* Mindre skriftstørrelse for knappen */
+        padding: 10px 20px;
+        font-size: 1rem;
     }
 
     .text-danger {
-        color: #CF6679; /* Rødlig farge for valideringsfeil */
-        font-size: 1rem; /* Litt større skrift for feilmeldinger */
+        color: #CF6679;
+        font-size: 1rem;
     }
 
     h2 {
-        color: #E0E0E0; /* Lys grå farge for overskrift */
+        color: #E0E0E0;
         margin-bottom: 2rem;
     }
 
-  
+    .btn-primary.btn-sm {
+    padding: 10px 20px;
+    font-size: 1rem;
+    background-color: #007BFF; /* Mavimsi arka plan rengi */
+    border-color: #0056b3; /* Mavimsi sınır rengi */
+    color: #ffffff; /* Beyaz yazı rengi */
+}
+
+.btn-primary.btn-sm:hover {
+    background-color: #0056b3; /* Daha koyu mavimsi renk hover durumunda */
+    border-color: #004085; /* Daha koyu sınır rengi */
+}
+
 </style>
