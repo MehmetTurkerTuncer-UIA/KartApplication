@@ -72,6 +72,49 @@ For å gå inn applkasjonmappen cd KartApplication
    4. Gjest: Her kan du opprette en sak uten å logge inn.
 
 ## Rollebasert Navigering:
-   1. Admin:
-      Hjem: Her er det en oversikt over alle typer brukere. 
-       
+   1. Admin
+
+      - Hjem: Her er det en oversikt over alle typer brukere. 
+      - Legge til ansatt: Legg til nye ansatter i systemet.
+      - Oppdater: Oppdater brukerinformasjon.
+      - Slett: Fjern bruker fra systemet.
+
+   2. Saksbehandler
+
+     - Hjem: Tilgang til saksbahandlerens dashboard.
+     - Profil: Vis og redigere din profil. 
+     - Aktive Saker: Se pågående saker.
+     - Vis Sak: Vis detaljert informasjon om en spesifikk sak.
+     - Administer Sak: Administrer, tilordne og oppdater saksdetaljer.
+     - Ferdige Saker: Få tilgang til fullførte saker.
+     - Vis Sak: Se detaljer om fuølførte saker.
+     - Administrer Sak: Gjennomgå, oppdater og avslutt fullførte saker.
+  
+  3. Kontrolleren
+    
+     - Hjem: Tilgang til kontrollerens dashbord.
+     - Vis Sak: Se saker som er tilordnet for godkjenning.
+     - Avvis: Avvis saker som ikke oppfyller godkjenningskrevene.
+     - Godkjenn: Godkjenn saker.
+
+  4. Brukeren
+       <pre>
+     - Hjem: Tilgang til brukerdashbordet.
+     - Mine Saker: Se saker sendt inn av deg.
+     - Profil: Rediger dine profildetaljer.
+     - Opprette Sak: Her kan du opprette en ny sak med detaljer.
+       - Marker et punkt i kartet.
+       - Velg mellom forskjellige typer kartgrunnlag.
+       - Skrive en beskrivelse.
+       - Send inn saken.
+       - Skriv ut kvittering.
+       </pre>
+  5. Gjest
+
+     - Hjem: Begrenset tilgang til hovedsiden.
+     - Opprette Sak: Her kan du sende inn en sak uten brukerregistering.
+       - Marker et punkt i kartet.
+       - Velg mellom forskjellige typer kartgrunnlag.
+       - Skrive en beskrivelse.
+       - Send inn saken.
+       - Skriv ut kvittering.
