@@ -1,0 +1,164 @@
+/* DETALJER SAKSBEHANDLER */
+
+/* Tabellens generelle layout */
+.tableForDetaljer {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 0px;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  border: 1px solid #000000;
+}
+
+/* Overskriftsceller (th) i tabellen */
+.tableForDetaljer th {
+  background-color: #232323;
+  padding: 10px;
+  text-align: center;
+  position: relative;
+  height: 34px;
+}
+
+/* Kort border for overskriftsceller */
+.tableForDetaljer th:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 1px;
+  background-color: #505050;
+  height: 30%;
+  margin: auto 0;
+}
+
+/* Ingen border på høyre side av siste overskriftscelle (th) */
+.tableForDetaljer th:last-child:after {
+  display: none;
+}
+
+/* Dataceller (td) i tabellen */
+.tableForDetaljer td {
+  padding: 10px;
+  color: white;
+  background-color: #303030;
+  border-right: none;
+  position: relative;
+  height: 34px;
+  text-align: center;
+}
+
+/* Kort border for dataceller */
+.tableForDetaljer td:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 1px;
+  background-color: #505050;
+  height: 30%;
+  margin: auto 0;
+}
+
+/* Ingen border på høyre side av siste datacelle (td) */
+.tableForDetaljer td:last-child:after {
+  display: none;
+}
+
+/* Fremhev radens høyde */
+.tableForDetaljer tbody tr {
+  height: 34px;
+}
+
+/* Responsiv tabell - små skjermer */
+@media (max-width: 768px) {
+  .tableForDetaljer {
+    font-size: 14px;
+  }
+}
+
+/* Oppsummering-boksen for å vise generell informasjon */
+.OppsummeringBox {
+  color: #ffffff;
+  margin-bottom: 20px;
+  font-family: "Georgia", serif;
+  border: 1px solid #000000;
+  background-color: #303030;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+}
+
+/* Tittelen for innholdet i oppsummeringen */
+
+.OppsummeringContentTitle {
+  margin: 0;
+  padding-bottom: 10px;
+  background-color: #000000;
+  padding: 10px;
+  font-weight: bold;
+}
+
+/* Ikon for avkrysningsboksen */
+.checkboxImage {
+  width: 16px;
+  height: 16px;
+  margin-right: 8px;
+}
+
+/* Innholdet som viser detaljer i oppsummeringen */
+.OppsummeringContent {
+  margin: 0;
+  font-size: 16px;
+  border-top: 1px solid #545454;
+  padding: 20px 20px;
+  line-height: 1.8;
+}
+
+/* Tabellens generelle layout */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  background-color: #202020;
+  color: white;
+}
+
+/* Overskriftsrad */
+.table thead th {
+  background-color: #000000;
+  color: white;
+  font-weight: bold;
+  padding: 14px 10px;
+  text-align: center;
+  border-bottom: 2px solid #636363;
+}
+
+/* Radelementer */
+.table tbody td {
+  padding: 10px;
+  border: 1px solid #000000;
+  text-align: center;
+}
+
+/* Radhover-effekt */
+.table tbody tr:hover {
+  background-color: #333333;
+}
+
+/* Justering for koordinatceller */
+#coordinatesTable td {
+  text-align: center;
+}
+
+/* Responsive justeringer (for mobil og små skjermer) */
+@media (max-width: 768px) {
+  .table {
+    font-size: 14px;
+  }
+
+  .table thead th,
+  .table tbody td {
+    padding: 8px;
+  }
+}

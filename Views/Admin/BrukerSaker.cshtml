@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h2>Sakene av @ViewBag.UserName</h2>
+<CENTER><h2>Sakene av @ViewBag.UserName</h2></CENTER>
 @if (Model == null || !Model.Any())
 {
     <p>No records found for the user.</p>
@@ -13,34 +13,129 @@
 else
 {
     <table class="tablesaksbehandler" id="saksbehandlermenu">
-        <thead>
-            <tr>
-                <th>Dato</th>
-                <th>Referansenummer</th>
-                <th>Sak Status</th>
-                <th>Kontroll Status</th>
-            </tr>
-        </thead>
-        <tbody id="saksbehandlersaks">
-            @foreach (var sak in Model)
-            {
+    <thead>
+        <tr>
+            <th>Dato</th>
+            <th>Referansenummer</th>
+            <th>Sak Status</th>
+            <th>Kontroll Status</th>
+            <th>Slette Sak</th>
 
-                <tr onclick="window.location.href='@Url.Action("Detaljer", "Admin", new { id = sak.Id })'" style="cursor: pointer;">
+        </tr>
+    </thead>
+    <tbody id="saksbehandlersaks">
+        @foreach (var sak in Model)
+            {
+                <tr onclick="window.location.href='@Url.Action("Detaljer", "Admin", new { id = sak.Id })'"
+                    style="cursor: pointer;">
                     <td>@sak.CreatedAt.ToShortDateString()</td>
                     <td>@sak.Id</td>
                     <td>@sak.Status</td>
                     <td>@sak.KontrolStatus</td>
-                    <td>
+                    <td
+                        style="display: flex; justify-content: center; align-items: center; height: 100%; vertical-align: middle; padding-top: 22px;">
+
+
 
                         <form asp-action="DeleteSak" asp-controller="Admin" method="post" style="display:inline;">
                             <input type="hidden" name="id" value="@sak.Id" />
-                            <input type="hidden" name="userId" value="@ViewBag.UserId" />
-                            <button type="submit" class="btn btn-danger" onclick="return confirm('Er du sikker på at du vil slette denne saken?');">Slette</button>
+                            <button type="submit" class="btn btn-danger"
+                                onclick="return confirm('Er du sikker på at du vil slette denne saken?');">Slette</button>
                         </form>
                     </td>
                 </tr>
             }
         </tbody>
     </table>
+
+
 }
 
+
+<style>
+
+
+/* Tablo genel düzeni */
+.tablesaksbehandler {
+    width: 100%;
+    border-collapse: separate; /* Hücre border'larının birleşmesini önlemek için */
+    border-spacing: 0 2px; /* Satırlar arasında 2px boşluk oluşturmak için */
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+}
+
+/* Tablodaki başlık hücreleri (th) */
+.tablesaksbehandler th {
+    background-color: #303030; /* Başlık arka plan rengi (koyu gri) */
+    color: white; /* Başlık yazı rengi beyaz */
+    padding: 10px;
+    text-align: center;
+    position: relative; /* Pseudo-element kullanabilmek için position */
+    height: 34px;;
+
+}
+
+/* Başlık hücrelerine kısa border eklemek için */
+.tablesaksbehandler th:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 1px; /* Kısa dikey border */
+    background-color: #505050; /* Border rengi */
+    height: 30%; /* Border hücre yüksekliğinin %60'ı olacak */
+    margin: auto 0;
+    text-align: center;
+
+}
+
+/* Son başlık hücresinde (th) sağdaki border olmayacak */
+.tablesaksbehandler th:last-child:after {
+    display: none; /* Son sütunda border olmaması için */
+}
+
+/* Tablodaki veri hücreleri (td) */
+.tablesaksbehandler td {
+    padding: 10px;
+    color: white; /* Yazı rengi beyaz */
+    background-color: #295A31; /* Satırların varsayılan arka plan rengi (yeşil tonları) */
+    border-right: none; /* Genel border kaldırıldı */
+    position: relative;
+    height: 34px; /* Satır yüksekliği 68px */
+    text-align: center;
+}
+
+/* Border'ları kısa ve hücre içinde göstermek için: */
+.tablesaksbehandler td:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 1px; /* Kısa dikey border */
+    background-color:  rgba(255, 255, 255, 0.5); /* Başlık yazı rengi %50 transparan beyaz */
+
+    height: 30%; /* Border hücre yüksekliğinin %60'ı olacak */
+    margin: auto 0;
+}
+
+/* Son sütundaki Vis sak linkleri için border olmadan ortalanmış stil */
+.tablesaksbehandler td:last-child:after {
+    display: none; /* Son sütunda border olmayacak */
+}
+
+/* Üzerine gelince (hover) satırların arka plan rengini biraz daha koyu yap */
+.tablesaksbehandler tbody tr:hover td {
+    background-color: #065813; /* Üzerine gelince satırların koyu yeşil rengi */
+}
+
+/* Satırların yüksekliği ve aralarındaki boşluğu belirginleştir */
+.tablesaksbehandler tbody tr {
+    height: 68px; /* Satır yüksekliği 68px */
+}
+
+
+</style>
+
+}

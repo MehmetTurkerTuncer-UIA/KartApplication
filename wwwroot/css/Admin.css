@@ -37,7 +37,7 @@ body {
     width: 100%;
     height: 60px;
     display: flex;
-    justify-content: flex-end; /* Butonları sağa yasla */
+    justify-content: space-between; /* Butonları iki tarafa yay */
     align-items: center;
     color: white;
     padding: 0 10px; /* Sol ve sağa padding ekleyerek içerikleri içe çekiyoruz */
@@ -69,6 +69,21 @@ body {
 
 a.menu-button.btn-logout i {
     font-size: 24px !important;
+    margin-right: 18px !important;
+}
+
+/* Hjem butonu */
+.btn-hjem {
+    display: flex;
+    align-items: center;
+    font-weight: bolder;
+    background-color: rgb(100, 199, 0);
+}
+
+
+/* Hjem butonu */
+.btn-hjem i {
+
     margin-right: 18px !important;
 }
 

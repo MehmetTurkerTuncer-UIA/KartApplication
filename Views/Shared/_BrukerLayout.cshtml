@@ -119,15 +119,8 @@
     var isKvitteringPage = currentStep == 4;
 }
 
-@* 
-                <div class="stepper">
-                    <span class="@(ViewData["CurrentStep"] as int? == 1 ? "active-step" : "")">1. Velg sted</span>
-                    <span class="@(ViewData["CurrentStep"] as int? == 2 ? "active-step" : "")">2. Beskrivelse</span>
-                    <span class="@(ViewData["CurrentStep"] as int? == 3 ? "active-step" : "")">3. Oppsummering</span>
-                    <span class="@(ViewData["CurrentStep"] as int? == 4 ? "active-step" : "")">4. Kvittering</span>
-                </div>
- *@
-
+      @if (ViewData["ShowStepper"] == null || (ViewData["ShowStepper"] is bool showStepper && showStepper))
+{
 
 <div class="stepper" style="display: flex; align-items: center;">
     <div class="step-header">
@@ -167,7 +160,7 @@
         </li>
     </ul>
 </div>
-
+}
 
 
 
