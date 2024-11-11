@@ -17,6 +17,8 @@ namespace KartApplication.Models
 
         public bool IsTemporary { get; set; } = true;  // Varsayılan olarak geçici kaydediliyor
 
+        public string? ReferenceNumber { get; set; }
+
         public string? KontrollerenDescription { get; set; }
 
         public string? SaksBehandlerDescription { get; set; }

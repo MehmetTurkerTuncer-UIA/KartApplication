@@ -102,11 +102,31 @@ namespace KartApplication.Controllers
             if (model == null)
                 return NotFound();
 
+            // Eğer referans numarası daha önce oluşturulmadıysa yeni bir tane üret
+            if (string.IsNullOrEmpty(model.ReferenceNumber))
+            {
+                model.ReferenceNumber = GenerateUniqueReferenceNumber();
+            }
+
             // Geçici işareti kaldırarak kalıcı hale getir
             model.IsTemporary = false;
             await _context.SaveChangesAsync();
 
             return RedirectToAction("Kvittering", new { id = model.Id });
+        }
+
+
+        // Benzersiz referans numarası oluşturma metodu
+        private string GenerateUniqueReferenceNumber()
+        {
+            var random = new Random();
+            string referenceNumber;
+            do
+            {
+                referenceNumber = random.Next(10000000, 99999999).ToString(); // 8 haneli numara üret
+            } while (_context.SakModels.Any(s => s.ReferenceNumber == referenceNumber)); // Eşsiz olduğundan emin ol
+
+            return referenceNumber;
         }
 
         // Kvittering sayfası - Onay sayfası ve özet bilgileri gösterme
