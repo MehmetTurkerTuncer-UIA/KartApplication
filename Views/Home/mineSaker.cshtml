@@ -33,7 +33,7 @@ else
                 <tr onclick="window.location.href='@Url.Action("Detaljer", "Home", new { id = sak.Id })'"
                     style="cursor: pointer;">
                     <td>@sak.CreatedAt.ToShortDateString()</td>
-                    <td>@sak.Id</td>
+                    <td>@sak.ReferenceNumber</td>
                     <td>@sak.Status</td>
                     <td>@sak.KontrolStatus</td>
                     <td

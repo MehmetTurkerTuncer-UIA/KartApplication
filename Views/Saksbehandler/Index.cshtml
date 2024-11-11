@@ -21,7 +21,7 @@
             <tr onclick="window.location.href='@Url.Action("Detaljer", "Saksbehandler", new { id = sakModel.Id })'" style="cursor: pointer;">
                 <td>@sakModel.CreatedAt.ToShortDateString()</td>
                  <td>@sakModel.Status</td>
-                <td>@sakModel.Id</td>
+                <td>@sakModel.ReferenceNumber</td>
                 <td>@sakModel.ArbeidStatus </td>
                 <td>@sakModel.KontrolStatus </td>
 

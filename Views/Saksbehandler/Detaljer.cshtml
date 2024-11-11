@@ -22,7 +22,7 @@
         <tr>
             <td>@Model.CreatedAt.ToShortDateString()</td>
             <td><span>@Regex.Replace(Model.Status.ToString(), "([a-z])([A-Z])", "$1 $2")</span></td>
-            <td>@Model.Id</td>
+            <td>@Model.ReferenceNumber</td>
             <td><span>@Regex.Replace(Model.ArbeidStatus.ToString(), "([a-z])([A-Z])", "$1 $2")</span></td>
            <td>@Regex.Replace(Model.KontrolStatus.ToString(), "([a-z])([A-Z])", "$1 $2")</td>
 
