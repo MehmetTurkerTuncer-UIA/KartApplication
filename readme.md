@@ -156,8 +156,8 @@ Kodeeksempelet nedenfor viser hvordan @if … brukes.
      
       [Authorize(Roles = UserRoles.Role_Bruker + "," + UserRoles.Role_Admin + "," + UserRoles.Role_Saksbehandler + "," + UserRoles.Role_Kontrolleren)]
      
-# Systemarkitektur
+# Systemarkitektur 
 
- <img src="~/images/systemarkitektur.png" alt="Diagram showing system architecture" width="400">
+![Diagram showing system architecture](wwwroot/images/Systemarkitektur.png) 
 
 
