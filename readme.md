@@ -2,7 +2,7 @@
 
 ## Gjennomgang av applikasjonen:
 
-
+  https://www.youtube.com/watch?v=XgG_Kx5fx0o
 
 ## Hvordan bruke apllikasjonen 
 
