@@ -17,7 +17,7 @@ public class BrukerController : Controller
         return View();
     }
 
-    // POST: Kullanıcıdan gelen GeoJson, adres ve açıklamayı işleme al
+    // POST: Behandle GeoJson, adresse og beskrivelse fra bruker
     [HttpPost]
     public IActionResult OpprettSak(string geoJson, string description, string address)
     {
