@@ -69,7 +69,7 @@ public class BrukerController : Controller
     {
         if (lastChange != null && lastChange.Id == id)
         {
-            return View(lastChange); // lastChange dinamik verilerle doluysa göster
+            return View(lastChange); // Vis om lastChange er full av dynamiske data
         }
 
         return NotFound(); // Eğer lastChange bulunamazsa hata göster
