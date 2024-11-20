@@ -15,21 +15,21 @@ namespace KartApplication.Controllers
             return View();
         }
 
-        // POST: Kullanıcıdan gelen GeoJson, adres ve açıklamayı işleme al
+        // POST: Behandle GeoJson, adresse og beskrivelse fra bruker
         [HttpPost]
         public IActionResult Index(string geoJson, string description, string address)
         {
-            // Yeni 8 haneli numeric ID oluştur
+            // Opprett ny 8-sifret numerisk ID
             string newId = IdGenerator.GenerateNumericIdFromGuid();
 
-            // AreaChange nesnesini doldur
+            // Fyll ut AreaChange-objekt
             lastChange = new AreaChange
             {
                 Id = newId,
                 GeoJson = geoJson,
                 Description = description,
                 Address = address,
-                Dato = DateTime.Now // Tarih burada atanıyor
+                Dato = DateTime.Now // Dato er oppgitt her
             };
 
             // Kayıt sonrası beskrivelse sayfasına yönlendir
