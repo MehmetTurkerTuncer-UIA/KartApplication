@@ -32,7 +32,7 @@ namespace KartApplication.Controllers
 
             foreach (var user in users)
             {
-                // Kullanıcının rollerini al
+                // Få brukerens roller
                 var roles = await _userManager.GetRolesAsync(user);
                 var currentRole = roles.FirstOrDefault() ?? "Bruker"; // Varsayılan olarak "Bruker" atanabilir
 
