@@ -78,7 +78,7 @@ namespace KartApplication.Controllers
                 return NotFound();
             }
 
-            // Kullanıcıya ait Sak kayıtlarını kontrol et
+            // Sjekk brukerens Sak-poster
             var hasSakRecords = await _context.SakModels
                 .AnyAsync(s => s.UserId == userId);
 
