@@ -87,7 +87,7 @@ namespace KartApplication.Controllers
                 // Hvis det er lagrede poster, send varselmeldingen med ViewBag
                 ViewBag.ErrorMessage = "Det er Sak-poster for denne brukeren. Slett først Sak-postene.";
 
-                // Kullanıcı ve roller listesini yeniden yüklemek için Index görünümünü hazırlıyoruz
+                // Vi forbereder indeksvisningen for å laste inn listen over brukere og roller på nytt
                 var users = _userManager.Users.ToList();
                 var userListWithRoles = new List<ApplicationUserViewModel>();
 
