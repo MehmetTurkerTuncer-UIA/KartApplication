@@ -122,7 +122,7 @@ namespace KartApplication.Controllers
 
         public async Task<IActionResult> BrukerSaker(string userId)
         {
-            //UserManager ile kullanıcıyı getirin
+            //Få bruker med UserManager
             var user = await _userManager.FindByIdAsync(userId);
             if (user == null)
             {
