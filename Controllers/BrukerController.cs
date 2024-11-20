@@ -63,7 +63,7 @@ public class BrukerController : Controller
         return View(lastChange);
     }
 
-    // GET: Bruker/Kvittering - Referans numarasını kullanarak kaydı göster
+    // Get: Bruker/Kvittering - Vis post ved bruk av referansenummer
     [HttpGet]
     public IActionResult Kvittering(string id)
     {
