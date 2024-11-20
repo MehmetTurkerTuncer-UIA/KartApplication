@@ -139,7 +139,7 @@ namespace KartApplication.Controllers
                 .ToListAsync();
 
 
-           // Sak listesiyle birlikte sayfayı döndürün
+           // Roter siden med skjullisten
            // return View(saker);
 
             // Sak listesiyle birlikte "BrukerSaker" görünümünü döndürün
