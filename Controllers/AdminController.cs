@@ -111,8 +111,7 @@ namespace KartApplication.Controllers
 
                 ViewBag.RoleOptions = new SelectList(await _roleManager.Roles.Select(r => r.Name).ToListAsync());
 
-                // 5 saniye bekleyip Index görünümüne dönüyoruz
-                return View("Index", userListWithRoles);
+            // Vi venter 5 sekunder og går tilbake til indeksvisningen                return View("Index", userListWithRoles);
             }
 
             // Sak kaydı yoksa kullanıcıyı sil
