@@ -84,7 +84,7 @@ namespace KartApplication.Controllers
 
             if (hasSakRecords)
             {
-                // Sak kayıtları varsa uyarı mesajını ViewBag ile gönder
+                // Hvis det er lagrede poster, send varselmeldingen med ViewBag
                 ViewBag.ErrorMessage = "Det er Sak-poster for denne brukeren. Slett først Sak-postene.";
 
                 // Kullanıcı ve roller listesini yeniden yüklemek için Index görünümünü hazırlıyoruz
