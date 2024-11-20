@@ -10,7 +10,7 @@ public class BrukerController : Controller
 
     private static AreaChange lastChange = null;
 
-    // GET: Bruker/Index formunu görüntüle
+    // GET: Se Bruker/Indeksskjema
     [HttpGet]
     public IActionResult OpprettSak()
     {
