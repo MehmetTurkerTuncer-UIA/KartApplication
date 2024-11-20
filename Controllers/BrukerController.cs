@@ -75,7 +75,7 @@ public class BrukerController : Controller
         return NotFound(); // Vis feil hvis lastChange ikke ble funnet
     }
 
-    // POST: Bruker/Kvittering sayfasına yönlendir
+    // POST: Omdirigere til Bruker/Kvittering-siden
     [HttpPost]
     public IActionResult Kvittering()
     {
