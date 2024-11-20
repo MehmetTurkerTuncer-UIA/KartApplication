@@ -15,7 +15,7 @@ namespace KartApplication.Controllers
             return View();
         }
 
-        // POST: Kullanıcıdan gelen GeoJson, adres ve açıklamayı işleme al
+        // POST: Behandle GeoJson, adresse og beskrivelse fra bruker
         [HttpPost]
         public IActionResult Index(string geoJson, string description, string address)
         {
