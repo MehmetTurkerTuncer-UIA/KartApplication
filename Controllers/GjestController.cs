@@ -36,7 +36,7 @@ namespace KartApplication.Controllers
             return RedirectToAction("Beskrivelse");
         }
 
-        // GET: Gjest/Beskrivelse sayfasını göster
+        // GET: Vis Gjest/Beskrivelse side
         [HttpGet]
         public IActionResult Beskrivelse()
         {
