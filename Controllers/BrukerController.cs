@@ -45,7 +45,7 @@ public class BrukerController : Controller
         return View(lastChange);
     }
 
-    // POST: Beskrivelse sayfasındaki açıklamayı işleyip Oversikt'e gönder
+    // POST: Behandle beskrivelsen på Beskrivelse-siden og send den til Oversikt
     [HttpPost]
     public IActionResult Beskrivelse(string description)
     {
