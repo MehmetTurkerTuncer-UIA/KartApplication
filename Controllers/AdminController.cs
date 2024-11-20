@@ -126,7 +126,7 @@ namespace KartApplication.Controllers
             var user = await _userManager.FindByIdAsync(userId);
             if (user == null)
             {
-                return NotFound(); // Kullanıcı bulunamazsa hata döndür
+                return NotFound(); // Returner feil hvis brukeren ikke ble funnet
             }
 
             // Kullanıcının Sak listesini DbContext üzerinden getirin
