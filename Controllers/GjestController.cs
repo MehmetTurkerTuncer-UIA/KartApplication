@@ -22,7 +22,7 @@ namespace KartApplication.Controllers
             // Opprett ny 8-sifret numerisk ID
             string newId = IdGenerator.GenerateNumericIdFromGuid();
 
-            // AreaChange nesnesini doldur
+            // Fyll ut AreaChange-objekt
             lastChange = new AreaChange
             {
                 Id = newId,
