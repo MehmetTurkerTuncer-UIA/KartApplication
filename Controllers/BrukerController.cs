@@ -38,7 +38,7 @@ public class BrukerController : Controller
         return RedirectToAction("Beskrivelse");
     }
 
-    // GET: Bruker/Beskrivelse sayfasını göster
+    // GET: Vis Bruker/Beskrivelse side
     [HttpGet]
     public IActionResult Beskrivelse()
     {
