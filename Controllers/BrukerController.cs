@@ -56,7 +56,7 @@ public class BrukerController : Controller
         return RedirectToAction("Oversikt");
     }
 
-    // GET: Bruker/Oversikt sayfasını görüntüle
+    // GET: Se Bruker/Oversikt-siden
     [HttpGet]
     public IActionResult Oversikt()
     {
