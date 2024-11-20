@@ -142,7 +142,7 @@ namespace KartApplication.Controllers
            // Roter siden med skjullisten
            // return View(saker);
 
-            // Sak listesiyle birlikte "BrukerSaker" görünümünü döndürün
+            // Returvisning "BrukerSaker" med liste over Saks
             return View("BrukerSaker", saker);
         }
 
