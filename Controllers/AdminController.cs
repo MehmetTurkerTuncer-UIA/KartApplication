@@ -160,7 +160,7 @@ namespace KartApplication.Controllers
             var sak = await _context.SakModels.FindAsync(id);
             if (sak == null)
             {
-                return NotFound(); // Sak bulunamazsa hata döndür
+                return NotFound(); // Returner feil hvis sak ikke ble funnet
             }
 
             _context.SakModels.Remove(sak);
