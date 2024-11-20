@@ -84,6 +84,6 @@ public class BrukerController : Controller
             return View(lastChange); // Vis lagret referanse
         }
 
-        return NotFound(); // Eğer lastChange boşsa hata göster
+        return NotFound(); // Vis feil hvis lastChange er tom
     }
 }
