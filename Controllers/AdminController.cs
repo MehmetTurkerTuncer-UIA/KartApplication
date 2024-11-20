@@ -114,7 +114,7 @@ namespace KartApplication.Controllers
             // Vi venter 5 sekunder og går tilbake til indeksvisningen                return View("Index", userListWithRoles);
             }
 
-            // Sak kaydı yoksa kullanıcıyı sil
+            // Slett brukeren hvis det ikke er noen lagringspost
             await _userManager.DeleteAsync(user);
             return RedirectToAction("Index");
         }
