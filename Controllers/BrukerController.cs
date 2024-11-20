@@ -31,7 +31,7 @@ public class BrukerController : Controller
             GeoJson = geoJson,
             Description = description,
             Address = address,
-            Dato = DateTime.Now // Tarih burada atanıyor
+            Dato = DateTime.Now // Dato er oppgitt her
         };
 
         // Kayıt sonrası beskrivelse sayfasına yönlendir
