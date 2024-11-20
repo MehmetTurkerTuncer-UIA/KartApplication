@@ -32,7 +32,7 @@ namespace KartApplication.Controllers
                 Dato = DateTime.Now // Dato er oppgitt her
             };
 
-            // Kayıt sonrası beskrivelse sayfasına yönlendir
+            // Omdiriger til beskrivelsessiden etter registrering
             return RedirectToAction("Beskrivelse");
         }
 
