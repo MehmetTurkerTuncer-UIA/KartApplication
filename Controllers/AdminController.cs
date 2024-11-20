@@ -166,7 +166,7 @@ namespace KartApplication.Controllers
             _context.SakModels.Remove(sak);
             await _context.SaveChangesAsync();
 
-            // Sak silindikten sonra aynı kullanıcıya ait Sak listesini göstermek için BrukerSaker'a yönlendiriyoruz
+            // Etter at Sak er slettet, omdirigerer vi til BrukerSaker for å vise Sak-listen for samme bruker
             return RedirectToAction("BrukerSaker", new { userId = userId });
         }
 
