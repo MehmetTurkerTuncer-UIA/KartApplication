@@ -72,7 +72,7 @@ public class BrukerController : Controller
             return View(lastChange); // Vis om lastChange er full av dynamiske data
         }
 
-        return NotFound(); // Eğer lastChange bulunamazsa hata göster
+        return NotFound(); // Vis feil hvis lastChange ikke ble funnet
     }
 
     // POST: Bruker/Kvittering sayfasına yönlendir
