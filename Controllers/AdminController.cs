@@ -129,7 +129,7 @@ namespace KartApplication.Controllers
                 return NotFound(); // Returner feil hvis brukeren ikke ble funnet
             }
 
-            // Kullanıcının Sak listesini DbContext üzerinden getirin
+            // Hent brukerens Sak-liste via DbContext
 
             ViewBag.UserName = user.Name;
             ViewBag.UserId = user.Id;
