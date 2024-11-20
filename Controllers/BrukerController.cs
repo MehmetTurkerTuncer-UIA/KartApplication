@@ -81,7 +81,7 @@ public class BrukerController : Controller
     {
         if (lastChange != null)
         {
-            return View(lastChange); // Kaydedilen başvuruyu göster
+            return View(lastChange); // Vis lagret referanse
         }
 
         return NotFound(); // Eğer lastChange boşsa hata göster
