@@ -49,7 +49,7 @@ namespace KartApplication.Controllers
                 });
             }
 
-            // Rol seçeneklerini ViewBag ile gönderiyoruz
+            // Vi sender rollevalg via ViewBag
             ViewBag.RoleOptions = new SelectList(await _roleManager.Roles.Select(r => r.Name).ToListAsync());
 
             return View(userListWithRoles);
