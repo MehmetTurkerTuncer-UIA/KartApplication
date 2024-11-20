@@ -19,7 +19,7 @@ namespace KartApplication.Controllers
         [HttpPost]
         public IActionResult Index(string geoJson, string description, string address)
         {
-            // Yeni 8 haneli numeric ID oluştur
+            // Opprett ny 8-sifret numerisk ID
             string newId = IdGenerator.GenerateNumericIdFromGuid();
 
             // AreaChange nesnesini doldur
