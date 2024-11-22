@@ -1,88 +1,71 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using KartApplication.Models;
 using System;
+using System.Threading.Tasks;
 
 namespace KartApplication.Controllers
 {
     public class GjestController : Controller
     {
-        private static AreaChange lastChange = null;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
 
-        // GET: Gjest/Index
+        public GjestController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+        {
+            _userManager = userManager;
+            _signInManager = signInManager;
+        }
+
+        // Kullanıcı oluştur ve Gjest Index'e yönlendir
+        [HttpPost]
+        public async Task<IActionResult> CreateGjest()
+        {
+            var uniqueId = Guid.NewGuid().ToString("N");
+            var email = $"gjest_{uniqueId}@gjest.com";
+            var username = $"Gjest_{uniqueId}";
+
+            var user = new ApplicationUser
+            {
+                UserName = username,
+                Email = email,
+                EmailConfirmed = true
+            };
+
+            var result = await _userManager.CreateAsync(user);
+            if (result.Succeeded)
+            {
+                await _userManager.AddToRoleAsync(user, "Gjest");
+                await _signInManager.SignInAsync(user, isPersistent: false);
+                return RedirectToAction("Index", "Gjest");
+            }
+
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError("", error.Description);
+            }
+
+            return View("Error");
+        }
+
+        // Gjest Index sayfası
         [HttpGet]
         public IActionResult Index()
         {
             return View();
         }
 
-        // POST: Kullanıcıdan gelen GeoJson, adres ve açıklamayı işleme al
+        // Gjest Beskrivelse sayfası
         [HttpPost]
-        public IActionResult Index(string geoJson, string description, string address)
+        public IActionResult Beskrivelse(SakModel model)
         {
-            // Yeni 8 haneli numeric ID oluştur
-            string newId = IdGenerator.GenerateNumericIdFromGuid();
-
-            // AreaChange nesnesini doldur
-            lastChange = new AreaChange
+            if (ModelState.IsValid)
             {
-                Id = newId,
-                GeoJson = geoJson,
-                Description = description,
-                Address = address,
-                Dato = DateTime.Now // Tarih burada atanıyor
-            };
-
-            // Kayıt sonrası beskrivelse sayfasına yönlendir
-            return RedirectToAction("Beskrivelse");
-        }
-
-        // GET: Gjest/Beskrivelse sayfasını göster
-        [HttpGet]
-        public IActionResult Beskrivelse()
-        {
-            return View(lastChange);
-        }
-
-        // POST: Beskrivelse sayfasındaki açıklamayı işleyip Oversikt'e gönder
-        [HttpPost]
-        public IActionResult Beskrivelse(string description)
-        {
-            if (lastChange != null)
-            {
-                lastChange.Description = description;
-            }
-            return RedirectToAction("Oversikt");
-        }
-
-        // GET: Gjest/Oversikt sayfasını görüntüle
-        [HttpGet]
-        public IActionResult Oversikt()
-        {
-            return View(lastChange);
-        }
-
-        // GET: Gjest/Kvittering - Referans numarasını kullanarak kaydı göster
-        [HttpGet]
-        public IActionResult Kvittering(string id)
-        {
-            if (lastChange != null && lastChange.Id == id)
-            {
-                return View(lastChange); // lastChange dinamik verilerle doluysa göster
+                // Verileri işleme alabilir ve saklayabilirsiniz
+                return RedirectToAction("Beskrivelse");
             }
 
-            return NotFound(); // Eğer lastChange bulunamazsa hata göster
-        }
-
-        // POST: Gjest/Kvittering sayfasına yönlendir
-        [HttpPost]
-        public IActionResult Kvittering()
-        {
-            if (lastChange != null)
-            {
-                return View(lastChange); // Kaydedilen başvuruyu göster
-            }
-
-            return NotFound(); // Eğer lastChange boşsa hata göster
+            return View("Index", model);
         }
     }
 }
