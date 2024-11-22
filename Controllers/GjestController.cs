@@ -54,7 +54,7 @@ namespace KartApplication.Controllers
             return RedirectToAction("Oversikt");
         }
 
-        // GET: Gjest/Oversikt sayfasını görüntüle
+        // GET: Se Gjest/Oversikt-siden
         [HttpGet]
         public IActionResult Oversikt()
         {
