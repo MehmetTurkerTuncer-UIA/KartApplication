@@ -32,7 +32,7 @@ namespace KartApplication.Controllers
 
             foreach (var user in users)
             {
-                // Kullanıcının rollerini al
+                // Få brukerens roller
                 var roles = await _userManager.GetRolesAsync(user);
                 var currentRole = roles.FirstOrDefault() ?? "Bruker"; // Varsayılan olarak "Bruker" atanabilir
 
@@ -49,7 +49,7 @@ namespace KartApplication.Controllers
                 });
             }
 
-            // Rol seçeneklerini ViewBag ile gönderiyoruz
+            // Vi sender rollevalg via ViewBag
             ViewBag.RoleOptions = new SelectList(await _roleManager.Roles.Select(r => r.Name).ToListAsync());
 
             return View(userListWithRoles);
@@ -78,16 +78,16 @@ namespace KartApplication.Controllers
                 return NotFound();
             }
 
-            // Kullanıcıya ait Sak kayıtlarını kontrol et
+            // Sjekk brukerens Sak-poster
             var hasSakRecords = await _context.SakModels
                 .AnyAsync(s => s.UserId == userId);
 
             if (hasSakRecords)
             {
-                // Sak kayıtları varsa uyarı mesajını ViewBag ile gönder
+                // Hvis det er lagrede poster, send varselmeldingen med ViewBag
                 ViewBag.ErrorMessage = "Det er Sak-poster for denne brukeren. Slett først Sak-postene.";
 
-                // Kullanıcı ve roller listesini yeniden yüklemek için Index görünümünü hazırlıyoruz
+                // Vi forbereder indeksvisningen for å laste inn listen over brukere og roller på nytt
                 var users = _userManager.Users.ToList();
                 var userListWithRoles = new List<ApplicationUserViewModel>();
 
@@ -111,11 +111,10 @@ namespace KartApplication.Controllers
 
                 ViewBag.RoleOptions = new SelectList(await _roleManager.Roles.Select(r => r.Name).ToListAsync());
 
-                // 5 saniye bekleyip Index görünümüne dönüyoruz
-                return View("Index", userListWithRoles);
+            // Vi venter 5 sekunder og går tilbake til indeksvisningen                return View("Index", userListWithRoles);
             }
 
-            // Sak kaydı yoksa kullanıcıyı sil
+            // Slett brukeren hvis det ikke er noen lagringspost
             await _userManager.DeleteAsync(user);
             return RedirectToAction("Index");
         }
@@ -123,14 +122,14 @@ namespace KartApplication.Controllers
 
         public async Task<IActionResult> BrukerSaker(string userId)
         {
-            //UserManager ile kullanıcıyı getirin
+            //Få bruker med UserManager
             var user = await _userManager.FindByIdAsync(userId);
             if (user == null)
             {
-                return NotFound(); // Kullanıcı bulunamazsa hata döndür
+                return NotFound(); // Returner feil hvis brukeren ikke ble funnet
             }
 
-            // Kullanıcının Sak listesini DbContext üzerinden getirin
+            // Hent brukerens Sak-liste via DbContext
 
             ViewBag.UserName = user.Name;
             ViewBag.UserId = user.Id;
@@ -140,10 +139,10 @@ namespace KartApplication.Controllers
                 .ToListAsync();
 
 
-           // Sak listesiyle birlikte sayfayı döndürün
+           // Roter siden med skjullisten
            // return View(saker);
 
-            // Sak listesiyle birlikte "BrukerSaker" görünümünü döndürün
+            // Returvisning "BrukerSaker" med liste over Saks
             return View("BrukerSaker", saker);
         }
 
@@ -161,13 +160,13 @@ namespace KartApplication.Controllers
             var sak = await _context.SakModels.FindAsync(id);
             if (sak == null)
             {
-                return NotFound(); // Sak bulunamazsa hata döndür
+                return NotFound(); // Returner feil hvis sak ikke ble funnet
             }
 
             _context.SakModels.Remove(sak);
             await _context.SaveChangesAsync();
 
-            // Sak silindikten sonra aynı kullanıcıya ait Sak listesini göstermek için BrukerSaker'a yönlendiriyoruz
+            // Etter at Sak er slettet, omdirigerer vi til BrukerSaker for å vise Sak-listen for samme bruker
             return RedirectToAction("BrukerSaker", new { userId = userId });
         }
 
