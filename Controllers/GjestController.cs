@@ -70,7 +70,7 @@ namespace KartApplication.Controllers
                 return View(lastChange); // Hvis lastChange inneholder dynamiske data, vis det.
             }
 
-            return NotFound(); // Eğer lastChange bulunamazsa hata göster
+            return NotFound(); // Hvis lastChange ikke finnes, vis en feil.
         }
 
         // POST: Gjest/Kvittering sayfasına yönlendir
