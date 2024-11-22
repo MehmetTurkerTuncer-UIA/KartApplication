@@ -10,5 +10,6 @@
 
         public const string Role_Bruker = "Bruker";
 
+        public const string Role_Gjest = "Gjest";
     }
 }

@@ -1,12 +1,15 @@
-﻿@model KartApplication.Models.AreaChange
+﻿@model KartApplication.Models.SakModel
 @{
     ViewData["Title"] = "Oversikt";
-    Layout = "~/Views/Shared/_GjestLayout.cshtml";
+    Layout = "~/Views/Shared/_BrukerLayout.cshtml"; 
+
+    ViewData["CurrentStep"] = 3;
 }
+
+
+
 <br>
-<center><h2>Oppsummering</h2></center>
-
-
+<center><h2>Oversikt</h2></center>
 
 @if (!string.IsNullOrEmpty(Model.Description))
 {
@@ -15,31 +18,30 @@
 
     <div class="OppsummeringContentTitle">    <img src="~/images/check-mark.png" alt="Checkbox" class="checkboxImage"> <!-- Resim yolu güncellendi -->
  Beskrivelse: </div>
-        <p class="OppsummeringContent"> @Model.Description</p>
-    </div>
+
+    <p class="OppsummeringContent"> @Model.Description</p> </div>
 
 
 
 
 
-
-
+       
+   
 }
 @if (!string.IsNullOrEmpty(Model.Address))
 {
-    <div class="OppsummeringBox">
-        <div class="OppsummeringContentTitle"> <img src="~/images/check-mark.png" alt="Checkbox" class="checkboxImage"> <!-- Resim yolu güncellendi --> Adresse: </div>
-
-        <p class="OppsummeringContent"> @Model.Address</p>
-    </div>
+     <div class="OppsummeringBox">    
+    <div class="OppsummeringContentTitle"> <img src="~/images/check-mark.png" alt="Checkbox" class="checkboxImage"> <!-- Resim yolu güncellendi --> Adresse: </div>
+     
+         <p class="OppsummeringContent"> @Model.Address</p> </div>
 
 
 }
 
 <!-- Harita konteyneri -->
-<div class="OppsummeringBox">
+ <div class="OppsummeringBox">    
     <div class="OppsummeringContentTitle"> <img src="~/images/check-mark.png" alt="Checkbox" class="checkboxImage"> <!-- Resim yolu güncellendi --> Kart: </div>
-    <div id="map" style="height: 400px; width: 100%;"></div>
+<div id="map" style="height: 400px; width: 100%;"></div>
 </div>
 <!-- Koordinatlar tablosu -->
 <table class="table table-bordered">
@@ -57,9 +59,10 @@
 
 
 <!-- Send inn butonu -->
-<form asp-action="Kvittering" method="post">
+<form asp-controller="Home" asp-action="SubmitOversikt" method="post">
     <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px;">
-        <button type="button" class="btn" style="background-color: gray; color: white; padding: 10px 20px; border-radius: 5px; cursor: pointer;" onclick="window.location.href='@Url.Action("Beskrivelse", "Gjest")'">Tilbake</button>
+        <input type="hidden" asp-for="Id" />
+        <button type="button" class="btn" style="background-color: gray; color: white; padding: 10px 20px; border-radius: 5px; cursor: pointer;" onclick="window.location.href='@Url.Action("Beskrivelse", "Bruker")'">Tilbake</button> 
         <button type="submit" class="btn btn-primary" style="background-color: #4CAF50; color: white; padding: 10px 20px; border-radius: 5px; border: none; cursor: pointer;">Send inn</button>
     </div>
 </form>
@@ -71,110 +74,12 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
     <script>
-        // GeoJSON verisini modelden alıyoruz
-        var geoJsonData = @Html.Raw(Model.GeoJson);
-        var selectedMapType = '@Model.SelectedMapType'; // Seçilen harita tipi
+    var geoJsonData = @Html.Raw(Model.GeoJson);
+    var selectedMapType = '@Model.SelectedMapType';
+</script>
+        <script src="/js/geoJsonViewer.js"></script>
 
-        // Harita katmanlarını tanımla
-        var fargekart = L.tileLayer('https://cache.kartverket.no/v1/wmts/1.0.0/topo/default/webmercator/{z}/{y}/{x}.png', {
-            maxZoom: 18,
-            attribution: '&copy; <a href="https://kartverket.no/">Kartverket</a>'
-        });
 
-       var gratonekart = L.tileLayer('https://cache.kartverket.no/v1/wmts/1.0.0/topograatone/default/webmercator/{z}/{y}/{x}.png', {
-        maxZoom: 18,
-        attribution: '&copy; <a href="https://kartverket.no/">Kartverket</a>'
-    });
 
-    var turkart = L.tileLayer('https://cache.kartverket.no/v1/wmts/1.0.0/toporaster/default/webmercator/{z}/{y}/{x}.png', {
-        maxZoom: 18,
-        attribution: '&copy; <a href="https://kartverket.no/">Kartverket</a>'
-    });
-
-    var sjokart = L.tileLayer('https://cache.kartverket.no/v1/wmts/1.0.0/sjokartraster/default/webmercator/{z}/{y}/{x}.png', {
-        maxZoom: 18,
-        attribution: '&copy; <a href="https://kartverket.no/">Kartverket</a>'
-    });
-
-            // Seçilen harita katmanını belirle
-        var selectedLayer;
-        switch (selectedMapType) {
-            case 'gratonekart':
-                selectedLayer = gratonekart;
-                break;
-            case 'turkart':
-                selectedLayer = turkart;
-                break;
-            case 'sjokart':
-                selectedLayer = sjokart;
-                break;
-            default:
-                selectedLayer = fargekart;
-        }
-
-            // Haritayı başlat ve seçilen harita katmanını ekle
-        var map = L.map('map').setView([58.1467, 7.9956], 15);
-        selectedLayer.addTo(map);
-
-        // Koordinatları tabloya ekleme
-        var tbody = document.getElementById('coordinatesTableBody');
-        var counter = 1;
-
-        // GeoJSON verisini haritaya ekle ve pop-up'ları ayarla
-        if (geoJsonData && geoJsonData.features) {
-            var layer = L.geoJSON(geoJsonData, {
-                onEachFeature: function (feature, layer) {
-                    if (feature.geometry.type === 'Point') {
-                        var lat = feature.geometry.coordinates[1];
-                        var lng = feature.geometry.coordinates[0];
-
-                        // Tabloda koordinatları göster
-                        var row = `<tr><td>${counter}</td><td>${lat}</td><td>${lng}</td></tr>`;
-                        tbody.innerHTML += row;
-                        counter++;
-
-                        // Pop-up ile koordinat bilgilerini göster
-                        layer.bindPopup("Koordinater: Br. " + lat + ", Lgr. " + lng).openPopup();
-                    } 
-                    else if (feature.geometry.type === 'Polygon') {
-                        var coords = feature.geometry.coordinates[0]; // İlk halka
-                        coords.forEach(function(coord, index) {
-                            var lat = coord[1];
-                            var lng = coord[0];
-
-                                // Tabloda koordinatları göster
-                            var row = `<tr><td>${counter}</td><td>${lat}</td><td>${lng}</td></tr>`;
-                            tbody.innerHTML += row;
-                            counter++;
-
-                            // Her köşe noktası için pop-up ekle
-                            var marker = L.marker([lat, lng]).addTo(map);
-                            marker.bindPopup("Koordinater: Br. " + lat + ", Lgr. " + lng);
-                        });
-                    } 
-                    else if (feature.geometry.type === 'LineString') {
-                        feature.geometry.coordinates.forEach(function(coord, index) {
-                            var lat = coord[1];
-                            var lng = coord[0];
-
-                            // Tabloda koordinatları göster
-                            var row = `<tr><td>${counter}</td><td>${lat}</td><td>${lng}</td></tr>`;
-                            tbody.innerHTML += row;
-                            counter++;
-
-                            // Her nokta için pop-up ekle
-                            var marker = L.marker([lat, lng]).addTo(map);
-                            marker.bindPopup("Koordinater: Br. " + lat + ", Lgr. " + lng);
-                        });
-                    }
-                }
-            }).addTo(map);
-
-            // Harita görünümünü katmanlara göre ayarla
-            map.fitBounds(layer.getBounds());
-        } else {
-            // GeoJSON verisi yoksa bir uyarı mesajı göster
-            alert('Geçerli GeoJSON verisi bulunamadı.');
-        }
-    </script>
-} 
+ 
+}
