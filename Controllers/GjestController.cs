@@ -82,7 +82,7 @@ namespace KartApplication.Controllers
                 return View(lastChange); // Vis den lagrede søknaden.
             }
 
-            return NotFound(); // Eğer lastChange boşsa hata göster
+            return NotFound(); // Hvis lastChange er tom, vis en feil.
         }
     }
 }
