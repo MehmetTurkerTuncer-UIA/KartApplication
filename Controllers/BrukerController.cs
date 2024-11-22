@@ -10,42 +10,42 @@ public class BrukerController : Controller
 
     private static AreaChange lastChange = null;
 
-    // GET: Bruker/Index formunu görüntüle
+    // GET: Se Bruker/Indeksskjema
     [HttpGet]
     public IActionResult OpprettSak()
     {
         return View();
     }
 
-    // POST: Kullanıcıdan gelen GeoJson, adres ve açıklamayı işleme al
+    // POST: Behandle GeoJson, adresse og beskrivelse fra bruker
     [HttpPost]
     public IActionResult OpprettSak(string geoJson, string description, string address)
     {
-        // Yeni 8 haneli numeric ID oluştur
+        // Opprett ny 8-sifret numerisk ID
         string newId = IdGenerator.GenerateNumericIdFromGuid();
 
-        // AreaChange nesnesini doldur
+        // Fyll ut AreaChange-objekt
         lastChange = new AreaChange
         {
             Id = newId,
             GeoJson = geoJson,
             Description = description,
             Address = address,
-            Dato = DateTime.Now // Tarih burada atanıyor
+            Dato = DateTime.Now // Dato er oppgitt her
         };
 
-        // Kayıt sonrası beskrivelse sayfasına yönlendir
+        // Omdiriger til beskrivelsessiden etter registrering
         return RedirectToAction("Beskrivelse");
     }
 
-    // GET: Bruker/Beskrivelse sayfasını göster
+    // GET: Vis Bruker/Beskrivelse side
     [HttpGet]
     public IActionResult Beskrivelse()
     {
         return View(lastChange);
     }
 
-    // POST: Beskrivelse sayfasındaki açıklamayı işleyip Oversikt'e gönder
+    // POST: Behandle beskrivelsen på Beskrivelse-siden og send den til Oversikt
     [HttpPost]
     public IActionResult Beskrivelse(string description)
     {
@@ -56,34 +56,34 @@ public class BrukerController : Controller
         return RedirectToAction("Oversikt");
     }
 
-    // GET: Bruker/Oversikt sayfasını görüntüle
+    // GET: Se Bruker/Oversikt-siden
     [HttpGet]
     public IActionResult Oversikt()
     {
         return View(lastChange);
     }
 
-    // GET: Bruker/Kvittering - Referans numarasını kullanarak kaydı göster
+    // Get: Bruker/Kvittering - Vis post ved bruk av referansenummer
     [HttpGet]
     public IActionResult Kvittering(string id)
     {
         if (lastChange != null && lastChange.Id == id)
         {
-            return View(lastChange); // lastChange dinamik verilerle doluysa göster
+            return View(lastChange); // Vis om lastChange er full av dynamiske data
         }
 
-        return NotFound(); // Eğer lastChange bulunamazsa hata göster
+        return NotFound(); // Vis feil hvis lastChange ikke ble funnet
     }
 
-    // POST: Bruker/Kvittering sayfasına yönlendir
+    // POST: Omdirigere til Bruker/Kvittering-siden
     [HttpPost]
     public IActionResult Kvittering()
     {
         if (lastChange != null)
         {
-            return View(lastChange); // Kaydedilen başvuruyu göster
+            return View(lastChange); // Vis lagret referanse
         }
 
-        return NotFound(); // Eğer lastChange boşsa hata göster
+        return NotFound(); // Vis feil hvis lastChange er tom
     }
 }

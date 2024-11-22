@@ -2,7 +2,7 @@
 
 ## Gjennomgang av applikasjonen:
 
-
+  https://www.youtube.com/watch?v=XgG_Kx5fx0o
 
 ## Hvordan bruke apllikasjonen 
 
@@ -118,3 +118,48 @@ For å gå inn applkasjonmappen cd KartApplication
        - Skrive en beskrivelse.
        - Send inn saken.
        - Skriv ut kvittering.
+# Autentisering 
+  Prosjektet har et autentiseringssystem som sikrer at brukeren kun kan se knappene som er relevante for dem. 
+Prosjektet bruker tabellene AspNetRoll og AspNetUserRoll. I rolletabellen er rollene Admin, Saksbehandler, Kontrolleren og Bruker definert. Disse rollene brukes til å kontrollere hvilke knapper hver bruker har tilgang til.
+Kodeeksempelet nedenfor viser hvordan @if … brukes.
+        
+                @if (User.IsInRole(UserRoles.Role_Admin)) {
+                <li><a href="/Admin/index" class="menu-item"><i class="bi bi-folder2"></i> Admin </a></li>
+                     }
+                            @if (User.IsInRole(UserRoles.Role_Saksbehandler))
+                            {
+                              
+                            <li><a href="/Saksbehandler/index" class="menu-item"><i class="bi bi-folder2"></i> Saksbehandler </a></li>
+                            }
+                      
+                            @if (User.IsInRole(UserRoles.Role_Kontrolleren))
+                            {
+        
+                                <li><a href="/Kontrolleren/index" class="menu-item"><i class="bi bi-folder2"></i> Kontrolleren </a></li>
+                            }
+                            
+                            @if (User.IsInRole(UserRoles.Role_Bruker))
+                            {  
+        
+                                <li><a href="/home/index" class="menu-item"><i class="bi bi-pencil-square"></i> Opprett Saker</a></li>
+                                <li><a href="/home/minesaker" class="menu-item"><i class="bi bi-folder2"></i> Mine Saker</a></li>
+                            }
+        
+            </ul>
+        
+# Autorisering
+  For å kontrollere hvilken bruker som har tilgang til hvilke sider og for å forhindre at eksterne personer får tilgang til sidene ved å skrive inn sidens navn direkte i nettleseren, benyttes kontrollene i Controller-filene.
+
+      [Authorize(Roles = UserRoles.Role_Admin )]
+     
+      [Authorize(Roles = UserRoles.Role_Kontrolleren)]
+     
+      [Authorize(Roles = UserRoles.Role_Bruker + "," + UserRoles.Role_Admin + "," + UserRoles.Role_Saksbehandler + "," + UserRoles.Role_Kontrolleren)]
+     
+
+# Systemarkitektur 
+
+![Diagram showing system architecture](wwwroot/images/Systemarkitektur.png) 
+
+
+
