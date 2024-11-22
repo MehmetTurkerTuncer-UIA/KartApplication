@@ -79,7 +79,7 @@ namespace KartApplication.Controllers
         {
             if (lastChange != null)
             {
-                return View(lastChange); // Kaydedilen başvuruyu göster
+                return View(lastChange); // Vis den lagrede søknaden.
             }
 
             return NotFound(); // Eğer lastChange boşsa hata göster
