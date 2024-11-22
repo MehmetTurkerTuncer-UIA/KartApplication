@@ -67,7 +67,7 @@ namespace KartApplication.Controllers
         {
             if (lastChange != null && lastChange.Id == id)
             {
-                return View(lastChange); // lastChange dinamik verilerle doluysa göster
+                return View(lastChange); // Hvis lastChange inneholder dynamiske data, vis det.
             }
 
             return NotFound(); // Eğer lastChange bulunamazsa hata göster
