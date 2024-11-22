@@ -5,13 +5,8 @@
     Layout = "~/Views/Shared/_SaksbehandlerLayout.cshtml"; 
     ViewData["ShowStepper"] = false; // For å unngå at stepper-menyen vises på denne siden
     bool isUpdated = TempData["ProfileUpdated"] as bool? ?? false;
-    string warningMessage = TempData["WarningMessage"] as string;
-}
-
-<div class="container">
-    <h2>Profilinformasjon</h2>
-
-    @if (isUpdated)
+    string warningMessage = TempData["WarningMessage"] as string ?? string.Empty;
+     @if (isUpdated)
     {
         <div class="alert alert-success" role="alert">
             Profilen din har blitt oppdatert!
@@ -23,6 +18,12 @@
             @warningMessage
         </div>
     }
+}
+
+<div class="container">
+    <h2>Profilinformasjon</h2>
+
+   
 
     <form asp-action="Profil" method="post">
         <div class="form-group">
