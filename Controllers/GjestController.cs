@@ -73,7 +73,7 @@ namespace KartApplication.Controllers
             return NotFound(); // Hvis lastChange ikke finnes, vis en feil.
         }
 
-        // POST: Gjest/Kvittering sayfasına yönlendir
+        // POST: Omdiriger til Gjest/Kvittering-siden.
         [HttpPost]
         public IActionResult Kvittering()
         {
