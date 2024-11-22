@@ -61,7 +61,7 @@ namespace KartApplication.Controllers
             return View(lastChange);
         }
 
-        // GET: Gjest/Kvittering - Referans numarasını kullanarak kaydı göster
+        // GET: Gjest/Kvittering - Vis post ved bruk av referansenummer
         [HttpGet]
         public IActionResult Kvittering(string id)
         {
