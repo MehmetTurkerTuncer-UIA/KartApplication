@@ -110,7 +110,7 @@ namespace KartApplication.Controllers
         }
 
 
-        // Benzersiz referans numarası oluşturma metodu
+        // Metode for å generere et unikt referansenummer.
         private string GenerateUniqueReferenceNumber()
         {
             var random = new Random();
