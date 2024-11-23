@@ -33,7 +33,7 @@ namespace KartApplication.Controllers
             if (ModelState.IsValid)
             {
                 model.IsTemporary = true;  // Merk som midlertidig registrering.
-                model.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier); // Kullanıcı ID'si atanıyor
+                model.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier); // Bruker-ID blir tildelt.
                 model.CreatedAt = DateTime.Now;
 
                 _context.SakModels.Add(model);
