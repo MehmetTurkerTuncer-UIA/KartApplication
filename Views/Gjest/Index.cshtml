@@ -45,8 +45,8 @@
 
 <!-- Form -->
 <form asp-controller="Gjest" asp-action="Index" method="post">
-    <input type="hidden" asp-for="Id" />   @*  Eklendi *@
 
+    <input type="hidden" asp-for="Id" />   @*  Eklendi *@
     <input type="hidden" id="geoJsonInput" name="GeoJson" /> <!-- GeoJSON verisini saklamak için gizli alan -->
     <input type="hidden" id="addressInput" name="Address" /> <!-- Adres verisini saklamak için gizli alan -->
     <input type="hidden" id="selectedMapType" name="SelectedMapType" value="fargekart" /> <!-- Seçilen harita tipini saklamak için gizli alan -->

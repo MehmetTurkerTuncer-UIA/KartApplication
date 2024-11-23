@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews();   //.NET Core ve MVC'de CSRF koruması, Anti-Forgery Middleware ile sağlanır.Bu çağrı, anti-forgery middleware'ı otomatik olarak ekler.
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"),
@@ -18,7 +18,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<ApplicationDbContext>()
                                     .AddDefaultTokenProviders(); // <IdentityUser> i  <ApplicationUser> olarak degistirdim.
-builder.Services.AddRazorPages();
+
+builder.Services.AddRazorPages();                //.NET Core ve MVC'de CSRF koruması, Anti-Forgery Middleware ile sağlanır.Bu çağrı, anti-forgery middleware'ı otomatik olarak ekler.
+
 
 builder.Services.AddDistributedMemoryCache();  // Session için geçici bir bellek cache’i kullanılır
 builder.Services.AddSession(options =>

@@ -150,7 +150,9 @@ namespace KartApplication.Controllers
             return View(model);
         }
 
+        
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> SubmitOversikt(int id)
         {
             var model = await _context.SakModels.FindAsync(id);

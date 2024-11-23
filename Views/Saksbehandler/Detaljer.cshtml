@@ -128,6 +128,7 @@ else
         <h2>Administer saken</h2>
 
         <form method="post" asp-action="UpdateStatus" asp-controller="Saksbehandler" asp-route-id="@Model.Id">
+            @Html.AntiForgeryToken()
 
             <!-- Sol tarafta mesaj alanı (textarea) -->
             <div style="width: 94%; margin-bottom: 20px;">
