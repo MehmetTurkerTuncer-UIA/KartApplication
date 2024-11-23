@@ -32,7 +32,7 @@ namespace KartApplication.Controllers
         {
             if (ModelState.IsValid)
             {
-                model.IsTemporary = true;  // Geçici kayıt olarak işaretle
+                model.IsTemporary = true;  // Merk som midlertidig registrering.
                 model.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier); // Kullanıcı ID'si atanıyor
                 model.CreatedAt = DateTime.Now;
 
