@@ -49,11 +49,12 @@
                     <input type="submit" id="login-submit" value="Log in" class="btn btn-secondary w-100 p-2" style="margin-bottom: 10px;" disabled />
                 </div>
 
-    <div class="float-end">
+                <div class="float-end">
                      <a id="forgot-password" asp-page="./ForgotPassword">
                         Glemt passord?
                     </a>
                 </div>
+                
                 <div class="form-check mb-3">
                    <label asp-for="Input.RememberMe" class="form-label">
                         <input class="form-check-input" asp-for="Input.RememberMe" />
@@ -72,9 +73,13 @@
 
 
             </form>
+            <hr style="margin-top: 20px;">
 
-            <form asp-controller="Gjest" asp-action="CreateGjest" method="post">
-                <button type="submit" class="btn btn-secondary">Gjest Girişi</button>
+            <!-- Gjest Girişi -->
+            <form asp-controller="Gjest" asp-action="CreateGjest" method="post" style="display: inline;">
+                <button type="submit" class="gjest-link">
+                    Gjest Girişi
+                </button>
             </form>
 
         </div>
