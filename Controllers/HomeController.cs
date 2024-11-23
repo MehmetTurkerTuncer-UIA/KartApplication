@@ -75,7 +75,7 @@ namespace KartApplication.Controllers
             return View(model);
         }
 
-        // Oversikt sayfası - Tüm bilgilerin gözden geçirilip onaylanması
+        // Oversikt-siden - Gjennomgang og godkjenning av all informasjon.
         [HttpGet]
         public async Task<IActionResult> Oversikt(int id)
         {
