@@ -101,7 +101,7 @@ namespace KartApplication.Controllers
                 model.ReferenceNumber = GenerateUniqueReferenceNumber();
             }
 
-            // Geçici işareti kaldırarak kalıcı hale getir
+            // Fjern midlertidig markering og gjør det permanent.
 
             model.IsTemporary = false;
             await _context.SaveChangesAsync();
