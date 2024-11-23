@@ -95,7 +95,7 @@ namespace KartApplication.Controllers
             if (model == null)
                 return NotFound();
 
-            // Eğer referans numarası daha önce oluşturulmadıysa yeni bir tane üret
+            // Hvis referansenummeret ikke allerede er opprettet, generer et nytt.
             if (string.IsNullOrEmpty(model.ReferenceNumber))
             {
                 model.ReferenceNumber = GenerateUniqueReferenceNumber();
