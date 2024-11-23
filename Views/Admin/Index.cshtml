@@ -238,6 +238,9 @@
                 <div class="extra-details half-width">
                     <!-- Rol değiştirme formu burada eklendi -->
                     <form method="post" asp-action="UpdateUserRole" asp-controller="Admin" class="dark-form" onsubmit="showSuccessMessage(event)">
+ 
+                        @Html.AntiForgeryToken() 
+                    
                         <div style="display: flex; align-items: center; gap: 10px;">
                             <input type="hidden" name="userId" value="@user.UserId" class="dark-input" />
                             <label for="newRoleSelect" class="dark-label">Endre rolle:</label>
@@ -252,6 +255,9 @@
                 <div class="extra-details half-width" style="display: flex; align-items: center; justify-content: center;">
                     <!-- Kullanıcı silme butonu -->
                     <form method="post" asp-action="DeleteUser" asp-controller="Admin">
+                        
+                         @Html.AntiForgeryToken()
+ 
                         <input type="hidden" name="userId" value="@user.UserId" />
                         <button type="submit" class="btn btn-danger" onclick="return confirm('Er du sikker på at du vil slette denne brukeren?');">Slett @user.CurrentRole</button>
                     </form>

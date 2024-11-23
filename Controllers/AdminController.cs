@@ -56,6 +56,7 @@ namespace KartApplication.Controllers
         }
         
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> UpdateUserRole(string userId, string newRole)
         {
             var user = await _userManager.FindByIdAsync(userId);
@@ -70,8 +71,11 @@ namespace KartApplication.Controllers
 
         
         [HttpPost]
+        [ValidateAntiForgeryToken]
+
         public async Task<IActionResult> DeleteUser(string userId)
         {
+
             var user = await _userManager.FindByIdAsync(userId);
             if (user == null)
             {
@@ -111,7 +115,8 @@ namespace KartApplication.Controllers
 
                 ViewBag.RoleOptions = new SelectList(await _roleManager.Roles.Select(r => r.Name).ToListAsync());
 
-            // Vi venter 5 sekunder og går tilbake til indeksvisningen                return View("Index", userListWithRoles);
+            // Vi venter 5 sekunder og går tilbake til indeksvisningen
+            return View("Index", userListWithRoles);
             }
 
             // Slett brukeren hvis det ikke er noen lagringspost
@@ -157,6 +162,8 @@ namespace KartApplication.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteSak(int id, string userId)
         {
+            
+            
             var sak = await _context.SakModels.FindAsync(id);
             if (sak == null)
             {
