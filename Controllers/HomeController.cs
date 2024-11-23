@@ -44,7 +44,7 @@ namespace KartApplication.Controllers
             return View(model);
         }
 
-        // Beskrivelse sayfası - Kullanıcının açıklama eklemesi
+        // Beskrivelse-siden - Brukeren legger til en beskrivelse.
         [HttpGet]
         public async Task<IActionResult> Beskrivelse(int id)
         {
