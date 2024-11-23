@@ -19,7 +19,7 @@ namespace KartApplication.Controllers
             _context = context;
         }
 
-        // Index sayfası - Kullanıcının harita verisi ve adres bilgisi girişi yapması
+        // Index-siden - Brukeren legger inn kartdata og adresseinformasjon.
         [HttpGet]
         public IActionResult Index()
         {
