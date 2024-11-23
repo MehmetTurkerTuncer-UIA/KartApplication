@@ -85,6 +85,7 @@ namespace KartApplication.Controllers
 
         // Status ve Arbeid Status Güncelleme İşlemi
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult UpdateStatus(int id, string sakStatus, string arbeidStatus, string kontrollerenId, string saksBehandlerDescription)
         {
             Console.WriteLine("id değeri: " + id);
