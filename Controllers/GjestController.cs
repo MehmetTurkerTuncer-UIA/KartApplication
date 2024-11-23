@@ -28,15 +28,19 @@ namespace KartApplication.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateGjest()
         {
+            
             var uniqueId = Guid.NewGuid().ToString("N");
             var email = $"gjest_{uniqueId}@gjest.com";
             var username = $"Gjest_{uniqueId}";
+
+
 
             var user = new ApplicationUser
             {
                 UserName = username,
                 Email = email,
-                EmailConfirmed = true
+                EmailConfirmed = true,
+                Name = "Gjest"
             };
 
             var result = await _userManager.CreateAsync(user);
