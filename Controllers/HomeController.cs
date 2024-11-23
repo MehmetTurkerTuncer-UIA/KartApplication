@@ -123,7 +123,7 @@ namespace KartApplication.Controllers
             return referenceNumber;
         }
 
-        // Kvittering sayfası - Onay sayfası ve özet bilgileri gösterme
+        // Kvittering-siden - Vise bekreftelsessiden og sammendragsinformasjon.
         [HttpGet]
         public async Task<IActionResult> Kvittering(int id)
         {
