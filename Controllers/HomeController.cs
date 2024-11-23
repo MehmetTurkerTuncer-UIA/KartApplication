@@ -137,7 +137,7 @@ namespace KartApplication.Controllers
             return View(model);
         }
 
-        // Geçici Kayıtları Silme Metodu (isteğe bağlı zamanlayıcı ile kullanılabilir)
+        // Metode for å slette midlertidige registreringer (kan brukes med en valgfri tidsplan).
         public async Task DeleteTemporaryRecords()
         {
             var temporaryRecords = await _context.SakModels
