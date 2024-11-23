@@ -60,6 +60,9 @@
 
 <!-- Send inn butonu -->
 <form asp-controller="Home" asp-action="SubmitOversikt" method="post">
+
+    @Html.AntiForgeryToken()
+
     <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px;">
         <input type="hidden" asp-for="Id" />
         <button type="button" class="btn" style="background-color: gray; color: white; padding: 10px 20px; border-radius: 5px; cursor: pointer;" onclick="window.location.href='@Url.Action("Beskrivelse", "Bruker")'">Tilbake</button> 

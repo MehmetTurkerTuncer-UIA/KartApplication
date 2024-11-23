@@ -83,6 +83,9 @@
     <div class="admin-card">
         <h2>Administer saken</h2>
         <form method="post" asp-action="UpdateStatus" asp-controller="Kontrolleren" asp-route-id="@Model.Id">
+
+            @Html.AntiForgeryToken()
+
             <!-- Sol tarafta mesaj alanı (textarea) -->
             <div style="width: 95%;">
                 <label for="KontrollerenDescription" style="color: white; display: block; margin-bottom: 10px;">Beskrivelse:</label>

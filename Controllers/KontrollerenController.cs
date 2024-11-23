@@ -60,7 +60,9 @@ namespace KartApplication.Controllers
         }
 
         // Status ve Kontroll Status Güncelleme İşlemi
+
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult UpdateStatus(int id, string KontrollerenDescription, string kontrolStatus)
         {
             Console.WriteLine("id değeri: " + id);

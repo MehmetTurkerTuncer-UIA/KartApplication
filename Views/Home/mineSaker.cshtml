@@ -42,9 +42,12 @@ else
 
 
                         <form asp-action="DeleteSak" asp-controller="Home" method="post" style="display:inline;">
+
+                            @Html.AntiForgeryToken()
+
                             <input type="hidden" name="id" value="@sak.Id" />
                             <button type="submit" class="btn btn-danger"
-                                onclick="return confirm('Er du sikker på at du vil slette denne saken?');">Slette</button>
+                                 onclick="return confirm('Er du sikker på at du vil slette denne saken?');">Slette</button>
                         </form>
                     </td>
                 </tr>
