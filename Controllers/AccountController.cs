@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using KartApplication.Models; 
-using System.Threading.Tasks; // Async metotlar için
+using System.Threading.Tasks; // For Async metoder
 
 namespace KartApplication.Areas.Identity.Controllers // Identity alanındaki namespace
 {

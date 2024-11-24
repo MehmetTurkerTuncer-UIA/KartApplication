@@ -6,8 +6,8 @@
     color: #f1f1f1;
     font-family: Arial, sans-serif;
     box-sizing: border-box;
-    display: flex; /* Flexbox düzenine geçiş */
-    flex-direction: column; /* Dikey hizalama */
+    display: flex; /* Bytt til Flexbox-layout */
+    flex-direction: column; /* Vertikal justering */
 }
 
 .login-container {
@@ -15,9 +15,9 @@
     justify-content: center;
     align-items: flex-start;
     padding-top: 50px;
-    padding-bottom: 20px; /* Form ile arama kutusu arasında boşluk */
+    padding-bottom: 20px; /* Avstand mellom skjemaet og søkeboksen */
     box-sizing: border-box;
-    flex: 1; /* Esnek düzen için bu eklemeyi yapıyoruz */
+    flex: 1; /* Dette legges til for fleksibel layout */
 }
 
 .login-left {
@@ -55,34 +55,34 @@ h1 {
     background-color: #000;
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0px 0px 15px 5px rgba(255, 255, 255, 0.6); /* Kutunun arkasındaki gölgelendirme */
-    margin-bottom: 20px; /* Form ile arama kutusu arasında boşluk bırakır */
+    box-shadow: 0px 0px 15px 5px rgba(255, 255, 255, 0.6); /* Skyggelegging bak boksen */
+    margin-bottom: 20px; /* Gir avstand mellom skjemaet og søkeboksen */
 }
 
     .account-box h2 {
         color: #ffffff;
         font-size: 2em;
     }
-   /* Arama Kutusu Sağda Olsun */
+/* Søkeboksen skal være til høyre */
 .footer-search {
     background-color: #1e1e1e;
     padding: 20px;
     border-radius: 10px;
-    width: 100%; /* Tam genişlikte kalmaya devam ediyor */
+    width: 100%; /* Fortsetter å være full bredde */
     margin: 0 auto;
     display: flex;
-    justify-content: flex-end; /* Arama kutusunu sağa hizalamak için */
+    justify-content: flex-end; /* Justerer søkeboksen til høyre */
     align-items: center;
     box-sizing: border-box;
 }
 
-/* Input ve Button */
+/* Input og knapp */
 .search-input {
     background-color: #333;
     border: 1px solid #444;
     color: #fff;
     padding: 10px 15px;
-    margin-right: 10px; /* Input ile buton arasında boşluk bırakır */
+    margin-right: 10px; /* Gir avstand mellom input og knappen */
     border-radius: 5px;
 }
 
@@ -99,7 +99,7 @@ h1 {
     border-radius: 5px;
     cursor: pointer;
 }
-/* Footer alanı */
+/* Bunntekstområde */
 .footer {
     background-color: #1e1e1e;
     color: #ffffff;
@@ -109,10 +109,10 @@ h1 {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: auto; /* Esneklik için ekleyin, bu sayede flex düzeni çalışır */
+    margin-top: auto; /* Legg til for fleksibilitet, slik at flex-layout fungerer */
 }
 
-/* Telif Hakkı */
+    /* Opphavsrett */
 .footer p {
     flex: 1;
     margin: 0;
@@ -120,10 +120,10 @@ h1 {
 }
 
 .verify-account-container {
-    max-width: 400px; /* Genişlik sınırı ekledik */
-    padding-top:100px;
+    max-width: 400px; /* La til en breddebegrensning */
+    padding-top: 100px;
     height: 90vh;
-    margin: auto; /* Ortalamak için */
+    margin: auto; /* For å sentrere */
 }
 
 
