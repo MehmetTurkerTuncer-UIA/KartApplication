@@ -134,6 +134,9 @@ h1 {
     color: #EFD2AF;                    /* Bağlantı rengi (beyaz) */
     text-decoration: none;          /* Alt çizgiyi kaldır */
     font-size: 16px;   
+    background-color: transparent; /* Şeffaf arka plan */
+    border: 0px solid #D1C2A1; /* Kenarlık rengi */
+
 }
 
 .gjest-link:hover {
