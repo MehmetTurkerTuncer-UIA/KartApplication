@@ -1,4 +1,4 @@
-/* Body ayarları */
+/* Body innstillinger */
 body {
     margin: 0;
     padding: 0;
@@ -10,41 +10,39 @@ body {
     color: white;
 }
 
-/* Ana iskelet (içerik ve footer ayarı için) */
+/* Hovedstruktur (for innhold og bunntekstjustering) */
 .outer-container {
-    flex: 1; /* İçeriğin tüm ekran yüksekliğini kaplaması için */
+    flex: 1; /* For at innholdet skal dekke hele skjermhøyden */
     width: 100%;
     max-width: 1300px;
-    margin: 0 auto; /* Ortala */
-
+    margin: 0 auto; /* Sentraliser */
 }
 
-/* Üst Menü */
+/* Toppmeny */
 .headermenu-wrapper {
     width: 100%;
     display: flex;
-    justify-content: center; /* Menüyü yatayda ortalar */
+    justify-content: center; /* Sentrerer menyen horisontalt */
     background-color: #1A1A1A;
     position: absolute;
     top: 0;
     z-index: 999;
-    max-width: 1300px; /* Maksimum genişliği outer-container ile uyumlu olacak */
+    max-width: 1300px; /* Maks bredde samsvarer med outer-container */
     list-style-type: none;
-
 }
 
 .headermenu {
     width: 100%;
     height: 60px;
     display: flex;
-    justify-content: space-between; /* Butonları iki tarafa yay */
+    justify-content: space-between; /* Sprer knapperne til begge sider */
     align-items: center;
     color: white;
-    padding: 0 10px; /* Sol ve sağa padding ekleyerek içerikleri içe çekiyoruz */
+    padding: 0 10px; /* Legg til padding til venstre og høyre for å trekke inn innholdet */
     list-style-type: none;
 }
 
-/* Menü Butonları */
+/* Menyknapper */
 .menu-button {
     padding: 10px 20px;
     text-decoration: none;
@@ -53,26 +51,26 @@ body {
     list-style-type: none;
 }
 
-/* Logg ut butonu - Kırmızı */
+/* Logg ut knappen - Rødt */
 .btn-logout {
-    background-color: #dc3545; /* Kırmızı */
+    background-color: #dc3545; /* Rødt */
     padding: 10px 40px;
     display: flex;
-    align-items: center; /* Dikey ortalama */
+    align-items: center; /* Vertikal sentrering */
     font-weight: bolder;
-    margin-left: auto; /* Sağa yaslamak için */
+    margin-left: auto; /* Justerer til høyre */
 }
 
-.btn-logout:hover {
-    background-color: #c82333; /* Koyu kırmızı hover rengi */
-}
+    .btn-logout:hover {
+        background-color: #c82333; /* Mørkerød hover-farge */
+    }
 
 a.menu-button.btn-logout i {
     font-size: 24px !important;
     margin-right: 18px !important;
 }
 
-/* Hjem butonu */
+/* Hjem-knapp */
 .btn-hjem {
     display: flex;
     align-items: center;
@@ -81,18 +79,18 @@ a.menu-button.btn-logout i {
 }
 
 
-/* Hjem butonu */
+    /* Hjem-knapp */
 .btn-hjem i {
 
     margin-right: 18px !important;
 }
 
 
-/* Header ayarları */
+/* Header innstillinger */
 .header {
     width: 100%;
     padding: 10px 0;
-    margin: 0 auto; /* Ortala */
+    margin: 0 auto; /* Sentrer */
  
 
 
@@ -129,41 +127,39 @@ a.menu-button.btn-logout i {
     margin: 0;
 }
 
-/* Ana konteyner: Menü ve İçerik */
+/* Hoved-container: Meny og Innhold */
 .main-container {
     display: flex;
     width: 100%;
-    height: 100%; /* İçerik ve menünün tam ekran kaplaması için */
-    margin: 0 auto; /* Ortala */
-    justify-content: center; /* Yatayda ortala */
-
+    height: 100%; /* For at innhold og meny skal dekke hele skjermen */
+    margin: 0 auto; /* Sentrer */
+    justify-content: center; /* Sentrer horisontalt */
 }
 
 
 
-/* İçerik alanı */
+/* Innholdsseksjon */
 .content-top {
     width: 100%;
     background-color: #232323;
-    border-radius: 8px; 
+    border-radius: 8px;
     height: 100%;
     color: white;
 }
+
 .content {
     padding: 10px 10px 10px 10px;
     background-color: #232323;
     height: 100%;
     color: white;
-    margin: 0 auto; /* Ortala */
-
+    margin: 0 auto; /* Sentrer */
 }
 
-
-/* Responsive ayarlar */
-/* Tabletler (max-width: 1024px) */
+/* Responsiv innstillinger */
+/* Nettbrett (max-width: 1024px) */
 @media (max-width: 1024px) {
     .menu {
-        width: 25%; /* Menü genişliği daha küçük */
+        width: 25%; /* Minsker menybredden */
         margin-right: 5%;
     }
 
@@ -172,7 +168,7 @@ a.menu-button.btn-logout i {
     }
 
     .details-table {
-        width: 90%; /* Tablo genişliği daha uygun */
+        width: 90%; /* Tilpasser tabellens bredde */
     }
 
     .footer-container {
@@ -181,7 +177,7 @@ a.menu-button.btn-logout i {
     }
 }
 
-/* Küçük ekranlar (max-width: 768px) */
+/* Små skjermer (max-width: 768px) */
 @media (max-width: 768px) {
     .header-container {
         flex-direction: column;
@@ -209,9 +205,9 @@ a.menu-button.btn-logout i {
         margin-right: 0;
     }
 
-    .menu ul li {
-        text-align: center;
-    }
+        .menu ul li {
+            text-align: center;
+        }
 
     .content-top {
         width: 100%;
@@ -235,7 +231,7 @@ a.menu-button.btn-logout i {
     }
 }
 
-/* Daha küçük telefonlar (max-width: 480px) */
+/* Svært små telefoner (max-width: 480px) */
 @media (max-width: 480px) {
     .menu ul li a {
         font-size: 16px;
@@ -260,20 +256,19 @@ a.menu-button.btn-logout i {
     width: 100%;
     background-color: #151515;
     color: white;
-    position: relative; /* Footer sabit olmayacak, sayfanın altına yerleşecek */
-    padding: 10px 20px; /* Üst ve alt 10px, sağ ve sol 20px */
+    position: relative; /* Footer vil ikke være fast, men plasseres nederst på siden */
+    padding: 10px 20px; /* 10px for topp og bunn, 20px for venstre og høyre */
     box-sizing: border-box;
-    border-top: 1px solid #5c5c5c; /* Gri border */
+    border-top: 1px solid #5c5c5c; /* Grå kantlinje */
     text-align: center;
-    margin-top: 20px; /* Üstteki içeriğin hemen altında yer alması için boşluk */
+    margin-top: 20px; /* Skaper avstand fra innholdet over */
 }
-
 
 .footer-container {
     max-width: 1250px;
     margin: 0 auto;
     display: flex;
-    justify-content: space-between; /* Sol ve sağ tarafları iki yana yay */
+    justify-content: space-between; /* Spre elementene på venstre og høyre */
     align-items: center;
     padding: 0 20px;
 }
@@ -292,11 +287,11 @@ a.menu-button.btn-logout i {
     margin-left: 15px;
 }
 
-.footer-links a:hover {
-    text-decoration: underline; /* Hover efektinde alt çizgi */
-}
+    .footer-links a:hover {
+        text-decoration: underline; /* Understreking ved hover */
+    }
 
-/* Arama ve butonlar için genel kapsayıcı */
+/* Søke- og knappecontainer */
 .search-filter-container {
     display: flex;
     justify-content: space-between;
@@ -306,7 +301,7 @@ a.menu-button.btn-logout i {
     max-width: 1260px;
 }
 
-/* Arama kutusu */
+/* Søkerute */
 .search-box {
     display: flex;
     align-items: center;
@@ -331,11 +326,11 @@ a.menu-button.btn-logout i {
     cursor: pointer;
 }
 
-.search-btn:hover {
-    background-color: #444;
-}
+    .search-btn:hover {
+        background-color: #444;
+    }
 
-/* Filtre ve Legg til ansatt butonları */
+/* Filtre- og Legg til ansatt knapper */
 .filter-buttons {
     display: flex;
     align-items: center;
@@ -354,24 +349,13 @@ a.menu-button.btn-logout i {
     justify-content: center;
 }
 
-.filter-btn i {
-    margin-left: 5px;
-}
+    .filter-btn i {
+        margin-left: 5px;
+    }
 
-.filter-btn:hover, .add-employee-btn:hover {
-    background-color: #444;
-}
-
-
-
-
-
-
-
-
-
-
-
+    .filter-btn:hover, .add-employee-btn:hover {
+        background-color: #444;
+    }
 
 .legg-til-ansatt-form {
     background-color: #232323;
@@ -379,35 +363,34 @@ a.menu-button.btn-logout i {
     width: 476px;
     padding: 10px 20px;
     border-radius: 8px;
-    margin: 0 auto; /* Formu ortalar */
+    margin: 0 auto; /* Sentrerer skjemaet */
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
     margin-top: 50px;
     margin-bottom: 50px;
     font-size: 16px;
 }
 
-.legg-til-ansatt-form h4 {
-    text-align: left;
-    margin-bottom: 20px;
-    font-size: 18px;
-}
+    .legg-til-ansatt-form h4 {
+        text-align: left;
+        margin-bottom: 20px;
+        font-size: 18px;
+    }
 
-/* Flexbox yapısıyla form grubu etiket ve input aynı satırda */
+/* Flexbox-formgrupper for etiketter og input på samme linje */
 .form-group {
     display: flex;
     justify-content: space-between;
-    align-items: center; /* Yatayda hizalar */
+    align-items: center; /* Horisontal justering */
     margin-bottom: 15px;
-
 }
 
-.form-group label {
-    width: 30%; /* Etiketlerin genişliğini ayarladım */
-    margin-right: 10px; /* Etiket ile input arasında boşluk */
-}
+    .form-group label {
+        width: 30%; /* Setter bredden på etikettene */
+        margin-right: 10px; /* Avstand mellom etikett og input */
+    }
 
 .form-control {
-    width: 65%; /* Input alanının genişliği */
+    width: 65%; /* Bredde på input-feltet */
     padding: 10px;
     font-size: 16px;
     background-color: #2E2E2E;
@@ -427,42 +410,37 @@ a.menu-button.btn-logout i {
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    margin-left: 10px; /* Butonlar arasına boşluk ekler */
+    margin-left: 10px; /* Skaper avstand mellom knappene */
 }
 
 .btn-secondary {
     background-color: #dc3545;
-    color: white; 
+    color: white;
     float: left;
 }
-
-
-
 
 .btn-primary {
     background-color: #007bff;
     color: white;
-float: right;
+    float: right;
 }
 
 .btn-danger {
-    background-color: #ff0000; /* Slett butonu kırmızı */
+    background-color: #ff0000; /* Slett-knappen rød */
     color: white;
     float: right;
 }
 
-
 .form-header {
     display: flex;
-    justify-content: space-between; /* Başlık ve ID numarasını iki yana yerleştirir */
+    justify-content: space-between; /* Plasserer tittel og ID på hver sin side */
     align-items: center;
 }
 
 .employee-id {
     font-size: 14px;
-    color: #ffffff; /* ID'nin daha ince ve zarif görünmesi için */
+    color: #ffffff; /* Gjør ID-en mer subtil og elegant */
 }
-
 
 
 
