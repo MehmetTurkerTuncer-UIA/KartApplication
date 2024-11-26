@@ -73,3 +73,13 @@ ScaffoldingReadMe.txt
 
 # Azure Application Insights
 ApplicationInsights.config
+
+
+# Test projesini ve içeriğini dahil et
+!KartApplication.Tests/
+!KartApplication.Tests/**/*.cs # Sadece C# dosyalarını dahil et
+
+# NuGet paketlerini dışla
+KartApplication.Tests/Packages/
+KartApplication.Tests/**/packages/
+
