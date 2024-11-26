@@ -249,7 +249,7 @@ namespace KartApplication.Controllers
             return RedirectToAction("Minesaker");
         }
 
-        // Detaljer Action Method - Belirli bir Sak kaydının detaylarını gösterir
+        // Detaljer Action Method - Viser detaljene for en bestemt Sak-registrering.
         [HttpGet]
 public async Task<IActionResult> Detaljer(int id)
 {
