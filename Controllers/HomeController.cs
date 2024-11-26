@@ -254,7 +254,8 @@ namespace KartApplication.Controllers
 public async Task<IActionResult> Detaljer(int id)
 {
     var sak = await _context.SakModels
-        .Include(s => s.ApplicationUser) // ApplicationUser'ı dahil et
+        .Include(s => s.ApplicationUser) // Inkluder ApplicationUser.
+
         .FirstOrDefaultAsync(s => s.Id == id);
 
     if (sak == null)
