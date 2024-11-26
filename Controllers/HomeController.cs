@@ -198,7 +198,7 @@ namespace KartApplication.Controllers
                         return View(model);
                     }
 
-                    // Kullanıcı bilgilerini güncelle
+                    // Oppdater brukerens informasjon.
                     existingUser.Name = model.Name;
                     existingUser.Surname = model.Surname;
                     existingUser.Email = model.Email;
