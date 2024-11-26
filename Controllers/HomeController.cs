@@ -187,7 +187,7 @@ namespace KartApplication.Controllers
                         return View(model);
                     }
 
-                    // Bilgi boş ise uyarı ver
+                    // Gi en advarsel hvis informasjonen er tom.
                     if (string.IsNullOrWhiteSpace(model.Name) ||
                         string.IsNullOrWhiteSpace(model.Surname) ||
                         string.IsNullOrWhiteSpace(model.Email) ||
