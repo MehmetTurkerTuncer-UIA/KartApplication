@@ -149,7 +149,7 @@ namespace KartApplication.Controllers
             await _context.SaveChangesAsync();
         }
 
-        // Profil sayfası - Kullanıcının profil bilgilerini görüntüleme ve güncelleme
+        // Profilside - Visning og oppdatering av brukerens profilinformasjon
         [HttpGet]
         public async Task<IActionResult> Profil()
         {
