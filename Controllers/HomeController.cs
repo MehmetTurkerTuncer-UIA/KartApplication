@@ -215,7 +215,7 @@ namespace KartApplication.Controllers
                 return RedirectToAction("Profil");
             }
 
-            // Model doğrulama hataları durumunda model ile birlikte sayfayı geri döndür
+            // Returner siden med modellen hvis det oppstår valideringsfeil.
             TempData["WarningMessage"] = "Det oppstod valideringsfeil under oppdateringen.";
             return View(model);
         }
