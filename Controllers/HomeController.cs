@@ -172,7 +172,7 @@ namespace KartApplication.Controllers
 
                 if (existingUser != null)
                 {
-                    // Kullanıcı bilgilerini aynı şekilde girmişse uyarı ver
+                    // Gi en advarsel hvis brukeren har lagt inn samme informasjon.
                     bool isSameData =
                         existingUser.Name == model.Name &&
                         existingUser.Surname == model.Surname &&
