@@ -5,7 +5,7 @@ VisualStudioVersion = 17.5.002.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KartApplication", "KartApplication.csproj", "{9313BDFC-BC1D-4519-80BA-E0E550619864}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KartApplication.Tests", "..\KartApplication.Tests\KartApplication.Tests.csproj", "{A424D42E-E6DC-48E7-95DC-08C981AAD985}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KartApplication.Tests", "../KartApplication.Tests\KartApplication.Tests.csproj", "{A424D42E-E6DC-48E7-95DC-08C981AAD985}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

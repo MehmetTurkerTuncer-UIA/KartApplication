@@ -36,11 +36,11 @@ obj/
 [Oo]bj/
 
 # Test Results
-[Tt]est[Rr]esult*/
+# [Tt]est[Rr]esult*/
 
 # MSTest test files
-*.trx
-*.coverage
+# *.trx
+# *.coverage
 
 # Web Servers
 iisexpress/
@@ -76,8 +76,8 @@ ApplicationInsights.config
 
 
 # Test projesini ve içeriğini dahil et
-!KartApplication.Tests/
-!KartApplication.Tests/**/*.cs # Sadece C# dosyalarını dahil et
+!../KartApplication.Tests/
+!../KartApplication.Tests/**/*.cs # Sadece C# dosyalarını dahil et
 
 # NuGet paketlerini dışla
 KartApplication.Tests/Packages/
