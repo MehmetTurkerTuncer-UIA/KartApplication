@@ -208,7 +208,7 @@ namespace KartApplication.Controllers
                     _context.Users.Update(existingUser);
                     await _context.SaveChangesAsync();
 
-                    // Başarılı güncelleme sonrası TempData kullanarak mesaj göster
+                    // Vis en melding ved hjelp av TempData etter en vellykket oppdatering.
                     TempData["ProfileUpdated"] = true;
                 }
 
