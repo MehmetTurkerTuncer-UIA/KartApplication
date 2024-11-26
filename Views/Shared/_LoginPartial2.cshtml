@@ -1,4 +1,4 @@
-@using Microsoft.AspNetCore.Identity
+﻿@using Microsoft.AspNetCore.Identity
 @using KartApplication.Models 
 @inject UserManager<ApplicationUser> UserManager
 @inject SignInManager<ApplicationUser> SignInManager
@@ -13,8 +13,7 @@
                 </a>
             </li>
  *@            <li>
-
-   
+                <!-- Logg ut knappen -->
                 <button type="submit" class="btna"> <i class="bi bi-door-open"></i> Logg ut </button>
             </li>
         </ul>
@@ -23,34 +22,35 @@
 else
 {
     <ul class="nav navbar-nav navbar-right">
-        <li><a asp-area="Identity" asp-controller="Account" asp-action="Login">Giriş Yap</a></li>
-        <li><a asp-area="Identity" asp-controller="Account" asp-action="Register">Kayıt Ol</a></li>
+        <!-- Logg Inn og Registrer knapper -->
+        <li><a asp-area="Identity" asp-controller="Account" asp-action="Login">Logg Inn</a></li>
+        <li><a asp-area="Identity" asp-controller="Account" asp-action="Register">Registrer</a></li>
     </ul>
 }
 
 <style>
 
   .btna {
-    background-color: #dc3545; /* Kırmızı arka plan rengi */
-    color: white;              /* Yazı rengi */
-    border: none;              /* Kenarlık yok */
-    padding: 10px;             /* İç boşluk */
-    cursor: pointer;           /* İmleci el yapar */
-    font-size: 18px;          /* Yazı boyutu */
-    width: 100%;              /* Genişlik */
-    text-align: left;         /* Yazı hizalaması */
-    border-radius: 0px;       /* Kenar yuvarlaklığı */
-    display: flex;            /* Flexbox kullanarak içeriği hizalama */
-    align-items: center;      /* Dikey ortalama */
-    text-decoration: none;    /* Alt çizgiyi kaldır */
+    background-color: #dc3545; /* Rød bakgrunnsfarge */
+    color: white;              /* Tekstfarge */
+    border: none;              /* Ingen kant */
+    padding: 10px;             /* Innvendig polstring */
+    cursor: pointer;           /* Musepekeren blir til en hånd */
+    font-size: 18px;           /* Tekststørrelse */
+    width: 100%;               /* Bredde */
+    text-align: left;          /* Tekstjustering */
+    border-radius: 0px;        /* Ingen avrundede kanter */
+    display: flex;             /* Bruker flexbox for å justere innholdet */
+    align-items: center;       /* Vertikal justering */
+    text-decoration: none;     /* Fjern understrekning */
 }
 
 .btna:hover {
-    background-color: #c82333; /* Hover durumu için arka plan rengi */
+    background-color: #c82333; /* Bakgrunnsfarge ved hover */
 }
 
 .btna i {
-    margin-right: 8px; /* İkon ile metin arasındaki boşluk */
+    margin-right: 8px; /* Mellomrom mellom ikonet og teksten */
 }
 
 </style>
