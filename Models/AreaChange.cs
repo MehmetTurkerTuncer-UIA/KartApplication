@@ -8,7 +8,7 @@ namespace KartApplication.Models
         public string Longitude { get; set; }
         public string Description { get; set; }
         public string Address { get; set; }
-        public DateTime Dato { get; set; }
+        public DateTime Dato { get; set; }  // Dato for endring (Date of change)
 
         // Property to store selected map type
         public string SelectedMapType { get; set; } // "fargekart", "gratonekart", "turkart", "sjokart"

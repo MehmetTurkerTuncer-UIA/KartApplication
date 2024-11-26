@@ -8,7 +8,7 @@
 <h2>Mine Saker</h2>
 @if (Model == null || !Model.Any())
 {
-    <p>No records found for the user.</p>
+    <p>Ingen saker funnet for brukeren.</p>
 }
 else
 {
@@ -28,7 +28,7 @@ else
                     <td>@sakModel.CreatedAt.ToShortDateString()</td>
                     <td>@sakModel.Status.ToString()</td>
                     <td>@sakModel.Id</td>
-                    <td>@(sakModel.IsTemporary ? "Temporary" : "Permanent")</td>
+                    <td>@(sakModel.IsTemporary ? "Midlertidig" : "Permanent")</td>
                 </tr>
             }
         </tbody>

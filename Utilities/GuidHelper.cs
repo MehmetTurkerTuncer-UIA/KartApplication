@@ -6,7 +6,7 @@ namespace KartApplication.Helpers
     {
         public static string ShortenGuid(string guid)
         {
-            // GUID'yi geçerli bir formatta olup olmadığını kontrol edin
+            // Kontroller om GUID er i et gyldig format
             if (!Guid.TryParse(guid, out Guid parsedGuid))
             {
                 throw new ArgumentException("Geçersiz GUID formatı.", nameof(guid));

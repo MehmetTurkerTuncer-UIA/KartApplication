@@ -1,17 +1,14 @@
-﻿@model KartApplication.Models.SakModel
+@model KartApplication.Models.SakModel
 @{
     ViewData["Title"] = "Oversikt";
     Layout = "~/Views/Shared/_BrukerLayout.cshtml"; 
 }
-
-
 
 <br>
 <center><h2>Oversikt</h2></center>
 
 @if (!string.IsNullOrEmpty(Model.Description))
 {
-    
    <div class="OppsummeringBox">    
 
     <div class="OppsummeringContentTitle">    <img src="~/images/check-mark.png" alt="Checkbox" class="checkboxImage"> <!-- Resim yolu güncellendi -->
@@ -64,8 +61,6 @@
         <button type="submit" class="btn btn-primary" style="background-color: #4CAF50; color: white; padding: 10px 20px; border-radius: 5px; border: none; cursor: pointer;">Send inn</button>
     </div>
 </form>
-
-
 
 @section Scripts {
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />

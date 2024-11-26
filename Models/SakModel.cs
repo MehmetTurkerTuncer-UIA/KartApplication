@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace KartApplication.Models
@@ -15,64 +15,46 @@ namespace KartApplication.Models
 
         public string SelectedMapType { get; set; }
 
-        public bool IsTemporary { get; set; } = true;  // Varsayılan olarak geçici kaydediliyor
+        public bool IsTemporary { get; set; } = true;  // Standard er at saken lagres midlertidig
 
         public string? KontrollerenDescription { get; set; }
 
         public string? SaksBehandlerDescription { get; set; }
-
 
         public List<Coordinate> Coordinates { get; set; }
 
         public SakModel()
         {
             Coordinates = new List<Coordinate>();
-          
-
         }
 
-
-
-
-        public string? UserId { get; set; }  // Foreign key
+        public string? UserId { get; set; }  // Fremmednøkkel (Foreign key)
 
         [ForeignKey("UserId")]
-        public ApplicationUser? ApplicationUser { get; set; }  // Navigation property
+        public ApplicationUser? ApplicationUser { get; set; }  // Navigasjonsegenskap (Navigation property)
 
-
-        public string? AssignedKontrollerenId { get; set; }  // Foreign key for assigned Kontrolleren
+        public string? AssignedKontrollerenId { get; set; }  // Fremmednøkkel for tildelt kontroller
         [ForeignKey("AssignedKontrollerenId")]
         public ApplicationUser? AssignedKontrolleren { get; set; }  // Atanmış Kontrolleren bilgisi
 
-
-
-        ////public ICollection<FeedbackModel>? FeedbackModels { get; set; }
-
-
-
-
-
-        //SakStatus enum'ı eklendi
+        // SakStatus enum er lagt til
         public SakStatus Status { get; set; } = SakStatus.SakMottatt;
-
 
         public ArbeidStatus ArbeidStatus { get; set; } = ArbeidStatus.IkkeTilordnet;
 
         public KontrolStatus KontrolStatus { get; set; } = KontrolStatus.villKontrollere;
         
-        
-        
-        //// SakStatus değiştiğinde mesaj gönderme fonksiyonu
+        // Funksjon for å sende melding når SakStatus endres
         //public void ChangeStatus(SakStatus newStatus)
         //{
-        //    if (newStatus != Status) // Eğer status değiştiyse
+        //    if (newStatus != Status) // Hvis statusen har endret seg
         //    {
         //      Status = newStatus;
 
-        //       // Yeni mesajı al
+        //       // Hent ny melding
         //       string message = SakStatusHelper.GetMessage(newStatus);
 
-        //        // Geri bildirim ekle
+        //        // Legg til tilbakemelding
         //       FeedbackModels?.Add(new FeedbackModel
         //        {
         //            SakId = this.Id,

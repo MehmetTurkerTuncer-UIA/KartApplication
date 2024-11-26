@@ -1,4 +1,4 @@
-﻿namespace KartApplication.Models
+namespace KartApplication.Models
 {
     public enum ArbeidStatus
     {
@@ -7,6 +7,4 @@
         KontrollAvlyst
 
     }
-
-
 }

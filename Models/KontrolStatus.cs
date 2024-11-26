@@ -1,9 +1,9 @@
-﻿namespace KartApplication.Models
+namespace KartApplication.Models
 {
     public enum KontrolStatus
     {
-        villKontrollere,
-        Godkjent,
-        IkkeGodkjent
+        VilKontrollere,  // Vil kontrollere
+        Godkjent,        // Godkjent
+        IkkeGodkjent     // Ikke godkjent
     }
 }

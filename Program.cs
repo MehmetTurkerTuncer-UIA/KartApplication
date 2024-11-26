@@ -54,7 +54,6 @@ app.MapGet("/", async context =>
     await context.Response.CompleteAsync(); // Bu satır ile yanıt tamamlanır.
 });
 
-
 app.MapControllerRoute(
     name: "default",
    pattern: "{controller=Home}/{action=Index}/{id?}");

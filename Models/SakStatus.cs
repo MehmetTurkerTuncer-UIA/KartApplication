@@ -1,11 +1,11 @@
-﻿namespace KartApplication.Models
+namespace KartApplication.Models
 {
     public enum SakStatus
     {
         SakMottatt,         // "Sak alındı"
-        UnderBehandling,    // "Sak işleniyor"
-        Ferdigstilt,        // "Sak tamamlandı"
-        Avsluttet           // "Sak kapatıldı"
+        UnderBehandling,    // "Sak under behandling"
+        Ferdigstilt,        // "Sak ferdigstilt"
+        Avsluttet           // "Sak avsluttet"
     }
 
     //public static class SakStatusHelper
