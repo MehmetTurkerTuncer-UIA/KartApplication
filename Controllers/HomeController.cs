@@ -220,7 +220,8 @@ namespace KartApplication.Controllers
             return View(model);
         }
 
-        // Minesaker Action Method - Kullanıcının tüm Sak kayıtlarını listeler
+        // Minesaker Action Method - Lister alle Sak-registreringer for brukeren.
+
         [HttpGet]
         public async Task<IActionResult> Minesaker()
         {
