@@ -9,46 +9,46 @@
 
 <!-- Kartbeholder -->
 <div id="map" style="height: 400px; width: 100%; position: relative;">
-    <!-- Arama kutusunu haritanın içinde yapacak kapsayıcı -->
+    <!-- Søkeboksbeholder i kartet -->
     <div id="search-container" style="position: absolute; top: 10px; right: 0; margin-right:10px; z-index: 1000; width: 400px;">
         <div class="input-group">
             <input type="text" id="searchInput" name="address" class="form-control" placeholder="Enter full address" aria-label="Search Address" autocomplete="off" />
             <div class="input-group-append">
                 <button type="button" class="btn-primary" id="searchAddressBtn">
-                    <i class="bi bi-search black-icon"></i> <!-- Bootstrap büyüteç ikonu -->
+                    <i class="bi bi-search black-icon"></i> <!-- Bootstrap forstørrelsesglassikon -->
                 </button>
             </div>
         </div>
-        <!-- Öneriler için dropdown menü -->
+        <!-- Dropdown-meny for forslag -->
         <div id="suggestions" class="suggestions-dropdown" style="display: none;">
-            <!-- Öneriler buraya eklenecek -->
+            <!-- Forslag vil bli lagt til her -->
         </div>
     </div>
 </div>
 <br />
 
-<!-- Koordinatları tablo halinde göstermek için -->
+<!-- Vise koordinater i tabellform -->
 <h3>Valgte Koordinater:</h3>
 <table class="table table-bordered" id="coordinatesTable">
     <thead>
         <tr>
             <th>#</th>
-           <th>Breddegrad</th>
+            <th>Breddegrad</th>
             <th>Lengdegrad</th>
         </tr>
     </thead>
     <tbody id="coordinatesTableBody">
-        <!-- Koordinatlar buraya eklenecek -->
+        <!-- Koordinater vil bli lagt til her -->
     </tbody>
 </table>
 
-<!-- Form -->
+<!-- Skjema -->
 <form asp-controller="Gjest" asp-action="Index" method="post" onsubmit="return validateForm()">
-    <input type="hidden" id="geoJsonInput" name="geoJson" /> <!-- GeoJSON verisini saklamak için gizli alan -->
-    <input type="hidden" id="addressInput" name="address" /> <!-- Adres verisini saklamak için gizli alan -->
-    <input type="hidden" id="selectedMapType" name="selectedMapType" value="fargekart" /> <!-- Seçilen harita tipini saklamak için gizli alan -->
+    <input type="hidden" id="geoJsonInput" name="geoJson" /> <!-- Skjult felt for å lagre GeoJSON-data -->
+    <input type="hidden" id="addressInput" name="address" /> <!-- Skjult felt for å lagre adresse -->
+    <input type="hidden" id="selectedMapType" name="selectedMapType" value="fargekart" /> <!-- Skjult felt for å lagre valgt karttype -->
     <br />
-        <button type="submit" class="btn btn-primary" style="background-color: #006aff; color: white; padding: 10px 20px; border-radius: 5px; border: none; cursor: pointer;">Neste</button>
+    <button type="submit" class="btn btn-primary" style="background-color: #006aff; color: white; padding: 10px 20px; border-radius: 5px; border: none; cursor: pointer;">Neste</button>
 </form>
 
 @section Scripts {
@@ -56,7 +56,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css" />
 
     <style>
-        /* Dropdown öneri menüsü stili */
+        /* Stil for dropdown-forslagsmeny */
         .suggestions-dropdown {
             position: absolute;
             background-color: white;
@@ -70,7 +70,7 @@
             border-radius: 5px;
         }
 
-        /* Harita kutuları stili */
+        /* Stil for kartminiatyrer */
         .map-thumbnails {
             position: absolute;
             bottom: 10px;
@@ -93,7 +93,7 @@
             border-color: orange;
         }
 
-        /* Görsellerin küçük olmasını sağla */
+        /* Sørg for at bildene er små */
         .map-thumbnail img {
             width: 100%;
             height: 100%;
@@ -125,47 +125,47 @@
         }
     </style>
 
-     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"></script>
 
-<script>
-        // Haritayı başlat
-        var map = L.map('map').setView([58.1467, 7.9956], 15); // Kristiansand, UiA konumu
+    <script>
+        // Start kartet
+        var map = L.map('map').setView([58.1467, 7.9956], 15); // Kristiansand, UiA lokasjon
 
-        // Kartverket Fargekart (Renkli Harita)
+        // Kartverket Fargekart (Farget Kart)
         var fargekart = L.tileLayer('https://cache.kartverket.no/v1/wmts/1.0.0/topo/default/webmercator/{z}/{y}/{x}.png', {
             maxZoom: 18,
             attribution: '&copy; <a href="https://kartverket.no/">Kartverket</a>'
-        }).addTo(map); // Başlangıçta Fargekart yüklü
+        }).addTo(map); // Fargekart er lastet inn som standard
 
-        // Kartverket Gråtonekart (Gri Tonlamalı Harita)
+        // Kartverket Gråtonekart (Gråtonet Kart)
         var gratonekart = L.tileLayer('https://cache.kartverket.no/v1/wmts/1.0.0/topograatone/default/webmercator/{z}/{y}/{x}.png', {
             maxZoom: 18,
             attribution: '&copy; <a href="https://kartverket.no/">Kartverket</a>'
         });
 
-         // Kartverket Turkart (Yürüyüş Haritası)
+        // Kartverket Turkart (Turer Kart)
         var turkart = L.tileLayer('https://cache.kartverket.no/v1/wmts/1.0.0/toporaster/default/webmercator/{z}/{y}/{x}.png', {
             maxZoom: 18,
             attribution: '&copy; <a href="https://kartverket.no/">Kartverket</a>'
         });
 
-        // Kartverket Sjøkart (Deniz Haritası)
+        // Kartverket Sjøkart (Sjøfartskart)
         var sjokart = L.tileLayer('https://cache.kartverket.no/v1/wmts/1.0.0/sjokartraster/default/webmercator/{z}/{y}/{x}.png', {
             maxZoom: 18,
             attribution: '&copy; <a href="https://kartverket.no/">Kartverket</a>'
         });
 
-        // Başlangıç haritası olarak Fargekart'ı ekle
+        // Legg til Fargekart som startkart
         var currentLayer = fargekart;
-        var selectedMapType = 'fargekart'; // Varsayılan harita tipi
+        var selectedMapType = 'fargekart'; // Standard karttype
 
-        // Sağ altta küçük kareler şeklinde harita seçenekleri ekle
+        // Legg til små firkanter for kartvalg nederst til høyre
         var thumbnailsContainer = document.createElement('div');
         thumbnailsContainer.classList.add('map-thumbnails');
         document.getElementById('map').appendChild(thumbnailsContainer);
 
-        // Harita küçük resimlerini ekle
+        // Legg til kartminiatyrer
         var maps = [
             { id: 'fargekart', layer: fargekart, imageUrl: '@Url.Content("~/images/4.png")', title: 'Fargekart' },
             { id: 'gratonekart', layer: gratonekart, imageUrl: '@Url.Content("~/images/3.png")', title: 'Gråtonekart' },
@@ -183,22 +183,22 @@
             var img = document.createElement('img');
             img.src = mapInfo.imageUrl;
             img.alt = mapInfo.title;
-            img.title = mapInfo.title; // Fare üzerine gelince harita adını göstermek için title kullanıyoruz
+            img.title = mapInfo.title; // Vise kartnavnet når musen holdes over
             thumbnailDiv.appendChild(img);
             thumbnailsContainer.appendChild(thumbnailDiv);
 
-            // Tıklanınca haritayı değiştir
+            // Endre kart når det klikkes
             thumbnailDiv.addEventListener('click', function() {
                 if (currentLayer !== mapInfo.layer) {
                     map.removeLayer(currentLayer);
                     map.addLayer(mapInfo.layer);
                     currentLayer = mapInfo.layer;
 
-                    // Update the selected map type value
+                    // Oppdater verdien for valgt karttype
                     selectedMapType = mapInfo.id;
                     document.getElementById('selectedMapType').value = selectedMapType;
 
-                    // Seçili sınıfı güncelle
+                    // Oppdater valgt klasse
                     document.querySelectorAll('.map-thumbnail').forEach(function(thumb) {
                         thumb.classList.remove('selected');
                     });
@@ -207,7 +207,7 @@
             });
         });
 
-        // Çizim işlevselliği
+        // Tegnefunksjonalitet
         var drawnItems = new L.FeatureGroup();
         map.addLayer(drawnItems);
 
@@ -228,7 +228,7 @@
         });
         map.addControl(drawControl);
 
-        // GeoJSON'u güncelleyen bir fonksiyon
+        // Funksjon som oppdaterer GeoJSON
         function updateGeoJson() {
             var allLayers = [];
             drawnItems.eachLayer(function(layer) {
@@ -244,24 +244,24 @@
             document.getElementById('geoJsonInput').value = JSON.stringify(featureCollection);
         }
 
-        // Adres input alanını güncelleyen fonksiyon
+        // Funksjon som oppdaterer adressefeltet
         function updateAddressInput(lat, lng) {
             var url = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lng}&accept-language=no`;
 
             fetch(url)
                 .then(response => response.json())
                 .then(data => {
-                    var address = data.display_name ? data.display_name : "Address not found";
+                    var address = data.display_name ? data.display_name : "Adresse ikke funnet";
                     document.getElementById('searchInput').value = address;
                     document.getElementById('addressInput').value = address;
                 })
                 .catch(error => {
-                    console.error('Error fetching address:', error);
-                    document.getElementById('searchInput').value = "Error fetching address";
+                    console.error('Feil ved henting av adresse:', error);
+                    document.getElementById('searchInput').value = "Feil ved henting av adresse";
                 });
         }
 
-         // Koordinatları tabloya ekleyen/güncelleyen fonksiyon
+        // Funksjon som legger til/oppdaterer koordinater i tabellen
         function updateCoordinatesTable(layer) {
             var tbody = document.getElementById('coordinatesTableBody');
             tbody.innerHTML = '';
@@ -290,7 +290,7 @@
             }
         }
 
-        // Çizim tamamlandığında yeni katmanı ekle
+        // Når tegning er fullført, legg til et nytt lag
         map.on('draw:created', function(event) {
             var layer = event.layer;
             if (drawnItems.getLayers().length > 0) {
@@ -314,7 +314,7 @@
             }
         });
 
-        // Adres arama işlevi
+        // Adresse søkefunksjon
         function searchAddress() {
             var address = document.getElementById('searchInput').value;
             if (address) {
@@ -334,19 +334,19 @@
                             updateGeoJson();
                             updateCoordinatesTable(marker);
                         } else {
-                            alert('Address not found.');
+                            alert('Adresse ikke funnet.');
                         }
                     })
                     .catch(error => {
-                        console.error('Error fetching address:', error);
-                        alert('Error fetching address.');
+                        console.error('Feil ved henting av adresse:', error);
+                        alert('Feil ved henting av adresse.');
                     });
             } else {
-                alert('Please enter an address.');
+                alert('Vennligst skriv inn en adresse.');
             }
         }
 
-        // Adres önerileri gösterimi
+        // Vise adresseforslag
         document.getElementById('searchInput').addEventListener('input', function() {
             var query = this.value;
             if (query.length > 0) {
@@ -360,7 +360,7 @@
                         suggestions.style.display = 'block';
 
                         data.slice(0, 3).forEach(function(item) {
-                            if (item.display_name.includes('Norveç')) {
+                            if (item.display_name.includes('Norge')) {
                                 var street = item.address.road || item.address.pedestrian || item.address.highway || '';
                                 var house_number = item.address.house_number || '';
                                 var city = item.address.city || item.address.village || '';
@@ -390,11 +390,11 @@
                             }
                         });
                     })
-                    .catch(error => console.error('Error fetching suggestions:', error));
+                    .catch(error => console.error('Feil ved henting av forslag:', error));
             }
         });
 
-        // Arama butonuna tıklayınca arama yap
+        // Søk når knappen trykkes
         document.getElementById('searchAddressBtn').addEventListener('click', searchAddress);
         document.getElementById('searchInput').addEventListener('keypress', function(event) {
             if (event.key === 'Enter') {

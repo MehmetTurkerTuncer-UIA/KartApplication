@@ -1,6 +1,6 @@
 @{
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
-    ViewBag.IsLeggTilAnsatt = true; @* Bu sayfanın sadece form içermesini sağlıyoruz *@
+    ViewBag.IsLeggTilAnsatt = true; @* Vi sørger for at denne siden kun inneholder skjema *@
 }
 
 <div class="legg-til-ansatt-form">
@@ -31,14 +31,12 @@
             <select id="rolle" name="rolle" class="form-control">
                 <option>Velg</option>
                 <option value="admin">Admin</option>
-                <option value="user">User</option>
+                <option value="user">Bruker</option> @* "User" -> "Bruker" endret til norsk *@
             </select>
         </div>
         <div class="form-actions">
-                        <button type="button" class="btn btn-secondary">Avbryt</button>
+            <button type="button" class="btn btn-secondary">Avbryt</button>
             <button type="submit" class="btn btn-primary">Legg til</button>
         </div>
     </form>
 </div>
-
-

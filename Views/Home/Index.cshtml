@@ -217,138 +217,138 @@
             { id: 'sjokart', layer: sjokart, imageUrl: '@Url.Content("~/images/1.png")', title: 'Sjøkart' }
         ];
 
-maps.forEach(function(mapInfo, index) {
-    var thumbnailDiv = document.createElement('div');
-    thumbnailDiv.classList.add('map-thumbnail');
-    if (index === 0) {
-        thumbnailDiv.classList.add('selected');
-    }
-    
-    var img = document.createElement('img');
-    img.src = mapInfo.imageUrl;
-    img.alt = mapInfo.title;
-    thumbnailDiv.appendChild(img);
-    
-    // Legg til tittel som ny div
-    var titleDiv = document.createElement('div');
-    titleDiv.classList.add('map-title');
-    titleDiv.textContent = mapInfo.title; // Legg til kartnavnet som tekst
-    thumbnailDiv.appendChild(titleDiv);
+        maps.forEach(function(mapInfo, index) {
+            var thumbnailDiv = document.createElement('div');
+            thumbnailDiv.classList.add('map-thumbnail');
+            if (index === 0) {
+                thumbnailDiv.classList.add('selected');
+            }
 
-    thumbnailsContainer.appendChild(thumbnailDiv);
+            var img = document.createElement('img');
+            img.src = mapInfo.imageUrl;
+            img.alt = mapInfo.title;
+            thumbnailDiv.appendChild(img);
 
-    // Endre kart når du klikker
-    thumbnailDiv.addEventListener('click', function() {
-        if (currentLayer !== mapInfo.layer) {
-            map.removeLayer(currentLayer);
-            map.addLayer(mapInfo.layer);
-            currentLayer = mapInfo.layer;
+            // Legg til tittel som ny div
+            var titleDiv = document.createElement('div');
+            titleDiv.classList.add('map-title');
+            titleDiv.textContent = mapInfo.title; // Legg til kartnavnet som tekst
+            thumbnailDiv.appendChild(titleDiv);
 
-            // Oppdater verdien for valgt karttype
-            selectedMapType = mapInfo.id;
-            document.getElementById('selectedMapType').value = selectedMapType;
+            thumbnailsContainer.appendChild(thumbnailDiv);
 
-            // Oppdater valgt klasse
-            document.querySelectorAll('.map-thumbnail').forEach(function(thumb) {
-                thumb.classList.remove('selected');
+            // Endre kart når du klikker
+            thumbnailDiv.addEventListener('click', function() {
+                if (currentLayer !== mapInfo.layer) {
+                    map.removeLayer(currentLayer);
+                    map.addLayer(mapInfo.layer);
+                    currentLayer = mapInfo.layer;
+
+                    // Oppdater verdien for valgt karttype
+                    selectedMapType = mapInfo.id;
+                    document.getElementById('selectedMapType').value = selectedMapType;
+
+                    // Oppdater valgt klasse
+                    document.querySelectorAll('.map-thumbnail').forEach(function(thumb) {
+                        thumb.classList.remove('selected');
+                    });
+                    thumbnailDiv.classList.add('selected');
+                }
             });
-            thumbnailDiv.classList.add('selected');
-        }
-    });
-});
-
-// Tegnefunksjonalitet
-var drawnItems = new L.FeatureGroup();
-map.addLayer(drawnItems);
-
-var drawControl = new L.Control.Draw({
-    edit: {
-        featureGroup: drawnItems,
-        edit: true,
-        remove: true
-    },
-    draw: {
-        polygon: true,
-        polyline: true,
-        rectangle: true,
-        circle: false,
-        circlemarker: false,
-        marker: true
-    }
-});
-map.addControl(drawControl);
-
-// Funksjon som oppdaterer GeoJSON
-function updateGeoJson() {
-    var allLayers = [];
-    drawnItems.eachLayer(function(layer) {
-        var geoJson = layer.toGeoJSON();
-        allLayers.push(geoJson);
-    });
-
-    var featureCollection = {
-        "type": "FeatureCollection",
-        "features": allLayers
-    };
-
-    document.getElementById('geoJsonInput').value = JSON.stringify(featureCollection);
-}
-
-// Funksjon som oppdaterer adresseinput-feltet
-function updateAddressInput(lat, lng) {
-    var url = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lng}&accept-language=no`;
-
-    fetch(url)
-        .then(response => response.json())
-        .then(data => {
-            var address = data.display_name ? data.display_name : "Adresse ikke funnet";
-            document.getElementById('searchInput').value = address;
-            document.getElementById('addressInput').value = address;
-        })
-        .catch(error => {
-            console.error('Feil ved henting av adresse:', error);
-            document.getElementById('searchInput').value = "Feil ved henting av adresse";
         });
-}
 
-// Funksjon som legger til/oppdaterer koordinater i tabellen
-function updateCoordinatesTable(layer) {
-    var tbody = document.getElementById('coordinatesTableBody');
-    tbody.innerHTML = '';
+        // Tegnefunksjonalitet
+        var drawnItems = new L.FeatureGroup();
+        map.addLayer(drawnItems);
 
-    if (layer instanceof L.Marker) {
-        var latLng = layer.getLatLng();
-        var row = `<tr><td>1</td><td>${latLng.lat}</td><td>${latLng.lng}</td></tr>`;
-        tbody.innerHTML = row;
-    } else if (layer instanceof L.Polygon || layer instanceof L.Polyline || layer instanceof L.Rectangle) {
-        var latlngs = layer.getLatLngs();
-        var counter = 1;
-
-        latlngs.forEach(function(latlngArray) {
-            if (Array.isArray(latlngArray)) {
-                latlngArray.forEach(function(latlng) {
-                    var row = `<tr><td>${counter}</td><td>${latlng.lat}</td><td>${latlng.lng}</td></tr>`;
-                    tbody.innerHTML += row;
-                    counter++;
-                });
-            } else {
-                var row = `<tr><td>${counter}</td><td>${latlngArray.lat}</td><td>${latlngArray.lng}</td></tr>`;
-                tbody.innerHTML += row;
-                counter++;
+        var drawControl = new L.Control.Draw({
+            edit: {
+                featureGroup: drawnItems,
+                edit: true,
+                remove: true
+            },
+            draw: {
+                polygon: true,
+                polyline: true,
+                rectangle: true,
+                circle: false,
+                circlemarker: false,
+                marker: true
             }
         });
-    }
-}
+        map.addControl(drawControl);
 
-// Legg til ny lag når tegningen er fullført
-map.on('draw:created', function(event) {
-    var layer = event.layer;
-    if (drawnItems.getLayers().length > 0) {
-        drawnItems.clearLayers();
-    }
-    drawnItems.addLayer(layer);
-    updateGeoJson();
-    updateCoordinatesTable(layer);
+        // Funksjon som oppdaterer GeoJSON
+        function updateGeoJson() {
+            var allLayers = [];
+            drawnItems.eachLayer(function(layer) {
+                var geoJson = layer.toGeoJSON();
+                allLayers.push(geoJson);
+            });
+
+            var featureCollection = {
+                "type": "FeatureCollection",
+                "features": allLayers
+            };
+
+            document.getElementById('geoJsonInput').value = JSON.stringify(featureCollection);
+        }
+
+        // Funksjon som oppdaterer adresseinput-feltet
+        function updateAddressInput(lat, lng) {
+            var url = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lng}&accept-language=no`;
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    var address = data.display_name ? data.display_name : "Adresse ikke funnet";
+                    document.getElementById('searchInput').value = address;
+                    document.getElementById('addressInput').value = address;
+                })
+                .catch(error => {
+                    console.error('Feil ved henting av adresse:', error);
+                    document.getElementById('searchInput').value = "Feil ved henting av adresse";
+                });
+        }
+
+        // Funksjon som legger til/oppdaterer koordinater i tabellen
+        function updateCoordinatesTable(layer) {
+            var tbody = document.getElementById('coordinatesTableBody');
+            tbody.innerHTML = '';
+
+            if (layer instanceof L.Marker) {
+                var latLng = layer.getLatLng();
+                var row = `<tr><td>1</td><td>${latLng.lat}</td><td>${latLng.lng}</td></tr>`;
+                tbody.innerHTML = row;
+            } else if (layer instanceof L.Polygon || layer instanceof L.Polyline || layer instanceof L.Rectangle) {
+                var latlngs = layer.getLatLngs();
+                var counter = 1;
+
+                latlngs.forEach(function(latlngArray) {
+                    if (Array.isArray(latlngArray)) {
+                        latlngArray.forEach(function(latlng) {
+                            var row = `<tr><td>${counter}</td><td>${latlng.lat}</td><td>${latlng.lng}</td></tr>`;
+                            tbody.innerHTML += row;
+                            counter++;
+                        });
+                    } else {
+                        var row = `<tr><td>${counter}</td><td>${latlngArray.lat}</td><td>${latlngArray.lng}</td></tr>`;
+                        tbody.innerHTML += row;
+                        counter++;
+                    }
+                });
+            }
+        }
+
+        // Legg til ny lag når tegningen er fullført
+        map.on('draw:created', function(event) {
+            var layer = event.layer;
+            if (drawnItems.getLayers().length > 0) {
+                drawnItems.clearLayers();
+            }
+            drawnItems.addLayer(layer);
+            updateGeoJson();
+            updateCoordinatesTable(layer);
 
             if (layer instanceof L.Marker) {
                 var latLng = layer.getLatLng();
@@ -356,111 +356,111 @@ map.on('draw:created', function(event) {
             }
         });
 
-map.on('draw:edited', function () {
-    var layers = drawnItems.getLayers();
-    if (layers.length > 0) {
-        updateGeoJson();
-        updateCoordinatesTable(layers[0]);
-    }
-});
+        map.on('draw:edited', function () {
+            var layers = drawnItems.getLayers();
+            if (layers.length > 0) {
+                updateGeoJson();
+                updateCoordinatesTable(layers[0]);
+            }
+        });
 
-map.on('draw:deleted', function () {
-    updateGeoJson();
-    document.getElementById('coordinatesTableBody').innerHTML = '';
-});
+        map.on('draw:deleted', function () {
+            updateGeoJson();
+            document.getElementById('coordinatesTableBody').innerHTML = '';
+        });
 
-// Oppdater skjult inputfelt når adressen skrives inn manuelt
-document.getElementById('searchInput').addEventListener('input', function() {
-    document.getElementById('addressInput').value = this.value;
-});
+        // Oppdater skjult inputfelt når adressen skrives inn manuelt
+        document.getElementById('searchInput').addEventListener('input', function() {
+            document.getElementById('addressInput').value = this.value;
+        });
 
-// Søkeadressefunksjon
-function searchAddress() {
-    var address = document.getElementById('searchInput').value;
-    if (address) {
-        var url = `https://nominatim.openstreetmap.org/search?format=json&limit=1&q=${encodeURIComponent(address)}`;
+        // Søkeadressefunksjon
+        function searchAddress() {
+            var address = document.getElementById('searchInput').value;
+            if (address) {
+                var url = `https://nominatim.openstreetmap.org/search?format=json&limit=1&q=${encodeURIComponent(address)}`;
 
-        fetch(url)
-            .then(response => response.json())
-            .then(data => {
-                if (data.length > 0) {
-                    var lat = data[0].lat;
-                    var lon = data[0].lon;
+                fetch(url)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.length > 0) {
+                            var lat = data[0].lat;
+                            var lon = data[0].lon;
 
-                    drawnItems.clearLayers();
-                    var marker = L.marker([lat, lon]).addTo(drawnItems);
-                    map.setView([lat, lon], 15);
-
-                    updateGeoJson();
-                    updateCoordinatesTable(marker);
-                } else {
-                    alert('Adresse ikke funnet.');
-                }
-            })
-            .catch(error => {
-                console.error('Feil ved henting av adresse:', error);
-                alert('Feil ved henting av adresse.');
-            });
-    } else {
-        alert('Vennligst skriv inn en adresse.');
-    }
-}
-
-// Vise adresseforslag
-document.getElementById('searchInput').addEventListener('input', function() {
-    var query = this.value;
-    if (query.length > 0) {
-        var url = `https://nominatim.openstreetmap.org/search?format=json&addressdetails=1&limit=5&q=${encodeURIComponent(query)}`;
-
-        fetch(url)
-            .then(response => response.json())
-            .then(data => {
-                var suggestions = document.getElementById('suggestions');
-                suggestions.innerHTML = '';
-                suggestions.style.display = 'block';
-
-                data.slice(0, 3).forEach(function(item) {
-                    if (item.display_name.includes('Norveç')) {
-                        var street = item.address.road || item.address.pedestrian || item.address.highway || '';
-                        var house_number = item.address.house_number || '';
-                        var city = item.address.city || item.address.village || '';
-                        var county = item.address.county || '';
-                        var country = "Norge";
-
-                        var option = document.createElement('div');
-                        option.classList.add('suggestion-item');
-                        option.innerHTML = `
-                            <div class="suggestion-title">${street} ${house_number}</div>
-                            <div class="suggestion-address">${city}, ${county}, ${country}</div>
-                        `;
-                        option.addEventListener('click', function() {
-                            document.getElementById('searchInput').value = `${street} ${house_number}, ${city}, ${county}, ${country}`;
-                            suggestions.innerHTML = '';
-                            suggestions.style.display = 'none';
-
-                            var lat = item.lat;
-                            var lon = item.lon;
                             drawnItems.clearLayers();
                             var marker = L.marker([lat, lon]).addTo(drawnItems);
                             map.setView([lat, lon], 15);
+
                             updateGeoJson();
                             updateCoordinatesTable(marker);
-                        });
-                        suggestions.appendChild(option);
-                    }
-                });
-            })
-            .catch(error => console.error('Feil ved henting av forslag:', error));
-    }
-});
+                        } else {
+                            alert('Adresse ikke funnet.');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Feil ved henting av adresse:', error);
+                        alert('Feil ved henting av adresse.');
+                    });
+            } else {
+                alert('Vennligst skriv inn en adresse.');
+            }
+        }
 
-// Utfør søk når søkeknappen klikkes
-document.getElementById('searchAddressBtn').addEventListener('click', searchAddress);
-document.getElementById('searchInput').addEventListener('keypress', function(event) {
-    if (event.key === 'Enter') {
-        event.preventDefault();
-        searchAddress();
-    }
-});
+        // Vise adresseforslag
+        document.getElementById('searchInput').addEventListener('input', function() {
+            var query = this.value;
+            if (query.length > 0) {
+                var url = `https://nominatim.openstreetmap.org/search?format=json&addressdetails=1&limit=5&q=${encodeURIComponent(query)}`;
+
+                fetch(url)
+                    .then(response => response.json())
+                    .then(data => {
+                        var suggestions = document.getElementById('suggestions');
+                        suggestions.innerHTML = '';
+                        suggestions.style.display = 'block';
+
+                        data.slice(0, 3).forEach(function(item) {
+                            if (item.display_name.includes('Norveç')) {
+                                var street = item.address.road || item.address.pedestrian || item.address.highway || '';
+                                var house_number = item.address.house_number || '';
+                                var city = item.address.city || item.address.village || '';
+                                var county = item.address.county || '';
+                                var country = "Norge";
+
+                                var option = document.createElement('div');
+                                option.classList.add('suggestion-item');
+                                option.innerHTML = `
+                                    <div class="suggestion-title">${street} ${house_number}</div>
+                                    <div class="suggestion-address">${city}, ${county}, ${country}</div>
+                                `;
+                                option.addEventListener('click', function() {
+                                    document.getElementById('searchInput').value = `${street} ${house_number}, ${city}, ${county}, ${country}`;
+                                    suggestions.innerHTML = '';
+                                    suggestions.style.display = 'none';
+
+                                    var lat = item.lat;
+                                    var lon = item.lon;
+                                    drawnItems.clearLayers();
+                                    var marker = L.marker([lat, lon]).addTo(drawnItems);
+                                    map.setView([lat, lon], 15);
+                                    updateGeoJson();
+                                    updateCoordinatesTable(marker);
+                                });
+                                suggestions.appendChild(option);
+                            }
+                        });
+                    })
+                    .catch(error => console.error('Feil ved henting av forslag:', error));
+            }
+        });
+
+        // Utfør søk når søkeknappen klikkes
+        document.getElementById('searchAddressBtn').addEventListener('click', searchAddress);
+        document.getElementById('searchInput').addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                searchAddress();
+            }
+        });
     </script>
 }

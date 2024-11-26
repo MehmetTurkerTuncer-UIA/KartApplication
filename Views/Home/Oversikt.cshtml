@@ -1,4 +1,4 @@
-@model KartApplication.Models.SakModel
+﻿@model KartApplication.Models.SakModel
 @{
     ViewData["Title"] = "Oversikt";
     Layout = "~/Views/Shared/_BrukerLayout.cshtml"; 
@@ -9,36 +9,27 @@
 
 @if (!string.IsNullOrEmpty(Model.Description))
 {
-   <div class="OppsummeringBox">    
-
-    <div class="OppsummeringContentTitle">    <img src="~/images/check-mark.png" alt="Checkbox" class="checkboxImage"> <!-- Resim yolu güncellendi -->
- Beskrivelse: </div>
-
-    <p class="OppsummeringContent"> @Model.Description</p> </div>
-
-
-
-
-
-       
-   
+    <div class="OppsummeringBox">    
+        <div class="OppsummeringContentTitle">    <img src="~/images/check-mark.png" alt="Checkbox" class="checkboxImage"> Beskrivelse: </div>
+        <p class="OppsummeringContent"> @Model.Description</p> 
+    </div>
 }
+
 @if (!string.IsNullOrEmpty(Model.Address))
 {
-     <div class="OppsummeringBox">    
-    <div class="OppsummeringContentTitle"> <img src="~/images/check-mark.png" alt="Checkbox" class="checkboxImage"> <!-- Resim yolu güncellendi --> Adresse: </div>
-     
-         <p class="OppsummeringContent"> @Model.Address</p> </div>
-
-
+    <div class="OppsummeringBox">    
+        <div class="OppsummeringContentTitle"> <img src="~/images/check-mark.png" alt="Checkbox" class="checkboxImage"> Adresse: </div>
+        <p class="OppsummeringContent"> @Model.Address</p> 
+    </div>
 }
 
-<!-- Harita konteyneri -->
- <div class="OppsummeringBox">    
-    <div class="OppsummeringContentTitle"> <img src="~/images/check-mark.png" alt="Checkbox" class="checkboxImage"> <!-- Resim yolu güncellendi --> Kart: </div>
-<div id="map" style="height: 400px; width: 100%;"></div>
+<!-- Kartbeholder -->
+<div class="OppsummeringBox">    
+    <div class="OppsummeringContentTitle"> <img src="~/images/check-mark.png" alt="Checkbox" class="checkboxImage"> Kart: </div>
+    <div id="map" style="height: 400px; width: 100%;"></div>
 </div>
-<!-- Koordinatlar tablosu -->
+
+<!-- Koordinater tabell -->
 <table class="table table-bordered">
     <thead>
         <tr>
@@ -48,12 +39,11 @@
         </tr>
     </thead>
     <tbody id="coordinatesTableBody">
-        <!-- Koordinatlar burada doldurulacak -->
+        <!-- Koordinater vil bli fylt inn her -->
     </tbody>
 </table>
 
-
-<!-- Send inn butonu -->
+<!-- Send inn knapp -->
 <form asp-controller="Home" asp-action="SubmitOversikt" method="post">
     <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px;">
         <input type="hidden" asp-for="Id" />
@@ -67,11 +57,11 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
     <script>
-        // GeoJSON verisini modelden alıyoruz
+        // Henter GeoJSON-data fra modellen
         var geoJsonData = @Html.Raw(Model.GeoJson);
-        var selectedMapType = '@Model.SelectedMapType'; // Seçilen harita tipi
+        var selectedMapType = '@Model.SelectedMapType'; // Valgt karttype
 
-        // Harita katmanlarını tanımla
+        // Definer kartlag
         var fargekart = L.tileLayer('https://cache.kartverket.no/v1/wmts/1.0.0/topo/default/webmercator/{z}/{y}/{x}.png', {
             maxZoom: 18,
             attribution: '&copy; <a href="https://kartverket.no/">Kartverket</a>'
@@ -92,7 +82,7 @@
             attribution: '&copy; <a href="https://kartverket.no/">Kartverket</a>'
         });
 
-        // Seçilen harita katmanını belirle
+        // Bestem valgt kartlag
         var selectedLayer;
         switch (selectedMapType) {
             case 'gratonekart':
@@ -108,15 +98,15 @@
                 selectedLayer = fargekart;
         }
 
-        // Haritayı başlat ve seçilen harita katmanını ekle
+        // Initialiser kartet og legg til valgt kartlag
         var map = L.map('map').setView([58.1467, 7.9956], 15);
         selectedLayer.addTo(map);
 
-        // Koordinatları tabloya ekleme
+        // Legg til koordinater i tabellen
         var tbody = document.getElementById('coordinatesTableBody');
         var counter = 1;
 
-        // GeoJSON verisini haritaya ekle ve pop-up'ları ayarla
+        // Legg GeoJSON-data til kartet og konfigurer pop-ups
         if (geoJsonData && geoJsonData.features) {
             var layer = L.geoJSON(geoJsonData, {
                 onEachFeature: function (feature, layer) {
@@ -124,26 +114,26 @@
                         var lat = feature.geometry.coordinates[1];
                         var lng = feature.geometry.coordinates[0];
 
-                        // Tabloda koordinatları göster
+                        // Vis koordinater i tabellen
                         var row = `<tr><td>${counter}</td><td>${lat}</td><td>${lng}</td></tr>`;
                         tbody.innerHTML += row;
                         counter++;
 
-                        // Pop-up ile koordinat bilgilerini göster
+                        // Vis koordinatinformasjon med pop-up
                         layer.bindPopup("Koordinater: Lat " + lat + ", Lng " + lng).openPopup();
                     } 
                     else if (feature.geometry.type === 'Polygon') {
-                        var coords = feature.geometry.coordinates[0]; // İlk halka
+                        var coords = feature.geometry.coordinates[0]; // Første ring
                         coords.forEach(function(coord, index) {
                             var lat = coord[1];
                             var lng = coord[0];
 
-                            // Tabloda koordinatları göster
+                            // Vis koordinater i tabellen
                             var row = `<tr><td>${counter}</td><td>${lat}</td><td>${lng}</td></tr>`;
                             tbody.innerHTML += row;
                             counter++;
 
-                            // Her köşe noktası için pop-up ekle
+                            // Legg til pop-up for hvert hjørnepunkt
                             var marker = L.marker([lat, lng]).addTo(map);
                             marker.bindPopup("Koordinater: Lat " + lat + ", Lng " + lng);
                         });
@@ -153,12 +143,12 @@
                             var lat = coord[1];
                             var lng = coord[0];
 
-                            // Tabloda koordinatları göster
+                            // Vis koordinater i tabellen
                             var row = `<tr><td>${counter}</td><td>${lat}</td><td>${lng}</td></tr>`;
                             tbody.innerHTML += row;
                             counter++;
 
-                            // Her nokta için pop-up ekle
+                            // Legg til pop-up for hvert punkt
                             var marker = L.marker([lat, lng]).addTo(map);
                             marker.bindPopup("Koordinater: Lat " + lat + ", Lng " + lng);
                         });
@@ -166,11 +156,11 @@
                 }
             }).addTo(map);
 
-            // Harita görünümünü katmanlara göre ayarla
+            // Juster kartvisningen basert på lagene
             map.fitBounds(layer.getBounds());
         } else {
-            // GeoJSON verisi yoksa bir uyarı mesajı göster
-            alert('Geçerli GeoJSON verisi bulunamadı.');
+            // Vis en advarsel dersom GeoJSON-data mangler
+            alert('Gyldige GeoJSON-data ble ikke funnet.');
         }
     </script>
 }

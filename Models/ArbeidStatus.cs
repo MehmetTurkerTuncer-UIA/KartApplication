@@ -1,10 +1,9 @@
-namespace KartApplication.Models
+﻿namespace KartApplication.Models
 {
     public enum ArbeidStatus
     {
-        IkkeTilordnet,
-        Tilordnet,
-        KontrollAvlyst
-
+        IkkeTilordnet,   // Ikke tilordnet (Ikke assigned)
+        Tilordnet,       // Tilordnet (Assigned)
+        KontrollAvlyst   // Kontroll avlyst (Control cancelled)
     }
 }

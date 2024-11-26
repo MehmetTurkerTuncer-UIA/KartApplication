@@ -1,4 +1,4 @@
-@using KartApplication.Data
+﻿@using KartApplication.Data
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewData["Title"]</title>
     
-    <!-- Ortak CSS Dosyası -->
+    <!-- Felles CSS-fil -->
     <link rel="stylesheet" href="~/css/brukere.css" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 
@@ -15,30 +15,30 @@
 <body>
     <div class="outer-container">
 
-        <!-- Overlay for background dimming -->
+        <!-- Overlay for bakgrunnsdimming -->
         <div class="overlay" onclick="toggleMenu()"></div>
         
-        <!-- Fixed Header for Mobile View Only -->
+        <!-- Fast header for kun mobilvisning -->
         <div class="headerfixed">
             <div class="hamburger-menu" onclick="toggleMenu()">
                 <i class="bi bi-list"></i>
             </div>
-            <!-- Logo as a link to the homepage -->
+            <!-- Logo som en lenke til hjemmesiden -->
             <a href="/home/index" class="alt-logo-link">
                 <img src="/images/Logo2.png" alt="Alternate Logo" class="alt-logo">
             </a>
 
-                <div class="user-name"><partial name="_LoginPartial" /></div>
+            <div class="user-name"><partial name="_LoginPartial" /></div>
         </div>
 
-        <!-- Main Header (Visible on Larger Screens) -->
+        <!-- Hovedheader (synlig på større skjermer) -->
         <header>
             <div class="header-container">
                 <div class="hamburger-menu" onclick="toggleMenu()">
                     <i class="bi bi-list"></i>
                 </div>
 
-                <!-- Main logo for larger screens -->
+                <!-- Hovedlogo for større skjermer -->
                 <div class="logo">
                     <img src="~/images/as.png" alt="Logo" style="width: auto; height: 150px;">
                 </div>
@@ -50,17 +50,16 @@
             </div>
         </header>
 
-    <div class="main-container">
-          <nav class="menu">
-    <!-- Sol Menü İçeriği -->
-    <ul class="top-menu">
-                    
-        @if (User.IsInRole(UserRoles.Role_Admin)) {
-        <li><a href="/Admin/index" class="menu-item"><i class="bi bi-folder2"></i> Admin </a></li>
-             }
+        <div class="main-container">
+            <nav class="menu">
+                <!-- Innhold i venstremenyen -->
+                <ul class="top-menu">
+                    @if (User.IsInRole(UserRoles.Role_Admin)) {
+                        <li><a href="/Admin/index" class="menu-item"><i class="bi bi-folder2"></i> Admin </a></li>
+                    }
                     @if (User.IsInRole(UserRoles.Role_Saksbehandler))
                     {
-                    <li><a href="/Saksbehandler/index" class="menu-item"><i class="bi bi-folder2"></i> Saksbehandler </a></li>
+                        <li><a href="/Saksbehandler/index" class="menu-item"><i class="bi bi-folder2"></i> Saksbehandler </a></li>
                     }
                     @if (User.IsInRole(UserRoles.Role_Kontrolleren))
                     {
@@ -71,24 +70,21 @@
                         <li><a href="/home/index" class="menu-item"><i class="bi bi-pencil-square"></i> Opprett Saker</a></li>
                         <li><a href="/home/minesaker" class="menu-item"><i class="bi bi-folder2"></i> Mine Saker</a></li>
                     }
-    </ul>
+                </ul>
 
-    <ul class="bottom-menu">
-    
-        <li><a href="/home/profil" class="menu-item"><i class="bi bi-person-circle"></i> Profil </a></li>
-       <partial name="_LoginPartial2" />
+                <ul class="bottom-menu">
+                    <li><a href="/home/profil" class="menu-item"><i class="bi bi-person-circle"></i> Profil </a></li>
+                    <partial name="_LoginPartial2" />
+                </ul>
+            </nav>
 
-
-    </ul>
-</nav>
-
-    <div class="content-top">
+            <div class="content-top">
 @{
-    // Mevcut sayfanın adımını belirleyin
-    int currentStep = 1; // Default olarak ilk adım
+    // Definer nåværende steg for siden
+    int currentStep = 1; // Standardverdi for første steg
 
-    // URL'yi al ve kontrol et
-    var currentUrl = Context.Request.Path.Value?.ToLower(); // PathString'i string'e dönüştür ve küçük harfe çevir
+    // Hent URL og sjekk den
+    var currentUrl = Context.Request.Path.Value?.ToLower(); // Konverter PathString til string og gjør om til små bokstaver
 
     if (currentUrl != null && currentUrl.Contains("beskrivelse"))
     {
@@ -100,10 +96,10 @@
     }
     else if (currentUrl != null && currentUrl.Contains("kvittering"))
     {
-        currentStep = 4; // Son adım
+        currentStep = 4; // Siste steg
     }
 
-    // Kvittering sayfasındaysak menüdeki adımlar tıklanamaz hale gelsin
+    // Hvis vi er på Kvittering-siden, gjør trinnene i menyen ikke-klikkbare
     var isKvitteringPage = currentStep == 4;
 }
 
@@ -113,7 +109,7 @@
         <img src="~/images/right.png" alt="Arrow" style="width: 24px; height: 24px; margin-left: 5px;" />
     </div>
     <ul style="display: flex; align-items: center; list-style: none; padding: 0; margin: 0;">
-        <!-- 1. Adım: Velg sted -->
+        <!-- 1. Steg: Velg sted -->
         <li class="@(currentStep >= 1 ? "active" : "")" style="margin-right: 10px;">
             <a href="/Home/Index" style="color: @(currentStep >= 1 ? "white" : "rgba(255, 255, 255, 0.5)"); @(isKvitteringPage ? "pointer-events: none;" : "")">
                <span class="step-text">1. Velg sted</span>  <i class="bi bi-geo-alt"></i> 
@@ -121,7 +117,7 @@
         </li>
         <img src="~/images/right-svgrepo.png" alt="Arrow" style="width: 16px; height: 16px; margin-right: 10px; opacity:@(currentStep >= 1 ? "1" : "0.3");" />
         
-        <!-- 2. Adım: Beskrivelse -->
+        <!-- 2. Steg: Beskrivelse -->
         <li class="@(currentStep >= 2 ? "active" : "")" style="margin-right: 10px;">
             <a href="/Home/Beskrivelse" style="color: @(currentStep >= 2 ? "white" : "rgba(255, 255, 255, 0.5)"); @(isKvitteringPage ? "pointer-events: none;" : "")">
                <span class="step-text">2. Beskrivelse</span> <i class="bi bi-pencil"></i> 
@@ -129,7 +125,7 @@
         </li>
         <img src="~/images/right-svgrepo.png" alt="Arrow" style="width: 16px; height: 16px; margin-right: 10px; opacity:@(currentStep >= 2 ? "1" : "0.3");" />
         
-        <!-- 3. Adım: Oppsummering -->
+        <!-- 3. Steg: Oppsummering -->
         <li class="@(currentStep >= 3 ? "active" : "")" style="margin-right: 10px;">
             <a href="/Home/Oversikt" style="color: @(currentStep >= 3 ? "white" : "rgba(255, 255, 255, 0.5)"); @(isKvitteringPage ? "pointer-events: none;" : "")">
               <span class="step-text">3. Oppsummering</span>   <i class="bi bi-file-earmark-text"></i>
@@ -147,61 +143,60 @@
 </div>
 
 <main class="content">
-                   @RenderBody()
-            </main>
-</div>
-
-        
-    </div> </div>
-
-    <footer class="footer">
-    <div class="footer-container">
-        <div class="footer-left">
-            &copy; 2024 - KartverketWebApplication
-        </div>
-
-        <div class="footer-right">
-            <div class="footer-links">
-                <a href="/About">Om oss</a>
-                <a href="/Privacy">Personvern</a>
-                <a href="/Terms">Vilkår</a>
-                <a href="/Contact">Kontakter</a>
-                <a href="/Tips">Tips oss</a>
+    @RenderBody()
+</main>
             </div>
         </div>
     </div>
-</footer>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-left">
+                &copy; 2024 - KartverketWebApplication
+            </div>
+
+            <div class="footer-right">
+                <div class="footer-links">
+                    <a href="/About">Om oss</a>
+                    <a href="/Privacy">Personvern</a>
+                    <a href="/Terms">Vilkår</a>
+                    <a href="/Contact">Kontakt oss</a>
+                    <a href="/Tips">Tips oss</a>
+                </div>
+            </div>
+        </div>
+    </footer>
 
     @RenderSection("Scripts", required: false)
 
 <script>
-        let isAnimating = false; // Control to prevent rapid toggling
+    let isAnimating = false; // Kontroll for å forhindre rask veksling
 
-        function toggleMenu() {
-            if (isAnimating) return; // Prevent further clicks during animation
+    function toggleMenu() {
+        if (isAnimating) return; // Forhindre flere klikk under animasjon
 
             const menu = document.querySelector('.menu');
             const overlay = document.querySelector('.overlay');
             isAnimating = true; // Start animation
 
-            if (!menu.classList.contains('active')) {
-                // Open the menu
-                overlay.style.display = 'block'; // Make overlay visible
-                setTimeout(() => {
-                    overlay.classList.add('active'); // Start fade-in transition
-                    menu.classList.add('active'); // Show menu
-                    isAnimating = false; // End animation
-                }, 10); // Small delay to ensure classes are applied
-            } else {
-                // Close the menu
-                overlay.classList.remove('active'); // Start fade-out transition
-                menu.classList.remove('active'); // Hide menu
-                setTimeout(() => {
-                    overlay.style.display = 'none'; // Hide overlay after fade-out
-                    isAnimating = false; // End animation
-                }, 500); // Match the CSS transition time for smooth effect
-            }
+        if (!menu.classList.contains('active')) {
+            // Åpne menyen
+            overlay.style.display = 'block'; // Gjør overlay synlig
+            setTimeout(() => {
+                overlay.classList.add('active'); // Start fade-in overgang
+                menu.classList.add('active'); // Vis meny
+                isAnimating = false; // Avslutt animasjon
+            }, 10); // Liten forsinkelse for å sikre at klassene er anvendt
+        } else {
+            // Lukk menyen
+            overlay.classList.remove('active'); // Start fade-out overgang
+            menu.classList.remove('active'); // Skjul meny
+            setTimeout(() => {
+                overlay.style.display = 'none'; // Skjul overlay etter fade-out
+                isAnimating = false; // Avslutt animasjon
+            }, 500); // Matcher CSS overgangstid for jevn effekt
         }
-    </script>
+    }
+</script>
 </body>
 </html>

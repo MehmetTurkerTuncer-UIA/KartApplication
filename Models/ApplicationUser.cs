@@ -1,17 +1,14 @@
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 
 namespace KartApplication.Models
 {
     public class ApplicationUser : IdentityUser
     {
-        public string? Name { get; set; }
+        public string? Name { get; set; }  
+        public string? Surname { get; set; }  
+        public string? Adresse { get; set; }  
 
-        public string? Surname {  get; set; }
-	
-	    public string? Adresse {  get; set; }
-
-        // Navigation property for the relationship
+        // Navigasjonsegenskap for relasjonen
         //public ICollection<SakModel>? SakModels { get; set; }
     }
-
 }

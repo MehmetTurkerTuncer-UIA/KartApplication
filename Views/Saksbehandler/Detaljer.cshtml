@@ -1,18 +1,18 @@
 @model KartApplication.Models.SakModel
 
 @{
-    ViewData["Title"] = "Saksbehandler Sayfası";
+    ViewData["Title"] = "Saksbehandler Side";
     Layout = "~/Views/Shared/_SaksbehandlerLayout.cshtml";
 }
 
-<!-- Sak Detayları Tablosu -->
+<!-- Sak Detaljer Tabell -->
 <table class="tableForDetaljer">
     <thead>
         <tr>
-            <th>Tarih</th>
+            <th>Dato</th>
             <th>Sak Status</th>
-            <th>Referans Numarası</th>
-            <th>Tilordnet Status</th>
+            <th>Referansenummer</th>
+            <th>Tildelt Status</th>
             <th>Kontroll Status</th>
         </tr>
     </thead>
@@ -48,7 +48,7 @@
     </div>
 }
 
-<!-- Harita konteyneri -->
+<!-- Kartbeholder -->
 <div class="OppsummeringBox">
     <div class="OppsummeringContentTitle">
         <img src="~/images/check-mark.png" alt="Checkbox" class="checkboxImage"> Kart:
@@ -56,7 +56,7 @@
     <div id="map" style="height: 400px; width: 100%;"></div>
 </div>
 
-<!-- Koordinatlar tablosu -->
+<!-- Koordinater tabell -->
 <table class="table table-bordered">
     <thead>
         <tr>
@@ -66,7 +66,7 @@
         </tr>
     </thead>
     <tbody id="coordinatesTableBody">
-        <!-- Koordinatlar burada doldurulacak -->
+        <!-- Koordinater vil bli fylt inn her -->
     </tbody>
 </table>
 
@@ -74,23 +74,23 @@
 {
     <div class="OppsummeringBox">
         <div class="OppsummeringContentTitle">
-            <img src="~/images/check-mark.png" alt="Checkbox" class="checkboxImage"> Saksbehandlerens Kommentar:
+            <img src="~/images/check-mark.png" alt="Checkbox" class="checkboxImage"> Saksbehandlers Kommentar:
         </div>
         <p class="OppsummeringContent">@Model.SaksBehandlerDescription</p>
     </div>
 }
 
 
-<!-- Yönetim Paneli -->
+<!-- Administrasjonspanel -->
 <div class="admin-panel">
     <div class="admin-card">
-        <h2>Administer saken</h2>
+        <h2>Administrer saken</h2>
 
         <form method="post" asp-action="UpdateStatus" asp-controller="Saksbehandler" asp-route-id="@Model.Id">
 
-            <!-- Sol tarafta mesaj alanı (textarea) -->
+            <!-- Venstre side: meldingsfelt (textarea) -->
             <div style="width: 48%;">
-                <label for="SaksBehandlerDescription" style="color: white; display: block; margin-bottom: 10px;">SaksBehandlers Kommentar:</label>
+                <label for="SaksBehandlerDescription" style="color: white; display: block; margin-bottom: 10px;">Saksbehandlers Kommentar:</label>
                 <textarea id="SaksBehandlerDescription" name="SaksBehandlerDescription" class="form-control" required
                           style="width: 100%; height: 200px; background-color: #333; color: white;
     border: 1px solid #ccc; border-radius: 5px; padding: 10px;"
@@ -136,7 +136,7 @@
                     }
                 </select>
             </div>
-            <!-- Arbeid Status Seçimi -->
+            <!-- Arbeid Status Valg -->
             <div class="form-group">
                 <label for="arbeidStatus">Kontroll Status</label>
                 <select id="arbeidStatus" name="arbeidStatus" class="form-control">
@@ -167,7 +167,7 @@
                     }
                 </select>
             </div>
-                <!-- Kontrolleren Atama Seçimi -->
+                <!-- Tildeling til Kontrolleren -->
             <div class="form-group">
                 <label for="kontrollerenId">Oppdrag Til Kontrolleren</label>
                 <select id="kontrollerenId" name="kontrollerenId" class="form-control" asp-items="ViewBag.KontrollerenUsers">
@@ -187,11 +187,11 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
     <script>
-        // GeoJSON verisini modelden alıyoruz
+        // Henter GeoJSON-data fra modellen
         var geoJsonData = @Html.Raw(Model.GeoJson);
         var selectedMapType = '@Model.SelectedMapType';
 
-        // Define map layers
+        // Definer kartlag
         var fargekart = L.tileLayer('https://cache.kartverket.no/v1/wmts/1.0.0/topo/default/webmercator/{z}/{y}/{x}.png', {
             maxZoom: 18,
             attribution: '&copy; <a href="https://kartverket.no/">Kartverket</a>'
@@ -212,7 +212,7 @@
             attribution: '&copy; <a href="https://kartverket.no/">Kartverket</a>'
         });
 
-        // Initialize map with selected layer
+        // Initialiser kartet med valgt lag
         var selectedLayer;
         switch (selectedMapType) {
             case 'gratonekart':
@@ -231,7 +231,7 @@
         var map = L.map('map').setView([58.1467, 7.9956], 15);
         selectedLayer.addTo(map);
 
-        // Function to add coordinates to the table
+        // Funksjon for å legge til koordinater i tabellen
         function addCoordinatesToTable(lat, lng) {
             var tableBody = document.getElementById("coordinatesTableBody");
             var rowCount = tableBody.rows.length + 1;
@@ -246,7 +246,7 @@
             cellLng.textContent = lng.toFixed(5);
         }
 
-        // Load GeoJSON data to the map and table
+        // Last inn GeoJSON-data til kartet og tabellen
         if (geoJsonData && geoJsonData.features) {
             var layer = L.geoJSON(geoJsonData, {
                 onEachFeature: function (feature, layer) {

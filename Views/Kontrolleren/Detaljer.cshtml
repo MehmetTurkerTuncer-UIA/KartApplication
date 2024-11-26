@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_KontrollerenLayout.cshtml"; 
 }
 
-<!-- Sak Detayları Tablosu -->
+<!-- Sak Detaljer Tabell -->
 <table class="tableForDetaljer">
     <thead>
         <tr>
@@ -48,7 +48,7 @@
     </div>
 }
 
-<!-- Harita konteyneri -->
+<!-- Kartbeholder -->
 <div class="OppsummeringBox">
     <div class="OppsummeringContentTitle">
         <img src="~/images/check-mark.png" alt="Checkbox" class="checkboxImage"> Kart:
@@ -56,7 +56,7 @@
     <div id="map" style="height: 400px; width: 100%;"></div>
 </div>
 
-<!-- Koordinatlar tablosu -->
+<!-- Koordinater tabell -->
 <table class="table table-bordered">
     <thead>
         <tr>
@@ -66,7 +66,7 @@
         </tr>
     </thead>
     <tbody id="coordinatesTableBody">
-        <!-- Koordinatlar burada doldurulacak -->
+        <!-- Koordinater vil bli fylt inn her -->
     </tbody>
 </table>
 
@@ -78,12 +78,12 @@
     <p style="padding-left: 10px;"> @Model.KontrollerenDescription</p>
 </div>
 
-<!-- Yönetim Paneli -->
+<!-- Administrasjonspanel -->
 <div class="admin-panel">
     <div class="admin-card">
-        <h2>Administer saken</h2>
+        <h2>Administrer saken</h2>
         <form method="post" asp-action="UpdateStatus" asp-controller="Kontrolleren" asp-route-id="@Model.Id">
-            <!-- Sol tarafta mesaj alanı (textarea) -->
+            <!-- Venstre side: meldingsfelt (textarea) -->
             <div style="width: 95%;">
                 <label for="KontrollerenDescription" style="color: white; display: block; margin-bottom: 10px;">Beskrivelse:</label>
                 <textarea id="KontrollerenDescription" name="KontrollerenDescription" class="form-control" required
@@ -92,7 +92,7 @@
                     onfocus="removePlaceholder()" onblur="addPlaceholder()">Skriv en kommentar eller oppdater kommentaren ...</textarea>
             </div>
 
-            <!-- Kontrol Status Seçimi -->
+            <!-- Kontroll Status Valg -->
             <div class="form-group">
                 <label for="kontrolStatus">Kontroll Status</label>
                 <select id="kontrolStatus" name="kontrolStatus" class="form-control">
@@ -136,11 +136,11 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
     <script>
-        // GeoJSON verisini modelden alıyoruz
+        // Henter GeoJSON-data fra modellen
         var geoJsonData = @Html.Raw(Model.GeoJson);
         var selectedMapType = '@Model.SelectedMapType';
 
-        // Define map layers
+        // Definer kartlag
         var fargekart = L.tileLayer('https://cache.kartverket.no/v1/wmts/1.0.0/topo/default/webmercator/{z}/{y}/{x}.png', {
             maxZoom: 18,
             attribution: '&copy; <a href="https://kartverket.no/">Kartverket</a>'
@@ -161,7 +161,7 @@
             attribution: '&copy; <a href="https://kartverket.no/">Kartverket</a>'
         });
 
-        // Initialize map with selected layer
+        // Initialiser kartet med valgt lag
         var selectedLayer;
         switch (selectedMapType) {
             case 'gratonekart':
@@ -180,7 +180,7 @@
         var map = L.map('map').setView([58.1467, 7.9956], 15);
         selectedLayer.addTo(map);
 
-        // Function to add coordinates to the table
+        // Funksjon for å legge til koordinater i tabellen
         function addCoordinatesToTable(lat, lng) {
             var tableBody = document.getElementById("coordinatesTableBody");
             var rowCount = tableBody.rows.length + 1;
@@ -195,7 +195,7 @@
             cellLng.textContent = lng.toFixed(5);
         }
 
-        // Load GeoJSON data to the map and table
+        // Last inn GeoJSON-data til kartet og tabellen
         if (geoJsonData && geoJsonData.features) {
             var layer = L.geoJSON(geoJsonData, {
                 onEachFeature: function (feature, layer) {
@@ -228,7 +228,7 @@
             alert('Gyldige GeoJSON-data ble ikke funnet.');
         }
 
-        // Function to remove placeholder text when focusing on textarea
+        // Funksjon for å fjerne placeholder-tekst når textarea fokuseres
         function removePlaceholder() {
             var textarea = document.getElementById("KontrollerenDescription");
             if (textarea.value.trim() === "Skriv en kommentar eller oppdater kommentaren ...") {
@@ -237,7 +237,7 @@
             }
         }
 
-        // Function to add placeholder text when textarea loses focus
+        // Funksjon for å legge til placeholder-tekst når textarea mister fokus
         function addPlaceholder() {
             var textarea = document.getElementById("KontrollerenDescription");
             if (textarea.value.trim() === "") {
@@ -246,7 +246,7 @@
             }
         }
 
-        // Set placeholder color when the page loads
+        // Sett placeholder-farge når siden laster
         document.addEventListener("DOMContentLoaded", function() {
             var textarea = document.getElementById("KontrollerenDescription");
             if (textarea.value.trim() === "" || textarea.value.trim() === "Skriv en kommentar eller oppdater kommentaren ...") {

@@ -9,19 +9,19 @@ namespace KartApplication.Helpers
             // Kontroller om GUID er i et gyldig format
             if (!Guid.TryParse(guid, out Guid parsedGuid))
             {
-                throw new ArgumentException("Geçersiz GUID formatı.", nameof(guid));
+                throw new ArgumentException("Ugyldig GUID-format.", nameof(guid));
             }
 
-            // GUID'yi byte dizisine çevir
+            // Konverter GUID til en byte-array
             var bytes = parsedGuid.ToByteArray();
 
-            // Byte dizisini Base64 formatına çevir
+            // Konverter byte-array til Base64-format
             string base64 = Convert.ToBase64String(bytes);
 
-            // Base64 formatında elde edilen stringi temizle (/, +, = karakterlerini kaldır)
+            // Rens den resulterende Base64-strengen (fjern /, +, = tegn)
             base64 = base64.Replace("/", "").Replace("+", "").Replace("=", "");
 
-            // Sonuç olarak ilk 9 karakteri al ve döndür
+            // Ta de første 9 tegnene og returner resultatet
             return base64.Length > 9 ? base64.Substring(0, 9) : base64;
         }
     }

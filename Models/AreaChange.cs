@@ -10,7 +10,7 @@ namespace KartApplication.Models
         public string Address { get; set; }
         public DateTime Dato { get; set; }  // Dato for endring (Date of change)
 
-        // Property to store selected map type
+        // Egenskap for å lagre valgt karttype
         public string SelectedMapType { get; set; } // "fargekart", "gratonekart", "turkart", "sjokart"
     }
 }

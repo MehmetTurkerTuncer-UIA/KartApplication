@@ -10,23 +10,23 @@
 <!-- Beskrivelsesskjema -->
 <form asp-action="Beskrivelse" method="post">
     <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-        <!-- Sol tarafta mesaj alanı (textarea) -->
+        <!-- Meldingsfelt til venstre (textarea) -->
         <div style="width: 48%;">
             <label for="description" style="color: white; display: block; margin-bottom: 10px;">Beskrivelse:</label>
             <textarea id="description" name="description" class="form-control" required style="width: 100%; height: 200px; background-color: #333; color: white; border: 1px solid #ccc; border-radius: 5px; padding: 10px;"></textarea>
         </div>
 
-        <!-- Sağ tarafta harita ve başlık -->
+        <!-- Kart og tittel til høyre -->
         <div style="width: 48%;">
-            <!-- Harita başlığı -->
+            <!-- Kartoverskrift -->
             <label for="map" style="color: white; display: block; margin-bottom: 10px;">Kartvisning:</label>
             <div id="map" style="height: 400px; width: 100%; background-color: lightgray;"></div>
 
-            <!-- Adres bilgisi varsa göster (haritanın altında) -->
+            <!-- Vis adresseinformasjon hvis tilgjengelig (under kartet) -->
             @if (!string.IsNullOrEmpty(Model.Address))
             {
                 <div style="margin-top: 15px;">
-                    <p><strong>Adress:</strong> @Model.Address</p>
+                    <p><strong>Adresse:</strong> @Model.Address</p>
                 </div>
             }
         </div>
@@ -34,11 +34,11 @@
 
     <br />
 
-    <!-- Alt tarafta butonlar aynı satırda -->
+    <!-- Knappene nederst på samme rad -->
     <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px;">
-        <!-- Geri butonu solda -->
+        <!-- Tilbake-knapp til venstre -->
         <button type="button" class="btn" style="background-color: gray; color: white; padding: 10px 20px; border-radius: 5px; cursor: pointer;" onclick="window.location.href='@Url.Action("Index", "Gjest")'">Tilbake</button>
-        <!-- İleri (Save and Continue) butonu sağda -->
+        <!-- Neste (Lagre og fortsett) knapp til høyre -->
         <button type="submit" class="btn btn-primary" style="background-color: #006aff; color: white; padding: 10px 20px; border-radius: 5px; border: none; cursor: pointer;">Neste</button>
     </div>
 </form>
@@ -48,11 +48,11 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
     <script>
-        // GeoJSON verisini modelden alıyoruz
+        // Henter GeoJSON-data fra modellen
         var geoJsonData = @Html.Raw(Model.GeoJson);
-        var selectedMapType = '@Model.SelectedMapType'; // Seçilen harita tipi (fargekart, gratonekart, turkart, sjokart)
+        var selectedMapType = '@Model.SelectedMapType'; // Valgt karttype (fargekart, gratonekart, turkart, sjokart)
 
-        // Harita katmanlarını tanımla
+        // Definer kartlag
         var fargekart = L.tileLayer('https://cache.kartverket.no/v1/wmts/1.0.0/topo/default/webmercator/{z}/{y}/{x}.png', {
             maxZoom: 18,
             attribution: '&copy; <a href="https://kartverket.no/">Kartverket</a>'
@@ -73,7 +73,7 @@
             attribution: '&copy; <a href="https://kartverket.no/">Kartverket</a>'
         });
 
-        // Seçilen harita katmanına göre haritayı başlat
+        // Start kartet med valgt lag
         var selectedLayer;
         switch (selectedMapType) {
             case 'gratonekart':
@@ -89,23 +89,23 @@
                 selectedLayer = fargekart;
         }
 
-        // Haritayı başlat
+        // Start kartet
         var map = L.map('map').setView([58.1467, 7.9956], 15);
 
-        // Seçilen harita katmanını ekle
+        // Legg til valgt kartlag
         selectedLayer.addTo(map);
 
-        // GeoJSON verisini haritaya ekle
+        // Legg til GeoJSON-data på kartet
         if (geoJsonData && geoJsonData.features) {
             var layer = L.geoJSON(geoJsonData, {
                 onEachFeature: function (feature, layer) {
-                    // Eğer özellik bir Point ise (işaretleyici)
+                    // Hvis funksjonen er et punkt (markør)
                     if (feature.geometry.type === 'Point') {
                         var lat = feature.geometry.coordinates[1];
                         var lng = feature.geometry.coordinates[0];
                         layer.bindPopup("Koordinater: Br. " + lat + ", Lgr. " + lng).openPopup();
                     }
-                    // Eğer Polygon ise
+                    // Hvis funksjonen er en polygon
                     else if (feature.geometry.type === 'Polygon') {
                         feature.geometry.coordinates[0].forEach(function (coord) {
                             var lat = coord[1];
@@ -114,7 +114,7 @@
                                 .bindPopup("Koordinater: Br. " + lat + ", Lgr. " + lng).openPopup();
                         });
                     }
-                    // Eğer Polyline (çizgi) ise
+                    // Hvis funksjonen er en linje (Polyline)
                     else if (feature.geometry.type === 'LineString') {
                         feature.geometry.coordinates.forEach(function (coord) {
                             var lat = coord[1];
@@ -126,12 +126,12 @@
                 }
             }).addTo(map);
 
-            // Harita görünümünü katmanlara göre ayarla
+            // Tilpass kartvisningen til lagene
             map.fitBounds(layer.getBounds());
 
         } else {
-            // GeoJSON verisi yoksa bir uyarı mesajı göster
-            alert('Geçerli GeoJSON verisi bulunamadı.');
+            // Hvis GeoJSON-data ikke finnes, vis en advarsel
+            alert('Gyldig GeoJSON-data ikke funnet.');
         }
     </script>
 }

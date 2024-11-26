@@ -1,4 +1,4 @@
-<style>
+﻿<style>
     .user-management-wrapper {
         width: 100%;
         font-family: Arial, sans-serif;
@@ -150,7 +150,7 @@
         background-color: #555;
     }
 
-    /* Highlighted background for expanded rows and extra-info sections */
+    /* Fremhevet bakgrunn for utvidede rader og ekstra-info seksjoner */
     .active-expand {
         background-color: #181818 !important;
     }
@@ -159,7 +159,7 @@
         display: none;
     }
 
-    /* Success message styling */
+    /* Stiler for suksessmelding */
     .success-message {
         position: fixed;
         top: 50%;
@@ -176,7 +176,7 @@
     }
 </style>
 
-<!-- HTML KODU (Razor View) -->
+<!-- HTML KODE (Razor View) -->
 @model IEnumerable<KartApplication.Models.ApplicationUserViewModel>
 
 @{
@@ -213,7 +213,7 @@
         <div class="extra-info" style="display: none;">
             <div class="extra-details-container">
                 <div class="extra-details half-width">
-                    <!-- Rol değiştirme formu burada eklendi -->
+                    <!-- Rolleendring skjema lagt til her -->
                     <form method="post" asp-action="UpdateUserRole" asp-controller="Admin" class="dark-form" onsubmit="showSuccessMessage(event)">
                         <div style="display: flex; align-items: center; gap: 10px;">
                             <input type="hidden" name="userId" value="@user.UserId" class="dark-input" />
@@ -227,7 +227,7 @@
                 </div>
                 <div class="vertical-border"></div>
                 <div class="extra-details half-width" style="display: flex; align-items: center; justify-content: center;">
-                    <!-- Kullanıcı silme butonu -->
+                    <!-- Slett bruker-knappen -->
                     <form method="post" asp-action="DeleteUser" asp-controller="Admin">
                         <input type="hidden" name="userId" value="@user.UserId" />
                         <button type="submit" class="btn btn-danger" onclick="return confirm('Er du sikker på at du vil slette denne brukeren?');">Slett</button>
@@ -242,15 +242,15 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 <script>
     $(document).ready(function() {
-        // Vis/Skjul ekstra informasjon ved siden av den klikkede raden
+        // Vis/Skjul ekstra informasjon ved klikk på raden
         var toggleButtons = $(".btn-toggle");
         toggleButtons.on("click", function(event) {
-            event.stopPropagation(); // Forhindre radklikk
+            event.stopPropagation(); // Forhindre klikk på raden
             var row = $(this).closest(".user-row");
             var nextRow = row.next(".extra-info");
             var icon = $(this).find("i");
 
-            // Hvis den klikkede raden allerede er åpen, lukk den
+            // Hvis raden som klikkes allerede er åpen, lukk den
             if (nextRow.is(":visible")) {
                 nextRow.stop(true, true).slideUp(400, 'easeInOutCubic');
                 row.removeClass('active-expand');
@@ -265,7 +265,7 @@
             $(".extra-info.active-expand").not(nextRow).removeClass('active-expand');
             $(".btn-toggle i").not(icon).removeClass('bi-chevron-up').addClass('bi-chevron-down');
 
-            // Åpne detaljene for den klikkede raden
+            // Åpne detaljene for raden som klikkes
             nextRow.stop(true, true).slideDown(400, 'easeInOutCubic');
             row.addClass('active-expand');
             nextRow.addClass('active-expand');
@@ -274,13 +274,13 @@
     });
 
     function showSuccessMessage(event) {
-        event.preventDefault(); // Formun varsayılan davranışını engelle
+        event.preventDefault(); // Forhindre standard oppførsel for skjemaet
 
-        // Ajax çağrısı ile rol değişikliğini göndermek için (isteğe bağlı)
+        // Send inn rolleendring med Ajax (valgfritt)
         var form = event.target;
         var formData = $(form).serialize();
         $.post(form.action, formData, function(response) {
-            // Başarı mesajını göster
+            // Vis suksessmelding
             $('#successMessage').fadeIn(400).delay(2000).fadeOut(400);
         });
     }

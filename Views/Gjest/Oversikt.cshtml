@@ -1,4 +1,4 @@
-@model KartApplication.Models.AreaChange
+﻿@model KartApplication.Models.AreaChange
 @{
     ViewData["Title"] = "Oversikt";
     Layout = "~/Views/Shared/_GjestLayout.cshtml";
@@ -8,29 +8,18 @@
 
 @if (!string.IsNullOrEmpty(Model.Description))
 {
-    
-   <div class="OppsummeringBox">    
-
-    <div class="OppsummeringContentTitle">    <img src="~/images/check-mark.png" alt="Checkbox" class="checkboxImage"> <!-- Resim yolu güncellendi -->
- Beskrivelse: </div>
+    <div class="OppsummeringBox">    
+        <div class="OppsummeringContentTitle">    <img src="~/images/check-mark.png" alt="Checkbox" class="checkboxImage"> <!-- Bildesti oppdatert -->
+            Beskrivelse: 
+        </div>
         <p class="OppsummeringContent"> @Model.Description</p>
     </div>
-
-
-
-
-
-
-
 }
+
 @if (!string.IsNullOrEmpty(Model.Address))
 {
     <div class="OppsummeringBox">
-        <div class="OppsummeringContentTitle"> <img src="~/images/check-mark.png" alt="Checkbox" class="checkboxImage"> <!-- Resim yolu güncellendi --> Adresse: </div>
-
+        <div class="OppsummeringContentTitle"> <img src="~/images/check-mark.png" alt="Checkbox" class="checkboxImage"> <!-- Bildesti oppdatert --> Adresse: </div>
         <p class="OppsummeringContent"> @Model.Address</p>
     </div>
-
-
 }
-

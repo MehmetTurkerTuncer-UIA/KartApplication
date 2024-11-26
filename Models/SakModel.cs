@@ -1,4 +1,4 @@
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace KartApplication.Models
@@ -35,7 +35,7 @@ namespace KartApplication.Models
 
         public string? AssignedKontrollerenId { get; set; }  // Fremmednøkkel for tildelt kontroller
         [ForeignKey("AssignedKontrollerenId")]
-        public ApplicationUser? AssignedKontrolleren { get; set; }  // Atanmış Kontrolleren bilgisi
+        public ApplicationUser? AssignedKontrolleren { get; set; }  // Tildelt kontroller informasjon
 
         // SakStatus enum er lagt til
         public SakStatus Status { get; set; } = SakStatus.SakMottatt;

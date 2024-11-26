@@ -16,24 +16,24 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"),
     new MySqlServerVersion(new Version(10, 5, 11))));
 
-builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<ApplicationDbContext>()
-                                    .AddDefaultTokenProviders(); // <IdentityUser> i  <ApplicationUser> olarak degistirdim.
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
+                                    .AddEntityFrameworkStores<ApplicationDbContext>()
+                                    .AddDefaultTokenProviders(); // Endret fra <IdentityUser> til <ApplicationUser>
 builder.Services.AddRazorPages();
 
-builder.Services.AddDistributedMemoryCache();  // Session için geçici bir bellek cache’i kullanılır
+builder.Services.AddDistributedMemoryCache();  // Midlertidig minnebuffer brukes til sesjon (session)
 builder.Services.AddSession(options =>
 {
-    options.IdleTimeout = TimeSpan.FromMinutes(30);  // Session süresi (örneğin 30 dakika)
+    options.IdleTimeout = TimeSpan.FromMinutes(30);  // Sesjonsvarighet (f.eks. 30 minutter)
     options.Cookie.HttpOnly = true;
-    options.Cookie.IsEssential = true;  // GDPR ve diğer kurallar için gerekli
+    options.Cookie.IsEssential = true;  // Nødvendig for GDPR og andre regler
 });
-
 
 builder.Services.AddScoped<IEmailSender, EmailSender>();
 
 var app = builder.Build();
 
-// Pipeline yapılandırması
+// Konfigurasjon av pipeline
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
@@ -43,19 +43,19 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
-app.UseAuthentication();  // Bunu ekledim SignInManager ve UserManager gibi kimlik doğrulama hizmetlerinin çalışabilmesi için 
+app.UseAuthentication();  // Lagt til for å støtte autentiseringstjenester som SignInManager og UserManager
 app.UseAuthorization();
 app.MapRazorPages();
-app.UseSession();   // Session middleware'i ekleyin
+app.UseSession();   // Legg til session-middleware
 
 app.MapGet("/", async context =>
 {
     context.Response.Redirect("/Identity/Account/Login");
-    await context.Response.CompleteAsync(); // Bu satır ile yanıt tamamlanır.
+    await context.Response.CompleteAsync(); // Denne linjen fullfører responsen.
 });
 
 app.MapControllerRoute(
     name: "default",
-   pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();

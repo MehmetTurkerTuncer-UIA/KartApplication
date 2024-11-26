@@ -1,11 +1,11 @@
 @{
-    ViewData["Title"] = "Saksbehandler Sayfasi";
+    ViewData["Title"] = "Saksbehandler Side";
     Layout = "~/Views/Shared/_SaksbehandlerLayout.cshtml"; 
 
 }
 
 <div class="profile-container">
-    <!-- Profil Bilgileri Görüntüleme Alanı -->
+    <!-- Visningsområde for profilinformasjon -->
     <div id="profileView" class="profile-view">
         <h3>Profil</h3>
         <p><strong>Navn:</strong> <span id="viewNavn">Magnus</span></p>
@@ -15,7 +15,7 @@
         <button id="editButton" class="btn btn-primary">Rediger</button>
     </div>
 
-    <!-- Profil Bilgileri Düzenleme Alanı -->
+    <!-- Redigeringsområde for profilinformasjon -->
     <div id="profileEdit" class="profile-edit" style="display: none;">
         <h3>Profil</h3>
         <form id="profileForm">
@@ -40,39 +40,39 @@
     </div>
 </div>
 
-<script>// Elementleri tanımla
+<script>// Definer elementer
 const editButton = document.getElementById('editButton');
 const saveButton = document.getElementById('saveButton');
 const profileView = document.getElementById('profileView');
 const profileEdit = document.getElementById('profileEdit');
 
-// Görüntüleme alanındaki değerler
+// Verdier i visningsområdet
 const viewNavn = document.getElementById('viewNavn');
 const viewEtternavn = document.getElementById('viewEtternavn');
 const viewMobilnummer = document.getElementById('viewMobilnummer');
 const viewEpostadresse = document.getElementById('viewEpostadresse');
 
-// Düzenleme alanındaki inputlar
+// Inndatafelt i redigeringsområdet
 const editNavn = document.getElementById('editNavn');
 const editEtternavn = document.getElementById('editEtternavn');
 const editMobilnummer = document.getElementById('editMobilnummer');
 const editEpostadresse = document.getElementById('editEpostadresse');
 
-// Rediger butonuna tıklanınca düzenleme alanı gösterilir
+// Vis redigeringsområdet når "Rediger"-knappen trykkes
 editButton.addEventListener('click', function() {
-    profileView.style.display = 'none'; // Profil görüntüleme gizlenir
-    profileEdit.style.display = 'block'; // Profil düzenleme gösterilir
+    profileView.style.display = 'none'; // Skjul profilvisningen
+    profileEdit.style.display = 'block'; // Vis redigeringsområdet
 });
 
-// Lagre butonuna tıklanınca düzenleme kaydedilir ve görüntüleme alanına geri dönülür
+// Lagre redigeringer og gå tilbake til visningsområdet når "Lagre"-knappen trykkes
 saveButton.addEventListener('click', function() {
-    // Düzenleme alanındaki değerler görüntüleme alanına aktarılır
+    // Overfør verdiene fra redigeringsområdet til visningsområdet
     viewNavn.textContent = editNavn.value;
     viewEtternavn.textContent = editEtternavn.value;
     viewMobilnummer.textContent = editMobilnummer.value;
     viewEpostadresse.textContent = editEpostadresse.value;
 
-    // Düzenleme tamamlandıktan sonra düzenleme alanı gizlenir ve profil görüntüleme alanı gösterilir
+    // Når redigeringen er fullført, skjul redigeringsområdet og vis profilvisningen
     profileEdit.style.display = 'none';
     profileView.style.display = 'block';
 });

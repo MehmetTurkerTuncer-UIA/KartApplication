@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewData["Title"]</title>
     
-    <!-- Ortak CSS Dosyası -->
+    <!-- Felles CSS-fil -->
     <link rel="stylesheet" href="~/css/Admin.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
@@ -17,12 +17,12 @@
         <div class="headermenu-wrapper">   
 
             <div class="headermenu">  
-                <!-- Hjem butonu -->
+                <!-- Hjem-knappen -->
 @*<a href="/admin" class="menu-button btn-hjem">
     <i class="fas fa-home"></i> Hjem
 </a>
 
-                <!-- Logg ut butonu -->
+                <!-- Logg ut-knappen -->
                 <a href="/logout" class="menu-button btn-logout">
     <i class="bi bi-door-open"></i> </i> Logg ut
 </a>*@
@@ -44,12 +44,12 @@
         </header>
 
         <div class="main-container">
-            @* Eğer bu sayfa "Legg til ansatt" değilse, standart layout göster *@
+            @* Hvis denne siden ikke er "Legg til ansatt", vis standard layout *@
             @if (ViewBag.IsLeggTilAnsatt != true)
             {
                 <div class="content-top">
                     <div class="search-filter-container">
-                        <!-- Sol Taraf: Arama Kutusu -->
+                        <!-- Venstre Side: Søkboks -->
                         <div class="search-box">
                             <input type="text" placeholder="Søk" class="search-input">
                             <button class="search-btn">Søk</button>
@@ -62,12 +62,12 @@
             }
             else
             {
-                @RenderBody() @* Sadece form içeriği render edilecek *@
+                @RenderBody() @* Bare forminnholdet skal rendres *@
             }
         </div>
     </div>
 
-    <!-- Footer her iki durumda da gösterilecek -->
+    <!-- Footer vises i begge tilfeller -->
     <footer class="footer">
         <div class="footer-container">
             <div class="footer-left">
@@ -79,7 +79,7 @@
                     <a href="/About">Om oss</a>
                     <a href="/Privacy">Personvern</a>
                     <a href="/Terms">Vilkår</a>
-                    <a href="/Contact">Kontakter</a>
+                    <a href="/Contact">Kontakt oss</a>
                     <a href="/Tips">Tips oss</a>
                 </div>
             </div>

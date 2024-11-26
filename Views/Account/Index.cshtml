@@ -1,10 +1,10 @@
-@{
+﻿@{
     ViewData["Title"] = "Hjemmeside";
     Layout = "~/Views/Shared/_HomeLayout.cshtml"; 
 }
 
 <div class="login-container">
-    <!-- Sol Tarafta Logo ve Metin -->
+    <!-- Logo og tekst på venstre side -->
     <div class="login-left">
         <div class="brand-logo">
             <img src="~/images/as.png" alt="Logo" style="width: 200px; height: auto;">
@@ -16,7 +16,7 @@
         </div>
     </div>
 
-    <!-- Sağ Tarafta Giriş Formu -->
+    <!-- Innloggingsskjema på høyre side -->
     <div class="login-right">
         <div class="account-box">
             <div class="text-center logintitle">Logg inn</div>
@@ -43,7 +43,7 @@
                         Husk meg!
                     </label>
                 </div>
-                <input type="button" value="Register" class="btn btn-success w-100 p-2 buttonregistrer" onclick="window.location.href='@Url.Action("UserRegister", "UserRegister")'" />
+                <input type="button" value="Registrer" class="btn btn-success w-100 p-2 buttonregistrer" onclick="window.location.href='@Url.Action("UserRegister", "UserRegister")'" />
                 <hr style="margin-top: 20px;">
                 <p class="text-center mt-2">
                     <a asp-controller="Gjest" asp-action="Index" class="gjest-link">Gjest</a>
@@ -70,7 +70,6 @@
         }
     }
 </script>
-
 
 @section Scripts {
     @{

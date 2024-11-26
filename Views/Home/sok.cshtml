@@ -1,4 +1,4 @@
-@model List<SakModel>
+﻿@model List<SakModel>
 
 @{
     ViewData["Title"] = "Sok";
@@ -6,79 +6,79 @@
 }
 
 <style>
-    /* Sayfanın tam ortalanması için genel stil ayarları */
+    /* For sentrering av siden */
     body {
         display: flex;
-        justify-content: center; /* Yatayda ortalama */
-        align-items: center; /* Dikeyde ortalama */
-        min-height: 100vh; /* Sayfa yüksekliği kadar boşluk bırakma */
-        margin: 0; /* Varsayılan margin'leri sıfırlama */
-        font-family: Arial, sans-serif; /* Yazı tipi ayarı */
+        justify-content: center; /* Horisontal sentrering */
+        align-items: center; /* Vertikal sentrering */
+        min-height: 100vh; /* Fyll hele sidehøyden */
+        margin: 0; /* Nullstill standard margin */
+        font-family: Arial, sans-serif; /* Skriftstil */
     }
 
-    /* Genel stil ayarları */
+    /* Generell stil for container */
     .container {
-        max-width: 1200px; /* Maksimum genişlik 1200px */
-        margin: 20px; /* İçerik alanı */
-        border: 1px solid #000; /* Çerçeve rengi */
-        padding: 20px; /* İçerik alanı */
-        display: flex; /* Flexbox düzeni */
-        flex-direction: column; /* Dikey düzen */
-        align-items: center; /* İçeriği ortala */
-        justify-content: center; /* Yatay ortalama */
-        height: 80vh; /* Container yüksekliğini ayarlayın */
+        max-width: 1200px; /* Maks bredde 1200px */
+        margin: 20px; /* Marg for innholdsområde */
+        border: 1px solid #000; /* Rammefarge */
+        padding: 20px; /* Innvendig avstand */
+        display: flex; /* Flexbox layout */
+        flex-direction: column; /* Vertikal retning */
+        align-items: center; /* Sentrering av innhold */
+        justify-content: center; /* Horisontal sentrering */
+        height: 80vh; /* Juster høyden til containeren */
     }
 
-    /* Form ve başlıklar için stil ayarları */
+    /* Stil for form og overskrifter */
     h2 {
-        text-align: center; /* Başlık ortalama */
-        margin-bottom: 20px; /* Başlık ile form arasına boşluk */
+        text-align: center; /* Sentrer overskrift */
+        margin-bottom: 20px; /* Avstand til form */
     }
 
     form {
-        text-align: center; /* Formun ortalanması */
-        margin-bottom: 20px; /* Form ile tablo arasında boşluk */
+        text-align: center; /* Sentrer form */
+        margin-bottom: 20px; /* Avstand til tabell */
     }
 
-    /* Tablo genel düzeni */
+    /* Tabellstil */
     .tableForDetaljer {
         width: 100%;
-        border-collapse: separate; /* Hücre border'larının birleşmesini önlemek için */
-        border-spacing: 0 0px; /* Satırlar arasında 0px boşluk oluşturmak için */
+        border-collapse: separate; /* Forhindre sammenslåing av kantlinjer */
+        border-spacing: 0 0px; /* Avstand mellom rader */
         font-family: Arial, sans-serif;
         font-size: 16px;
         border: 1px solid #000000;
-        margin-top: 20px; /* Tablo ile üst alan arasına boşluk ekle */
+        margin-top: 20px; /* Avstand til innhold over tabellen */
     }
 
-    /* Tablodaki başlık hücreleri (th) */
+    /* Overskriftsceller i tabellen (th) */
     .tableForDetaljer th {
-        background-color: #232323; /* Başlık arka plan rengi (daha koyu siyah ton) */
+        background-color: #232323; /* Bakgrunnsfarge for overskrift */
         padding: 10px;
         text-align: center;
-        position: relative; /* Pseudo-element kullanabilmek için position */
-        height: 34px; /* Satır yüksekliği 34px */
+        position: relative; /* For å bruke pseudo-elementer */
+        height: 34px; /* Radens høyde 34px */
     }
 
-    /* Başlık hücrelerine kısa border eklemek için */
+    /* Kort kantlinje for overskriftsceller */
     .tableForDetaljer th:after {
         content: '';
         position: absolute;
         top: 0;
         bottom: 0;
         right: 0;
-        width: 1px; /* Kısa dikey border */
-        background-color: #505050; /* Border rengi */
-        height: 30%; /* Border hücre yüksekliğinin %30'u olacak */
+        width: 1px; /* Kort vertikal kantlinje */
+        background-color: #505050; /* Kantlinjefarge */
+        height: 30%; /* Kantlinjehøyde som 30% av cellen */
         margin: auto 0;
     }
 
-    /* Son başlık hücresinde (th) sağdaki border olmayacak */
+    /* Ingen kantlinje for siste overskriftscelle */
     .tableForDetaljer th:last-child:after {
-        display: none; /* Son sütunda border olmaması için */
+        display: none; /* Skjul kantlinje for siste kolonne */
     }
 
-    /* Tablodaki veri hücreleri (td) */
+    /* Dataceller i tabellen (td) */
     .tableForDetaljer td {
         padding: 10px;
         color: white; /* Tekstfarge hvit */
@@ -89,52 +89,52 @@
         text-align: center;
     }
 
-    /* Veri hücrelerine kısa border eklemek için */
+    /* Kort kantlinje for dataceller */
     .tableForDetaljer td:after {
         content: '';
         position: absolute;
         top: 0;
         bottom: 0;
         right: 0;
-        width: 1px; /* Kısa dikey border */
-        background-color: #505050; /* Border rengi */
-        height: 30%; /* Border hücre yüksekliğinin %30'u olacak */
+        width: 1px; /* Kort vertikal kantlinje */
+        background-color: #505050; /* Kantlinjefarge */
+        height: 30%; /* Kantlinjehøyde som 30% av cellen */
         margin: auto 0;
     }
 
-    /* Son veri hücresinde (td) sağdaki border olmayacak */
+    /* Ingen kantlinje for siste datacelle */
     .tableForDetaljer td:last-child:after {
-        display: none; /* Son sütunda border olmaması için */
+        display: none; /* Skjul kantlinje for siste kolonne */
     }
 
-    /* Satırların yüksekliği ve aralarındaki boşluğu belirginleştir */
+    /* Stil for rader og avstand mellom dem */
     .tableForDetaljer tbody tr {
-        height: 34px; /* Satır yüksekliği 34px */
+        height: 34px; /* Radens høyde 34px */
     }
 
-    /* Sonuç mesajı için stil ayarları */
+    /* Stil for resultatmelding */
     .result-message {
-        margin-top: 20px; /* Üstten boşluk */
-        text-align: center; /* Merkezde hizala */
-        color: white; /* Yazı rengi */
+        margin-top: 20px; /* Avstand til toppen */
+        text-align: center; /* Sentrer tekst */
+        color: white; /* Tekstfarge */
     }
 </style>
 
 <div class="container">
-    <h2>Referans Numarası ile Søk</h2>
+    <h2>Søk med Referansenummer</h2>
     <form method="get" action="@Url.Action("Sok", "Home")">
-        <label for="referenceNumber">Referans Numarası:</label>
+        <label for="referenceNumber">Referansenummer:</label>
         <input type="text" id="referenceNumber" name="referenceNumber" required />
         <button type="submit">Søk</button>
     </form>
 
     @if (Model != null && Model.Any())
     {
-        <div class="result-message">Referans Numarası: <strong>@Model.First().Id</strong></div>
+        <div class="result-message">Referansenummer: <strong>@Model.First().Id</strong></div>
     }
     else
     {
-        <div class="result-message">Sisteminizde bu referans numarası bulunamadı.</div>
+        <div class="result-message">Ingen saker funnet med det oppgitte referansenummeret.</div>
     }
 
     <table class="tableForDetaljer" id="saksbehandlermenu">

@@ -3,72 +3,72 @@
 Thumbs.db
 ehthumbs.db
 
-# Windows log dosyaları
+# Windows loggfiler
 *.log
 
-# Önbellek dosyaları
+# Bufferfiler (Cache)
 .cache
 
 ## Visual Studio ##
 .vscode/
 .vs/
-# User-specific files
+# Brukerspesifikke filer
 *.rsuser
 *.user
 *.suo
 *.userosscache
 *.sln.docstates
 
-# Auto-generated files
+# Autogenererte filer
 Generated_Code/
 
-# Backup & Report Files
+# Sikkerhetskopier og rapportfiler
 *.iobj
 *.pdb
 *.opendb
 *.VC.db
 *.VC.VC.opendb
 
-# Built application files
+# Bygde applikasjonsfiler
 bin/
 obj/
 [Bb]in/
 [Oo]bj/
 
-# Test Results
+# Testresultater
 [Tt]est[Rr]esult*/
 
-# MSTest test files
+# MSTest testfiler
 *.trx
 *.coverage
 
-# Web Servers
+# Webservere
 iisexpress/
 
-# NuGet Packages
+# NuGet-pakker
 *.nupkg
-# The packages folder can be ignored because of NuGet restore
+# Pakker-mappen kan ignoreres på grunn av NuGet restore
 **/[Pp]ackages/*
 
-# Npm Packages
+# Npm-pakker
 node_modules/
 
-# Azure Web App deploy files
+# Azure Web App deploy-filer
 .publish/
 
-# User-specific files
+# Brukerspesifikke filer (duplicated entry, retained)
 *.rsuser
 *.user
 *.suo
 *.userosscache
 *.sln.docstates
 
-# SQLite database files
+# SQLite-databasefiler
 *.db
 *.sqlite
 *.sqlite3
 
-# ASP.NET Scaffolding
+# ASP.NET scaffolding
 ScaffoldingReadMe.txt
 
 # Azure Application Insights

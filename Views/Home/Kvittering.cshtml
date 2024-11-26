@@ -5,46 +5,46 @@
 }
 
 <center>
-            <h1>Saken er mottatt!</h1>
+    <h1>Saken er mottatt!</h1>
 
-            <table class="details-table">
-                <tr>
-                    <th>Navn</th>
-             <td>@Model.ApplicationUser?.Name</td>
-                </tr>
-                <tr>
-                    <th>E-postadresse</th>
+    <table class="details-table">
+        <tr>
+            <th>Navn</th>
+            <td>@Model.ApplicationUser?.Name</td>
+        </tr>
+        <tr>
+            <th>E-postadresse</th>
             <td>@Model.ApplicationUser?.Email</td>
-                </tr>
-                <tr>
-                    <th>Referansenummer</th>
+        </tr>
+        <tr>
+            <th>Referansenummer</th>
             <td>
                 <p>@Model.Id</p>
-</td>
-                </tr>
-                <tr>
-                    <th>Dato</th>
+            </td>
+        </tr>
+        <tr>
+            <th>Dato</th>
             <td>@Model.CreatedAt.ToString("dd.MM.yyyy")</td>
-                </tr>
-            </table>
+        </tr>
+    </table>
 
-            <p class="info-text">Du kan følge opp saken din med referansenummeret.</p>
+    <p class="info-text">Du kan følge opp saken din med referansenummeret.</p>
 
-            <p class="thank-you-text">TUSEN TAKK FOR HJELP!</p>
+    <p class="thank-you-text">Tusen takk for hjelpen!</p>
 
-            <button class="print-button" onclick="printContent()">Skriv ut</button>
+    <button class="print-button" onclick="printContent()">Skriv ut</button>
 
     <script>
-        // Yalnızca .content içeriğini yazdıran fonksiyon
+        // Funksjon som skriver ut kun innholdet i .content
         function printContent() {
             var content = document.querySelector('.content').innerHTML;
             var originalContent = document.body.innerHTML;
 
-            // Sayfanın geri kalanını gizleyip sadece içeriği yazdırır
+            // Skjul resten av siden og skriv ut bare innholdet
             document.body.innerHTML = content;
             window.print();
 
-            // Orijinal sayfa içeriğini geri getirir
+            // Gjenopprett originalt sideinnhold
             document.body.innerHTML = originalContent;
         }
     </script>

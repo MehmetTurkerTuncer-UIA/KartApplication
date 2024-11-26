@@ -4,16 +4,16 @@
 @inject SignInManager<ApplicationUser> SignInManager
 
 @{
-    string userName = "User"; // Varsayılan değer
-    string userSurname = ""; // Surname için başlangıç değeri ekledik
+    string userName = "User"; // Standardverdi
+    string userSurname = ""; // Startverdi for etternavn lagt til
     
     if (SignInManager.IsSignedIn(User))
     {
         var user = await UserManager.GetUserAsync(User);
         if (user != null)
         {
-            userName = user.Name ?? "User"; // Eğer user.Name null ise "User" kullan
-            userSurname = user.Surname ?? ""; // Eğer user.Surname null ise boş değer kullan
+            userName = user.Name ?? "User"; // Hvis user.Name er null, bruk "User"
+            userSurname = user.Surname ?? ""; // Hvis user.Surname er null, bruk tom verdi
         }
     }
 }
@@ -37,12 +37,12 @@
 else
 {
     <ul class="nav navbar-nav navbar-right">
-        <li><a asp-area="Identity" asp-controller="Account" asp-action="Login">Giriş Yap</a></li>
-        <li><a asp-area="Identity" asp-controller="Account" asp-action="Register">Kayıt Ol</a></li>
+        <li><a asp-area="Identity" asp-controller="Account" asp-action="Login">Logg Inn</a></li>
+        <li><a asp-area="Identity" asp-controller="Account" asp-action="Register">Registrer</a></li>
     </ul>
 }
 
 
 <style>.navbar-nav li {
-    list-style-type: none; /* Liste stilini kaldır */
+    list-style-type: none; /* Fjern liste-stil */
 }</style>
