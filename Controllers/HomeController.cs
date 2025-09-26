@@ -285,5 +285,19 @@ public async Task<IActionResult> Detaljer(int id)
 
             return "Durum: Aktif";
         }
+
+        // About page - Developer information
+        [AllowAnonymous]
+        public IActionResult About()
+        {
+            return View();
+        }
+
+        // Contact page - Contact information
+        [AllowAnonymous]
+        public IActionResult Contact()
+        {
+            return View();
+        }
     }
 }

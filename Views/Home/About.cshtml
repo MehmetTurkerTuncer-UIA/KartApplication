@@ -1,0 +1,85 @@
+@{
+    ViewData["Title"] = "Om oss";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+<div class="container mt-5">
+    <h1 class="text-center mb-4">@ViewData["Title"]</h1>
+    
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">Kartverket WebApplication</h3>
+                    <p class="card-text">
+                        Denne applikasjonen er utviklet som et programmeringsprosjekt for Kartverket. 
+                        Applikasjonen lar brukere opprette og administrere saker relatert til kartdata og geografisk informasjon.
+                    </p>
+                    
+                    <h4 class="mt-4">Utvikler</h4>
+                    <div class="developer-info">
+                        <p><strong>Navn:</strong> Ömer Sen</p>
+                        <p><strong>LinkedIn:</strong> 
+                            <a href="https://www.linkedin.com/in/%C3%B6mer-sen-035737382/" target="_blank" class="text-primary">
+                                https://www.linkedin.com/in/ömer-sen-035737382/
+                            </a>
+                        </p>
+                        <p><strong>Prosjekt:</strong> Kartverket - Programmeringsprosjekt - Gruppe 15</p>
+                    </div>
+                    
+                    <h4 class="mt-4">Teknologi</h4>
+                    <ul>
+                        <li>ASP.NET Core MVC</li>
+                        <li>Entity Framework Core</li>
+                        <li>MariaDB Database</li>
+                        <li>Docker Container</li>
+                        <li>Bootstrap CSS</li>
+                        <li>JavaScript & jQuery</li>
+                    </ul>
+                    
+                    <h4 class="mt-4">Funksjoner</h4>
+                    <ul>
+                        <li>Rollebasert tilgangskontroll (Admin, Saksbehandler, Kontrolleren, Bruker)</li>
+                        <li>Interaktivt kartgrensesnitt</li>
+                        <li>Saksbehandling og oppfølging</li>
+                        <li>Brukerprofilhåndtering</li>
+                        <li>Gjestmodus for uregistrerte brukere</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .container {
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+    
+    .card {
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        border: none;
+        border-radius: 10px;
+    }
+    
+    .developer-info p {
+        margin-bottom: 10px;
+    }
+    
+    .text-primary {
+        text-decoration: none;
+    }
+    
+    .text-primary:hover {
+        text-decoration: underline;
+    }
+    
+    h1, h3, h4 {
+        color: #2c3e50;
+    }
+    
+    ul li {
+        margin-bottom: 8px;
+    }
+</style>
