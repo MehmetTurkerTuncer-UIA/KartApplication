@@ -1,0 +1,110 @@
+@{
+    ViewData["Title"] = "Kontakter";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+<div class="container mt-5">
+    <h1 class="text-center mb-4">@ViewData["Title"]</h1>
+    
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">Kontaktinformasjon</h3>
+                    <p class="card-text">
+                        For spørsmål relatert til Kartverket WebApplication, vennligst kontakt oss gjennom følgende kanaler:
+                    </p>
+                    
+                    <div class="contact-info mt-4">
+                        <h4>Utvikler</h4>
+                        <div class="contact-item">
+                            <i class="fas fa-user"></i>
+                            <strong>Navn:</strong> Ömer Sen
+                        </div>
+                        
+                        <div class="contact-item">
+                            <i class="fab fa-linkedin"></i>
+                            <strong>LinkedIn:</strong> 
+                            <a href="https://www.linkedin.com/in/%C3%B6mer-sen-035737382/" target="_blank" class="contact-link">
+                                https://www.linkedin.com/in/ömer-sen-035737382/
+                            </a>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <i class="fas fa-project-diagram"></i>
+                            <strong>Prosjekt:</strong> Kartverket - Programmeringsprosjekt - Gruppe 15
+                        </div>
+                    </div>
+                    
+                    <div class="support-info mt-4">
+                        <h4>Teknisk Support</h4>
+                        <p>For tekniske problemer eller feil i applikasjonen:</p>
+                        <ul>
+                            <li>Kontakt utvikleren via LinkedIn</li>
+                            <li>Rapporter problemer med detaljert beskrivelse</li>
+                            <li>Inkluder informasjon om hvilken nettleser og operativsystem du bruker</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="general-info mt-4">
+                        <h4>Generell Informasjon</h4>
+                        <p>Denne applikasjonen er utviklet som del av et programmeringsprosjekt ved UiA (Universitetet i Agder).</p>
+                        <p>For mer informasjon om prosjektet, se <a href="/About" class="contact-link">Om oss</a> siden.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .container {
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+    
+    .card {
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        border: none;
+        border-radius: 10px;
+    }
+    
+    .contact-info .contact-item {
+        margin-bottom: 15px;
+        padding: 10px;
+        background-color: #f8f9fa;
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+    }
+    
+    .contact-item i {
+        margin-right: 10px;
+        width: 20px;
+        color: #007bff;
+    }
+    
+    .contact-link {
+        color: #007bff;
+        text-decoration: none;
+        margin-left: 10px;
+    }
+    
+    .contact-link:hover {
+        text-decoration: underline;
+        color: #0056b3;
+    }
+    
+    h1, h3, h4 {
+        color: #2c3e50;
+    }
+    
+    ul li {
+        margin-bottom: 8px;
+    }
+    
+    .support-info, .general-info {
+        border-top: 1px solid #eee;
+        padding-top: 20px;
+    }
+</style>
